@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
+    <meta charset="utf-8">
+    <title>Wikitude Studio</title>
+
+    <!-- disable caching -->
+    <meta http-equiv="cache-control" content="max-age=0" />
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="-1">
+    <script src="https://www.wikitude.com/libs/architect.js"></script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    </script>
+
+    
+
+    <link rel="stylesheet" href="styles/main.css">
+
+  <script src="project.js"></script>
+	</head>
+  <body>
+
+  <!-- div showed when project is loaded -->
+  <div class="loadingDiv" id="loading" style="display: none">
+    <div class="indicatorDiv">
+      <div class="spinner">
+        <div class="rect1"></div>
+        <div class="rect2"></div>
+        <div class="rect3"></div>
+        <div class="rect4"></div>
+        <div class="rect5"></div>
+      </div>
+        <p id="loadingLabel">Loading</p>
+    </div>
+  </div>
+
+  <!-- dialog showed on error -->
+  <div class="overlay" id="error" style="display: none" >
+      <div class="dialog">
+          <div class="dialog_content">
+              <h2 class="title" id="errorTitle"></h2>
+              <p class="message" id="errorMsg"></p>
+              <div class="buttons" id="errorbtns">
+                <div class="button" id="errorBtn"></div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <!-- button to reset extended tracking -->
+  <div id="disableExtendedTracking" class="disableExtendedTracking" style="display: none">
+      <div class="closeButton" id="disableExtendedTrackingBtn" onclick="stopExtendedTracking()"/>
+  </div>
+
+    <div id="loadingAugmentations" class="loadingDivAug" style="display: none">
+
+      <!-- loading animation shown when target was recognized. Hidden once all augmentations are loaded -->
+        <div class="indicatorDivAug">
+            <div class="spinner">
+                <div class="cube1"></div>
+                <div class="cube2"></div>
+            </div>
+            <div id="loadingDivProgress" class="loadingDivProgress">
+                <div id="loadingDivProgressValue"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="scripts/vendor.js"></script>
+
+    <script src="scripts/dictionary.js"></script>
+
+    <script src="scripts/tools.js"></script>
+
+    <script src="scripts/template.js"></script>
+
+  </body>
+
+</html>

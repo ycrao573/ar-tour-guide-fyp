@@ -1,0 +1,50 @@
+name: wikitude_flutter_app
+description: A new Flutter project.
+
+version: 9.9.0+1
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.3
+  location: ^4.1.1
+  path_provider: ^2.0.1
+  wakelock: ^0.5.1
+
+  augmented_reality_plugin_wikitude:
+    path: ./plugin/augmented_reality_plugin_wikitude/
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  build_runner: ^2.0.2
+  json_serializable: ^4.1.1
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - samples/
+    - samples/01_ImageTracking_1_ImageOnTarget/
+    - samples/01_ImageTracking_1_ImageOnTarget/js/
+    - samples/01_ImageTracking_1_ImageOnTarget/css/
+    - samples/01_ImageTracking_1_ImageOnTarget/assets/
+    - samples/experience/
+    - samples/experience/styles/
+    - samples/experience/scripts/
+    - samples/experience/fonts/lato/
+    - samples/experience/augmentation-trackers/
+    - samples/experience/augmentation-trackers/8.0/
+    - samples/experience/augmentation-assets/719402231_yunnan/613053d0d72c5d27792623c6/
+    - samples/experience/augmentation-assets/1625189067_chc_building/61306f6665ddc2277258444e/
+    - samples/experience/augmentation-assets/1625189067_chc_building/6130701865ddc22772584482/
+    - samples/06_ObjectTracking_1_BasicObjectTracking/
+    - samples/06_ObjectTracking_1_BasicObjectTracking/js/
+    - samples/06_ObjectTracking_1_BasicObjectTracking/css/
+    - samples/06_ObjectTracking_1_BasicObjectTracking/assets/
