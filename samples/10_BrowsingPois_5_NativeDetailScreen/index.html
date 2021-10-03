@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+
+    <!--  basic meta information -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Type" content="application/json; charset=utf-8">
+    <!-- disables pinch-scaling of the webview, so that gestures only do what they're supposed to -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"/>
+
+    <title>My ARchitect World</title>
+
+    <script src="https://www.wikitude.com/libs/architect.js"></script>
+    <script src="../ade.js"></script>
+
+    <!-- positioning of poi-radar -->
+    <link rel="stylesheet" href="css/poi-radar.css"/>
+
+    <!-- marker representation-->
+    <script src="js/marker.js"></script>
+
+    <!-- World logic-->
+    <script type="text/javascript" src="js/nativedetailscreen.js"></script>
+
+    <!-- radar component -->
+    <script type="text/javascript" src="js/radar.js"></script>
+
+    <link rel="stylesheet" href="css/default.css"/>
+</head>
+
+<body>
+    <div id="mainHeader">
+        <button class="customButton" id="rangeButton" onclick="World.showRange();">Range</button>
+        <button class="customButton" id="refreshButton" onclick="World.reloadPlaces();">Reload</button>
+    </div>
+    <div class="radarContainer_left" id="radarContainer" onclick="PoiRadar.clickedRadar()"></div>
+
+    <div id="footer">
+        <div id="popupButton">
+            <img id="popupButtonImage" src="assets/warning_icon.png"/>
+            <span id="popupButtonTooltip">Trying to find out where you are</span>
+        </div>
+    </div>
+
+    <div id="panelPoiDetail">
+        <div class="header">
+            <button class="customButton" id="closePanelPoiDetailButton" onclick="World.closePanel()">Close</button>
+            <h3 class="headerTitle">Details</h3>
+        </div>
+        <div class="content">
+            <h3 id="poiDetailTitle"></h3>
+            <h4 id="poiDetailDescription"></h4>
+            <h4> Distance: <a id="poiDetailDistance"></a></h4>
+            <button class="customButton" id="#poiDetailMoreButton" onclick="World.onPoiDetailMoreButtonClicked();">More</button>
+        </div>
+    </div>
+
+    <div id="panelRange">
+        <div class="header">
+            <button class="customButton" id="closePanelRangeButton" onclick="World.closePanel()">Close</button>
+            <h3 class="headerTitle">Range</h3>
+        </div>
+        <div class="content">
+            <h4> Range: <a id="panelRangeValue"></a></h4>
+            <h4> Visible: <a id="panelRangePlaces"></a></h4>
+            <div id="panelRangeSliderContainer">
+                <span id="panelRangeSliderValue"></span>
+                <input id="panelRangeSlider" type="range" min="1" value="100" max="100" step="1"
+                       oninput="World.updateRangeValues()">
+            </div>
+        </div>
+    </div>
+</body>
+</html>
