@@ -63,11 +63,11 @@ class _MainMenuState extends State<MainMenu> {
               ),
               SizedBox(height: 9.0),
               ElevatedButton(
-                child: Text('09_ObtainPoiData_2_FromLocalResource', style: TextStyle(color: Colors.black)),
+                child: Text('Provide Details', style: TextStyle(color: Colors.black)),
                 onPressed: () {
                   _pushArView(new Sample(
-                    name: '09_ObtainPoiData_2_FromLocalResource',
-                    path: '09_ObtainPoiData_2_FromLocalResource/index.html',
+                    name: '10_BrowsingPois_1_PresentingDetails',
+                    path: '10_BrowsingPois_1_PresentingDetails/index.html',
                     requiredFeatures: [
                         "geo"
                     ],
