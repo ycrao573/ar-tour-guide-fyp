@@ -193,31 +193,32 @@ var World = {
     /* Request POI data. */
     requestDataFromServer: function requestDataFromServerFn(lat, lon) {
 
-        /* Set helper var to avoid requesting places while loading. */
-        World.isRequestingData = true;
-        World.updateStatusMessage('Requesting places from web-service');
+        // /* Set helper var to avoid requesting places while loading. */
+        // World.isRequestingData = true;
+        // World.updateStatusMessage('Requesting places from web-service');
 
-        /* Server-url to JSON content provider. */
-        var serverUrl = ServerInformation.POIDATA_SERVER + "?" +
-            ServerInformation.POIDATA_SERVER_ARG_LAT + "=" +
-            lat + "&" + ServerInformation.POIDATA_SERVER_ARG_LON + "=" +
-            lon + "&" + ServerInformation.POIDATA_SERVER_ARG_NR_POIS + "=20";
+        // /* Server-url to JSON content provider. */
+        // var serverUrl = ServerInformation.POIDATA_SERVER + "?" +
+        //     ServerInformation.POIDATA_SERVER_ARG_LAT + "=" +
+        //     lat + "&" + ServerInformation.POIDATA_SERVER_ARG_LON + "=" +
+        //     lon + "&" + ServerInformation.POIDATA_SERVER_ARG_NR_POIS + "=20";
 
-        /* Use GET request to fetch the JSON data from the server */
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', serverUrl, true);
-        xhr.responseType = 'json';
-        xhr.onload = function() {
-            var status = xhr.status;
-            if (status === 200) {
-                World.loadPoisFromJsonData(xhr.response);
-                World.isRequestingData = false;
-            } else {
-                World.updateStatusMessage("Invalid web-service response.", true);
-                World.isRequestingData = false;
-            }
-        }
-        xhr.send();
+        // /* Use GET request to fetch the JSON data from the server */
+        // var xhr = new XMLHttpRequest();
+        // xhr.open('GET', serverUrl, true);
+        // xhr.responseType = 'json';
+        // xhr.onload = function() {
+        //     var status = xhr.status;
+        //     if (status === 200) {
+        //         World.loadPoisFromJsonData(xhr.response);
+        //         World.isRequestingData = false;
+        //     } else {
+        //         World.updateStatusMessage("Invalid web-service response.", true);
+        //         World.isRequestingData = false;
+        //     }
+        // }
+        // xhr.send();
+        World.loadPoisFromJsonData(myJsonData);
     },
 
     /* Helper to sort places by distance. */
@@ -234,7 +235,6 @@ var World = {
         alert(error);
     }
 };
-
 
 /* Forward locationChanges to custom function. */
 AR.context.onLocationChanged = World.locationChanged;

@@ -47,21 +47,18 @@ function Marker(poiData) {
             y: 0.55
         },
         style: {
-            textColor: '#FF000F',
+            textColor: '#FFFFFF',
             fontStyle: AR.CONST.FONT_STYLE.BOLD,
-            backgroundColor: '#00FFFF'
         }
     });
 
     this.descriptionLabel = new AR.Label(poiData.description.trunc(15), 0.8, {
-        
         zOrder: 1,
         translate: {
             y: -0.55
         },
         style: {
             textColor: '#FFFFFF',
-            backgroundColor: '#0000FF'
         }
     });
 
