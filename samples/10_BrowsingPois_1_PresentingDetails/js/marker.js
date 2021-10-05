@@ -103,7 +103,6 @@ Marker.prototype.getOnClickTrigger = function(marker) {
 
         if (!Marker.prototype.isAnyAnimationRunning(marker)) {
             if (marker.isSelected) {
-
                 Marker.prototype.setDeselected(marker);
 
             } else {

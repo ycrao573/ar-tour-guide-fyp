@@ -219,6 +219,7 @@ var World = {
         // }
         // xhr.send();
         World.loadPoisFromJsonData(myJsonData);
+
     },
 
     /* Helper to sort places by distance. */

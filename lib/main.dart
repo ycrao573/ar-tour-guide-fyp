@@ -44,40 +44,36 @@ class _MainMenuState extends State<MainMenu> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               ElevatedButton(
-                child: Text('Object Detection Demo', style: TextStyle(color: Colors.black)),
+                child: Text('Object Detection Demo',
+                    style: TextStyle(color: Colors.black)),
                 onPressed: () {
                   _pushArView(new Sample(
                     name: 'Object Detection Demo',
                     path: 'experience/index.html',
-                    requiredFeatures: [
-                        "object_tracking"
-                    ],
+                    requiredFeatures: ["object_tracking"],
                     startupConfiguration: new StartupConfiguration(
-                      cameraPosition: CameraPosition.BACK,
-                      cameraResolution: CameraResolution.AUTO,
-                      cameraFocusMode: CameraFocusMode.CONTINUOUS),
+                        cameraPosition: CameraPosition.BACK,
+                        cameraResolution: CameraResolution.AUTO,
+                        cameraFocusMode: CameraFocusMode.CONTINUOUS),
                     requiredExtensions: [],
-                    )
-                  );
+                  ));
                 },
               ),
               SizedBox(height: 9.0),
               ElevatedButton(
-                child: Text('Provide Details', style: TextStyle(color: Colors.black)),
+                child: Text('Provide Details and Range',
+                    style: TextStyle(color: Colors.black)),
                 onPressed: () {
                   _pushArView(new Sample(
-                    name: '10_BrowsingPois_1_PresentingDetails',
-                    path: '10_BrowsingPois_1_PresentingDetails/index.html',
-                    requiredFeatures: [
-                        "geo"
-                    ],
+                    name: 'Provide Details and Range',
+                    path: '10_BrowsingPois_4_ReloadingContent/index.html',
+                    requiredFeatures: ["geo"],
                     startupConfiguration: new StartupConfiguration(
-                      cameraPosition: CameraPosition.BACK,
-                      cameraResolution: CameraResolution.AUTO,
-                      cameraFocusMode: CameraFocusMode.CONTINUOUS),
+                        cameraPosition: CameraPosition.BACK,
+                        cameraResolution: CameraResolution.AUTO,
+                        cameraFocusMode: CameraFocusMode.CONTINUOUS),
                     requiredExtensions: [],
-                    )
-                  );
+                  ));
                 },
               ),
             ],
