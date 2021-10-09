@@ -48,7 +48,7 @@ class _MainMenuState extends State<MainMenu> {
                     style: TextStyle(color: Colors.black)),
                 onPressed: () {
                   _pushArView(new Sample(
-                    name: 'Object Detection Demo',
+                    name: 'Object Detection',
                     path: 'experience/index.html',
                     requiredFeatures: ["object_tracking"],
                     startupConfiguration: new StartupConfiguration(
@@ -61,12 +61,12 @@ class _MainMenuState extends State<MainMenu> {
               ),
               SizedBox(height: 9.0),
               ElevatedButton(
-                child: Text('Provide Details and Range',
+                child: Text('Poi Experience',
                     style: TextStyle(color: Colors.black)),
                 onPressed: () {
                   _pushArView(new Sample(
                     name: 'Provide Details and Range',
-                    path: '10_BrowsingPois_4_ReloadingContent/index.html',
+                    path: 'poi_experience/index.html',
                     requiredFeatures: ["geo"],
                     startupConfiguration: new StartupConfiguration(
                         cameraPosition: CameraPosition.BACK,

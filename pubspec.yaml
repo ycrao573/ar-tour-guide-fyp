@@ -42,30 +42,10 @@ flutter:
     - samples/experience/augmentation-assets/719402231_yunnan/613053d0d72c5d27792623c6/
     - samples/experience/augmentation-assets/1625189067_chc_building/61306f6665ddc2277258444e/
     - samples/experience/augmentation-assets/1625189067_chc_building/6130701865ddc22772584482/
-    - samples/10_BrowsingPois_6_Bonus-CaptureScreen/
-    - samples/10_BrowsingPois_6_Bonus-CaptureScreen/js/
-    - samples/10_BrowsingPois_6_Bonus-CaptureScreen/css/
-    - samples/10_BrowsingPois_6_Bonus-CaptureScreen/assets/
-    - samples/10_BrowsingPois_5_NativeDetailScreen/
-    - samples/10_BrowsingPois_5_NativeDetailScreen/js/
-    - samples/10_BrowsingPois_5_NativeDetailScreen/css/
-    - samples/10_BrowsingPois_5_NativeDetailScreen/assets/
-    - samples/10_BrowsingPois_4_ReloadingContent/
-    - samples/10_BrowsingPois_4_ReloadingContent/js/
-    - samples/10_BrowsingPois_4_ReloadingContent/css/
-    - samples/10_BrowsingPois_4_ReloadingContent/assets/
-    - samples/10_BrowsingPois_3_LimitingRange/
-    - samples/10_BrowsingPois_3_LimitingRange/js/
-    - samples/10_BrowsingPois_3_LimitingRange/css/
-    - samples/10_BrowsingPois_3_LimitingRange/assets/
-    - samples/10_BrowsingPois_2_AddingRadar/
-    - samples/10_BrowsingPois_2_AddingRadar/js/
-    - samples/10_BrowsingPois_2_AddingRadar/css/
-    - samples/10_BrowsingPois_2_AddingRadar/assets/
-    - samples/10_BrowsingPois_1_PresentingDetails/
-    - samples/10_BrowsingPois_1_PresentingDetails/js/
-    - samples/10_BrowsingPois_1_PresentingDetails/css/
-    - samples/10_BrowsingPois_1_PresentingDetails/assets/
+    - samples/poi_experience/
+    - samples/poi_experience/js/
+    - samples/poi_experience/css/
+    - samples/poi_experience/assets/
     - samples/09_ObtainPoiData_3_FromWebservice/
     - samples/09_ObtainPoiData_3_FromWebservice/js/
     - samples/09_ObtainPoiData_3_FromWebservice/css/
