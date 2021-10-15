@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1002765438945",
+    "project_id": "fyp-ar-tour",
+    "storage_bucket": "fyp-ar-tour.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1002765438945:android:142087580c32dab8818ca0",
+        "android_client_info": {
+          "package_name": "com.ryc.artourguide"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1002765438945-aiva9nefpoqc6pqqfm84np8jab8ts15u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTa-19rPOB6jM_02q7vBIhOWzd4pmBwns"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1002765438945-aiva9nefpoqc6pqqfm84np8jab8ts15u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

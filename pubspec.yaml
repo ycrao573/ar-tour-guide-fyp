@@ -17,24 +17,24 @@ dependencies:
 
   augmented_reality_plugin_wikitude:
     path: ./plugin/augmented_reality_plugin_wikitude/
+    
+  url_launcher: ^6.0.10
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
   build_runner: ^2.0.2
   json_serializable: ^4.1.1
+  flutter_icons:
 
 flutter:
 
   uses-material-design: true
 
   assets:
+    - assets/
+    - assets/images/
     - samples/
-    - samples/01_ImageTracking_1_ImageOnTarget/
-    - samples/01_ImageTracking_1_ImageOnTarget/js/
-    - samples/01_ImageTracking_1_ImageOnTarget/css/
-    - samples/01_ImageTracking_1_ImageOnTarget/assets/
     - samples/experience/
     - samples/experience/styles/
     - samples/experience/scripts/
@@ -44,7 +44,7 @@ flutter:
     - samples/experience/augmentation-assets/719402231_yunnan/613053d0d72c5d27792623c6/
     - samples/experience/augmentation-assets/1625189067_chc_building/61306f6665ddc2277258444e/
     - samples/experience/augmentation-assets/1625189067_chc_building/6130701865ddc22772584482/
-    - samples/06_ObjectTracking_1_BasicObjectTracking/
-    - samples/06_ObjectTracking_1_BasicObjectTracking/js/
-    - samples/06_ObjectTracking_1_BasicObjectTracking/css/
-    - samples/06_ObjectTracking_1_BasicObjectTracking/assets/
+    - samples/poi_experience/
+    - samples/poi_experience/js/
+    - samples/poi_experience/css/
+    - samples/poi_experience/assets/

@@ -1,0 +1,204 @@
+[
+    {
+        "category_name": "Self Tryout",
+        "samples": [
+            {
+                "name": "Object Tracking Demo",
+                "path": "experience/index.html",
+                "requiredFeatures": [
+                    "object_tracking"
+                ],
+                "startupConfiguration": {
+                    "camera_position": "back",
+                    "camera_resolution": "auto"
+                }
+            }
+        ]
+    },
+    {
+        "category_name": "Object Tracking",
+        "samples": [
+            {
+                "name": "Basic Object Tracking",
+                "path": "06_ObjectTracking_1_BasicObjectTracking/index.html",
+                "requiredFeatures": [
+                    "object_tracking"
+                ],
+                "startupConfiguration": {
+                    "camera_position": "back",
+                    "camera_resolution": "auto"
+                }
+            }
+        ]
+    },
+    {
+        "category_name": "Point of Interest",
+        "samples": [
+            {
+                "name": "Poi At Location",
+                "path": "08_PointOfInterest_1_PoiAtLocation/index.html",
+                "requiredFeatures": [
+                    "geo"
+                ],
+                "startupConfiguration": {
+                    "camera_position": "back",
+                    "camera_resolution": "auto"
+                }
+            },
+            {
+                "name": "Poi With Label",
+                "path": "08_PointOfInterest_2_PoiWithLabel/index.html",
+                "requiredFeatures": [
+                    "geo"
+                ],
+                "startupConfiguration": {
+                    "camera_position": "back",
+                    "camera_resolution": "auto"
+                }
+            },
+            {
+                "name": "Multiple Pois",
+                "path": "08_PointOfInterest_3_MultiplePois/index.html",
+                "requiredFeatures": [
+                    "geo"
+                ],
+                "startupConfiguration": {
+                    "camera_position": "back",
+                    "camera_resolution": "auto"
+                }
+            },
+            {
+                "name": "Selecting Pois",
+                "path": "08_PointOfInterest_4_SelectingPois/index.html",
+                "requiredFeatures": [
+                    "geo"
+                ],
+                "startupConfiguration": {
+                    "camera_position": "back",
+                    "camera_resolution": "auto"
+                }
+            }
+        ]
+    },
+    {
+        "category_name": "Obtain Poi Data",
+        "samples": [
+            {
+                "required_extensions": [
+                    "application_model_pois",
+                    "geo"
+                ],
+                "name": "From Application Model",
+                "path": "09_ObtainPoiData_1_FromApplicationModel/index.html",
+                "requiredFeatures": [
+                    "geo"
+                ],
+                "startupConfiguration": {
+                    "camera_position": "back",
+                    "camera_resolution": "auto"
+                }
+            },
+            {
+                "name": "From Local Resource",
+                "path": "09_ObtainPoiData_2_FromLocalResource/index.html",
+                "requiredFeatures": [
+                    "geo"
+                ],
+                "startupConfiguration": {
+                    "camera_position": "back",
+                    "camera_resolution": "auto"
+                }
+            },
+            {
+                "name": "From Webservice",
+                "path": "09_ObtainPoiData_3_FromWebservice/index.html",
+                "requiredFeatures": [
+                    "geo"
+                ],
+                "startupConfiguration": {
+                    "camera_position": "back",
+                    "camera_resolution": "auto"
+                }
+            }
+        ]
+    },
+    {
+        "category_name": "Browsing Pois",
+        "samples": [
+            {
+                "name": "Presenting Details",
+                "path": "10_BrowsingPois_1_PresentingDetails/index.html",
+                "requiredFeatures": [
+                    "geo"
+                ],
+                "startupConfiguration": {
+                    "camera_position": "back",
+                    "camera_resolution": "auto"
+                }
+            },
+            {
+                "name": "Adding Radar",
+                "path": "10_BrowsingPois_2_AddingRadar/index.html",
+                "requiredFeatures": [
+                    "geo"
+                ],
+                "startupConfiguration": {
+                    "camera_position": "back",
+                    "camera_resolution": "auto"
+                }
+            },
+            {
+                "name": "Limiting Range",
+                "path": "10_BrowsingPois_3_LimitingRange/index.html",
+                "requiredFeatures": [
+                    "geo"
+                ],
+                "startupConfiguration": {
+                    "camera_position": "back",
+                    "camera_resolution": "auto"
+                }
+            },
+            {
+                "name": "Reloading Content",
+                "path": "10_BrowsingPois_4_ReloadingContent/index.html",
+                "requiredFeatures": [
+                    "geo"
+                ],
+                "startupConfiguration": {
+                    "camera_position": "back",
+                    "camera_resolution": "auto"
+                }
+            },
+            {
+                "required_extensions": [
+                    "native_detail"
+                ],
+                "name": "Native Detail Screen",
+                "path": "10_BrowsingPois_5_NativeDetailScreen/index.html",
+                "requiredFeatures": [
+                    "geo"
+                ],
+                "startupConfiguration": {
+                    "camera_position": "back",
+                    "camera_resolution": "auto"
+                }
+            },
+            {
+                "required_extensions": [
+                    "native_detail",
+                    "screenshot"
+                ],
+                "name": "Bonus: Capture Screen",
+                "path": "10_BrowsingPois_6_Bonus-CaptureScreen/index.html",
+                "requiredFeatures": [
+                    "geo",
+                    "photo_library_screenshot_import"
+                ],
+                "startupConfiguration": {
+                    "camera_position": "back",
+                    "camera_resolution": "auto"
+                }
+            }
+        ]
+    }
+]
