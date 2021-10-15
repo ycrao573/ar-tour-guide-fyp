@@ -1,321 +1,499 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-ThemeData lightTheme = ThemeData(
+final ThemeData myTheme = ThemeData(
+  primarySwatch: MaterialColor(4278878159, {
+    50: Color(0xffe7f4fe),
+    100: Color(0xffceeafd),
+    200: Color(0xff9ed5fa),
+    300: Color(0xff6dc0f8),
+    400: Color(0xff3caaf6),
+    500: Color(0xff0c95f3),
+    600: Color(0xff0977c3),
+    700: Color(0xff075a92),
+    800: Color(0xff053c61),
+    900: Color(0xff021e31)
+  }),
+  brightness: Brightness.light,
+  primaryColor: Color(0xff0a7fcf),
+  primaryColorBrightness: Brightness.dark,
+  primaryColorLight: Color(0xffceeafd),
+  primaryColorDark: Color(0xff075a92),
+  accentColor: Color(0xff0c95f3),
+  accentColorBrightness: Brightness.dark,
+  canvasColor: Color(0xfffafafa),
+  scaffoldBackgroundColor: Color(0xfffafafa),
+  bottomAppBarColor: Color(0xffffffff),
+  cardColor: Color(0xffffffff),
+  dividerColor: Color(0x1f000000),
+  highlightColor: Color(0x66bcbcbc),
+  splashColor: Color(0x66c8c8c8),
+  selectedRowColor: Color(0xfff5f5f5),
+  unselectedWidgetColor: Color(0x8a000000),
+  disabledColor: Color(0x61000000),
+  buttonColor: Color(0xffe0e0e0),
+  toggleableActiveColor: Color(0xff0977c3),
+  secondaryHeaderColor: Color(0xffe7f4fe),
+  textSelectionColor: Color(0xff9ed5fa),
+  cursorColor: Color(0xff4285f4),
+  textSelectionHandleColor: Color(0xff6dc0f8),
+  backgroundColor: Color(0xff9ed5fa),
+  dialogBackgroundColor: Color(0xffffffff),
+  indicatorColor: Color(0xff0c95f3),
+  hintColor: Color(0x8a000000),
+  errorColor: Color(0xffd32f2f),
+  buttonTheme: ButtonThemeData(
+    textTheme: ButtonTextTheme.normal,
+    minWidth: 88,
+    height: 36,
+    padding: EdgeInsets.only(top: 0, bottom: 0, left: 16, right: 16),
+    shape: RoundedRectangleBorder(
+      side: BorderSide(
+        color: Color(0xff000000),
+        width: 0,
+        style: BorderStyle.none,
+      ),
+      borderRadius: BorderRadius.all(Radius.circular(2.0)),
+    ),
+    alignedDropdown: false,
+    buttonColor: Color(0xffe0e0e0),
+    disabledColor: Color(0x61000000),
+    highlightColor: Color(0x29000000),
+    splashColor: Color(0x1f000000),
+    focusColor: Color(0x1f000000),
+    hoverColor: Color(0x0a000000),
+    colorScheme: ColorScheme(
+      primary: Color(0xff0a7fcf),
+      primaryVariant: Color(0xff075a92),
+      secondary: Color(0xff0c95f3),
+      secondaryVariant: Color(0xff075a92),
+      surface: Color(0xffffffff),
+      background: Color(0xff9ed5fa),
+      error: Color(0xffd32f2f),
+      onPrimary: Color(0xffffffff),
+      onSecondary: Color(0xffffffff),
+      onSurface: Color(0xff000000),
+      onBackground: Color(0xffffffff),
+      onError: Color(0xffffffff),
+      brightness: Brightness.light,
+    ),
+  ),
+  textTheme: TextTheme(
+    display4: TextStyle(
+      color: Color(0x8a000000),
+      fontSize: null,
+      fontWeight: FontWeight.w400,
+      fontStyle: FontStyle.normal,
+    ),
+    display3: TextStyle(
+      color: Color(0x8a000000),
+      fontSize: null,
+      fontWeight: FontWeight.w400,
+      fontStyle: FontStyle.normal,
+    ),
+    display2: TextStyle(
+      color: Color(0x8a000000),
+      fontSize: null,
+      fontWeight: FontWeight.w400,
+      fontStyle: FontStyle.normal,
+    ),
+    display1: TextStyle(
+      color: Color(0x8a000000),
+      fontSize: null,
+      fontWeight: FontWeight.w400,
+      fontStyle: FontStyle.normal,
+    ),
+    headline: TextStyle(
+      color: Color(0xdd000000),
+      fontSize: null,
+      fontWeight: FontWeight.w400,
+      fontStyle: FontStyle.normal,
+    ),
+    title: TextStyle(
+      color: Color(0xdd000000),
+      fontSize: null,
+      fontWeight: FontWeight.w400,
+      fontStyle: FontStyle.normal,
+    ),
+    subhead: TextStyle(
+      color: Color(0xdd000000),
+      fontSize: null,
+      fontWeight: FontWeight.w400,
+      fontStyle: FontStyle.normal,
+    ),
+    body2: TextStyle(
+      color: Color(0xdd000000),
+      fontSize: null,
+      fontWeight: FontWeight.w400,
+      fontStyle: FontStyle.normal,
+    ),
+    body1: TextStyle(
+      color: Color(0xdd000000),
+      fontSize: null,
+      fontWeight: FontWeight.w400,
+      fontStyle: FontStyle.normal,
+    ),
+    caption: TextStyle(
+      color: Color(0x8a000000),
+      fontSize: null,
+      fontWeight: FontWeight.w400,
+      fontStyle: FontStyle.normal,
+    ),
+    button: TextStyle(
+      color: Color(0xdd000000),
+      fontSize: null,
+      fontWeight: FontWeight.w400,
+      fontStyle: FontStyle.normal,
+    ),
+    subtitle: TextStyle(
+      color: Color(0xff000000),
+      fontSize: null,
+      fontWeight: FontWeight.w400,
+      fontStyle: FontStyle.normal,
+    ),
+    overline: TextStyle(
+      color: Color(0xff000000),
+      fontSize: null,
+      fontWeight: FontWeight.w400,
+      fontStyle: FontStyle.normal,
+    ),
+  ),
+  primaryTextTheme: TextTheme(
+    display4: TextStyle(
+      color: Color(0xb3ffffff),
+      fontSize: null,
+      fontWeight: FontWeight.w400,
+      fontStyle: FontStyle.normal,
+    ),
+    display3: TextStyle(
+      color: Color(0xb3ffffff),
+      fontSize: null,
+      fontWeight: FontWeight.w400,
+      fontStyle: FontStyle.normal,
+    ),
+    display2: TextStyle(
+      color: Color(0xb3ffffff),
+      fontSize: null,
+      fontWeight: FontWeight.w400,
+      fontStyle: FontStyle.normal,
+    ),
+    display1: TextStyle(
+      color: Color(0xb3ffffff),
+      fontSize: null,
+      fontWeight: FontWeight.w400,
+      fontStyle: FontStyle.normal,
+    ),
+    headline: TextStyle(
+      color: Color(0xffffffff),
+      fontSize: null,
+      fontWeight: FontWeight.w400,
+      fontStyle: FontStyle.normal,
+    ),
+    title: TextStyle(
+      color: Color(0xffffffff),
+      fontSize: null,
+      fontWeight: FontWeight.w400,
+      fontStyle: FontStyle.normal,
+    ),
+    subhead: TextStyle(
+      color: Color(0xffffffff),
+      fontSize: null,
+      fontWeight: FontWeight.w400,
+      fontStyle: FontStyle.normal,
+    ),
+    body2: TextStyle(
+      color: Color(0xffffffff),
+      fontSize: null,
+      fontWeight: FontWeight.w400,
+      fontStyle: FontStyle.normal,
+    ),
+    body1: TextStyle(
+      color: Color(0xffffffff),
+      fontSize: null,
+      fontWeight: FontWeight.w400,
+      fontStyle: FontStyle.normal,
+    ),
+    caption: TextStyle(
+      color: Color(0xb3ffffff),
+      fontSize: null,
+      fontWeight: FontWeight.w400,
+      fontStyle: FontStyle.normal,
+    ),
+    button: TextStyle(
+      color: Color(0xffffffff),
+      fontSize: null,
+      fontWeight: FontWeight.w400,
+      fontStyle: FontStyle.normal,
+    ),
+    subtitle: TextStyle(
+      color: Color(0xffffffff),
+      fontSize: null,
+      fontWeight: FontWeight.w400,
+      fontStyle: FontStyle.normal,
+    ),
+    overline: TextStyle(
+      color: Color(0xffffffff),
+      fontSize: null,
+      fontWeight: FontWeight.w400,
+      fontStyle: FontStyle.normal,
+    ),
+  ),
+  accentTextTheme: TextTheme(
+    display4: TextStyle(
+      color: Color(0xb3ffffff),
+      fontSize: null,
+      fontWeight: FontWeight.w400,
+      fontStyle: FontStyle.normal,
+    ),
+    display3: TextStyle(
+      color: Color(0xb3ffffff),
+      fontSize: null,
+      fontWeight: FontWeight.w400,
+      fontStyle: FontStyle.normal,
+    ),
+    display2: TextStyle(
+      color: Color(0xb3ffffff),
+      fontSize: null,
+      fontWeight: FontWeight.w400,
+      fontStyle: FontStyle.normal,
+    ),
+    display1: TextStyle(
+      color: Color(0xb3ffffff),
+      fontSize: null,
+      fontWeight: FontWeight.w400,
+      fontStyle: FontStyle.normal,
+    ),
+    headline: TextStyle(
+      color: Color(0xffffffff),
+      fontSize: null,
+      fontWeight: FontWeight.w400,
+      fontStyle: FontStyle.normal,
+    ),
+    title: TextStyle(
+      color: Color(0xffffffff),
+      fontSize: null,
+      fontWeight: FontWeight.w400,
+      fontStyle: FontStyle.normal,
+    ),
+    subhead: TextStyle(
+      color: Color(0xffffffff),
+      fontSize: null,
+      fontWeight: FontWeight.w400,
+      fontStyle: FontStyle.normal,
+    ),
+    body2: TextStyle(
+      color: Color(0xffffffff),
+      fontSize: null,
+      fontWeight: FontWeight.w400,
+      fontStyle: FontStyle.normal,
+    ),
+    body1: TextStyle(
+      color: Color(0xffffffff),
+      fontSize: null,
+      fontWeight: FontWeight.w400,
+      fontStyle: FontStyle.normal,
+    ),
+    caption: TextStyle(
+      color: Color(0xb3ffffff),
+      fontSize: null,
+      fontWeight: FontWeight.w400,
+      fontStyle: FontStyle.normal,
+    ),
+    button: TextStyle(
+      color: Color(0xffffffff),
+      fontSize: null,
+      fontWeight: FontWeight.w400,
+      fontStyle: FontStyle.normal,
+    ),
+    subtitle: TextStyle(
+      color: Color(0xffffffff),
+      fontSize: null,
+      fontWeight: FontWeight.w400,
+      fontStyle: FontStyle.normal,
+    ),
+    overline: TextStyle(
+      color: Color(0xffffffff),
+      fontSize: null,
+      fontWeight: FontWeight.w400,
+      fontStyle: FontStyle.normal,
+    ),
+  ),
+  inputDecorationTheme: InputDecorationTheme(
+    labelStyle: TextStyle(
+      color: Color(0xdd000000),
+      fontSize: null,
+      fontWeight: FontWeight.w400,
+      fontStyle: FontStyle.normal,
+    ),
+    helperStyle: TextStyle(
+      color: Color(0xdd000000),
+      fontSize: null,
+      fontWeight: FontWeight.w400,
+      fontStyle: FontStyle.normal,
+    ),
+    hintStyle: TextStyle(
+      color: Color(0xdd000000),
+      fontSize: null,
+      fontWeight: FontWeight.w400,
+      fontStyle: FontStyle.normal,
+    ),
+    errorStyle: TextStyle(
+      color: Color(0xdd000000),
+      fontSize: null,
+      fontWeight: FontWeight.w400,
+      fontStyle: FontStyle.normal,
+    ),
+    errorMaxLines: null,
+    hasFloatingPlaceholder: true,
+    isDense: false,
+    contentPadding: EdgeInsets.only(top: 12, bottom: 12, left: 0, right: 0),
+    isCollapsed: false,
+    prefixStyle: TextStyle(
+      color: Color(0xdd000000),
+      fontSize: null,
+      fontWeight: FontWeight.w400,
+      fontStyle: FontStyle.normal,
+    ),
+    suffixStyle: TextStyle(
+      color: Color(0xdd000000),
+      fontSize: null,
+      fontWeight: FontWeight.w400,
+      fontStyle: FontStyle.normal,
+    ),
+    counterStyle: TextStyle(
+      color: Color(0xdd000000),
+      fontSize: null,
+      fontWeight: FontWeight.w400,
+      fontStyle: FontStyle.normal,
+    ),
+    filled: false,
+    fillColor: Color(0x00000000),
+    errorBorder: UnderlineInputBorder(
+      borderSide: BorderSide(
+        color: Color(0xff000000),
+        width: 1,
+        style: BorderStyle.solid,
+      ),
+      borderRadius: BorderRadius.all(Radius.circular(4.0)),
+    ),
+    focusedBorder: UnderlineInputBorder(
+      borderSide: BorderSide(
+        color: Color(0xff000000),
+        width: 1,
+        style: BorderStyle.solid,
+      ),
+      borderRadius: BorderRadius.all(Radius.circular(4.0)),
+    ),
+    focusedErrorBorder: UnderlineInputBorder(
+      borderSide: BorderSide(
+        color: Color(0xff000000),
+        width: 1,
+        style: BorderStyle.solid,
+      ),
+      borderRadius: BorderRadius.all(Radius.circular(4.0)),
+    ),
+    disabledBorder: UnderlineInputBorder(
+      borderSide: BorderSide(
+        color: Color(0xff000000),
+        width: 1,
+        style: BorderStyle.solid,
+      ),
+      borderRadius: BorderRadius.all(Radius.circular(4.0)),
+    ),
+    enabledBorder: UnderlineInputBorder(
+      borderSide: BorderSide(
+        color: Color(0xff000000),
+        width: 1,
+        style: BorderStyle.solid,
+      ),
+      borderRadius: BorderRadius.all(Radius.circular(4.0)),
+    ),
+    border: UnderlineInputBorder(
+      borderSide: BorderSide(
+        color: Color(0xff000000),
+        width: 1,
+        style: BorderStyle.solid,
+      ),
+      borderRadius: BorderRadius.all(Radius.circular(4.0)),
+    ),
+  ),
+  iconTheme: IconThemeData(
+    color: Color(0xdd000000),
+    opacity: 1,
+    size: 24,
+  ),
+  primaryIconTheme: IconThemeData(
+    color: Color(0xffffffff),
+    opacity: 1,
+    size: 24,
+  ),
+  accentIconTheme: IconThemeData(
+    color: Color(0xffffffff),
+    opacity: 1,
+    size: 24,
+  ),
+  sliderTheme: SliderThemeData(
+    activeTrackColor: null,
+    inactiveTrackColor: null,
+    disabledActiveTrackColor: null,
+    disabledInactiveTrackColor: null,
+    activeTickMarkColor: null,
+    inactiveTickMarkColor: null,
+    disabledActiveTickMarkColor: null,
+    disabledInactiveTickMarkColor: null,
+    thumbColor: null,
+    disabledThumbColor: null,
+    thumbShape: null,
+    overlayColor: null,
+    valueIndicatorColor: null,
+    valueIndicatorShape: null,
+    showValueIndicator: null,
+    valueIndicatorTextStyle: TextStyle(
+      color: Color(0xffffffff),
+      fontSize: null,
+      fontWeight: FontWeight.w400,
+      fontStyle: FontStyle.normal,
+    ),
+  ),
+  tabBarTheme: TabBarTheme(
+    indicatorSize: TabBarIndicatorSize.tab,
+    labelColor: Color(0xffffffff),
+    unselectedLabelColor: Color(0xb2ffffff),
+  ),
+  chipTheme: ChipThemeData(
+    backgroundColor: Color(0x1f000000),
     brightness: Brightness.light,
-    visualDensity: VisualDensity(vertical: 0.5, horizontal: 0.5),
-    primarySwatch: MaterialColor(
-      0xFFF5E0C3,
-      <int, Color>{
-        50: Color(0x1aF5E0C3),
-        100: Color(0xa1F5E0C3),
-        200: Color(0xaaF5E0C3),
-        300: Color(0xafF5E0C3),
-        400: Color(0xffF5E0C3),
-        500: Color(0xffEDD5B3),
-        600: Color(0xffDEC29B),
-        700: Color(0xffC9A87C),
-        800: Color(0xffB28E5E),
-        900: Color(0xff936F3E)
-      },
+    deleteIconColor: Color(0xde000000),
+    disabledColor: Color(0x0c000000),
+    labelPadding: EdgeInsets.only(top: 0, bottom: 0, left: 8, right: 8),
+    labelStyle: TextStyle(
+      color: Color(0xde000000),
+      fontSize: null,
+      fontWeight: FontWeight.w400,
+      fontStyle: FontStyle.normal,
     ),
-    primaryColor: Color(0xffEDD5B3),
-    primaryColorBrightness: Brightness.light,
-    primaryColorLight: Color(0x1aF5E0C3),
-    primaryColorDark: Color(0xff936F3E),
-    canvasColor: Color(0xffE09E45),
-    accentColor: Color(0xff457BE0),
-    accentColorBrightness: Brightness.light,
-    scaffoldBackgroundColor: Color(0xffB5BFD3),
-    bottomAppBarColor: Color(0xff6D42CE),
-    cardColor: Color(0xaaF5E0C3),
-    dividerColor: Color(0x1f6D42CE),
-    focusColor: Color(0x1aF5E0C3),
-    hoverColor: Color(0xffDEC29B),
-    highlightColor: Color(0xff936F3E),
-    splashColor: Color(0xff457BE0),
-//  splashFactory: # override create method from  InteractiveInkFeatureFactory
-    selectedRowColor: Colors.grey,
-    unselectedWidgetColor: Colors.grey.shade400,
-    disabledColor: Colors.grey.shade200,
-    buttonTheme: ButtonThemeData(
-        //button themes
-        ),
-    toggleButtonsTheme: ToggleButtonsThemeData(
-        //toggle button theme
-        ),
-    buttonColor: Color(0xff936F3E),
-    secondaryHeaderColor: Colors.grey,
-    textSelectionColor: Color(0xffB5BFD3),
-    cursorColor: Color(0xff936F3E),
-    textSelectionHandleColor: Color(0xff936F3E),
-    backgroundColor: Color(0xff457BE0),
-    dialogBackgroundColor: Colors.white,
-    indicatorColor: Color(0xff457BE0),
-    hintColor: Colors.grey,
-    errorColor: Colors.red,
-    toggleableActiveColor: Color(0xff6D42CE),
-    textTheme: TextTheme(
-        //text themes that contrast with card and canvas
-        ),
-    primaryTextTheme: TextTheme(
-        //text theme that contrast with primary color
-        ),
-    accentTextTheme: TextTheme(
-        //text theme that contrast with accent Color
-        ),
-    inputDecorationTheme: InputDecorationTheme(
-        // default values for InputDecorator, TextField, and TextFormField
-        ),
-    iconTheme: IconThemeData(
-        //icon themes that contrast with card and canvas
-        ),
-    primaryIconTheme: IconThemeData(
-        //icon themes that contrast primary color
-        ),
-    accentIconTheme: IconThemeData(
-        //icon themes that contrast accent color
-        ),
-    sliderTheme: SliderThemeData(
-        // slider themes
-        ),
-    tabBarTheme: TabBarTheme(
-        // tab bat theme
-        ),
-    tooltipTheme: TooltipThemeData(
-        // tool tip theme
-        ),
-    cardTheme: CardTheme(
-        // card theme
-        ),
-    chipTheme: ChipThemeData(
-        backgroundColor: Color(0xff936F3E),
-        disabledColor: Color(0xaaF5E0C3),
-        shape: StadiumBorder(),
-        brightness: Brightness.light,
-        labelPadding: EdgeInsets.all(8),
-        labelStyle: TextStyle(),
-        padding: EdgeInsets.all(8),
-        secondaryLabelStyle: TextStyle(),
-        secondarySelectedColor: Colors.white38,
-        selectedColor: Colors.white
-        // chip theme
-        ),
-    platform: TargetPlatform.android,
-    materialTapTargetSize: MaterialTapTargetSize.padded,
-    applyElevationOverlayColor: true,
-    pageTransitionsTheme: PageTransitionsTheme(
-        //page transition theme
-        ),
-    appBarTheme: AppBarTheme(
-        //app bar theme
-        ),
-    bottomAppBarTheme: BottomAppBarTheme(
-        // bottom app bar theme
-        ),
-    colorScheme: ColorScheme(
-        primary: Color(0xffEDD5B3),
-        primaryVariant: Color(0x1aF5E0C3),
-        secondary: Color(0xffC9A87C),
-        secondaryVariant: Color(0xaaC9A87C),
-        brightness: Brightness.light,
-        background: Color(0xffB5BFD3),
-        error: Colors.red,
-        onBackground: Color(0xffB5BFD3),
-        onError: Colors.red,
-        onPrimary: Color(0xffEDD5B3),
-        onSecondary: Color(0xffC9A87C),
-        onSurface: Color(0xff457BE0),
-        surface: Color(0xff457BE0)),
-    snackBarTheme: SnackBarThemeData(
-        // snack bar theme
-        ),
-    dialogTheme: DialogTheme(
-        // dialog theme
-        ),
-    floatingActionButtonTheme: FloatingActionButtonThemeData(
-        // floating action button theme
-        ),
-    navigationRailTheme: NavigationRailThemeData(
-        // navigation rail theme
-        ),
-    typography: Typography.material2018(),
-    cupertinoOverrideTheme: CupertinoThemeData(
-        //cupertino theme
-        ),
-    bottomSheetTheme: BottomSheetThemeData(
-        //bottom sheet theme
-        ),
-    popupMenuTheme: PopupMenuThemeData(
-        //pop menu theme
-        ),
-    bannerTheme: MaterialBannerThemeData(
-        // material banner theme
-        ),
-    dividerTheme: DividerThemeData(
-        //divider, vertical divider theme
-        ),
-    buttonBarTheme: ButtonBarThemeData(
-        // button bar theme
-        ),
-    fontFamily: 'ROBOTO',
-    splashFactory: InkSplash.splashFactory);
-ThemeData darkTheme = ThemeData(
-    brightness: Brightness.dark,
-    visualDensity: VisualDensity(vertical: 0.5, horizontal: 0.5),
-    primarySwatch: MaterialColor(
-      0xFFF5E0C3,
-      <int, Color>{
-        50: Color(0x1a5D4524),
-        100: Color(0xa15D4524),
-        200: Color(0xaa5D4524),
-        300: Color(0xaf5D4524),
-        400: Color(0x1a483112),
-        500: Color(0xa1483112),
-        600: Color(0xaa483112),
-        700: Color(0xff483112),
-        800: Color(0xaf2F1E06),
-        900: Color(0xff2F1E06)
-      },
+    padding: EdgeInsets.only(top: 4, bottom: 4, left: 4, right: 4),
+    secondaryLabelStyle: TextStyle(
+      color: Color(0x3d000000),
+      fontSize: null,
+      fontWeight: FontWeight.w400,
+      fontStyle: FontStyle.normal,
     ),
-    primaryColor: Color(0xff5D4524),
-    primaryColorBrightness: Brightness.dark,
-    primaryColorLight: Color(0x1a311F06),
-    primaryColorDark: Color(0xff936F3E),
-    canvasColor: Color(0xffE09E45),
-    accentColor: Color(0xff457BE0),
-    accentColorBrightness: Brightness.dark,
-    scaffoldBackgroundColor: Color(0xffB5BFD3),
-    bottomAppBarColor: Color(0xff6D42CE),
-    cardColor: Color(0xaa311F06),
-    dividerColor: Color(0x1f6D42CE),
-    focusColor: Color(0x1a311F06),
-    hoverColor: Color(0xa15D4524),
-    highlightColor: Color(0xaf2F1E06),
-    splashColor: Color(0xff457BE0),
-//  splashFactory: # override create method from  InteractiveInkFeatureFactory
-    selectedRowColor: Colors.grey,
-    unselectedWidgetColor: Colors.grey.shade400,
-    disabledColor: Colors.grey.shade200,
-    buttonTheme: ButtonThemeData(
-//button themes
-        ),
-    toggleButtonsTheme: ToggleButtonsThemeData(
-//toggle button theme
-        ),
-    buttonColor: Color(0xff483112),
-    secondaryHeaderColor: Colors.grey,
-    textSelectionColor: Color(0x1a483112),
-    cursorColor: Color(0xff483112),
-    textSelectionHandleColor: Color(0xff483112),
-    backgroundColor: Color(0xff457BE0),
-    dialogBackgroundColor: Colors.white,
-    indicatorColor: Color(0xff457BE0),
-    hintColor: Colors.grey,
-    errorColor: Colors.red,
-    toggleableActiveColor: Color(0xff6D42CE),
-    textTheme: TextTheme(
-//text themes that contrast with card and canvas
-        ),
-    primaryTextTheme: TextTheme(
-//text theme that contrast with primary color
-        ),
-    accentTextTheme: TextTheme(
-//text theme that contrast with accent Color
-        ),
-    inputDecorationTheme: InputDecorationTheme(
-// default values for InputDecorator, TextField, and TextFormField
-        ),
-    iconTheme: IconThemeData(
-//icon themes that contrast with card and canvas
-        ),
-    primaryIconTheme: IconThemeData(
-//icon themes that contrast primary color
-        ),
-    accentIconTheme: IconThemeData(
-//icon themes that contrast accent color
-        ),
-    sliderTheme: SliderThemeData(
-        // slider themes
-        ),
-    tabBarTheme: TabBarTheme(
-        // tab bat theme
-        ),
-    tooltipTheme: TooltipThemeData(
-        // tool tip theme
-        ),
-    cardTheme: CardTheme(
-        // card theme
-        ),
-    chipTheme: ChipThemeData(
-        backgroundColor: Color(0xff2F1E06),
-        disabledColor: Color(0xa15D4524),
-        shape: StadiumBorder(),
-        brightness: Brightness.dark,
-        labelPadding: EdgeInsets.all(8),
-        labelStyle: TextStyle(),
-        padding: EdgeInsets.all(8),
-        secondaryLabelStyle: TextStyle(),
-        secondarySelectedColor: Colors.white38,
-        selectedColor: Colors.white
-        // chip theme
-        ),
-    platform: TargetPlatform.android,
-    materialTapTargetSize: MaterialTapTargetSize.padded,
-    applyElevationOverlayColor: true,
-    pageTransitionsTheme: PageTransitionsTheme(
-        //page transition theme
-        ),
-    appBarTheme: AppBarTheme(
-        //app bar theme
-        ),
-    bottomAppBarTheme: BottomAppBarTheme(
-        // bottom app bar theme
-        ),
-    colorScheme: ColorScheme(
-        primary: Color(0xff5D4524),
-        primaryVariant: Color(0x1a311F06),
-        secondary: Color(0xff457BE0),
-        secondaryVariant: Color(0xaa457BE0),
-        brightness: Brightness.dark,
-        background: Color(0xffB5BFD3),
-        error: Colors.red,
-        onBackground: Color(0xffB5BFD3),
-        onError: Colors.red,
-        onPrimary: Color(0xff5D4524),
-        onSecondary: Color(0xff457BE0),
-        onSurface: Color(0xff457BE0),
-        surface: Color(0xff457BE0)),
-    snackBarTheme: SnackBarThemeData(
-        // snack bar theme
-        ),
-    dialogTheme: DialogTheme(
-        // dialog theme
-        ),
-    floatingActionButtonTheme: FloatingActionButtonThemeData(
-        // floating action button theme
-        ),
-    navigationRailTheme: NavigationRailThemeData(
-        // navigation rail theme
-        ),
-    typography: Typography.material2018(),
-    cupertinoOverrideTheme: CupertinoThemeData(
-        //cupertino theme
-        ),
-    bottomSheetTheme: BottomSheetThemeData(
-        //bottom sheet theme
-        ),
-    popupMenuTheme: PopupMenuThemeData(
-        //pop menu theme
-        ),
-    bannerTheme: MaterialBannerThemeData(
-        // material banner theme
-        ),
-    dividerTheme: DividerThemeData(
-        //divider, vertical divider theme
-        ),
-    buttonBarTheme: ButtonBarThemeData(
-        // button bar theme
-        ),
-    fontFamily: 'ROBOTO',
-    splashFactory: InkSplash.splashFactory);
+    secondarySelectedColor: Color(0x3d0a7fcf),
+    selectedColor: Color(0x3d000000),
+    shape: StadiumBorder(
+        side: BorderSide(
+      color: Color(0xff000000),
+      width: 0,
+      style: BorderStyle.none,
+    )),
+  ),
+  dialogTheme: DialogTheme(
+      shape: RoundedRectangleBorder(
+    side: BorderSide(
+      color: Color(0xff000000),
+      width: 0,
+      style: BorderStyle.none,
+    ),
+    borderRadius: BorderRadius.all(Radius.circular(0.0)),
+  )),
+);

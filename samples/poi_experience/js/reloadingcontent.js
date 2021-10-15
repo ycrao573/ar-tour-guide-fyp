@@ -70,6 +70,9 @@ var World = {
                 "altitude": parseFloat(poiData[currentPlaceNr].altitude),
                 "title": poiData[currentPlaceNr].name,
                 "description": poiData[currentPlaceNr].description,
+                "category": poiData[currentPlaceNr].category,
+                "reviews": poiData[currentPlaceNr].reviews,
+                "imageUrl": poiData[currentPlaceNr].imageUrl,
             };
 
             World.markerList.push(new Marker(singlePoi));
@@ -99,6 +102,31 @@ var World = {
     updateStatusMessage: function updateStatusMessageFn(message, isWarning) {
         document.getElementById("popupButtonImage").src = isWarning ? "assets/warning_icon.png" : "assets/info_icon.png";
         document.getElementById("popupButtonTooltip").innerHTML = message;
+    },
+
+	/*	
+        It may make sense to display POI details in your native style.	
+        In this sample a very simple native screen opens when user presses the 'More' button in HTML.	
+        This demoes the interaction between JavaScript and native code.	
+    */	
+    /* User clicked "More" button in POI-detail panel -> fire event to open native screen. */	
+    onPoiDetailMoreButtonClicked: function onPoiDetailMoreButtonClickedFn() {	
+        var currentMarker = World.currentMarker;	
+        var markerSelectedJSON = {
+            action: "present_poi_details",
+            id: currentMarker.poiData.id,
+            title: currentMarker.poiData.title,
+            description: currentMarker.poiData.description,
+            // category: currentMarker.poiData.category,
+            // reviews: currentMarker.poiData.reviews,
+            // imageUrl: currentMarker.poiData.imageUrl,
+        };
+        console.log("============================================================");
+        console.log(markerSelectedJSON.description);
+        /*	
+            The sendJSONObject method can be used to send data from javascript to the native code.	
+        */	
+        AR.platform.sendJSONObject(markerSelectedJSON);	
     },
 
     /* Location updates, fired every time you call architectView.setLocation() in native environment. */
@@ -147,6 +175,7 @@ var World = {
             description), compare index.html in the sample's directory.
         */
         /* Update panel values. */
+        document.getElementById("poiDetailImage").src = marker.poiData.imageUrl;
         document.getElementById("poiDetailTitle").innerHTML = marker.poiData.title;
         document.getElementById("poiDetailDescription").innerHTML = marker.poiData.description;
 
@@ -303,31 +332,33 @@ var World = {
     /* Request POI data. */
     requestDataFromServer: function requestDataFromServerFn(lat, lon) {
 
-        // /* Set helper var to avoid requesting places while loading. */
-        // World.isRequestingData = true;
-        // World.updateStatusMessage('Requesting places from web-service');
+        /* Set helper var to avoid requesting places while loading. */
+        World.isRequestingData = true;
+        World.updateStatusMessage('Requesting places from web-service');
 
-        // /* Server-url to JSON content provider. */
+        /* Server-url to JSON content provider. */
         // var serverUrl = ServerInformation.POIDATA_SERVER + "?" + ServerInformation.POIDATA_SERVER_ARG_LAT + "=" +
         //     lat + "&" + ServerInformation.POIDATA_SERVER_ARG_LON + "=" +
         //     lon + "&" + ServerInformation.POIDATA_SERVER_ARG_NR_POIS + "=20";
 
         // /* Use GET request to fetch the JSON data from the server */
-        // var xhr = new XMLHttpRequest();
-        // xhr.open('GET', serverUrl, true);
-        // xhr.responseType = 'json';
-        // xhr.onload = function() {
-        //     var status = xhr.status;
-        //     if (status === 200) {
-        //         World.loadPoisFromJsonData(xhr.response);
-        //         World.isRequestingData = false;
-        //     } else {
-        //         World.updateStatusMessage("Invalid web-service response.", true);
-        //         World.isRequestingData = false;
-        //     }
-        // }
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "https://api.jsonbin.io/b/616905d54a82881d6c6066f6/latest", true);
+        xhr.setRequestHeader("Secret-Key", "$2b$10$UC8h.Kj3npKiFT7EUTqiK.IuNhbQGMipxT5uE4GE6BrVIknwNPSF.");
+        xhr.responseType = 'json';
+        xhr.onload = function() {
+            var status = xhr.status;
+            if (status === 200) {
+                World.loadPoisFromJsonData(xhr.response);
+                World.isRequestingData = false;
+            } else {
+                World.updateStatusMessage("Invalid web-service response.", true);
+                World.isRequestingData = false;
+            }
+        }
+        xhr.send();
         // xhr.send();
-        World.loadPoisFromJsonData(myJsonData);
+        // World.loadPoisFromJsonData(myJsonData);
     },
 
     /* Helper to sort places by distance. */

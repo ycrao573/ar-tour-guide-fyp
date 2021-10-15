@@ -23,15 +23,17 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
   build_runner: ^2.0.2
   json_serializable: ^4.1.1
+  flutter_icons:
 
 flutter:
 
   uses-material-design: true
 
   assets:
+    - assets/
+    - assets/images/
     - samples/
     - samples/experience/
     - samples/experience/styles/
@@ -46,15 +48,3 @@ flutter:
     - samples/poi_experience/js/
     - samples/poi_experience/css/
     - samples/poi_experience/assets/
-    - samples/09_ObtainPoiData_3_FromWebservice/
-    - samples/09_ObtainPoiData_3_FromWebservice/js/
-    - samples/09_ObtainPoiData_3_FromWebservice/css/
-    - samples/09_ObtainPoiData_3_FromWebservice/assets/
-    - samples/09_ObtainPoiData_2_FromLocalResource/
-    - samples/09_ObtainPoiData_2_FromLocalResource/js/
-    - samples/09_ObtainPoiData_2_FromLocalResource/css/
-    - samples/09_ObtainPoiData_2_FromLocalResource/assets/
-    - samples/09_ObtainPoiData_1_FromApplicationModel/
-    - samples/09_ObtainPoiData_1_FromApplicationModel/js/
-    - samples/09_ObtainPoiData_1_FromApplicationModel/css/
-    - samples/09_ObtainPoiData_1_FromApplicationModel/assets/

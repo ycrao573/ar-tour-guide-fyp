@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'AR Travel App Demo',
       debugShowCheckedModeBanner: false,
-      theme: lightTheme,
+      theme: myTheme,
       home: MainMenu(),
     );
   }
@@ -44,8 +44,7 @@ class _MainMenuState extends State<MainMenu> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               ElevatedButton(
-                child: Text('Object Detection Demo',
-                    style: TextStyle(color: Colors.black)),
+                child: Text('Object Detection Demo'),
                 onPressed: () {
                   _pushArView(new Sample(
                     name: 'Object Detection',
@@ -61,8 +60,7 @@ class _MainMenuState extends State<MainMenu> {
               ),
               SizedBox(height: 9.0),
               ElevatedButton(
-                child: Text('Poi Experience',
-                    style: TextStyle(color: Colors.black)),
+                child: Text('Poi Experience'),
                 onPressed: () {
                   _pushArView(new Sample(
                     name: 'Provide Details and Range',
@@ -72,7 +70,7 @@ class _MainMenuState extends State<MainMenu> {
                         cameraPosition: CameraPosition.BACK,
                         cameraResolution: CameraResolution.AUTO,
                         cameraFocusMode: CameraFocusMode.CONTINUOUS),
-                    requiredExtensions: [],
+                    requiredExtensions: ["native_detail"],
                   ));
                 },
               ),

@@ -115,6 +115,10 @@ html, body {
     white-space: nowrap;
 }
 
+#\#poiDetailMoreButton {
+    margin: 0;
+}
+
 .headerTitle {
     flex: 1;
     text-align:center;

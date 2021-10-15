@@ -17,7 +17,7 @@ function Marker(poiData) {
     this.animationGroupSelected = null;
 
     /* Create the AR.GeoLocation from the poi data. */
-    var markerLocation = new AR.GeoLocation(poiData.latitude, poiData.longitude, poiData.altitude);
+    var markerLocation = new AR.GeoLocation(poiData.latitude, poiData.longitude, poiData.altitude, poiData.category, poiData.reviews, poiData.imageUrl);
 
     /* Create an AR.ImageDrawable for the marker in idle state. */
     this.markerDrawableIdle = new AR.ImageDrawable(World.markerDrawableIdle, 2.5, {
@@ -41,7 +41,7 @@ function Marker(poiData) {
     });
 
     /* Create an AR.Label for the marker's title . */
-    this.titleLabel = new AR.Label(poiData.title.trunc(25), 0.68, {
+    this.titleLabel = new AR.Label(poiData.title.trunc(25), 0.66, {
         zOrder: 1,
         translate: {
             y: 1.6
@@ -52,7 +52,7 @@ function Marker(poiData) {
         }
     });
 
-    this.descriptionLabel = new AR.Label(poiData.description.trunc(15), 0.5, {
+    this.descriptionLabel = new AR.Label(poiData.category, 0.5, {
         zOrder: 1,
         translate: {
             y: 0.6
