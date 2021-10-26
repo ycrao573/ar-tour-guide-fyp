@@ -10,10 +10,15 @@ dependencies:
   flutter:
     sdk: flutter
 
+  flutter_localizations:
+    sdk: flutter
+
+  intl: ^0.17.0 # Add this line
   cupertino_icons: ^1.0.3
   location: ^4.1.1
   path_provider: ^2.0.1
   wakelock: ^0.5.1
+
 
   augmented_reality_plugin_wikitude:
     path: ./plugin/augmented_reality_plugin_wikitude/
@@ -28,9 +33,8 @@ dev_dependencies:
   flutter_icons:
 
 flutter:
-
+  generate: true
   uses-material-design: true
-
   assets:
     - assets/
     - assets/images/

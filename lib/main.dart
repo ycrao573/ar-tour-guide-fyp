@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'arview.dart';
 import 'sample.dart';
 import 'theme.dart';
-
+import 'package:flutter_localizations/flutter_localizations.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -14,6 +14,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'AR Travel App Demo',
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: [
+        Locale('en', ''), // English
+        Locale('zh', 'Hans'), // Chinese
+      ],
       debugShowCheckedModeBanner: false,
       theme: myTheme,
       home: MainMenu(),
@@ -35,7 +44,7 @@ class _MainMenuState extends State<MainMenu> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('AR Tour Guide Demo'),
+        title: const Text('ARGO'),
       ),
       body: Container(
         child: Center(
@@ -61,6 +70,22 @@ class _MainMenuState extends State<MainMenu> {
               SizedBox(height: 9.0),
               ElevatedButton(
                 child: Text('Poi Experience'),
+                onPressed: () {
+                  _pushArView(new Sample(
+                    name: 'Provide Details and Range',
+                    path: 'poi_experience/index.html',
+                    requiredFeatures: ["geo"],
+                    startupConfiguration: new StartupConfiguration(
+                        cameraPosition: CameraPosition.BACK,
+                        cameraResolution: CameraResolution.AUTO,
+                        cameraFocusMode: CameraFocusMode.CONTINUOUS),
+                    requiredExtensions: ["native_detail"],
+                  ));
+                },
+              ),
+              SizedBox(height: 9.0),
+              TextButton(
+                child: Text('Change Language'),
                 onPressed: () {
                   _pushArView(new Sample(
                     name: 'Provide Details and Range',
