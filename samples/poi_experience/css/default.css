@@ -5,7 +5,7 @@ html, body {
 }
 
 #mainHeader {
-    background-color: #ddd;
+    background-color: #dddddddd;
     position: absolute;
     width: 100%;
     display: flex;
@@ -36,7 +36,7 @@ html, body {
 
 #popupButtonTooltip {
   visibility: hidden;
-  background-color: #edeca8;
+  background-color: #edeca8cc;
   color: #000;
   font-family: sans-serif;
   text-align: center;
@@ -54,7 +54,7 @@ html, body {
 }
 
 #panelPoiDetail {
-    background-color: #eee;
+    background-color: #eeeeeeee;
     height: 100%;
     right: 0;
     position: absolute;
@@ -68,7 +68,7 @@ html, body {
 }
 
 #panelRange {
-    background-color: #eee;
+    background-color: #eeeeeeee;
     height: 100%;
     left: 0;
     position: absolute;
@@ -91,13 +91,13 @@ html, body {
 }
 
 #panelRangeSliderValue{
-    background-color: #ccc;
+    background-color: #cccccccc;
     border-radius: 4px;
     text-align: center;
 }
 
 .header {
-    background-color: #ddd;
+    background-color: #dddddddd;
     position: absolute;
     width: 100%;
     align-items: center;
@@ -111,7 +111,7 @@ html, body {
     border-color: #ccc;
     font-weight: bold;
     font-size: small;
-    background-color: #fff;
+    background-color: #ffffffee;
     white-space: nowrap;
 }
 
@@ -126,6 +126,10 @@ html, body {
 }
 
 .content {
+    position: absolute;
+}
+
+.filter {
     position: absolute;
 }
 
@@ -178,6 +182,12 @@ html, body {
 
     .content {
         top: 7vh;
+        margin-left: 5vw;
+        margin-right: 5vw;
+    }
+
+    .filter {
+        top: 30vh;
         margin-left: 5vw;
         margin-right: 5vw;
     }
@@ -237,6 +247,12 @@ html, body {
 
     .content {
         top: 7vw;
+        margin-left: 5vh;
+        margin-right: 5vh;
+    }
+
+    .filter {
+        top: 25vw;
         margin-left: 5vh;
         margin-right: 5vh;
     }

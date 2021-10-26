@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"/>
 
     <title>My ARchitect World</title>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://www.wikitude.com/libs/architect.js"></script>
     <script src="../ade.js"></script>
 
@@ -28,12 +28,21 @@
     <script type="text/javascript" src="js/radar.js"></script>
 
     <link rel="stylesheet" href="css/default.css"/>
+
+    <script>
+        function filter() {
+            var selected = [];
+            document.querySelectorAll('[type="checkbox"]:checked').forEach(e => selected.push(e.value));
+            console.log(selected[0]);
+            World.reloadPlacesByFilter(selected);
+        }
+    </script>
 </head>
 
 <body>
     <div id="mainHeader">
-        <button class="customButton" id="rangeButton" onclick="World.showRange();">Range</button>
-        <button class="customButton" id="refreshButton" onclick="World.reloadPlaces();">Reload</button>
+        <button class="customButton" id="rangeButton" onclick="World.showRange();"><i class="fa fa-sliders" aria-hidden="true"></i></button>
+        <button class="customButton" id="refreshButton" onclick="World.reloadPlaces();"><i class="fa fa-refresh" aria-hidden="true"></i></button>
     </div>
     <div class="radarContainer_left" id="radarContainer" onclick="PoiRadar.clickedRadar()"></div>
 
@@ -46,7 +55,7 @@
 
     <div id="panelPoiDetail">
         <div class="header">
-            <button class="customButton" id="closePanelPoiDetailButton" onclick="World.closePanel()">Close</button>
+            <button class="customButton" id="closePanelPoiDetailButton" onclick="World.closePanel()"><i class="fa fa-times" aria-hidden="true"></i></button>
             <h3 class="headerTitle">Details</h3>
         </div>
         <div class="content">
@@ -62,17 +71,26 @@
 
     <div id="panelRange">
         <div class="header">
-            <button class="customButton" id="closePanelRangeButton" onclick="World.closePanel()">Close</button>
+            <button class="customButton" id="closePanelRangeButton" onclick="World.closePanel()"><i class="fa fa-times" aria-hidden="true"></i></button>
             <h3 class="headerTitle">Range</h3>
         </div>
         <div class="content">
             <h4> Range: <a id="panelRangeValue"></a></h4>
-            <h4> Visible: <a id="panelRangePlaces"></a></h4>
+            <h4> Places: <a id="panelRangePlaces"></a></h4>
             <div id="panelRangeSliderContainer">
                 <span id="panelRangeSliderValue"></span>
                 <input id="panelRangeSlider" type="range" min="1" value="100" max="100" step="1"
                        oninput="World.updateRangeValues()">
             </div>
+        </div>
+        <div class="filter">
+            <input type="checkbox" id="attraction" name="attraction" value="Tourist Attraction">
+            <label for="attraction"> Attrations</label><br>
+            <input type="checkbox" id="station" name="station" value="Station">
+            <label for="station"> Stations</label><br>
+            <input type="checkbox" id="hotel" name="hotel" value="Hotel">
+            <label for="hotel"> Hotels</label><br><br>
+            <button onClick="filter()"><i class="fa fa-filter" aria-hidden="true"></i></button>
         </div>
     </div>
 </body>

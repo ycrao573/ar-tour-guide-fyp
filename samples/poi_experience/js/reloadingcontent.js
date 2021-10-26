@@ -14,7 +14,7 @@ var World = {
 
     /*
         User's latest known location, accessible via userLocation.latitude, userLocation.longitude,
-         userLocation.altitude.
+        userLocation.altitude.
      */
     userLocation: null,
 
@@ -85,7 +85,11 @@ var World = {
         World.updateRangeValues();
 
         /* Set distance slider to 100%. */
-        document.getElementById("panelRangeSliderValue").innerHTML = 100;
+        var maxPlaceDistance = Math.round(World.getMaxDistance());
+        const defaultDisplayDistance = 2000;
+        var defaultDisplayPosition = (maxPlaceDistance > defaultDisplayDistance) ? Math.round(maxPlaceDistance / defaultDisplayDistance) : 100;
+
+        document.getElementById("panelRangeSliderValue").innerHTML = defaultDisplayPosition;
     },
 
     /*
@@ -206,7 +210,7 @@ var World = {
         /* Hide panels. */
         document.getElementById("panelPoiDetail").style.visibility = "hidden";
         document.getElementById("panelRange").style.visibility = "hidden";
-
+ 
         if (World.currentMarker != null) {
             /* Deselect AR-marker when user exits detail screen div. */
             World.currentMarker.setDeselected(World.currentMarker);
@@ -226,8 +230,16 @@ var World = {
         /* Sort places by distance so the first entry is the one with the maximum distance. */
         World.markerList.sort(World.sortByDistanceSortingDescending);
 
+        var maxDistanceMeters = 4545;
         /* Use distanceToUser to get max-distance. */
-        var maxDistanceMeters = World.markerList[0].distanceToUser;
+        for (let i = 0; i < World.markerList.length; i++){
+            if (World.markerList[i].distanceToUser >= maxDistanceMeters) {
+                continue;
+            } else {
+                maxDistanceMeters = World.markerList[i].distanceToUser;
+                break;
+            }
+        }
 
         /*
             Return maximum distance times some factor >1.0 so ther is some room left and small movements of user
@@ -254,11 +266,11 @@ var World = {
 
         /* Update UI labels accordingly. */
         document.getElementById("panelRangeValue").innerHTML = maxRangeValue;
-        document.getElementById("panelRangePlaces").innerHTML = (placesInRange != 1) ?
+        document.getElementById("panelRangePlaces").innerHTML = (placesInRange > 1) ?
             (placesInRange + " Places") : (placesInRange + " Place");
         document.getElementById("panelRangeSliderValue").innerHTML = slider_value;
 
-        World.updateStatusMessage((placesInRange != 1) ?
+        World.updateStatusMessage((placesInRange > 1) ?
             (placesInRange + " places loaded") : (placesInRange + " place loaded"));
 
         /* Update culling distance, so only places within given range are rendered. */
@@ -283,6 +295,35 @@ var World = {
 
         /* In case no placemark is out of range -> all are visible. */
         return World.markerList.length;
+    },
+
+    reloadPlacesByFilter: function getPlacesByFilter(selected) {
+        /* Set helper var to avoid requesting places while loading. */
+        World.isRequestingData = true;
+        World.updateStatusMessage('Requesting places from web-service');
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "https://api.jsonbin.io/b/616905d54a82881d6c6066f6/latest", true);
+        xhr.setRequestHeader("Secret-Key", "$2b$10$UC8h.Kj3npKiFT7EUTqiK.IuNhbQGMipxT5uE4GE6BrVIknwNPSF.");
+        xhr.responseType = 'json';
+        xhr.onload = function() {
+            var status = xhr.status;
+            if (status === 200) {
+                var jsonReponse = xhr.response;
+                jsonReponse = jsonReponse.filter(item => selected.includes(item.category));
+                World.loadPoisFromJsonData(jsonReponse);
+                console.log("================================================")
+                console.log(jsonReponse.length);
+                console.log("================================================")
+                World.closePanel();
+                World.isRequestingData = false;
+            } else {
+                World.updateStatusMessage("Invalid web-service response.", true);
+                console.log("?????????================================================")
+                World.isRequestingData = false;
+            }
+        }
+        xhr.send();
     },
 
     handlePanelMovements: function handlePanelMovementsFn() {
