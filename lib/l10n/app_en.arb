@@ -1,0 +1,15 @@
+{
+    "language": "English",
+    "@language": {
+      "description": "Default Language"
+    },
+    "helloWorld": "Hello World!",
+    "@helloWorld": {
+      "description": "The conventional newborn programmer greeting"
+    },
+    "menu_home": "Home",
+    "menu_explore": "Explore",
+    "menu_plan": "Plan",
+    "drawer_settings": "Settings",
+    "singapore": "Singapore"
+}
