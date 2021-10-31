@@ -5,7 +5,7 @@ import 'package:augmented_reality_plugin_wikitude/wikitude_response.dart';
 import 'package:flutter/material.dart';
 import 'arview.dart';
 import 'sample.dart';
-import 'theme.dart';
+import '../theme.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:permission_handler/permission_handler.dart';
 
