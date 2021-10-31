@@ -28,6 +28,8 @@ dependencies:
   geolocator: ^7.7.1
   settings_ui: ^1.0.0
   provider: ^6.0.1
+  googleapis_auth: ^1.2.0
+  googleapis: ^6.0.0
 
 dev_dependencies:
   flutter_test:
@@ -56,3 +58,4 @@ flutter:
     - samples/poi_experience/js/
     - samples/poi_experience/css/
     - samples/poi_experience/assets/
+    - assets/data/

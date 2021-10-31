@@ -1,6 +1,5 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:wikitude_flutter_app/ar/arpage.dart';
 import 'package:wikitude_flutter_app/l10n/l10n.dart';
 import 'dart:async';
@@ -73,9 +72,8 @@ class _HomePageState extends State<HomePage> {
               title: AppLocalizations.of(context)!.menu_plan),
           TabData(
               iconData: Icons.camera,
-              title: "Vision",
-              onclick: () => Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => HomeScreen()))),
+              title: "Vision",onclick: () => Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => VisionPage()))),
         ],
         initialSelection: 1,
         key: bottomNavigationKey,
