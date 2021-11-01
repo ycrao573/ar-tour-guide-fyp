@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'arview.dart';
 import 'sample.dart';
 import '../theme.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -22,9 +23,6 @@ class _ArPageState extends State<ArPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('ARGO'),
-      ),
       body: Container(
         child: Center(
           child: Column(
@@ -32,10 +30,10 @@ class _ArPageState extends State<ArPage> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               ElevatedButton(
-                child: Text('Object Detection Demo'),
+                child: Text(AppLocalizations.of(context)!.ar_object),
                 onPressed: () {
                   _pushArView(new Sample(
-                    name: 'Object Detection',
+                    name: AppLocalizations.of(context)!.ar_object,
                     path: 'experience/index.html',
                     requiredFeatures: ["object_tracking"],
                     startupConfiguration: new StartupConfiguration(
@@ -48,26 +46,10 @@ class _ArPageState extends State<ArPage> {
               ),
               SizedBox(height: 9.0),
               ElevatedButton(
-                child: Text('Poi Experience'),
+                child: Text(AppLocalizations.of(context)!.ar_poi),
                 onPressed: () {
                   _pushArView(new Sample(
-                    name: 'Provide Details and Range',
-                    path: 'poi_experience/index.html',
-                    requiredFeatures: ["geo"],
-                    startupConfiguration: new StartupConfiguration(
-                        cameraPosition: CameraPosition.BACK,
-                        cameraResolution: CameraResolution.AUTO,
-                        cameraFocusMode: CameraFocusMode.CONTINUOUS),
-                    requiredExtensions: ["native_detail"],
-                  ));
-                },
-              ),
-              SizedBox(height: 9.0),
-              TextButton(
-                child: Text('Change Language'),
-                onPressed: () {
-                  _pushArView(new Sample(
-                    name: 'Provide Details and Range',
+                    name: AppLocalizations.of(context)!.ar_poi,
                     path: 'poi_experience/index.html',
                     requiredFeatures: ["geo"],
                     startupConfiguration: new StartupConfiguration(

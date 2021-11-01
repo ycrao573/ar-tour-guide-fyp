@@ -15,5 +15,7 @@
     "drawer_share": "Share",
     "drawer_exit": "Exit",
     "drawer_fav": "Favorites",
-    "singapore": "Singapore"
+    "singapore": "Singapore",
+    "ar_object": "Object Detection",
+    "ar_poi": "Poi Experience"
 }

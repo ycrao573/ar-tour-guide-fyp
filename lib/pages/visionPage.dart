@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'recognize.dart';
 
 class VisionPage extends StatefulWidget {
-  const VisionPage({Key? key}) : super(key: key);
+  final String base64;
+  final String type;
+
+  const VisionPage({Key? key, required this.base64, required this.type})
+      : super(key: key);
 
   @override
   _VisionPageState createState() => _VisionPageState();
@@ -13,11 +17,22 @@ class _VisionPageState extends State<VisionPage> {
 
   @override
   Widget build(BuildContext context) {
-    final Future<String> _callVisionAPI =
-        _recognizeProvider.search("").then((e) => e.label.toString());
+    final Future<String> _callVisionAPI;
+    if (widget.type == 'label')
+      _callVisionAPI = _recognizeProvider
+          .searchWebImageBestGuessedLabel(widget.base64)
+          .then((e) => e.label.toString());
+    else if (widget.type == 'landmark')
+      _callVisionAPI = _recognizeProvider
+          .searchLandmarkReturnInfo(widget.base64)
+          .then((e) => e);
+    else
+      _callVisionAPI = _recognizeProvider
+          .searchWebImageReturnInfo(widget.base64)
+          .then((e) => e);
 
     return DefaultTextStyle(
-      style: Theme.of(context).textTheme.headline4!,
+      style: Theme.of(context).textTheme.bodyText2!,
       textAlign: TextAlign.center,
       child: FutureBuilder<String>(
         future: _callVisionAPI, // a previously-obtained Future<String> or null
@@ -25,6 +40,7 @@ class _VisionPageState extends State<VisionPage> {
           List<Widget> children;
           if (snapshot.hasData) {
             children = <Widget>[
+              SizedBox(height: 250),
               const Icon(
                 Icons.check_circle_outline,
                 color: Colors.green,
@@ -32,7 +48,8 @@ class _VisionPageState extends State<VisionPage> {
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 16),
-                child: Text('Result: ${snapshot.data}', style: TextStyle(color: Colors.white)),
+                child: Text('Result: ${snapshot.data}',
+                    style: TextStyle(color: Colors.black)),
               )
             ];
           } else if (snapshot.hasError) {

@@ -9,5 +9,7 @@
     "drawer_share": "分享",
     "drawer_exit": "退出",
     "drawer_fav": "收藏",
-    "singapore": "新加坡"
+    "singapore": "新加坡",
+    "ar_object": "对象检测",
+    "ar_poi": "兴趣点体验"
 }

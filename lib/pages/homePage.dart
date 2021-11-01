@@ -10,6 +10,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:wikitude_flutter_app/pages/imagePickerPage.dart';
 import 'package:wikitude_flutter_app/pages/visionPage.dart';
 import 'package:wikitude_flutter_app/widgets/drawer.dart';
 import 'package:wikitude_flutter_app/widgets/languageDropdown.dart';
@@ -60,22 +61,21 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: FancyBottomNavigation(
         tabs: [
           TabData(
-              iconData: Icons.home_outlined,
-              title: AppLocalizations.of(context)!.menu_home,),
+            iconData: Icons.home_outlined,
+            title: AppLocalizations.of(context)!.menu_home,
+          ),
           TabData(
               iconData: Icons.travel_explore_sharp,
-              title: AppLocalizations.of(context)!.menu_explore,
-              onclick: () => Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => ArPage()))),
+              title: AppLocalizations.of(context)!.menu_explore),
           TabData(
               iconData: Icons.view_list_outlined,
               title: AppLocalizations.of(context)!.menu_plan),
-          TabData(
-              iconData: Icons.camera,
-              title: "Vision",onclick: () => Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => VisionPage()))),
+          TabData(iconData: Icons.camera, title: "Vision"
+              //,onclick: () => Navigator.of(context)
+              //     .push(MaterialPageRoute(builder: (context) => VisionPage()))
+              ),
         ],
-        initialSelection: 1,
+        initialSelection: 0,
         key: bottomNavigationKey,
         onTabChangedListener: (position) {
           setState(() {
@@ -98,17 +98,21 @@ class _HomePageState extends State<HomePage> {
           ],
         );
       case 1:
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Text("This is the search page"),
-          ],
-        );
-      default:
+        return ArPage();
+      case 2:
         return Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Text("This is the Plan page"),
+          ],
+        );
+      case 3:
+        return ImagePickerPage(title: 'Image Picker Example');
+      default:
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Text("This is the Default page"),
           ],
         );
     }
