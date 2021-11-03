@@ -8,7 +8,6 @@ import 'dart:async';
 import 'theme.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -33,13 +32,13 @@ class _MyAppState extends State<MyApp> {
         return MaterialApp(
           title: '',
           localizationsDelegates: [
-            AppLocalizations.delegate, // Add this line
+            AppLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
           locale: provider.locale,
-          supportedLocales: L10n.all, // Chinese
+          supportedLocales: L10n.all,
           debugShowCheckedModeBanner: false,
           theme: myTheme,
           home: HomePage(),

@@ -60,6 +60,85 @@ class _ArPageState extends State<ArPage> {
                   ));
                 },
               ),
+              SizedBox(height: 9.0),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  MaterialButton(
+                    padding: EdgeInsets.all(4.0),
+                    textColor: Colors.white,
+                    splashColor: Colors.greenAccent,
+                    elevation: 8.0,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage('assets/images/mrt.jpg'),
+                              fit: BoxFit.cover),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(36, 50, 36, 50),
+                          child: Text("MRT",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 32.0,
+                                  color: Colors.yellow)),
+                        ),
+                      ),
+                    ),
+                    onPressed: () {
+                      _pushArView(new Sample(
+                        name: "MRT",
+                        path: 'mrt/index.html',
+                        requiredFeatures: ["geo"],
+                        startupConfiguration: new StartupConfiguration(
+                            cameraPosition: CameraPosition.BACK,
+                            cameraResolution: CameraResolution.AUTO,
+                            cameraFocusMode: CameraFocusMode.CONTINUOUS),
+                        requiredExtensions: ["native_detail"],
+                      ));
+                    },
+                  ),
+                  MaterialButton(
+                    padding: EdgeInsets.all(8.0),
+                    textColor: Colors.white,
+                    splashColor: Colors.greenAccent,
+                    elevation: 8.0,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage('assets/images/mall.jpg'),
+                              fit: BoxFit.cover),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(30, 50, 27, 50),
+                          child: Text("MALL",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 32.0,
+                                  color: Colors.yellow)),
+                        ),
+                      ),
+                    ),
+                    onPressed: () {
+                      _pushArView(new Sample(
+                        name: "Mall",
+                        path: 'mall/index.html',
+                        requiredFeatures: ["geo"],
+                        startupConfiguration: new StartupConfiguration(
+                            cameraPosition: CameraPosition.BACK,
+                            cameraResolution: CameraResolution.AUTO,
+                            cameraFocusMode: CameraFocusMode.CONTINUOUS),
+                        requiredExtensions: ["native_detail"],
+                      ));
+                    },
+                  ),
+                ],
+              ),
             ],
           ),
         ),

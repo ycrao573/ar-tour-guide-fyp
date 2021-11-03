@@ -76,7 +76,8 @@ class RecognizeProvider {
             "fullMatchedImageUrl": _fullMatchedImageUrl,
             "partialMatchedImageUrl": _partialMatchedImageUrl,
             "matchedPageUrl": _matchedPageUrl,
-            "label": _label
+            "label": _label,
+            "type": "web"
           };
         } catch (e) {
           throw new Exception("We don't find any result");
@@ -113,7 +114,8 @@ class RecognizeProvider {
       _responseInfo = {
         "landmarkName": _landmarkName,
         "latitude": _latitude,
-        "longitude": _longitude
+        "longitude": _longitude,
+        "type": "landmark"
       };
     });
     return json.encode(_responseInfo);

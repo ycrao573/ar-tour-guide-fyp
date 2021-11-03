@@ -32,7 +32,7 @@ dependencies:
   googleapis: ^6.0.0
   image_picker: ^0.8.4+1
   video_player: ^2.2.3
-
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -60,4 +60,12 @@ flutter:
     - samples/poi_experience/js/
     - samples/poi_experience/css/
     - samples/poi_experience/assets/
+    - samples/mrt/
+    - samples/mrt/js/
+    - samples/mrt/css/
+    - samples/mrt/assets/
+    - samples/mall/
+    - samples/mall/js/
+    - samples/mall/css/
+    - samples/mall/assets/
     - assets/data/

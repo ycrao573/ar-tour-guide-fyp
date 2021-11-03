@@ -11,11 +11,11 @@ class Poi {
   double altitude;
   String name;
   String category;
-  List<String> reviews;
-  String imageUrl;
+  // List<String> reviews;
+  // String imageUrl;
 
   Poi(this.id, this.longitude, this.latitude, this.description, this.altitude,
-      this.name, this.category, this.reviews, this.imageUrl);
+      this.name, this.category/*, this.reviews, this.imageUrl*/);
 
   factory Poi.fromJson(Map<String, dynamic> json) => _$PoiFromJson(json);
 
