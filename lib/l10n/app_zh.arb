@@ -5,5 +5,11 @@
     "menu_explore": "探索",
     "menu_plan": "计划",
     "drawer_settings": "设置",
-    "singapore": "新加坡"
+    "drawer_policy": "条款",
+    "drawer_share": "分享",
+    "drawer_exit": "退出",
+    "drawer_fav": "收藏",
+    "singapore": "新加坡",
+    "ar_object": "对象检测",
+    "ar_poi": "兴趣点体验"
 }

@@ -5,6 +5,7 @@ import 'dart:ui';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:wakelock/wakelock.dart';
+import 'package:wikitude_flutter_app/ar/poiDetails.dart';
 import 'poi.dart';
 
 import 'sample.dart';
@@ -13,7 +14,6 @@ import 'package:path_provider/path_provider.dart';
 
 import 'package:augmented_reality_plugin_wikitude/architect_widget.dart';
 import 'package:augmented_reality_plugin_wikitude/wikitude_response.dart';
-import 'package:wikitude_flutter_app/poiDetails.dart';
 
 class ArViewState extends State<ArViewWidget> with WidgetsBindingObserver {
   late ArchitectWidget architectWidget;

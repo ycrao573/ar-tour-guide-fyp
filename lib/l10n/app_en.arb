@@ -11,5 +11,11 @@
     "menu_explore": "Explore",
     "menu_plan": "Plan",
     "drawer_settings": "Settings",
-    "singapore": "Singapore"
+    "drawer_policy": "Policies",
+    "drawer_share": "Share",
+    "drawer_exit": "Exit",
+    "drawer_fav": "Favorites",
+    "singapore": "Singapore",
+    "ar_object": "Object Detection",
+    "ar_poi": "Poi Experience"
 }
