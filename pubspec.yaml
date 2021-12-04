@@ -32,6 +32,9 @@ dependencies:
   googleapis: ^6.0.0
   image_picker: ^0.8.4+1
   video_player: ^2.2.3
+  google_sign_in: ^5.1.0
+  font_awesome_flutter: ^9.2.0
+  firebase_core: ^1.10.2
   
 dev_dependencies:
   flutter_test:
