@@ -53,7 +53,7 @@ class RecognizeProvider {
       ]
     }));
 
-    late var _responseInfo;
+    var _responseInfo = {};
     _response.responses!.forEach((data) {
       var _responseTest = data.webDetection;
       if (_responseTest != null) {
@@ -104,7 +104,7 @@ class RecognizeProvider {
       ]
     }));
 
-    late var _responseInfo;
+    var _responseInfo = {};
     _response.responses!.forEach((data) {
       String? _landmarkName = data.landmarkAnnotations![0].description;
       double? _latitude =
@@ -117,7 +117,8 @@ class RecognizeProvider {
         "longitude": _longitude,
         "type": "landmark"
       };
-    });
+      }
+    );
     return json.encode(_responseInfo);
   }
 }
