@@ -1,9 +1,23 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:wikitude_flutter_app/model/userModel.dart';
+import 'package:wikitude_flutter_app/pages/loginPage.dart';
 import 'package:wikitude_flutter_app/pages/settingsPage.dart';
 
-class NavigationDrawerWidget extends StatelessWidget {
+class NavigationDrawerWidget extends StatefulWidget {
+  final UserModel currentUser;
+
+  const NavigationDrawerWidget({Key? key, required this.currentUser})
+      : super(key: key);
+
+  @override
+  _NavigationDrawerWidgetState createState() => _NavigationDrawerWidgetState();
+}
+
+class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -12,9 +26,11 @@ class NavigationDrawerWidget extends StatelessWidget {
           child: ListView(
             children: [
               UserAccountsDrawerHeader(
-                accountName:
-                    Text('Yuchen Rao', style: TextStyle(color: Colors.black)),
-                accountEmail: Text('myexample@gmail.com',
+                accountName: Text(
+                    "${widget.currentUser.firstName} ${widget.currentUser.lastName}",
+                    style: TextStyle(
+                        color: Colors.black, fontWeight: FontWeight.bold)),
+                accountEmail: Text('${widget.currentUser.email}',
                     style: TextStyle(color: Colors.black)),
                 currentAccountPicture: CircleAvatar(
                   child: ClipOval(
@@ -60,10 +76,16 @@ class NavigationDrawerWidget extends StatelessWidget {
               ListTile(
                 title: Text(AppLocalizations.of(context)!.drawer_exit),
                 leading: Icon(Icons.exit_to_app),
-                onTap: () => null,
+                onTap: () => logout(context),
               ),
             ],
           ),
         ));
+  }
+
+  Future<void> logout(BuildContext context) async {
+    await FirebaseAuth.instance.signOut();
+    Navigator.of(context)
+        .pushReplacement(MaterialPageRoute(builder: (context) => LoginPage()));
   }
 }

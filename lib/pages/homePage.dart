@@ -1,4 +1,6 @@
 import 'dart:ui';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:wikitude_flutter_app/ar/arpage.dart';
 import 'package:wikitude_flutter_app/l10n/l10n.dart';
@@ -10,7 +12,9 @@ import 'package:geolocator/geolocator.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:wikitude_flutter_app/model/userModel.dart';
 import 'package:wikitude_flutter_app/pages/imagePickerPage.dart';
+import 'package:wikitude_flutter_app/pages/loginPage.dart';
 import 'package:wikitude_flutter_app/pages/visionPage.dart';
 import 'package:wikitude_flutter_app/widgets/drawer.dart';
 import 'package:wikitude_flutter_app/widgets/languageDropdown.dart';
@@ -27,6 +31,22 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int currentPage = 0;
   GlobalKey bottomNavigationKey = GlobalKey();
+  User? user = FirebaseAuth.instance.currentUser;
+  UserModel loggedInUser = UserModel();
+
+  @override
+  void initState() {
+    super.initState();
+    FirebaseFirestore.instance
+        .collection("users")
+        .doc(user!.uid)
+        .get()
+        .then((value) {
+      this.loggedInUser = UserModel.fromMap(value.data());
+      setState(() {});
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,7 +103,7 @@ class _HomePageState extends State<HomePage> {
           });
         },
       ),
-      drawer: NavigationDrawerWidget(),
+      drawer: NavigationDrawerWidget(currentUser: loggedInUser),
     );
   }
 
@@ -93,8 +113,47 @@ class _HomePageState extends State<HomePage> {
         return Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            //Text(AppLocalizations.of(context)!.helloWorld),
             Text(AppLocalizations.of(context)!.helloWorld),
+            Center(
+              child: Padding(
+                padding: EdgeInsets.all(20),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    SizedBox(
+                      height: 50,
+                    ),
+                    Text(
+                      "Welcome Back",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text("${loggedInUser.firstName} ${loggedInUser.lastName}",
+                        style: TextStyle(
+                          color: Colors.black54,
+                          fontWeight: FontWeight.w500,
+                        )),
+                    Text("${loggedInUser.email}",
+                        style: TextStyle(
+                          color: Colors.black54,
+                          fontWeight: FontWeight.w500,
+                        )),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    ActionChip(
+                        label: Text("Logout"),
+                        onPressed: () {
+                          logout(context);
+                        }),
+                  ],
+                ),
+              ),
+            ),
           ],
         );
       case 1:
@@ -116,5 +175,11 @@ class _HomePageState extends State<HomePage> {
           ],
         );
     }
+  }
+
+  Future<void> logout(BuildContext context) async {
+    await FirebaseAuth.instance.signOut();
+    Navigator.of(context)
+        .pushReplacement(MaterialPageRoute(builder: (context) => LoginPage()));
   }
 }
