@@ -6,6 +6,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:wikitude_flutter_app/l10n/l10n.dart';
 import 'package:wikitude_flutter_app/pages/loginPage.dart';
+import 'package:wikitude_flutter_app/service/googleSignIn.dart';
 import 'dart:async';
 import 'theme.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -35,22 +36,24 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) => ChangeNotifierProvider(
       create: (context) => LocaleProvider(),
-      builder: (context, child) {
-        final provider = Provider.of<LocaleProvider>(context);
-        return MaterialApp(
-          title: '',
-          localizationsDelegates: [
-            AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          locale: provider.locale,
-          supportedLocales: L10n.all,
-          debugShowCheckedModeBanner: false,
-          theme: myTheme,
-          // home: HomePage(),
-          home: LoginPage(),
-        );
-      });
+      child: ChangeNotifierProvider(
+          create: (context) => GoogleSignInProvider(),
+          builder: (context, child) {
+            final provider = Provider.of<LocaleProvider>(context);
+            return MaterialApp(
+              title: '',
+              localizationsDelegates: [
+                AppLocalizations.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              locale: provider.locale,
+              supportedLocales: L10n.all,
+              debugShowCheckedModeBanner: false,
+              theme: myTheme,
+              // home: HomePage(),
+              home: LoginPage(),
+            );
+          }));
 }

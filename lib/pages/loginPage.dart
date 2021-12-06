@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:provider/provider.dart';
+import 'package:sign_button/sign_button.dart';
 import 'package:wikitude_flutter_app/pages/registrationPage.dart';
+import 'package:wikitude_flutter_app/service/googleSignIn.dart';
 import 'homePage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -12,7 +16,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
   // form key
   final _formKey = GlobalKey<FormState>();
 
@@ -22,7 +25,7 @@ class _LoginPageState extends State<LoginPage> {
 
   // firebase
   final _auth = FirebaseAuth.instance;
-  
+
   // string for displaying the error Message
   String? errorMessage;
 
@@ -43,6 +46,7 @@ class _LoginPageState extends State<LoginPage> {
           }
           return null;
         },
+        style: TextStyle(fontSize: 15),
         onSaved: (value) {
           emailController.text = value!;
         },
@@ -72,6 +76,7 @@ class _LoginPageState extends State<LoginPage> {
         onSaved: (value) {
           passwordController.text = value!;
         },
+        style: TextStyle(fontSize: 15),
         textInputAction: TextInputAction.done,
         decoration: InputDecoration(
           prefixIcon: Icon(Icons.vpn_key),
@@ -82,32 +87,70 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ));
 
-    final loginButton = Material(
-      elevation: 5,
-      borderRadius: BorderRadius.circular(30),
-      color: Colors.pink[600],
-      child: MaterialButton(
-          padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-          minWidth: MediaQuery.of(context).size.width,
-          onPressed: () {
-            signIn(emailController.text, passwordController.text);
-          },
-          child: Text(
-            "Login",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
-          )),
-    );
+    final loginButton = SignInButton(
+        buttonType: ButtonType.mail,
+        btnColor: Colors.pink[600],
+        padding: 10,
+        onPressed: () {
+          signIn(emailController.text, passwordController.text);
+        });
+    // Material(
+    //   elevation: 5,
+    //   borderRadius: BorderRadius.circular(30),
+    //   color: Colors.pink[600],
+    //   child: MaterialButton(
+    //       padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+    //       minWidth: MediaQuery.of(context).size.width,
+    //       onPressed: () {
+    //         signIn(emailController.text, passwordController.text);
+    //       },
+    //       child: Text(
+    //         "Sign In",
+    //         textAlign: TextAlign.center,
+    //         style: TextStyle(
+    //             fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold),
+    //       )),
+    // );
+
+    final googleLoginButton = SignInButton(
+        buttonType: ButtonType.google,
+        btnColor: Color(0xFF76A7FA),
+        padding: 10,
+        onPressed: () async {
+          final provider =
+              Provider.of<GoogleSignInProvider>(context, listen: false);
+          await provider.googleLogin();
+          Fluttertoast.showToast(msg: "Login Successful");
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
+              builder: (context) => HomePage(loginMethod: "Google")));
+        });
+
+    // Material(
+    //   elevation: 5,
+    //   borderRadius: BorderRadius.circular(30),
+    //   color: Color(0xFF4285F4),
+    //   child: MaterialButton(
+    //       padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+    //       minWidth: MediaQuery.of(context).size.width,
+    //       onPressed: () {
+    //         signIn(emailController.text, passwordController.text);
+    //       },
+    //       child: Text(
+    //         "Sign In with Google",
+    //         textAlign: TextAlign.center,
+    //         style: TextStyle(
+    //             fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold),
+    //       )),
+    // );
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.lightBlue[100],
       body: Center(
         child: SingleChildScrollView(
           child: Container(
-            color: Colors.white,
+            color: Colors.lightBlue[100],
             child: Padding(
-              padding: const EdgeInsets.all(36.0),
+              padding: const EdgeInsets.all(24.0),
               child: Form(
                 key: _formKey,
                 child: Column(
@@ -115,17 +158,19 @@ class _LoginPageState extends State<LoginPage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     SizedBox(
-                        height: 200,
+                        height: 155,
                         child: Image.asset(
                           "assets/images/logo.png",
                           fit: BoxFit.contain,
                         )),
-                    SizedBox(height: 45),
+                    SizedBox(height: 40),
                     emailField,
-                    SizedBox(height: 25),
+                    SizedBox(height: 20),
                     passwordField,
-                    SizedBox(height: 35),
+                    SizedBox(height: 32),
                     loginButton,
+                    SizedBox(height: 12),
+                    googleLoginButton,
                     SizedBox(height: 12),
                     Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -166,8 +211,8 @@ class _LoginPageState extends State<LoginPage> {
             .signInWithEmailAndPassword(email: email, password: password)
             .then((uid) => {
                   Fluttertoast.showToast(msg: "Login Successful"),
-                  Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => HomePage())),
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (context) => HomePage(loginMethod: "Email"))),
                 });
       } on FirebaseAuthException catch (error) {
         switch (error.code) {
@@ -197,6 +242,4 @@ class _LoginPageState extends State<LoginPage> {
       }
     }
   }
-
-
 }

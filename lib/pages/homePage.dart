@@ -12,17 +12,22 @@ import 'package:geolocator/geolocator.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:wikitude_flutter_app/model/googleUserModel.dart';
 import 'package:wikitude_flutter_app/model/userModel.dart';
 import 'package:wikitude_flutter_app/pages/imagePickerPage.dart';
 import 'package:wikitude_flutter_app/pages/loginPage.dart';
 import 'package:wikitude_flutter_app/pages/visionPage.dart';
+import 'package:wikitude_flutter_app/service/googleSignIn.dart';
 import 'package:wikitude_flutter_app/widgets/drawer.dart';
 import 'package:wikitude_flutter_app/widgets/languageDropdown.dart';
 import 'package:wikitude_flutter_app/widgets/locationDropdown.dart';
 import 'settingsPage.dart';
+import 'loginPage.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  final String loginMethod;
+
+  const HomePage({Key? key, required this.loginMethod}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -32,19 +37,30 @@ class _HomePageState extends State<HomePage> {
   int currentPage = 0;
   GlobalKey bottomNavigationKey = GlobalKey();
   User? user = FirebaseAuth.instance.currentUser;
-  UserModel loggedInUser = UserModel();
+  dynamic loggedInUser = UserModel();
+  GoogleUserModel googleLoggedInUser = GoogleUserModel();
+  String loginMethod = "";
+  Widget loginPage = LoginPage();
 
   @override
   void initState() {
     super.initState();
-    FirebaseFirestore.instance
-        .collection("users")
-        .doc(user!.uid)
-        .get()
-        .then((value) {
-      this.loggedInUser = UserModel.fromMap(value.data());
+    if (widget.loginMethod == "Email") {
+      FirebaseFirestore.instance
+          .collection("users")
+          .doc(user!.uid)
+          .get()
+          .then((value) {
+        loggedInUser = UserModel.fromMap(value.data());
+        loginMethod = "Email";
+        setState(() {});
+      });
+    } else {
+      final user = FirebaseAuth.instance.currentUser;
+      loggedInUser = user;
+      loginMethod = "Google";
       setState(() {});
-    });
+    }
   }
 
   @override
@@ -59,7 +75,9 @@ class _HomePageState extends State<HomePage> {
             onPressed: () => Scaffold.of(context).openDrawer(),
             icon: ClipOval(
               child: Image.network(
-                'https://avatarfiles.alphacoders.com/152/thumb-152841.jpg',
+                (loginMethod != "Google")
+                    ? 'https://avatarfiles.alphacoders.com/152/thumb-152841.jpg'
+                    : loggedInUser.photoURL!,
                 fit: BoxFit.cover,
                 width: 90,
                 height: 90,
@@ -103,7 +121,11 @@ class _HomePageState extends State<HomePage> {
           });
         },
       ),
-      drawer: NavigationDrawerWidget(currentUser: loggedInUser),
+      drawer: (loginMethod != "Google")
+          ? NavigationDrawerWidget(
+              currentUser: loggedInUser, loginMethod: loginMethod)
+          : NavigationDrawerWidget(
+              currentUser: loggedInUser, loginMethod: loginMethod),
     );
   }
 
@@ -132,12 +154,18 @@ class _HomePageState extends State<HomePage> {
                     SizedBox(
                       height: 10,
                     ),
-                    Text("${loggedInUser.firstName} ${loggedInUser.lastName}",
+                    Text(
+                        (loginMethod != "Google")
+                            ? "${loggedInUser.firstName} ${loggedInUser.lastName}"
+                            : "${loggedInUser.displayName!}",
                         style: TextStyle(
                           color: Colors.black54,
                           fontWeight: FontWeight.w500,
                         )),
-                    Text("${loggedInUser.email}",
+                    Text(
+                        (loginMethod != "Google")
+                            ? "${loggedInUser.email}"
+                            : "${loggedInUser.email!}",
                         style: TextStyle(
                           color: Colors.black54,
                           fontWeight: FontWeight.w500,
@@ -148,7 +176,17 @@ class _HomePageState extends State<HomePage> {
                     ActionChip(
                         label: Text("Logout"),
                         onPressed: () {
-                          logout(context);
+                          if (loginMethod != "Google")
+                            logout(context);
+                          else {
+                            final provider = Provider.of<GoogleSignInProvider>(
+                                context,
+                                listen: false);
+                            provider.logout();
+                            Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                    builder: (context) => LoginPage()));
+                          }
                         }),
                   ],
                 ),

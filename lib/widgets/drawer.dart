@@ -8,9 +8,11 @@ import 'package:wikitude_flutter_app/pages/loginPage.dart';
 import 'package:wikitude_flutter_app/pages/settingsPage.dart';
 
 class NavigationDrawerWidget extends StatefulWidget {
-  final UserModel currentUser;
+  final dynamic currentUser;
+  final String loginMethod;
 
-  const NavigationDrawerWidget({Key? key, required this.currentUser})
+  const NavigationDrawerWidget(
+      {Key? key, required this.currentUser, required this.loginMethod})
       : super(key: key);
 
   @override
@@ -27,15 +29,15 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
             children: [
               UserAccountsDrawerHeader(
                 accountName: Text(
-                    "${widget.currentUser.firstName} ${widget.currentUser.lastName}",
+                    (widget.loginMethod != "Google")?"${widget.currentUser.firstName!} ${widget.currentUser.lastName!}":"${widget.currentUser.displayName!}",
                     style: TextStyle(
                         color: Colors.black, fontWeight: FontWeight.bold)),
-                accountEmail: Text('${widget.currentUser.email}',
+                accountEmail: Text('${widget.currentUser.email!}',
                     style: TextStyle(color: Colors.black)),
                 currentAccountPicture: CircleAvatar(
                   child: ClipOval(
                     child: Image.network(
-                      'https://avatarfiles.alphacoders.com/152/thumb-152841.jpg',
+                      (widget.loginMethod != "Google")?'https://avatarfiles.alphacoders.com/152/thumb-152841.jpg':"${widget.currentUser.photoURL!}",
                       fit: BoxFit.cover,
                       width: 90,
                       height: 90,

@@ -296,6 +296,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
     Fluttertoast.showToast(msg: "Account created successfully :) ");
 
     Navigator.pushAndRemoveUntil((context),
-        MaterialPageRoute(builder: (context) => HomePage()), (route) => false);
+        MaterialPageRoute(builder: (context) => HomePage(loginMethod: "Email")), (route) => false);
   }
 }
