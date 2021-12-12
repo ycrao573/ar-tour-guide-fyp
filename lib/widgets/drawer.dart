@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:wikitude_flutter_app/model/userModel.dart';
 import 'package:wikitude_flutter_app/pages/loginPage.dart';
 import 'package:wikitude_flutter_app/pages/settingsPage.dart';
+import 'package:wikitude_flutter_app/service/googleSignIn.dart';
 
 class NavigationDrawerWidget extends StatefulWidget {
   final dynamic currentUser;
@@ -20,6 +21,7 @@ class NavigationDrawerWidget extends StatefulWidget {
 }
 
 class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -78,7 +80,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
               ListTile(
                 title: Text(AppLocalizations.of(context)!.drawer_exit),
                 leading: Icon(Icons.exit_to_app),
-                onTap: () => logout(context),
+                onTap: () => (widget.loginMethod != "Google")?logout(context):google_logout(context),
               ),
             ],
           ),
@@ -90,4 +92,15 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
     Navigator.of(context)
         .pushReplacement(MaterialPageRoute(builder: (context) => LoginPage()));
   }
+
+  Future<void> google_logout(BuildContext context) async {
+    final provider = Provider.of<GoogleSignInProvider>(
+      context,
+      listen: false);
+    provider.logout();
+    Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+            builder: (context) => LoginPage()));
+  }
+
 }

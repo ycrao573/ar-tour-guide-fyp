@@ -144,11 +144,11 @@ class _LoginPageState extends State<LoginPage> {
     // );
 
     return Scaffold(
-      backgroundColor: Colors.lightBlue[100],
+      backgroundColor: Colors.white,
       body: Center(
         child: SingleChildScrollView(
           child: Container(
-            color: Colors.lightBlue[100],
+            color: Colors.white,
             child: Padding(
               padding: const EdgeInsets.all(24.0),
               child: Form(

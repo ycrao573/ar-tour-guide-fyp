@@ -135,61 +135,47 @@ class _HomePageState extends State<HomePage> {
         return Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Text(AppLocalizations.of(context)!.helloWorld),
-            Center(
-              child: Padding(
-                padding: EdgeInsets.all(20),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    SizedBox(
-                      height: 50,
-                    ),
-                    Text(
-                      "Welcome Back",
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                        (loginMethod != "Google")
+            Padding(
+              padding: EdgeInsets.all(20),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    "Hi " +
+                        ((loginMethod != "Google")
                             ? "${loggedInUser.firstName} ${loggedInUser.lastName}"
-                            : "${loggedInUser.displayName!}",
-                        style: TextStyle(
-                          color: Colors.black54,
-                          fontWeight: FontWeight.w500,
-                        )),
-                    Text(
-                        (loginMethod != "Google")
-                            ? "${loggedInUser.email}"
-                            : "${loggedInUser.email!}",
-                        style: TextStyle(
-                          color: Colors.black54,
-                          fontWeight: FontWeight.w500,
-                        )),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    ActionChip(
-                        label: Text("Logout"),
-                        onPressed: () {
-                          if (loginMethod != "Google")
-                            logout(context);
-                          else {
-                            final provider = Provider.of<GoogleSignInProvider>(
-                                context,
-                                listen: false);
-                            provider.logout();
-                            Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(
-                                    builder: (context) => LoginPage()));
-                          }
-                        }),
-                  ],
-                ),
+                            : "${loggedInUser.displayName.split(' ')[0]}") +
+                        "!",
+                    style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                  ),
+                  // Text(
+                  //     (loginMethod != "Google")
+                  //         ? "${loggedInUser.email}"
+                  //         : "${loggedInUser.email!}",
+                  //     style: TextStyle(
+                  //       color: Colors.black54,
+                  //       fontWeight: FontWeight.w500,
+                  //     )),
+                  // SizedBox(
+                  //   height: 15,
+                  // ),
+                  // ActionChip(
+                  //     label: Text("Logout"),
+                  //     onPressed: () {
+                  //       if (loginMethod != "Google")
+                  //         logout(context);
+                  //       else {
+                  //         final provider = Provider.of<GoogleSignInProvider>(
+                  //             context,
+                  //             listen: false);
+                  //         provider.logout();
+                  //         Navigator.of(context).pushReplacement(
+                  //             MaterialPageRoute(
+                  //                 builder: (context) => LoginPage()));
+                  //       }
+                  //     }),
+                ],
               ),
             ),
           ],
