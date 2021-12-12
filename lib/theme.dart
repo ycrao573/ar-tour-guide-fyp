@@ -39,7 +39,7 @@ final ThemeData myTheme = ThemeData(
   backgroundColor: Color(0xff9ed5fa),
   dialogBackgroundColor: Color(0xffffffff),
   indicatorColor: Color(0xff0c95f3),
-  hintColor: Color(0x8a000000),
+  hintColor: Color(0xffd32f2f),
   errorColor: Color(0xffd32f2f),
   buttonTheme: ButtonThemeData(
     textTheme: ButtonTextTheme.normal,
@@ -73,7 +73,7 @@ final ThemeData myTheme = ThemeData(
       onSecondary: Color(0xffffffff),
       onSurface: Color(0xff000000),
       onBackground: Color(0xffffffff),
-      onError: Color(0xffffffff),
+      onError: Color(0xffd32f2f),
       brightness: Brightness.light,
     ),
   ),
@@ -337,7 +337,7 @@ final ThemeData myTheme = ThemeData(
       fontStyle: FontStyle.normal,
     ),
     errorStyle: TextStyle(
-      color: Color(0xdd000000),
+      color: Color(0xffd32f2f),
       fontSize: null,
       fontWeight: FontWeight.w400,
       fontStyle: FontStyle.normal,
@@ -369,7 +369,7 @@ final ThemeData myTheme = ThemeData(
     fillColor: Color(0x00000000),
     errorBorder: UnderlineInputBorder(
       borderSide: BorderSide(
-        color: Color(0xff000000),
+        color: Color(0xffd32f2f),
         width: 1,
         style: BorderStyle.solid,
       ),
@@ -385,7 +385,7 @@ final ThemeData myTheme = ThemeData(
     ),
     focusedErrorBorder: UnderlineInputBorder(
       borderSide: BorderSide(
-        color: Color(0xff000000),
+        color: Color(0xffd32f2f),
         width: 1,
         style: BorderStyle.solid,
       ),

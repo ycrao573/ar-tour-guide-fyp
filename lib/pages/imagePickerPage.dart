@@ -79,27 +79,7 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
           source: source, maxDuration: const Duration(seconds: 10));
       await _playVideo(file);
     } else if (isMultiImage) {
-      // await _displayPickImageDialog(context!,
-      //     (double? maxWidth, double? maxHeight, int? quality) async {
-      //   try {
-      //     final pickedFileList = await _picker.pickMultiImage(
-      //       maxWidth: maxWidth,
-      //       maxHeight: maxHeight,
-      //       imageQuality: quality,
-      //     );
-      //     setState(() {
-      //       _imageFileList = pickedFileList;
-      //     });
-      //   } catch (e) {
-      //     setState(() {
-      //       _pickImageError = e;
-      //     });
-      //   }
-      // });
     } else {
-      // await _displayPickImageDialog(context!,
-      //     (double? maxWidth, double? maxHeight, int? quality) async {
-      //   try {
       final pickedFile = await _picker.pickImage(
         source: source,
         imageQuality: 25,
@@ -174,35 +154,21 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
       return retrieveError;
     }
     if (_imageFileList != null) {
-      return Semantics(
-          child: ListView.builder(
-            key: UniqueKey(),
-            itemBuilder: (context, index) {
-              File inputImageFile = File(_imageFileList![index].path);
-              // RecognizeProvider _recognizeProvider = new RecognizeProvider();
-              String base64 = toBase64(inputImageFile);
-              // var guessedLabel = await _recognizeProvider
-              //     .searchWebImageBestGuessedLabel(base64)
-              //     .then((res) => res.label.toString());
-              // Why network for web?
-              // See https://pub.dev/packages/image_picker#getting-ready-for-the-web-platform
-              return VisionPage(base64: base64, type: type);
-
-              // Column(
-              //     mainAxisAlignment: MainAxisAlignment.center,
-              //     crossAxisAlignment: CrossAxisAlignment.center,
-              //     children: [
-              //       Semantics(
-              //         label: 'image_picker_example_picked_image',
-              //         child: kIsWeb
-              //             ? Image.network(_imageFileList![index].path)
-              //             : Image.file(File(_imageFileList![index].path)),
-              //       ),
-              //     ]);
-            },
-            itemCount: _imageFileList!.length,
-          ),
-          label: 'image_picker_example_picked_images');
+      return VisionPage(
+          base64: toBase64(File(_imageFileList![0].path)), type: type);
+      // Column(
+      //     mainAxisAlignment: MainAxisAlignment.center,
+      //     crossAxisAlignment: CrossAxisAlignment.center,
+      //     children: [
+      //       Semantics(
+      //         label: 'image_picker_example_picked_image',
+      //         child: kIsWeb?
+      //              Image.network(_imageFileList![index].path)
+      //             : Image.file(File(_imageFileList![index].path)),
+      //       ),
+      //     ]);
+      // },
+      // itemCount: _imageFileList!.length,
     } else if (_pickImageError != null) {
       return Text(
         'Pick image error: $_pickImageError',
@@ -210,18 +176,10 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
       );
     } else {
       return const Text(
-        'You have not yet picked an image.',
+        '',
         textAlign: TextAlign.center,
       );
     }
-  }
-
-  Widget _handlePreview(String type) {
-    // if (isVideo) {
-    //   return _previewVideo();
-    // } else {
-    return _previewImages(type);
-    // }
   }
 
   Future<void> retrieveLostData() async {
@@ -257,11 +215,11 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
                     case ConnectionState.none:
                     case ConnectionState.waiting:
                       return const Text(
-                        'You have not yet picked an image.',
+                        '',
                         textAlign: TextAlign.center,
                       );
                     case ConnectionState.done:
-                      return _handlePreview(_detectionType);
+                      return _previewImages(_detectionType);
                     default:
                       if (snapshot.hasError) {
                         return Text(
@@ -270,87 +228,81 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
                         );
                       } else {
                         return const Text(
-                          'You have not yet picked an image.',
+                          '',
                           textAlign: TextAlign.center,
                         );
                       }
                   }
                 },
               )
-            : _handlePreview(_detectionType),
+            : _previewImages(_detectionType),
       ),
-      floatingActionButton: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+      floatingActionButton: Wrap(
+        runSpacing: 5.0,
+        spacing: 5.0,
         children: <Widget>[
-          // Padding(
-          //   padding: const EdgeInsets.only(top: 16.0),
-          //   child: FloatingActionButton(
-          //     onPressed: () {
-          //       isVideo = false;
-          //       _onImageButtonPressed(
-          //         ImageSource.gallery,
-          //         context: context,
-          //         isMultiImage: true,
-          //       );
-          //     },
-          //     heroTag: 'image1',
-          //     tooltip: 'Pick Multiple Image from gallery',
-          //     child: const Icon(Icons.photo_library),
-          //   ),
-          // ),
           Padding(
-            padding: const EdgeInsets.only(top: 16.0),
-            child: FloatingActionButton(
+            padding: const EdgeInsets.only(top: 6.0),
+            child: FloatingActionButton.extended(
               onPressed: () {
                 isVideo = false;
-                _onImageButtonPressed(ImageSource.camera, "landmark", context: context);
+                _onImageButtonPressed(ImageSource.camera, "landmark",
+                    context: context);
               },
+              label: const Text('Camera'),
               heroTag: 'image1',
               tooltip: 'Take a Photo and do landmark detection',
-              child: const Icon(Icons.landscape_sharp),
+              icon: const Icon(Icons.landscape_sharp),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 16.0),
-            child: FloatingActionButton(
+            padding: const EdgeInsets.only(top: 6.0),
+            child: FloatingActionButton.extended(
               onPressed: () {
                 isVideo = false;
-                _onImageButtonPressed(ImageSource.gallery, "landmark", context: context);
+                _onImageButtonPressed(ImageSource.gallery, "landmark",
+                    context: context);
               },
               heroTag: 'image2',
+              label: const Text('Gallery'),
               tooltip: 'Pick a Photo and do landmark detection',
-              child: const Icon(Icons.landscape),
+              icon: const Icon(Icons.landscape),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 16.0),
-            child: FloatingActionButton(
+            padding: const EdgeInsets.only(top: 6.0),
+            child: FloatingActionButton.extended(
               backgroundColor: Colors.red,
               onPressed: () {
                 isVideo = false;
-                _onImageButtonPressed(ImageSource.camera, "web", context: context);
+                _onImageButtonPressed(ImageSource.camera, "web",
+                    context: context);
               },
+              label: const Text('Camera'),
               heroTag: 'image3',
               tooltip: 'Take a Photo and do web detection',
-              child: const Icon(Icons.image_search),
+              icon: const Icon(Icons.image_search),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 16.0),
-            child: FloatingActionButton(
+            padding: const EdgeInsets.only(top: 6.0),
+            child: FloatingActionButton.extended(
               backgroundColor: Colors.red,
               onPressed: () {
                 isVideo = false;
-                _onImageButtonPressed(ImageSource.gallery, "web", context: context);
+                _onImageButtonPressed(ImageSource.gallery, "web",
+                    context: context);
               },
+              label: const Text('Gallery'),
               heroTag: 'image4',
               tooltip: 'Pick a Photo and do web detection',
-              child: const Icon(Icons.image_search_sharp),
+              icon: const Icon(Icons.image_search_sharp),
             ),
           ),
           SizedBox(height: 50.0)
           // Padding(
-          //   padding: const EdgeInsets.only(top: 16.0),
+          //   padding: const EdgeInsets.only(top: 6.0),
           //   child: FloatingActionButton(
           //     backgroundColor: Colors.red,
           //     onPressed: () {
@@ -363,7 +315,7 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
           //   ),
           // ),
           // Padding(
-          //   padding: const EdgeInsets.only(top: 16.0),
+          //   padding: const EdgeInsets.only(top: 6.0),
           //   child: FloatingActionButton(
           //     backgroundColor: Colors.red,
           //     onPressed: () {

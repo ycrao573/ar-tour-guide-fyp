@@ -1,4 +1,6 @@
 import 'dart:ui';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:wikitude_flutter_app/ar/arpage.dart';
 import 'package:wikitude_flutter_app/l10n/l10n.dart';
@@ -10,15 +12,22 @@ import 'package:geolocator/geolocator.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:wikitude_flutter_app/model/googleUserModel.dart';
+import 'package:wikitude_flutter_app/model/userModel.dart';
 import 'package:wikitude_flutter_app/pages/imagePickerPage.dart';
+import 'package:wikitude_flutter_app/pages/loginPage.dart';
 import 'package:wikitude_flutter_app/pages/visionPage.dart';
+import 'package:wikitude_flutter_app/service/googleSignIn.dart';
 import 'package:wikitude_flutter_app/widgets/drawer.dart';
 import 'package:wikitude_flutter_app/widgets/languageDropdown.dart';
 import 'package:wikitude_flutter_app/widgets/locationDropdown.dart';
 import 'settingsPage.dart';
+import 'loginPage.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  final String loginMethod;
+
+  const HomePage({Key? key, required this.loginMethod}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -27,6 +36,33 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int currentPage = 0;
   GlobalKey bottomNavigationKey = GlobalKey();
+  User? user = FirebaseAuth.instance.currentUser;
+  dynamic loggedInUser = UserModel();
+  GoogleUserModel googleLoggedInUser = GoogleUserModel();
+  String loginMethod = "";
+  Widget loginPage = LoginPage();
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.loginMethod == "Email") {
+      FirebaseFirestore.instance
+          .collection("users")
+          .doc(user!.uid)
+          .get()
+          .then((value) {
+        loggedInUser = UserModel.fromMap(value.data());
+        loginMethod = "Email";
+        setState(() {});
+      });
+    } else {
+      final user = FirebaseAuth.instance.currentUser;
+      loggedInUser = user;
+      loginMethod = "Google";
+      setState(() {});
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +75,9 @@ class _HomePageState extends State<HomePage> {
             onPressed: () => Scaffold.of(context).openDrawer(),
             icon: ClipOval(
               child: Image.network(
-                'https://avatarfiles.alphacoders.com/152/thumb-152841.jpg',
+                (loginMethod != "Google")
+                    ? 'https://avatarfiles.alphacoders.com/152/thumb-152841.jpg'
+                    : loggedInUser.photoURL!,
                 fit: BoxFit.cover,
                 width: 90,
                 height: 90,
@@ -83,7 +121,11 @@ class _HomePageState extends State<HomePage> {
           });
         },
       ),
-      drawer: NavigationDrawerWidget(),
+      drawer: (loginMethod != "Google")
+          ? NavigationDrawerWidget(
+              currentUser: loggedInUser, loginMethod: loginMethod)
+          : NavigationDrawerWidget(
+              currentUser: loggedInUser, loginMethod: loginMethod),
     );
   }
 
@@ -93,8 +135,49 @@ class _HomePageState extends State<HomePage> {
         return Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            //Text(AppLocalizations.of(context)!.helloWorld),
-            Text(AppLocalizations.of(context)!.helloWorld),
+            Padding(
+              padding: EdgeInsets.all(20),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    "Hi " +
+                        ((loginMethod != "Google")
+                            ? "${loggedInUser.firstName} ${loggedInUser.lastName}"
+                            : "${loggedInUser.displayName.split(' ')[0]}") +
+                        "!",
+                    style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                  ),
+                  // Text(
+                  //     (loginMethod != "Google")
+                  //         ? "${loggedInUser.email}"
+                  //         : "${loggedInUser.email!}",
+                  //     style: TextStyle(
+                  //       color: Colors.black54,
+                  //       fontWeight: FontWeight.w500,
+                  //     )),
+                  // SizedBox(
+                  //   height: 15,
+                  // ),
+                  // ActionChip(
+                  //     label: Text("Logout"),
+                  //     onPressed: () {
+                  //       if (loginMethod != "Google")
+                  //         logout(context);
+                  //       else {
+                  //         final provider = Provider.of<GoogleSignInProvider>(
+                  //             context,
+                  //             listen: false);
+                  //         provider.logout();
+                  //         Navigator.of(context).pushReplacement(
+                  //             MaterialPageRoute(
+                  //                 builder: (context) => LoginPage()));
+                  //       }
+                  //     }),
+                ],
+              ),
+            ),
           ],
         );
       case 1:
@@ -116,5 +199,11 @@ class _HomePageState extends State<HomePage> {
           ],
         );
     }
+  }
+
+  Future<void> logout(BuildContext context) async {
+    await FirebaseAuth.instance.signOut();
+    Navigator.of(context)
+        .pushReplacement(MaterialPageRoute(builder: (context) => LoginPage()));
   }
 }

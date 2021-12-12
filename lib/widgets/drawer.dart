@@ -1,9 +1,27 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:wikitude_flutter_app/model/userModel.dart';
+import 'package:wikitude_flutter_app/pages/loginPage.dart';
 import 'package:wikitude_flutter_app/pages/settingsPage.dart';
+import 'package:wikitude_flutter_app/service/googleSignIn.dart';
 
-class NavigationDrawerWidget extends StatelessWidget {
+class NavigationDrawerWidget extends StatefulWidget {
+  final dynamic currentUser;
+  final String loginMethod;
+
+  const NavigationDrawerWidget(
+      {Key? key, required this.currentUser, required this.loginMethod})
+      : super(key: key);
+
+  @override
+  _NavigationDrawerWidgetState createState() => _NavigationDrawerWidgetState();
+}
+
+class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -12,14 +30,16 @@ class NavigationDrawerWidget extends StatelessWidget {
           child: ListView(
             children: [
               UserAccountsDrawerHeader(
-                accountName:
-                    Text('Yuchen Rao', style: TextStyle(color: Colors.black)),
-                accountEmail: Text('myexample@gmail.com',
+                accountName: Text(
+                    (widget.loginMethod != "Google")?"${widget.currentUser.firstName!} ${widget.currentUser.lastName!}":"${widget.currentUser.displayName!}",
+                    style: TextStyle(
+                        color: Colors.black, fontWeight: FontWeight.bold)),
+                accountEmail: Text('${widget.currentUser.email!}',
                     style: TextStyle(color: Colors.black)),
                 currentAccountPicture: CircleAvatar(
                   child: ClipOval(
                     child: Image.network(
-                      'https://avatarfiles.alphacoders.com/152/thumb-152841.jpg',
+                      (widget.loginMethod != "Google")?'https://avatarfiles.alphacoders.com/152/thumb-152841.jpg':"${widget.currentUser.photoURL!}",
                       fit: BoxFit.cover,
                       width: 90,
                       height: 90,
@@ -60,10 +80,27 @@ class NavigationDrawerWidget extends StatelessWidget {
               ListTile(
                 title: Text(AppLocalizations.of(context)!.drawer_exit),
                 leading: Icon(Icons.exit_to_app),
-                onTap: () => null,
+                onTap: () => (widget.loginMethod != "Google")?logout(context):google_logout(context),
               ),
             ],
           ),
         ));
   }
+
+  Future<void> logout(BuildContext context) async {
+    await FirebaseAuth.instance.signOut();
+    Navigator.of(context)
+        .pushReplacement(MaterialPageRoute(builder: (context) => LoginPage()));
+  }
+
+  Future<void> google_logout(BuildContext context) async {
+    final provider = Provider.of<GoogleSignInProvider>(
+      context,
+      listen: false);
+    provider.logout();
+    Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+            builder: (context) => LoginPage()));
+  }
+
 }

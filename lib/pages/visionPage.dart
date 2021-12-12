@@ -140,7 +140,7 @@ class _VisionPageState extends State<VisionPage> {
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 16),
-                child: Text('Error: ${snapshot.error}'),
+                child: Text('We did not find any related information. 😕'),
               )
             ];
           } else {
