@@ -14,7 +14,10 @@ import 'package:wikitude_flutter_app/widgets/locationDropdown.dart';
 import 'settingsPage.dart';
 
 class LocationDropdown extends StatefulWidget {
-  const LocationDropdown({Key? key}) : super(key: key);
+  final String currentAddress;
+
+  const LocationDropdown({Key? key, required this.currentAddress})
+      : super(key: key);
 
   @override
   _LocationDropdownState createState() => _LocationDropdownState();
@@ -23,7 +26,8 @@ class LocationDropdown extends StatefulWidget {
 class _LocationDropdownState extends State<LocationDropdown> {
   @override
   Widget build(BuildContext context) {
-    String dropdownValue = AppLocalizations.of(context)!.singapore;
+    String dropdownValue = widget.currentAddress;
+    // AppLocalizations.of(context)!.singapore;
     return Padding(
       padding: const EdgeInsets.all(4.0),
       child: SizedBox(
@@ -45,8 +49,9 @@ class _LocationDropdownState extends State<LocationDropdown> {
               dropdownValue = newValue!;
             });
           },
-          items: <String>[AppLocalizations.of(context)!.singapore]
-              .map<DropdownMenuItem<String>>((String value) {
+          items: <String>[
+            /*AppLocalizations.of(context)!.singapore*/ widget.currentAddress
+          ].map<DropdownMenuItem<String>>((String value) {
             return DropdownMenuItem<String>(
               value: value,
               child: SizedBox(
