@@ -45,10 +45,10 @@ class RecognizeProvider {
           "image": {"content": image},
           "features": [
             {"type": "WEB_DETECTION"}
-          ]
-          // "imageContext": {
-          //   "webDetectionParams": {"includeGeoResults": true}
-          // }
+          ],
+          "imageContext": {
+            "webDetectionParams": {"includeGeoResults": true}
+          }
         }
       ]
     }));
@@ -97,28 +97,76 @@ class RecognizeProvider {
           "features": [
             {
               "type": "LANDMARK_DETECTION",
-              "maxResults": 5,
+              "maxResults": 2,
             }
-          ]
+          ],
+          "imageContext": {
+            "landmarkDetectionParams": {"includeGeoResults": true}
+          }
         }
       ]
     }));
 
     var _responseInfo = {};
-    _response.responses!.forEach((data) {
-      String? _landmarkName = data.landmarkAnnotations![0].description;
-      double? _latitude =
-          data.landmarkAnnotations![0].locations![0].latLng!.latitude;
-      double? _longitude =
-          data.landmarkAnnotations![0].locations![0].latLng!.longitude;
-      _responseInfo = {
-        "landmarkName": _landmarkName,
-        "latitude": _latitude,
-        "longitude": _longitude,
-        "type": "landmark"
-      };
-      }
-    );
+    if (_response.responses![0].landmarkAnnotations == null) {
+      _responseInfo = {'landmarkName': null, 'type': 'landmark'};
+    } else {
+      _response.responses!.forEach((data) {
+        String? _landmarkName = data.landmarkAnnotations![0].description;
+        double? _latitude =
+            data.landmarkAnnotations![0].locations![0].latLng!.latitude;
+        double? _longitude =
+            data.landmarkAnnotations![0].locations![0].latLng!.longitude;
+        _responseInfo = {
+          "landmarkName": _landmarkName,
+          "latitude": _latitude,
+          "longitude": _longitude,
+          "type": "landmark"
+        };
+      });
+    }
+    return json.encode(_responseInfo);
+  }
+
+  Future<String> searchMixedReturnInfo(String image) async {
+    var _vision = VisionApi(await _client);
+    var _api = _vision.images;
+    var _response = await _api.annotate(BatchAnnotateImagesRequest.fromJson({
+      "requests": [
+        {
+          "image": {"content": image},
+          "features": [
+            {
+              "type": "LANDMARK_DETECTION",
+              "maxResults": 2,
+            }
+          ],
+          "imageContext": {
+            "landmarkDetectionParams": {"includeGeoResults": true}
+          }
+        }
+      ]
+    }));
+
+    var _responseInfo = {};
+    if (_response.responses![0].landmarkAnnotations == null) {
+      return searchWebImageReturnInfo(image);
+    } else {
+      _response.responses!.forEach((data) {
+        String? _landmarkName = data.landmarkAnnotations![0].description;
+        double? _latitude =
+            data.landmarkAnnotations![0].locations![0].latLng!.latitude;
+        double? _longitude =
+            data.landmarkAnnotations![0].locations![0].latLng!.longitude;
+        _responseInfo = {
+          "landmarkName": _landmarkName,
+          "latitude": _latitude,
+          "longitude": _longitude,
+          "type": "landmark"
+        };
+      });
+    }
+
     return json.encode(_responseInfo);
   }
 }

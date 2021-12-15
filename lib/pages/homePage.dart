@@ -21,8 +21,11 @@ import 'package:wikitude_flutter_app/service/googleSignIn.dart';
 import 'package:wikitude_flutter_app/widgets/drawer.dart';
 import 'package:wikitude_flutter_app/widgets/languageDropdown.dart';
 import 'package:wikitude_flutter_app/widgets/locationDropdown.dart';
+import 'card.dart';
 import 'settingsPage.dart';
 import 'loginPage.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 
 class HomePage extends StatefulWidget {
   final String loginMethod;
@@ -41,10 +44,21 @@ class _HomePageState extends State<HomePage> {
   GoogleUserModel googleLoggedInUser = GoogleUserModel();
   String loginMethod = "";
   Widget loginPage = LoginPage();
+  Position _currentPosition = new Position(
+      accuracy: 0,
+      altitude: 0,
+      heading: 0,
+      latitude: 0,
+      longitude: 0,
+      speed: 0,
+      speedAccuracy: 0,
+      timestamp: new DateTime.now());
+  String _currentAddress = "";
 
   @override
   void initState() {
     super.initState();
+    _getCurrentLocation();
     if (widget.loginMethod == "Email") {
       FirebaseFirestore.instance
           .collection("users")
@@ -86,24 +100,26 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         actions: <Widget>[
-          LocationDropdown(),
+          LocationDropdown(currentAddress: _currentAddress),
           LanguageDropdown(),
         ],
       ),
       body: Container(
         decoration: BoxDecoration(color: Colors.white),
-        child: Center(
+        child: Container(
           child: _getPage(currentPage),
         ),
       ),
       bottomNavigationBar: FancyBottomNavigation(
+        circleColor: Colors.pink,
+        inactiveIconColor: Colors.grey[600],
         tabs: [
           TabData(
             iconData: Icons.home_outlined,
             title: AppLocalizations.of(context)!.menu_home,
           ),
           TabData(
-              iconData: Icons.travel_explore_sharp,
+              iconData: Icons.view_in_ar_outlined,
               title: AppLocalizations.of(context)!.menu_explore),
           TabData(
               iconData: Icons.view_list_outlined,
@@ -132,63 +148,77 @@ class _HomePageState extends State<HomePage> {
   _getPage(int page) {
     switch (page) {
       case 0:
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.all(20),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    "Hi " +
-                        ((loginMethod != "Google")
-                            ? "${loggedInUser.firstName} ${loggedInUser.lastName}"
-                            : "${loggedInUser.displayName.split(' ')[0]}") +
-                        "!",
-                    style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-                  ),
-                  // Text(
-                  //     (loginMethod != "Google")
-                  //         ? "${loggedInUser.email}"
-                  //         : "${loggedInUser.email!}",
-                  //     style: TextStyle(
-                  //       color: Colors.black54,
-                  //       fontWeight: FontWeight.w500,
-                  //     )),
-                  // SizedBox(
-                  //   height: 15,
-                  // ),
-                  // ActionChip(
-                  //     label: Text("Logout"),
-                  //     onPressed: () {
-                  //       if (loginMethod != "Google")
-                  //         logout(context);
-                  //       else {
-                  //         final provider = Provider.of<GoogleSignInProvider>(
-                  //             context,
-                  //             listen: false);
-                  //         provider.logout();
-                  //         Navigator.of(context).pushReplacement(
-                  //             MaterialPageRoute(
-                  //                 builder: (context) => LoginPage()));
-                  //       }
-                  //     }),
-                ],
+        return Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            children: <Widget>[
+              SizedBox(height: 100.0),
+              Padding(
+                padding: EdgeInsets.all(4.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      "Hi👋 " +
+                          ((loginMethod != "Google")
+                              ? "${loggedInUser.firstName} ${loggedInUser.lastName}"
+                              : "${loggedInUser.displayName.split(' ')[0]}") +
+                          ",",
+                      style:
+                          TextStyle(fontSize: 28, fontWeight: FontWeight.w700),
+                    ),
+                    Text(
+                        (_currentAddress == "")
+                            ? ""
+                            : "Discover More in $_currentAddress !",
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.w500))
+                    // Text((_currentPosition.latitude == 0)
+                    //     ? ""
+                    //     : "LAT: ${_currentPosition.latitude}, LNG: ${_currentPosition.longitude}"),
+                    // Text(
+                    //     (loginMethod != "Google")
+                    //         ? "${loggedInUser.email}"
+                    //         : "${loggedInUser.email!}",
+                    //     style: TextStyle(
+                    //       color: Colors.black54,
+                    //       fontWeight: FontWeight.w500,
+                    //     )),
+                    // SizedBox(
+                    //   height: 15,
+                    // ),
+                    // ActionChip(
+                    //     label: Text("Logout"),
+                    //     onPressed: () {
+                    //       if (loginMethod != "Google")
+                    //         logout(context);
+                    //       else {
+                    //         final provider = Provider.of<GoogleSignInProvider>(
+                    //             context,
+                    //             listen: false);
+                    //         provider.logout();
+                    //         Navigator.of(context).pushReplacement(
+                    //             MaterialPageRoute(
+                    //                 builder: (context) => LoginPage()));
+                    //       }
+                    //     }),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         );
       case 1:
         return ArPage();
       case 2:
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Text("This is the Plan page"),
-          ],
-        );
+        // return Column(
+        //   mainAxisSize: MainAxisSize.min,
+        //   children: <Widget>[
+        //     Text("This is the Plan page"),
+        //   ],
+        // );
+        return CardPage();
       case 3:
         return ImagePickerPage(title: 'Image Picker Example');
       default:
@@ -205,5 +235,43 @@ class _HomePageState extends State<HomePage> {
     await FirebaseAuth.instance.signOut();
     Navigator.of(context)
         .pushReplacement(MaterialPageRoute(builder: (context) => LoginPage()));
+  }
+
+  _getCurrentLocation() {
+    Geolocator.getCurrentPosition(
+            desiredAccuracy: LocationAccuracy.best,
+            forceAndroidLocationManager: true)
+        .then((Position position) {
+      setState(() {
+        _currentPosition = position;
+        _getAddressFromLatLng();
+      });
+    }).catchError((e) {
+      print(e);
+    });
+  }
+
+  _getAddressFromLatLng() async {
+    try {
+      List<Placemark> placemarks = await placemarkFromCoordinates(
+          _currentPosition.latitude, _currentPosition.longitude);
+      Placemark place = placemarks[0];
+      /*
+    this.name,
+    this.street,
+    this.isoCountryCode,
+    this.country,
+    this.postalCode,
+    this.administrativeArea,
+    this.subAdministrativeArea,
+    this.locality,
+    this.subLocality,
+      */
+      setState(() {
+        _currentAddress = "${place.locality}";
+      });
+    } catch (e) {
+      print(e);
+    }
   }
 }

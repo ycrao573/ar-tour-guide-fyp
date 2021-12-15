@@ -1,9 +1,11 @@
 import 'dart:convert';
+import 'dart:ui';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/material.dart';
 import 'package:wikitude_flutter_app/theme.dart';
 import 'recognize.dart';
 import 'dart:convert';
+import 'package:url_launcher/url_launcher.dart';
 
 class VisionPage extends StatefulWidget {
   final String base64;
@@ -30,7 +32,11 @@ class _VisionPageState extends State<VisionPage> {
       _callVisionAPI = _recognizeProvider
           .searchLandmarkReturnInfo(widget.base64)
           .then((e) => e);
-    else
+    else if (widget.type == 'mixed') {
+      _callVisionAPI = _recognizeProvider
+          .searchMixedReturnInfo(widget.base64)
+          .then((e) => e);
+    } else
       _callVisionAPI = _recognizeProvider
           .searchWebImageReturnInfo(widget.base64)
           .then((e) => e);
@@ -50,68 +56,318 @@ class _VisionPageState extends State<VisionPage> {
                 // "matchedPageUrl": _matchedPageUrl,
                 // "label": _label
                 children = <Widget>[
-                  SizedBox(height: 50),
                   Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      (response["description"] != null)
-                          ? Text(response["description"],
-                              style: TextStyle(
-                                  fontSize: 24.0, fontWeight: FontWeight.bold))
-                          : Text("Not found"),
-                      SizedBox(height: 10),
-                      (response["fullMatchedImageUrl"] != null)
-                          ? Image.network(response["fullMatchedImageUrl"])
-                          : ((response["partialMatchedImageUrl"] != null)
-                              ? Image.network(
-                                  response["partialMatchedImageUrl"])
-                              : Text("")),
-                      (response["label"] != null)
-                          ? Text(response["description"],
-                              style: myTheme.textTheme.caption)
-                          : Text("label"),
-                      SizedBox(height: 10),
-                      (response["matchedPageUrl"] != null)
-                          ? ElevatedButton(
-                              onPressed: () =>
-                                  launch(response["matchedPageUrl"]),
-                              child: new Text('Click here to know more'),
-                            )
-                          : Text(""),
+                      SizedBox(
+                        width: 320,
+                        child: Card(
+                          color: Colors.black.withOpacity(0.5),
+                          clipBehavior: Clip.antiAlias,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              children: [
+                                ListTile(
+                                  leading: Icon(Icons.image_search_outlined,
+                                      color: Colors.pinkAccent, size: 36.0),
+                                  title: Text(
+                                    response["description"].toString(),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 22.0,
+                                        color: Colors.white),
+                                  ),
+                                  subtitle: Text(
+                                    response["label"].toString(),
+                                    style: TextStyle(
+                                        color: Colors.white.withOpacity(0.8)),
+                                  ),
+                                ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(16, 0, 16, 8),
+                                  child: Text(
+                                    '',
+                                    style: TextStyle(
+                                        color: Colors.white.withOpacity(0.8)),
+                                  ),
+                                ),
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(5.0),
+                                  child: ConstrainedBox(
+                                      constraints: BoxConstraints(
+                                        maxHeight: 260,
+                                      ),
+                                      child: (response["fullMatchedImageUrl"] ==
+                                                  null &&
+                                              response["partialMatchedImageUrl"] ==
+                                                  null)
+                                          ? Image.memory(
+                                              base64Decode(widget.base64))
+                                          : Image.network(
+                                              (response["fullMatchedImageUrl"] !=
+                                                      null)
+                                                  ? response["fullMatchedImageUrl"]
+                                                      .toString()
+                                                  : response["partialMatchedImageUrl"]
+                                                      .toString(),
+                                              errorBuilder: (BuildContext context,
+                                                      Object exception,
+                                                      StackTrace? stackTrace) =>
+                                                  Image.memory(
+                                                      base64Decode(widget.base64)))),
+                                ),
+                                ButtonBar(
+                                  alignment: MainAxisAlignment.start,
+                                  children: [
+                                    TextButton.icon(
+                                      icon: Icon(
+                                        Icons.map_outlined,
+                                        color: Colors.pinkAccent,
+                                      ),
+                                      label: Text(
+                                        'Show on Map',
+                                        style: TextStyle(
+                                            color: Colors.pinkAccent,
+                                            fontSize: 15.0),
+                                      ),
+                                      onPressed: () async {
+                                        String googleUrl =
+                                            'https://www.google.com/maps/search/?api=1&query=${response["description"]}';
+                                        if (await canLaunch(googleUrl)) {
+                                          await launch(googleUrl);
+                                        }
+                                      },
+                                    ),
+                                    TextButton.icon(
+                                      icon: Icon(
+                                        Icons.read_more,
+                                        color:
+                                            (response["matchedPageUrl"] != "")
+                                                ? Colors.pinkAccent
+                                                : Colors.grey,
+                                      ),
+                                      label: Text(
+                                        'Read More',
+                                        style: TextStyle(
+                                            color:
+                                                (response["matchedPageUrl"] !=
+                                                        "")
+                                                    ? Colors.pinkAccent
+                                                    : Colors.grey,
+                                            fontSize: 15.0),
+                                      ),
+                                      onPressed: () async {
+                                        if (response["matchedPageUrl"] == "") {
+                                          return null;
+                                        }
+                                        String googleUrl =
+                                            response["matchedPageUrl"];
+                                        if (await canLaunch(googleUrl)) {
+                                          await launch(googleUrl);
+                                        }
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
-                  )
+                  ),
+
+                  // SizedBox(height: 50),
+                  // Column(
+                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  //   crossAxisAlignment: CrossAxisAlignment.center,
+                  //   children: [
+                  //     (response["description"] != null)
+                  //         ? Text(response["description"],
+                  //             style: TextStyle(
+                  //                 fontSize: 24.0, fontWeight: FontWeight.bold))
+                  //         : Text("Not found"),
+                  //     SizedBox(height: 10),
+                  //     (response["fullMatchedImageUrl"] != null)
+                  //         ? Image.network(response["fullMatchedImageUrl"])
+                  //         : ((response["partialMatchedImageUrl"] != null)
+                  //             ? Image.network(
+                  //                 response["partialMatchedImageUrl"])
+                  //             : Text("")),
+                  //     (response["label"] != null)
+                  //         ? Text(response["description"],
+                  //             style: myTheme.textTheme.caption)
+                  //         : Text("label"),
+                  //     SizedBox(height: 10),
+                  //     (response["matchedPageUrl"] != null)
+                  //         ? ElevatedButton(
+                  //             onPressed: () =>
+                  //                 launch(response["matchedPageUrl"]),
+                  //             child: new Text('Click here to know more'),
+                  //           )
+                  //         : Text(""),
+                  //   ],
+                  // )
                 ];
               } else if (response["type"] == "landmark") {
                 // "landmarkName": _landmarkName,
                 // "latitude": _latitude,
-                // "longitude": _longitude
-                children = <Widget>[
-                  SizedBox(height: 50),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      (response["landmarkName"] != null)
-                          ? Text(response["landmarkName"],
-                              style: TextStyle(
-                                  fontSize: 24.0, fontWeight: FontWeight.bold))
-                          : Text("Not found"),
-                      SizedBox(height: 10),
-                      Image.memory(base64Decode(widget.base64)),
-                      SizedBox(height: 10),
-                      (response["latitude"] != null)
-                          ? Text("Latitude: " + response["latitude"].toString())
-                          : Text("Not found"),
-                      SizedBox(height: 10),
-                      (response["longitude"] != null)
-                          ? Text(
-                              "Longitude: " + response["longitude"].toString())
-                          : Text("Not found"),
-                      SizedBox(height: 10),
-                    ],
-                  )
-                ];
+                // "longitude": _longitude,
+                if (response["landmarkName"] == null) {
+                  children = <Widget>[
+                    SizedBox(height: 50),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        SizedBox(height: 250),
+                        const Icon(
+                          Icons.error_outline,
+                          color: Colors.red,
+                          size: 72,
+                        ),
+                        Text(
+                          'We did not find any related information. 😕',
+                          style: TextStyle(
+                              color: Colors.grey[800], fontSize: 16.0),
+                        )
+                      ],
+                    )
+                  ];
+                } else {
+                  children = <Widget>[
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: 320,
+                          child: Card(
+                            color: Colors.black.withOpacity(0.5),
+                            clipBehavior: Clip.antiAlias,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                children: [
+                                  ListTile(
+                                    leading: Icon(Icons.image_search_outlined,
+                                        color: Colors.pinkAccent, size: 36.0),
+                                    title: Text(
+                                      response["landmarkName"],
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 22.0,
+                                          color: Colors.white),
+                                    ),
+                                    subtitle: Text(
+                                      'Tourist Attraction',
+                                      style: TextStyle(
+                                          color: Colors.white.withOpacity(0.8)),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(16, 0, 16, 8),
+                                    child: Text(
+                                      '',
+                                      style: TextStyle(
+                                          color: Colors.white.withOpacity(0.8)),
+                                    ),
+                                  ),
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(5.0),
+                                    child: ConstrainedBox(
+                                        constraints: BoxConstraints(
+                                          maxHeight: 260,
+                                        ),
+                                        child: Image.network(
+                                            "https://maps.googleapis.com/maps/api/staticmap?center=${response["landmarkName"]}&markers=${response["landmarkName"]}&zoom=14&size=400x400&key=AIzaSyCcuOYBEHg6xRvC-NU-ScSPH01aDndnV_w")),
+                                  ),
+                                  ButtonBar(
+                                    alignment: MainAxisAlignment.start,
+                                    children: [
+                                      TextButton.icon(
+                                        icon: Icon(
+                                          Icons.map_outlined,
+                                          color: Colors.pinkAccent,
+                                        ),
+                                        label: Text(
+                                          'Show on Map',
+                                          style: TextStyle(
+                                              color: Colors.pinkAccent,
+                                              fontSize: 15.0),
+                                        ),
+                                        onPressed: () async {
+                                          String googleUrl =
+                                              'https://www.google.com/maps/search/?api=1&query=${response["latitude"]},${response["longitude"]}';
+                                          if (await canLaunch(googleUrl)) {
+                                            await launch(googleUrl);
+                                          }
+                                        },
+                                      ),
+                                      TextButton.icon(
+                                        icon: Icon(
+                                          Icons.panorama_photosphere_outlined,
+                                          color: Colors.pinkAccent,
+                                        ),
+                                        label: Text(
+                                          'Street View',
+                                          style: TextStyle(
+                                              color: Colors.pinkAccent,
+                                              fontSize: 15.0),
+                                        ),
+                                        onPressed: () async {
+                                          String googleUrl =
+                                              'https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${response["latitude"]},${response["longitude"]}';
+                                          if (await canLaunch(googleUrl)) {
+                                            await launch(googleUrl);
+                                          }
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    // SizedBox(height: 50),
+                    // Column(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    //   crossAxisAlignment: CrossAxisAlignment.center,
+                    //   children: [
+                    //     (response["landmarkName"] != null)
+                    //         ? Text(response["landmarkName"],
+                    //             style: TextStyle(
+                    //                 fontSize: 24.0,
+                    //                 fontWeight: FontWeight.bold))
+                    //         : Text("Not found"),
+                    //     SizedBox(height: 10),
+                    //     ((response["landmarkName"] != null) &&
+                    //             (response["latitude"] != null))
+                    //         ? Image.network(
+                    //             "https://maps.googleapis.com/maps/api/staticmap?center=${response["latitude"]},${response["longitude"]}&markers=${response["latitude"]},${response["longitude"]}&zoom=14&size=400x400&key=AIzaSyCcuOYBEHg6xRvC-NU-ScSPH01aDndnV_w")
+                    //         : Image.memory(base64Decode(widget.base64)),
+                    //     SizedBox(height: 10),
+                    //     (response["latitude"] != null)
+                    //         ? Text(
+                    //             "Latitude: " + response["latitude"].toString())
+                    //         : Text("Not found"),
+                    //     SizedBox(height: 10),
+                    //     (response["longitude"] != null)
+                    //         ? Text("Longitude: " +
+                    //             response["longitude"].toString())
+                    //         : Text("Not found"),
+                    //     SizedBox(height: 10),
+                    //   ],
+                    // )
+                  ];
+                }
               }
             } else {
               children = <Widget>[
@@ -126,43 +382,114 @@ class _VisionPageState extends State<VisionPage> {
                     child: Row(
                       children: [
                         Text('Result: ${snapshot.data}',
-                            style: TextStyle(color: Colors.black)),
+                            style: TextStyle(color: Colors.white)),
                       ],
                     ))
               ];
             }
           } else if (snapshot.hasError) {
             children = <Widget>[
-              const Icon(
-                Icons.error_outline,
-                color: Colors.red,
-                size: 60,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 16),
-                child: Text('We did not find any related information. 😕'),
+              SizedBox(
+                width: 250,
+                height: 250,
+                child: Card(
+                  color: Colors.black.withOpacity(0.5),
+                  clipBehavior: Clip.antiAlias,
+                  child: Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          const Icon(
+                            Icons.error_outline,
+                            color: Colors.red,
+                            size: 60,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 16),
+                            child: Text(
+                                'We did not find any related information. 😕',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 16.0,
+                                )),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
               )
             ];
           } else {
-            children = const <Widget>[
+            children = <Widget>[
               SizedBox(
-                child: CircularProgressIndicator(),
-                width: 60,
-                height: 60,
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 16),
-                child: Text('Awaiting result...'),
+                width: 250,
+                height: 250,
+                child: Card(
+                  color: Colors.black.withOpacity(0.5),
+                  clipBehavior: Clip.antiAlias,
+                  child: Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            child:
+                                CircularProgressIndicator(color: Colors.pink),
+                            width: 64,
+                            height: 64,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(top: 18),
+                            child:
+                                Text('Hold on, we are finding this place... 🏃',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 15.0,
+                                    )),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
               )
             ];
           }
-          return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: children,
-            ),
-          );
+          return Container(
+              width: double.infinity,
+              height: double.infinity,
+              decoration: BoxDecoration(
+                  color: Colors.black,
+                  image: DecorationImage(
+                      image: Image.memory(base64Decode(widget.base64)).image,
+                      fit: BoxFit.cover)),
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 8.0, sigmaY: 8.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: children,
+                ),
+              ));
+          // },
+
+          //   return Center(
+          //     child: Column(
+          //       mainAxisAlignment: MainAxisAlignment.center,
+          //       crossAxisAlignment: CrossAxisAlignment.center,
+          //       children: children,
+          //     ),
+          //   );
         },
       ),
     );
