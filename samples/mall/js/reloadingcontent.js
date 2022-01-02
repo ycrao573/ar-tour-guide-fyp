@@ -73,7 +73,14 @@ var World = {
                 "category": poiData[currentPlaceNr].category,
             };
 
-            World.markerList.push(new Marker(singlePoi));
+            var long1 = singlePoi.longitude / 57.29577951;
+            var lat1 = singlePoi.latitude / 57.29577951;
+            var long2 = World.userLocation.longitude / 57.29577951;
+            var lat2 = World.userLocation.latitude / 57.29577951;
+            var res = 1.609344 * 3963.0 * Math.acos((Math.sin(lat1) * Math.sin(lat2)) + Math.cos(lat1) * Math.cos(lat2) * Math.cos(long2 - long1));
+            if (res < 4.0) {
+                World.markerList.push(new Marker(singlePoi));
+            }
         }
 
         /* Updates distance information of all placemarks. */
@@ -84,7 +91,7 @@ var World = {
 
         /* Set distance slider to 100%. */
         var maxPlaceDistance = Math.round(World.getMaxDistance());
-        const defaultDisplayDistance = 2000;
+        const defaultDisplayDistance = 1200;
         var defaultDisplayPosition = (maxPlaceDistance > defaultDisplayDistance) ? Math.round(maxPlaceDistance / defaultDisplayDistance) : 100;
 
         document.getElementById("panelRangeSliderValue").innerHTML = defaultDisplayPosition;
@@ -123,8 +130,8 @@ var World = {
             // reviews: currentMarker.poiData.reviews,
             // imageUrl: currentMarker.poiData.imageUrl,
         };
-        console.log("============================================================");
-        console.log(markerSelectedJSON.description);
+        // console.log("============================================================");
+        // console.log(markerSelectedJSON.description);
         /*	
             The sendJSONObject method can be used to send data from javascript to the native code.	
         */	

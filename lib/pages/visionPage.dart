@@ -63,20 +63,31 @@ class _VisionPageState extends State<VisionPage> {
                       SizedBox(
                         width: 320,
                         child: Card(
-                          color: Colors.black.withOpacity(0.5),
+                          color: Colors.black.withOpacity(0.1),
                           clipBehavior: Clip.antiAlias,
                           child: Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
                             child: Column(
                               children: [
+                                Text(
+                                  "We don't think this is a famous place 🤔\nBut here is our best guess: ",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Colors.teal[50],
+                                    fontSize: 14.5,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                Divider(color: Colors.cyan[300]),
                                 ListTile(
                                   leading: Icon(Icons.image_search_outlined,
-                                      color: Colors.pinkAccent, size: 36.0),
+                                      color: Colors.cyanAccent[100],
+                                      size: 36.0),
                                   title: Text(
                                     response["description"].toString(),
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 22.0,
+                                        fontSize: 20.0,
                                         color: Colors.white),
                                   ),
                                   subtitle: Text(
@@ -125,13 +136,14 @@ class _VisionPageState extends State<VisionPage> {
                                     TextButton.icon(
                                       icon: Icon(
                                         Icons.map_outlined,
-                                        color: Colors.pinkAccent,
+                                        color: Colors.cyanAccent[100],
                                       ),
                                       label: Text(
-                                        'Show on Map',
+                                        'Find on Map',
                                         style: TextStyle(
-                                            color: Colors.pinkAccent,
-                                            fontSize: 15.0),
+                                            color: Colors.cyanAccent[100],
+                                            fontSize: 15.0,
+                                            fontWeight: FontWeight.w500),
                                       ),
                                       onPressed: () async {
                                         String googleUrl =
@@ -146,7 +158,7 @@ class _VisionPageState extends State<VisionPage> {
                                         Icons.read_more,
                                         color:
                                             (response["matchedPageUrl"] != "")
-                                                ? Colors.pinkAccent
+                                                ? Colors.cyanAccent[100]
                                                 : Colors.grey,
                                       ),
                                       label: Text(
@@ -155,9 +167,10 @@ class _VisionPageState extends State<VisionPage> {
                                             color:
                                                 (response["matchedPageUrl"] !=
                                                         "")
-                                                    ? Colors.pinkAccent
+                                                    ? Colors.cyanAccent[100]
                                                     : Colors.grey,
-                                            fontSize: 15.0),
+                                            fontSize: 15.0,
+                                            fontWeight: FontWeight.w500),
                                       ),
                                       onPressed: () async {
                                         if (response["matchedPageUrl"] == "") {
@@ -246,7 +259,7 @@ class _VisionPageState extends State<VisionPage> {
                         SizedBox(
                           width: 320,
                           child: Card(
-                            color: Colors.black.withOpacity(0.5),
+                            color: Colors.black.withOpacity(0.1),
                             clipBehavior: Clip.antiAlias,
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
@@ -254,7 +267,8 @@ class _VisionPageState extends State<VisionPage> {
                                 children: [
                                   ListTile(
                                     leading: Icon(Icons.image_search_outlined,
-                                        color: Colors.pinkAccent, size: 36.0),
+                                        color: Colors.cyanAccent[100],
+                                        size: 36.0),
                                     title: Text(
                                       response["landmarkName"],
                                       style: TextStyle(
@@ -292,17 +306,18 @@ class _VisionPageState extends State<VisionPage> {
                                       TextButton.icon(
                                         icon: Icon(
                                           Icons.map_outlined,
-                                          color: Colors.pinkAccent,
+                                          color: Colors.cyanAccent[100],
                                         ),
                                         label: Text(
                                           'Show on Map',
                                           style: TextStyle(
-                                              color: Colors.pinkAccent,
-                                              fontSize: 15.0),
+                                              color: Colors.cyanAccent[100],
+                                              fontSize: 15.0,
+                                              fontWeight: FontWeight.w500),
                                         ),
                                         onPressed: () async {
                                           String googleUrl =
-                                              'https://www.google.com/maps/search/?api=1&query=${response["latitude"]},${response["longitude"]}';
+                                              'https://www.google.com/maps/search/?api=1&query=${response["landmarkName"]}';
                                           if (await canLaunch(googleUrl)) {
                                             await launch(googleUrl);
                                           }
@@ -311,13 +326,14 @@ class _VisionPageState extends State<VisionPage> {
                                       TextButton.icon(
                                         icon: Icon(
                                           Icons.panorama_photosphere_outlined,
-                                          color: Colors.pinkAccent,
+                                          color: Colors.cyanAccent[100],
                                         ),
                                         label: Text(
                                           'Street View',
                                           style: TextStyle(
-                                              color: Colors.pinkAccent,
-                                              fontSize: 15.0),
+                                              color: Colors.cyanAccent[100],
+                                              fontSize: 15.0,
+                                              fontWeight: FontWeight.w500),
                                         ),
                                         onPressed: () async {
                                           String googleUrl =
@@ -393,7 +409,7 @@ class _VisionPageState extends State<VisionPage> {
                 width: 250,
                 height: 250,
                 child: Card(
-                  color: Colors.black.withOpacity(0.5),
+                  color: Colors.white.withOpacity(0.5),
                   clipBehavior: Clip.antiAlias,
                   child: Padding(
                     padding: EdgeInsets.all(8.0),
@@ -431,7 +447,7 @@ class _VisionPageState extends State<VisionPage> {
                 width: 250,
                 height: 250,
                 child: Card(
-                  color: Colors.black.withOpacity(0.5),
+                  color: Colors.white.withOpacity(0.5),
                   clipBehavior: Clip.antiAlias,
                   child: Padding(
                     padding: EdgeInsets.all(8.0),
@@ -441,8 +457,8 @@ class _VisionPageState extends State<VisionPage> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           SizedBox(
-                            child:
-                                CircularProgressIndicator(color: Colors.pink),
+                            child: CircularProgressIndicator(
+                                color: Colors.cyan[200]),
                             width: 64,
                             height: 64,
                           ),
@@ -469,7 +485,7 @@ class _VisionPageState extends State<VisionPage> {
               width: double.infinity,
               height: double.infinity,
               decoration: BoxDecoration(
-                  color: Colors.black,
+                  color: Colors.white,
                   image: DecorationImage(
                       image: Image.memory(base64Decode(widget.base64)).image,
                       fit: BoxFit.cover)),

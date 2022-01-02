@@ -89,7 +89,8 @@ class _LoginPageState extends State<LoginPage> {
 
     final loginButton = SignInButton(
         buttonType: ButtonType.mail,
-        btnColor: Colors.pink[600],
+        btnColor: Color(0xff85ccd8),
+        btnText: "Sign In with Email",
         padding: 10,
         onPressed: () {
           signIn(emailController.text, passwordController.text);
@@ -114,7 +115,7 @@ class _LoginPageState extends State<LoginPage> {
 
     final googleLoginButton = SignInButton(
         buttonType: ButtonType.google,
-        btnColor: Color(0xFF76A7FA),
+        btnColor: Color(0xCC76A7FA),
         padding: 10,
         onPressed: () async {
           final provider =
@@ -144,13 +145,13 @@ class _LoginPageState extends State<LoginPage> {
     // );
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color(0xffc6dde0),
       body: Center(
         child: SingleChildScrollView(
           child: Container(
-            color: Colors.white,
+            color: Color(0xffc6dde0),
             child: Padding(
-              padding: const EdgeInsets.all(24.0),
+              padding: const EdgeInsets.all(20.0),
               child: Form(
                 key: _formKey,
                 child: Column(
@@ -158,20 +159,26 @@ class _LoginPageState extends State<LoginPage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     SizedBox(
-                        height: 155,
+                        height: 180,
                         child: Image.asset(
                           "assets/images/logo.png",
                           fit: BoxFit.contain,
                         )),
+                    Text("TRAVELEE",
+                        style: TextStyle(
+                            fontSize: 25.0,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 1.18,
+                            color: Color(0xff091d1f))),
                     SizedBox(height: 40),
                     emailField,
                     SizedBox(height: 20),
                     passwordField,
-                    SizedBox(height: 32),
+                    SizedBox(height: 42),
                     loginButton,
                     SizedBox(height: 12),
                     googleLoginButton,
-                    SizedBox(height: 12),
+                    SizedBox(height: 22),
                     Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
@@ -187,8 +194,8 @@ class _LoginPageState extends State<LoginPage> {
                             child: Text(
                               "Sign Up",
                               style: TextStyle(
-                                  color: Colors.redAccent,
-                                  fontWeight: FontWeight.w600,
+                                  color: Color(0xffe07e7d),
+                                  fontWeight: FontWeight.w700,
                                   fontSize: 14),
                             ),
                           )
