@@ -178,47 +178,53 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
       return Container(
         width: double.infinity,
         height: double.infinity,
-        color: Colors.black,
+        color: Color(0xffd0e3e3),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             SizedBox(
-              height: 210,
-              width: 330,
+              height: 240,
+              width: 320,
               child: Card(
-                color: Colors.white.withOpacity(0.2),
+                color: Colors.white.withOpacity(0.1),
                 shape: RoundedRectangleBorder(
-                  side: BorderSide(color: Colors.white70, width: 2),
+                  side: BorderSide(color: Colors.white54, width: 2),
                   borderRadius: BorderRadius.circular(15),
                 ),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(
                       Icons.image_search,
-                      color: Colors.pink,
+                      color: Color(0xff5594b4),
                       size: 64.0,
                       semanticLabel: 'Text to announce in accessibility modes',
                     ),
+                    SizedBox(height: 22.0),
                     Text(
-                      'Search with Your Images!',
+                      'Recognize Landmarks 🏞️ \n in Your Photos 🤳',
                       style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 22.0,
-                          color: Colors.pink),
+                        fontWeight: FontWeight.w600,
+                        fontSize: 20.0,
+                        color: Color(0xff081c1e),
+                        height: 1.4,
+                      ),
                       textAlign: TextAlign.center,
                     ),
                   ],
                 ),
               ),
             ),
-            SizedBox(height: 120),
+            SizedBox(height: 130),
             Text(
-              'Choose one of the following options:',
-              style: TextStyle(fontSize: 17.0, color: Colors.grey[300]),
-              textAlign: TextAlign.center,
+              'Pick a photo from:  ',
+              style: TextStyle(
+                  fontSize: 18.0,
+                  color: Color(0xff081c1e),
+                  fontWeight: FontWeight.w500),
+              textAlign: TextAlign.left,
             ),
-            SizedBox(height: 100),
+            SizedBox(height: 90),
           ],
         ),
       );
@@ -350,13 +356,16 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
           Padding(
             padding: const EdgeInsets.all(2.0),
             child: FloatingActionButton.extended(
-              backgroundColor: Colors.pink,
+              backgroundColor: Color(0xfff08e8d),
+              foregroundColor: Color(0xfffafafa),
               onPressed: () {
                 isVideo = false;
                 _onImageButtonPressed(ImageSource.gallery, "mixed",
                     context: context);
               },
-              label: const Text('Gallery'),
+              label: const Text('Gallery',
+                  style: TextStyle(
+                      fontWeight: FontWeight.w500, color: Color(0xfffafafa))),
               heroTag: 'image5',
               tooltip: 'Pick a Photo from Gallery',
               icon: const Icon(Icons.photo_album),
@@ -365,13 +374,15 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
           Padding(
             padding: const EdgeInsets.all(2.0),
             child: FloatingActionButton.extended(
-              backgroundColor: Colors.pink,
+              backgroundColor: Color(0xfff08e8d),
+              foregroundColor: Color(0xfffafafa),
               onPressed: () {
                 isVideo = false;
                 _onImageButtonPressed(ImageSource.camera, "mixed",
                     context: context);
               },
-              label: const Text('Camera'),
+              label: const Text('Camera',
+                  style: TextStyle(fontWeight: FontWeight.w500)),
               heroTag: 'image6',
               tooltip: 'Pick a Photo from Camera',
               icon: const Icon(Icons.camera),

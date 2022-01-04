@@ -1,5 +1,5 @@
-var changeAnimationDuration = 500;
-var resizeAnimationDuration = 1000;
+var changeAnimationDuration = 400;
+var resizeAnimationDuration = 800;
 
 function Marker(poiData) {
 
@@ -17,10 +17,10 @@ function Marker(poiData) {
     this.animationGroupSelected = null;
 
     /* Create the AR.GeoLocation from the poi data. */
-    var markerLocation = new AR.GeoLocation(poiData.latitude, poiData.longitude, poiData.altitude, poiData.category);
+    var markerLocation = new AR.GeoLocation(poiData.latitude, poiData.longitude, poiData.altitude, poiData.distance);
 
     /* Create an AR.ImageDrawable for the marker in idle state. */
-    this.markerDrawableIdle = new AR.ImageDrawable(World.markerDrawableIdle, 2.5, {
+    this.markerDrawableIdle = new AR.ImageDrawable(World.markerDrawableIdle, 8, {
         zOrder: 0,
         opacity: 1.0,
         /*
@@ -34,30 +34,44 @@ function Marker(poiData) {
     });
 
     /* Create an AR.ImageDrawable for the marker in selected state. */
-    this.markerDrawableSelected = new AR.ImageDrawable(World.markerDrawableSelected, 2.5, {
+    this.markerDrawableSelected = new AR.ImageDrawable(World.markerDrawableSelected, 8, {
         zOrder: 0,
         opacity: 0.0,
         onClick: null
     });
+
+    /* Create an AR.ImageDrawable for the marker in idle state. */
+    this.markerDrawableImage = new AR.ImageDrawable(World.markerDrawableImage, 1.75, {
+        zOrder: 1,
+        opacity: 1.0,
+        translate: {
+            x: -2.6,
+            y: 1.4
+        },
+        onClick: null
+    });
+
     /* Create an AR.Label for the marker's title . */
-    this.titleLabel = new AR.Label(poiData.title.split("(")[0].trim().replace("MRT Station", "")+"("+poiData.title.split("(")[1].trim(), 0.7, {
+    this.titleLabel = new AR.Label(poiData.title.split("(")[0].trim().replace("MRT STATION", "")+"("+poiData.title.split("(")[1].trim(), 0.75, {
         zOrder: 1,
         translate: {
-            y: 1.75
+            x: 1.4,
+            y: 2.0
         },
         style: {
-            textColor: '#FFFFFF',
+            textColor: '#000000',
             fontStyle: AR.CONST.FONT_STYLE.BOLD
         }
     });
 
-    this.descriptionLabel = new AR.Label("", 0.5, {
+    this.descriptionLabel = new AR.Label(poiData.distance+" km", 0.6, {
         zOrder: 1,
         translate: {
-            y: 0.6
+            x: -0.4,
+            y: 0.8
         },
         style: {
-            textColor: '#FFFFFF'
+            textColor: '#000000'
         }
     });
 
@@ -108,7 +122,7 @@ function Marker(poiData) {
     */
     this.markerObject = new AR.GeoObject(markerLocation, {
         drawables: {
-            cam: [this.markerDrawableIdle, this.markerDrawableSelected, this.titleLabel, this.descriptionLabel],
+            cam: [this.markerDrawableIdle, this.markerDrawableSelected, this.markerDrawableImage, this.titleLabel, this.descriptionLabel],
             indicator: this.directionIndicatorDrawable,
             radar: this.radardrawables
         }
@@ -174,6 +188,17 @@ Marker.prototype.setSelected = function(marker) {
         /* Create AR.PropertyAnimation that animates the opacity to 1.0 in order to show the selected-state-drawable. */
         var showSelectedDrawableAnimation = new AR.PropertyAnimation(
             marker.markerDrawableSelected, "opacity", null, 1.0, changeAnimationDuration);
+        
+        
+        var showImageDrawableAnimation = new AR.PropertyAnimation(
+            marker.markerDrawableImage, "opacity", null, 1.0, changeAnimationDuration
+        );
+        var imageDrawableResizeAnimationX = new AR.PropertyAnimation(
+            marker.markerDrawableImage, 'scale.x', null, 1.2, resizeAnimationDuration, easingCurve
+        )
+        var imageDrawableResizeAnimationY = new AR.PropertyAnimation(
+            marker.markerDrawableImage, 'scale.y', null, 1.2, resizeAnimationDuration, easingCurve
+        )
 
         /* Create AR.PropertyAnimation that animates the scaling of the idle-state-drawable to 1.2. */
         var idleDrawableResizeAnimationX = new AR.PropertyAnimation(
@@ -208,6 +233,9 @@ Marker.prototype.setSelected = function(marker) {
         marker.animationGroupSelected = new AR.AnimationGroup(AR.CONST.ANIMATION_GROUP_TYPE.PARALLEL, [
             hideIdleDrawableAnimation,
             showSelectedDrawableAnimation,
+            showImageDrawableAnimation,
+            imageDrawableResizeAnimationX,
+            imageDrawableResizeAnimationY,
             idleDrawableResizeAnimationX,
             selectedDrawableResizeAnimationX,
             titleLabelResizeAnimationX,
@@ -245,6 +273,15 @@ Marker.prototype.setDeselected = function(marker) {
         /* Create AR.PropertyAnimation that animates the opacity to 0.0 in order to hide the selected-state-drawable. */
         var hideSelectedDrawableAnimation = new AR.PropertyAnimation(
             marker.markerDrawableSelected, "opacity", null, 0, changeAnimationDuration);
+        var showImageDrawableAnimation = new AR.PropertyAnimation(
+            marker.markerDrawableImage, "opacity", null, 1.0, changeAnimationDuration
+        );
+        var imageDrawableResizeAnimationX = new AR.PropertyAnimation(
+            marker.markerDrawableImage, 'scale.x', null, 1.0, resizeAnimationDuration, easingCurve
+        )
+        var imageDrawableResizeAnimationY = new AR.PropertyAnimation(
+            marker.markerDrawableImage, 'scale.y', null, 1.0, resizeAnimationDuration, easingCurve
+        )
         /* Create AR.PropertyAnimation that animates the scaling of the idle-state-drawable to 1.0. */
         var idleDrawableResizeAnimationX = new AR.PropertyAnimation(
             marker.markerDrawableIdle, 'scale.x', null, 1.0, resizeAnimationDuration, easingCurve);
@@ -277,6 +314,9 @@ Marker.prototype.setDeselected = function(marker) {
         marker.animationGroupIdle = new AR.AnimationGroup(AR.CONST.ANIMATION_GROUP_TYPE.PARALLEL, [
             showIdleDrawableAnimation,
             hideSelectedDrawableAnimation,
+            showImageDrawableAnimation,
+            imageDrawableResizeAnimationX,
+            imageDrawableResizeAnimationY,
             idleDrawableResizeAnimationX,
             selectedDrawableResizeAnimationX,
             titleLabelResizeAnimationX,

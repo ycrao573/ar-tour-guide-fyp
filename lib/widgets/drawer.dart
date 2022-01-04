@@ -21,7 +21,6 @@ class NavigationDrawerWidget extends StatefulWidget {
 }
 
 class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -31,7 +30,9 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
             children: [
               UserAccountsDrawerHeader(
                 accountName: Text(
-                    (widget.loginMethod != "Google")?"${widget.currentUser.firstName!} ${widget.currentUser.lastName!}":"${widget.currentUser.displayName!}",
+                    (widget.loginMethod != "Google")
+                        ? "${widget.currentUser.firstName!} ${widget.currentUser.lastName!}"
+                        : "${widget.currentUser.displayName!}",
                     style: TextStyle(
                         color: Colors.black, fontWeight: FontWeight.bold)),
                 accountEmail: Text('${widget.currentUser.email!}',
@@ -39,7 +40,9 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                 currentAccountPicture: CircleAvatar(
                   child: ClipOval(
                     child: Image.network(
-                      (widget.loginMethod != "Google")?'https://avatarfiles.alphacoders.com/152/thumb-152841.jpg':"${widget.currentUser.photoURL!}",
+                      (widget.loginMethod != "Google")
+                          ? 'https://avatarfiles.alphacoders.com/152/thumb-152841.jpg'
+                          : "${widget.currentUser.photoURL!}",
                       fit: BoxFit.cover,
                       width: 90,
                       height: 90,
@@ -47,7 +50,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                   ),
                 ),
                 decoration: BoxDecoration(
-                  color: Colors.blue,
+                  color: Color(0xff85ccd8),
                   image: DecorationImage(
                       fit: BoxFit.fill,
                       image: NetworkImage(
@@ -80,7 +83,9 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
               ListTile(
                 title: Text(AppLocalizations.of(context)!.drawer_exit),
                 leading: Icon(Icons.exit_to_app),
-                onTap: () => (widget.loginMethod != "Google")?logout(context):google_logout(context),
+                onTap: () => (widget.loginMethod != "Google")
+                    ? logout(context)
+                    : google_logout(context),
               ),
             ],
           ),
@@ -94,13 +99,9 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
   }
 
   Future<void> google_logout(BuildContext context) async {
-    final provider = Provider.of<GoogleSignInProvider>(
-      context,
-      listen: false);
+    final provider = Provider.of<GoogleSignInProvider>(context, listen: false);
     provider.logout();
-    Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-            builder: (context) => LoginPage()));
+    Navigator.of(context)
+        .pushReplacement(MaterialPageRoute(builder: (context) => LoginPage()));
   }
-
 }

@@ -29,37 +29,37 @@ class _ArPageState extends State<ArPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              ElevatedButton(
-                child: Text(AppLocalizations.of(context)!.ar_object),
-                onPressed: () {
-                  _pushArView(new Sample(
-                    name: AppLocalizations.of(context)!.ar_object,
-                    path: 'experience/index.html',
-                    requiredFeatures: ["object_tracking"],
-                    startupConfiguration: new StartupConfiguration(
-                        cameraPosition: CameraPosition.BACK,
-                        cameraResolution: CameraResolution.AUTO,
-                        cameraFocusMode: CameraFocusMode.CONTINUOUS),
-                    requiredExtensions: [],
-                  ));
-                },
-              ),
-              SizedBox(height: 9.0),
-              ElevatedButton(
-                child: Text(AppLocalizations.of(context)!.ar_poi),
-                onPressed: () {
-                  _pushArView(new Sample(
-                    name: AppLocalizations.of(context)!.ar_poi,
-                    path: 'poi_experience/index.html',
-                    requiredFeatures: ["geo"],
-                    startupConfiguration: new StartupConfiguration(
-                        cameraPosition: CameraPosition.BACK,
-                        cameraResolution: CameraResolution.AUTO,
-                        cameraFocusMode: CameraFocusMode.CONTINUOUS),
-                    requiredExtensions: ["native_detail"],
-                  ));
-                },
-              ),
+              // ElevatedButton(
+              //   child: Text(AppLocalizations.of(context)!.ar_object),
+              //   onPressed: () {
+              //     _pushArView(new Sample(
+              //       name: AppLocalizations.of(context)!.ar_object,
+              //       path: 'experience/index.html',
+              //       requiredFeatures: ["object_tracking"],
+              //       startupConfiguration: new StartupConfiguration(
+              //           cameraPosition: CameraPosition.BACK,
+              //           cameraResolution: CameraResolution.AUTO,
+              //           cameraFocusMode: CameraFocusMode.CONTINUOUS),
+              //       requiredExtensions: [],
+              //     ));
+              //   },
+              // ),
+              // SizedBox(height: 9.0),
+              // ElevatedButton(
+              //   child: Text(AppLocalizations.of(context)!.ar_poi),
+              //   onPressed: () {
+              //     _pushArView(new Sample(
+              //       name: AppLocalizations.of(context)!.ar_poi,
+              //       path: 'poi_experience/index.html',
+              //       requiredFeatures: ["geo"],
+              //       startupConfiguration: new StartupConfiguration(
+              //           cameraPosition: CameraPosition.BACK,
+              //           cameraResolution: CameraResolution.AUTO,
+              //           cameraFocusMode: CameraFocusMode.CONTINUOUS),
+              //       requiredExtensions: ["native_detail"],
+              //     ));
+              //   },
+              // ),
               SizedBox(height: 9.0),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
