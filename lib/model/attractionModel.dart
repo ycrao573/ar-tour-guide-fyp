@@ -1,4 +1,4 @@
-// class AttrationModel {
+// class AttractionModel {
 //   final int id;
 //   final String category;
 //   final String description;
@@ -11,7 +11,7 @@
 //   final String imagetext;
 //   final String postalcode;
 
-//   const AttrationModel(
+//   const AttractionModel(
 //       this.id,
 //       this.category,
 //       this.description,
@@ -26,49 +26,52 @@
 // }
 // https://www.kindacode.com/article/how-to-read-local-json-files-in-flutter/
 
-class AttrationModel {
+import 'package:html/parser.dart' show parse, parseFragment;
+import 'package:html/dom.dart' as dom;
+
+class AttractionModel {
   late String name;
   late String description;
-  late String hYPERLINK;
-  late String pHOTOURL;
+  late String hyperlink;
+  late String photourl;
   late String latitude;
-  late String longtitude;
+  late String longitude;
   late String openingHours;
-  late String aDDRESSPOSTALCODE;
-  late String uRLPath;
-  late String aDDRESSSTREETNAME;
+  late String postalcode;
+  late String urlpath;
+  late String address;
   late String imageText;
   late String field1;
   late int id;
   late String category;
 
-  AttrationModel(
+  AttractionModel(
       {required this.name,
       required this.description,
-      this.hYPERLINK = "",
-      this.pHOTOURL = "",
+      this.hyperlink = "",
+      this.photourl = "",
       required this.latitude,
-      required this.longtitude,
+      required this.longitude,
       this.openingHours = "",
-      this.aDDRESSPOSTALCODE = "",
-      this.uRLPath = "",
-      this.aDDRESSSTREETNAME = "",
+      this.postalcode = "",
+      this.urlpath = "",
+      this.address = "",
       this.imageText = "",
       this.field1 = "",
       required this.id,
       required this.category});
 
-  AttrationModel.fromJson(Map<String, dynamic> json) {
+  AttractionModel.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     description = json['description'];
-    hYPERLINK = json['HYPERLINK'];
-    pHOTOURL = json['PHOTOURL'];
+    hyperlink = parseHtmlLink(json['HYPERLINK']);
+    photourl = parseHtmlLink(json['PHOTOURL']);
     latitude = json['latitude'];
-    longtitude = json['longtitude'];
+    longitude = json['longtitude'];
     openingHours = json['Opening Hours'];
-    aDDRESSPOSTALCODE = json['ADDRESSPOSTALCODE'];
-    uRLPath = json['URL Path'];
-    aDDRESSSTREETNAME = json['ADDRESSSTREETNAME'];
+    postalcode = json['ADDRESSPOSTALCODE'];
+    urlpath = parseHtmlLink(json['URL Path']);
+    address = json['ADDRESSSTREETNAME'];
     imageText = json['Image Text'];
     field1 = json['Field_1'];
     id = json['id'];
@@ -79,18 +82,22 @@ class AttrationModel {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['name'] = this.name;
     data['description'] = this.description;
-    data['HYPERLINK'] = this.hYPERLINK;
-    data['PHOTOURL'] = this.pHOTOURL;
+    data['HYPERLINK'] = this.hyperlink;
+    data['PHOTOURL'] = this.photourl;
     data['latitude'] = this.latitude;
-    data['longtitude'] = this.longtitude;
+    data['longtitude'] = this.longitude;
     data['Opening Hours'] = this.openingHours;
-    data['ADDRESSPOSTALCODE'] = this.aDDRESSPOSTALCODE;
-    data['URL Path'] = this.uRLPath;
-    data['ADDRESSSTREETNAME'] = this.aDDRESSSTREETNAME;
+    data['ADDRESSPOSTALCODE'] = this.postalcode;
+    data['URL Path'] = this.urlpath;
+    data['ADDRESSSTREETNAME'] = this.address;
     data['Image Text'] = this.imageText;
     data['Field_1'] = this.field1;
     data['id'] = this.id;
     data['category'] = this.category;
     return data;
+  }
+
+  String parseHtmlLink(String input) {
+    return "https://" + parseFragment(input, container: 'a').text.toString();
   }
 }

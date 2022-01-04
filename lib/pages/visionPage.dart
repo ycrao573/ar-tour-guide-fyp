@@ -70,7 +70,7 @@ class _VisionPageState extends State<VisionPage> {
                             child: Column(
                               children: [
                                 Text(
-                                  "We don't think this is a famous place 🤔\nBut here is our best guess: ",
+                                  "We don't think this is a famous scenery 🤔\nBut here is our best guess: ",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     color: Colors.teal[50],

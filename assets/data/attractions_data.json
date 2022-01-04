@@ -1,6 +1,6 @@
 [
     {
-      "name": "Thian Hock Keng Temple, Singapore",
+      "name": "Thian Hock Keng Temple",
       "description": "Thian Hock Keng Temple is the oldest Chinese temple in Singapore and dedicated to Mazu, the Goddess of the Sea.",
       "altitudeMode": "clampToGround",
       "X_ADDR": "29592.7445",
@@ -288,7 +288,7 @@
       "category": "Tourist Attraction"
     },
     {
-      "name": "Peranakan Museum Singapore: History &amp; Culture",
+      "name": "Peranakan Museum Singapore: History & Culture",
       "description": "At the Peranakan Museum, get to know Singapore’s vibrant Peranakan community and its eclectic culture and history with fun and interactive exhibits.",
       "altitudeMode": "clampToGround",
       "X_ADDR": "29767.4637",
@@ -495,7 +495,7 @@
       "SHAPE": "Point",
       "ADDRESSPOSTALCODE": "",
       "URL Path": "<a target=\"_blank\" href=\"https://www.visitsingapore.com/see-do-singapore/history/memorials/civilian-war-memorial/\">www.visitsingapore.com/see-do-singapore/history/memorials/civilian-war-memorial/</a>",
-      "ADDRESSSTREETNAME": "Bras Basah Road &amp; Beach Road intersection",
+      "ADDRESSSTREETNAME": "Bras Basah Road & Beach Road intersection",
       "INC_CRC": "20F9D59235BF6380",
       "Image Text": "",
       "Field_1": "https://www.visitsingapore.com/see-do-singapore/history/memorials/civilian-war-memorial/",
@@ -648,7 +648,7 @@
       "category": "Tourist Attraction"
     },
     {
-      "name": "Singapore Coins and Notes Museum &amp; Museum Singapore",
+      "name": "Singapore Coins and Notes Museum & Museum Singapore",
       "description": "The Singapore Coins and Notes Museum tells the story of Singapore through the currencies it has used over the years.",
       "altitudeMode": "clampToGround",
       "X_ADDR": "29246.6256",
@@ -696,12 +696,12 @@
       "category": "Tourist Attraction"
     },
     {
-      "name": "Chinese Heritage Centre, Singapore",
+      "name": "Chinese Heritage Centre",
       "description": "The Chinese Heritage Centre in Singapore is where you can find out more about overseas Chinese communities and their culture.",
       "altitudeMode": "clampToGround",
       "X_ADDR": "11380.228",
       "Y_ADDR": "36215.4949",
-      "HYPERLINK": "<a target=\"_blank\" href=\"http://chc.ntu.edu.sg/\">http://chc.ntu.edu.sg/</a>",
+      "HYPERLINK": "<a target=\"_blank\" href=\"https://www.ntu.edu.sg/chc\">www.ntu.edu.sg/chc</a>",
       "PHOTOURL": "<a target=\"_blank\" href=\"https://www.visitsingapore.com/content/dam/desktop/global/see-do-singapore/culture-heritage/chinese-heritage-centre-carousel02-rect.jpg\">www.visitsingapore.com/content/dam/desktop/global/see-do-singapore/culture-heritage/chinese-heritage-centre-carousel02-rect.jpg</a>",
       "Last Modified": "2015-11-02T09:59:33.922+08:00",
       "latitude": "1.34379",
@@ -720,7 +720,7 @@
       "category": "Tourist Attraction"
     },
     {
-      "name": "Kampong Glam &amp; Malay Culture in Singapore",
+      "name": "Kampong Glam & Malay Culture in Singapore",
       "description": "Discover the heart of Singapore’s Malay community, living traditions, excellent eateries and trendy shops in vibrant Kampong Glam.",
       "altitudeMode": "clampToGround",
       "X_ADDR": "30913.7547",
@@ -840,7 +840,7 @@
       "category": "Tourist Attraction"
     },
     {
-      "name": "National Design Centre, Singapore",
+      "name": "National Design Centre",
       "description": "The National Design Centre is a design lover’s dream destination.",
       "altitudeMode": "clampToGround",
       "X_ADDR": "30247.125",
@@ -912,7 +912,7 @@
       "category": "Tourist Attraction"
     },
     {
-      "name": "Asian Civilisations Museum &amp; Singapore Museum",
+      "name": "Asian Civilisations Museum & Singapore Museum",
       "description": "Housed in a historical building by the Singapore River, this museum is a microcosm of Asian civilisations spread over 11 galleries.",
       "altitudeMode": "clampToGround",
       "X_ADDR": "30048.2571",
@@ -960,7 +960,7 @@
       "category": "Tourist Attraction"
     },
     {
-      "name": "Singapore Zoo: Attractions &amp; Things to Do",
+      "name": "Singapore Zoo: Attractions & Things to Do",
       "description": "Catch animals in their natural habitats at the award-winning Singapore Zoo.",
       "altitudeMode": "clampToGround",
       "X_ADDR": "23515.6546",
@@ -984,7 +984,7 @@
       "category": "Tourist Attraction"
     },
     {
-      "name": "Cable Car Singapore &amp; Mount Faber",
+      "name": "Cable Car Singapore & Mount Faber",
       "description": "Getting to the hilltop dining and entertainment spot at Mount Faber by cable car is half the fun.",
       "altitudeMode": "clampToGround",
       "X_ADDR": "26429.3455",
@@ -1008,7 +1008,7 @@
       "category": "Tourist Attraction"
     },
     {
-      "name": "Night Safari, Singapore",
+      "name": "Night Safari",
       "description": "Head to the Night Safari for an after dark visit to the weird and wonderful creatures of the night.",
       "altitudeMode": "clampToGround",
       "X_ADDR": "22963.4473",
@@ -1032,12 +1032,12 @@
       "category": "Tourist Attraction"
     },
     {
-      "name": "Pulau Ubin &amp; Singapore Islands",
+      "name": "Pulau Ubin & Singapore Islands",
       "description": "Hop on a bumboat to the island of Pulau Ubin if you want a taste of nature and rustic village life, away from the hustle and bustle of Singapore.",
       "altitudeMode": "clampToGround",
       "X_ADDR": "42015.5629",
       "Y_ADDR": "43950.182",
-      "HYPERLINK": "<a target=\"_blank\" href=\"http://www.nparks.gov.sg/cms/index.php?option=com_visitorsguide&amp;task=parks&amp;id=29&amp;Itemid=73\">http://www.nparks.gov.sg/cms/index.php?option=com_visitorsguide&amp;task=parks&amp;id=29&amp;Itemid=73</a>",
+      "HYPERLINK": "<a target=\"_blank\" href=\"http://www.nparks.gov.sg/cms/index.php?option=com_visitorsguide&task=parks&id=29&Itemid=73\">http://www.nparks.gov.sg/cms/index.php?option=com_visitorsguide&task=parks&id=29&Itemid=73</a>",
       "PHOTOURL": "",
       "Last Modified": "2015-10-02T15:18:44.241+08:00",
       "latitude": "1.413741",
@@ -1056,12 +1056,12 @@
       "category": "Tourist Attraction"
     },
     {
-      "name": "MacRitchie Singapore &amp; Singapore Nature Reserve",
+      "name": "MacRitchie Singapore & Singapore Nature Reserve",
       "description": "The attractions around MacRitchie Reservoir caters to fitness fanatics, water sports enthusiasts and nature lovers.",
       "altitudeMode": "clampToGround",
       "X_ADDR": "26778.8722",
       "Y_ADDR": "36331.425",
-      "HYPERLINK": "<a target=\"_blank\" href=\"http://www.nparks.gov.sg/cms/macritchie.php?option=com_visitorsguide&amp;task=naturereserves&amp;id=49&amp;Itemid=75\">http://www.nparks.gov.sg/cms/macritchie.php?option=com_visitorsguide&amp;task=naturereserves&amp;id=49&amp;Itemid=75</a>",
+      "HYPERLINK": "<a target=\"_blank\" href=\"http://www.nparks.gov.sg/cms/macritchie.php?option=com_visitorsguide&task=naturereserves&id=49&Itemid=75\">http://www.nparks.gov.sg/cms/macritchie.php?option=com_visitorsguide&task=naturereserves&id=49&Itemid=75</a>",
       "PHOTOURL": "<a target=\"_blank\" href=\"https://www.visitsingapore.com/content/dam/desktop/global/see-do-singapore/nature-wildlife/macritchie-nature-reserve-carousel01-rect.jpg\">www.visitsingapore.com/content/dam/desktop/global/see-do-singapore/nature-wildlife/macritchie-nature-reserve-carousel01-rect.jpg</a>",
       "Last Modified": "2015-10-15T18:52:17.740+08:00",
       "latitude": "1.344843",
@@ -1080,7 +1080,7 @@
       "category": "Tourist Attraction"
     },
     {
-      "name": "Civic District, Singapore",
+      "name": "Civic District",
       "description": "The Civic District is where Singapore’s historical, architectural and cultural heritage starts.",
       "altitudeMode": "clampToGround",
       "X_ADDR": "30103.5641",
@@ -1104,7 +1104,7 @@
       "category": "Tourist Attraction"
     },
     {
-      "name": "HarbourFront, Singapore",
+      "name": "HarbourFront",
       "description": "HarbourFront is the place to go if you're hopping on a cruise from Singapore, taking a ferry to the outlying islands or simply want to eat, shop or relax.",
       "altitudeMode": "clampToGround",
       "X_ADDR": "26581.1783",
@@ -1128,7 +1128,7 @@
       "category": "Tourist Attraction"
     },
     {
-      "name": "SAM at 8Q &amp; Singapore Art Museum",
+      "name": "SAM at 8Q & Singapore Art Museum",
       "description": "SAM at 8Q at the Singapore Art Museum showcases the works of Singapore contemporary artists.",
       "altitudeMode": "clampToGround",
       "X_ADDR": "30043.4636",
@@ -1272,7 +1272,7 @@
       "category": "Tourist Attraction"
     },
     {
-      "name": "Marina Bay Singapore: Attractions &amp; Things to do",
+      "name": "Marina Bay Singapore: Attractions & Things to do",
       "description": "Marina Bay represents all things modern and super-stylish in Singapore, from trendy dining destinations to fun leisure spots.",
       "altitudeMode": "clampToGround",
       "X_ADDR": "30574.7846",
@@ -1320,7 +1320,7 @@
       "category": "Tourist Attraction"
     },
     {
-      "name": "Merlion Park, Singapore: Attractions &amp; Things to Do",
+      "name": "Merlion Park, Singapore: Attractions & Things to Do",
       "description": "Merlion Park houses a Singapore icon that is half-fish and half-lion, and famous throughout the world.",
       "altitudeMode": "clampToGround",
       "X_ADDR": "30363.1014",
@@ -1368,7 +1368,7 @@
       "category": "Tourist Attraction"
     },
     {
-      "name": "Resorts World Sentosa, Singapore",
+      "name": "Resorts World Sentosa",
       "description": "Whether it’s themes parks, world-class performances or celebrity restaurants, you’ll never run out of things to do at Resorts World™ Sentosa.",
       "altitudeMode": "clampToGround",
       "X_ADDR": "26554.4633",
@@ -1427,7 +1427,7 @@
       "latitude": "1.257355",
       "FMEL_UPD_D": "1/9/2017 2:59:32 PM",
       "longtitude": "103.819493",
-      "Opening Hours": "Open daily at 10am.Closing time varies. Please visit the official website for more information.",
+      "Opening Hours": "Open daily at 10am. Closing time varies. Please visit the official website for more information.",
       "SHAPE": "Point",
       "ADDRESSPOSTALCODE": "",
       "URL Path": "<a target=\"_blank\" href=\"https://www.visitsingapore.com/see-do-singapore/nature-wildlife/fun-with-animals/sea-aquarium/\">www.visitsingapore.com/see-do-singapore/nature-wildlife/fun-with-animals/sea-aquarium/</a>",
@@ -1440,7 +1440,7 @@
       "category": "Tourist Attraction"
     },
     {
-      "name": "Singapore River: History &amp; Culture Tours",
+      "name": "Singapore River: History & Culture Tours",
       "description": "Get to know the historic Singapore River and its famous quays: Boat Quay, Clarke Quay and Robertson Quay. This, after all, is where it all began.",
       "altitudeMode": "clampToGround",
       "X_ADDR": "29495.9162",
@@ -1464,7 +1464,7 @@
       "category": "Tourist Attraction"
     },
     {
-      "name": "Chinatown Singapore: History &amp; Culture",
+      "name": "Chinatown Singapore: History & Culture",
       "description": "Singapore’s legendary Chinatown is a bustling mix of old and new, filled with traditional shops and night markets as well as cool stores and cafes.",
       "altitudeMode": "clampToGround",
       "X_ADDR": "29163.269",
@@ -1488,8 +1488,8 @@
       "category": "Tourist Attraction"
     },
     {
-      "name": "Buddha Tooth Relic Temple &amp; Museum in Singapore",
-      "description": "The Buddha Tooth Relic Temple &amp; Museum is a Tang-styled Chinese Buddhist temple in Chinatown that gets its name from the Sacred Buddha Tooth Relic.",
+      "name": "Buddha Tooth Relic Temple & Museum in Singapore",
+      "description": "The Buddha Tooth Relic Temple & Museum is a Tang-styled Chinese Buddhist temple in Chinatown that gets its name from the Sacred Buddha Tooth Relic.",
       "altitudeMode": "clampToGround",
       "X_ADDR": "29231.0456",
       "Y_ADDR": "29340.5505",
@@ -1560,7 +1560,7 @@
       "category": "Tourist Attraction"
     },
     {
-      "name": "Fuk Tak Chi Museum &amp; Places of Interest",
+      "name": "Fuk Tak Chi Museum & Places of Interest",
       "description": "Fuk Tak Chi Museum was once the oldest Chinese temple in Singapore and is an elegant example of restored architecture in Chinatown.",
       "altitudeMode": "clampToGround",
       "X_ADDR": "29730.7451",
@@ -1637,7 +1637,7 @@
       "altitudeMode": "clampToGround",
       "X_ADDR": "36777.3479",
       "Y_ADDR": "31459.7412",
-      "HYPERLINK": "<a target=\"_blank\" href=\"http://www.nparks.gov.sg/cms/index.php?option=com_visitorsguide&amp;task=parks&amp;id=14&amp;Itemid=371\">http://www.nparks.gov.sg/cms/index.php?option=com_visitorsguide&amp;task=parks&amp;id=14&amp;Itemid=371</a>",
+      "HYPERLINK": "<a target=\"_blank\" href=\"http://www.nparks.gov.sg/cms/index.php?option=com_visitorsguide&task=parks&id=14&Itemid=371\">http://www.nparks.gov.sg/cms/index.php?option=com_visitorsguide&task=parks&id=14&Itemid=371</a>",
       "PHOTOURL": "<a target=\"_blank\" href=\"https://www.visitsingapore.com/content/dam/desktop/global/see-do-singapore/nature-wildlife/east-coast-park-carousel03-rect.jpg\">www.visitsingapore.com/content/dam/desktop/global/see-do-singapore/nature-wildlife/east-coast-park-carousel03-rect.jpg</a>",
       "Last Modified": "2015-10-02T14:29:32.607+08:00",
       "latitude": "1.300784",
@@ -1656,7 +1656,7 @@
       "category": "Tourist Attraction"
     },
     {
-      "name": "Kusu Island, Singapore",
+      "name": "Kusu Island",
       "description": "Kusu Island lies to the south of Singapore, and has a wonderful mix of local heritage and beach activities.",
       "altitudeMode": "clampToGround",
       "X_ADDR": "31027.7192",
@@ -1685,7 +1685,7 @@
       "altitudeMode": "clampToGround",
       "X_ADDR": "24261.1939",
       "Y_ADDR": "29058.496",
-      "HYPERLINK": "<a target=\"_blank\" href=\"http://www.nparks.gov.sg/cms/index.php?option=com_visitorsguide&amp;task=parks&amp;id=17&amp;Itemid=73\">http://www.nparks.gov.sg/cms/index.php?option=com_visitorsguide&amp;task=parks&amp;id=17&amp;Itemid=73</a>",
+      "HYPERLINK": "<a target=\"_blank\" href=\"http://www.nparks.gov.sg/cms/index.php?option=com_visitorsguide&task=parks&id=17&Itemid=73\">http://www.nparks.gov.sg/cms/index.php?option=com_visitorsguide&task=parks&id=17&Itemid=73</a>",
       "PHOTOURL": "<a target=\"_blank\" href=\"https://www.visitsingapore.com/content/dam/desktop/global/see-do-singapore/nature-wildlife/hortpark-carousel01-rect.jpg\">www.visitsingapore.com/content/dam/desktop/global/see-do-singapore/nature-wildlife/hortpark-carousel01-rect.jpg</a>",
       "Last Modified": "2015-09-09T09:47:25.899+08:00",
       "latitude": "1.279069",
@@ -1728,7 +1728,7 @@
       "category": "Tourist Attraction"
     },
     {
-      "name": "Chinatown Heritage Centre, Singapore",
+      "name": "Chinatown Heritage Centre",
       "description": "At the Chinatown Heritage Centre, experience how Singapore’s early Chinese migrants once lived and learn more about local Chinese culture.",
       "altitudeMode": "clampToGround",
       "X_ADDR": "29227.7061",
@@ -1872,7 +1872,7 @@
       "category": "Tourist Attraction"
     },
     {
-      "name": "Malay Heritage Centre, Singapore",
+      "name": "Malay Heritage Centre",
       "description": "The Malay Heritage Centre is a must-visit if you’re keen on learning about the rich heritage and culture of Singapore’s Malay community.",
       "altitudeMode": "clampToGround",
       "X_ADDR": "30953.8185",
@@ -1915,7 +1915,7 @@
       "INC_CRC": "3EE5CC583F1EA3CF",
       "Image Text": "The iconic Raffles Hotel has been home to both tall tales and famous folks.",
       "Field_1": "https://www.visitsingapore.com/see-do-singapore/architecture/historical/raffles-hotel/",
-      "Image By": "Raffles Hotel, Singapore",
+      "Image By": "Raffles Hotel",
       "id": 10079,
       "category": "Tourist Attraction"
     },
@@ -2112,7 +2112,7 @@
       "category": "Tourist Attraction"
     },
     {
-      "name": "MINT Museum of Toys Singapore &amp; Toy Museum",
+      "name": "MINT Museum of Toys Singapore & Toy Museum",
       "description": "Singapore's MINT Museum of Toys' vast collection of vintage toys will delight both kids and adults.",
       "altitudeMode": "clampToGround",
       "X_ADDR": "30345.0636",
@@ -2136,7 +2136,7 @@
       "category": "Tourist Attraction"
     },
     {
-      "name": "Red Dot Design Museum, Singapore",
+      "name": "Red Dot Design Museum",
       "description": "The Red Dot Design Museum holds more than 1,000 products and items that are winners for their good design.",
       "altitudeMode": "clampToGround",
       "X_ADDR": "29380.1786",
@@ -2160,7 +2160,7 @@
       "category": "Tourist Attraction"
     },
     {
-      "name": "NUS University Museum, Singapore",
+      "name": "NUS University Museum",
       "description": "Get a deeper insight into Asian art and artefacts at NUS Museum at Singapore’s leading university.",
       "altitudeMode": "clampToGround",
       "X_ADDR": "21252.1858",
@@ -2208,7 +2208,7 @@
       "category": "Tourist Attraction"
     },
     {
-      "name": "Little India Singapore: History &amp; Culture",
+      "name": "Little India Singapore: History & Culture",
       "description": "Little India is a buzzing historic district that shows off the best of Singapore’s Indian community, from vibrant culture to ethnic-inspired shopping.",
       "altitudeMode": "clampToGround",
       "X_ADDR": "29836.4549",
@@ -2333,7 +2333,7 @@
       "altitudeMode": "clampToGround",
       "X_ADDR": "24508.2441",
       "Y_ADDR": "27594.9243",
-      "HYPERLINK": "<a target=\"_blank\" href=\"http://www.nparks.gov.sg/cms/index.php?option=com_visitorsguide&amp;task=naturereserves&amp;id=48\">http://www.nparks.gov.sg/cms/index.php?option=com_visitorsguide&amp;task=naturereserves&amp;id=48</a>",
+      "HYPERLINK": "<a target=\"_blank\" href=\"http://www.nparks.gov.sg/cms/index.php?option=com_visitorsguide&task=naturereserves&id=48\">http://www.nparks.gov.sg/cms/index.php?option=com_visitorsguide&task=naturereserves&id=48</a>",
       "PHOTOURL": "<a target=\"_blank\" href=\"https://www.visitsingapore.com/content/dam/desktop/global/see-do-singapore/nature-wildlife/labrador-nature-reserve-carousel01-rect.jpg\">www.visitsingapore.com/content/dam/desktop/global/see-do-singapore/nature-wildlife/labrador-nature-reserve-carousel01-rect.jpg</a>",
       "Last Modified": "2015-03-30T12:57:27.648+08:00",
       "latitude": "1.265833",
@@ -2352,7 +2352,7 @@
       "category": "Tourist Attraction"
     },
     {
-      "name": "Marina Bay Sands, Singapore",
+      "name": "Marina Bay Sands",
       "description": "Marina Bay Sands® boasts luxury accommodations, upscale shopping and an infinity pool with unparalleled views of the city.",
       "altitudeMode": "clampToGround",
       "X_ADDR": "30857.017",
@@ -2376,7 +2376,7 @@
       "category": "Tourist Attraction"
     },
     {
-      "name": "Singapore Garden &amp; Singapore Park",
+      "name": "Singapore Garden & Singapore Park",
       "description": "The Southern Ridges is a 10-km stretch of connecting trails which lets you walk among the trees to observe a wide variety of flora and fauna in their natural habitat.",
       "altitudeMode": "clampToGround",
       "X_ADDR": "26249.4255",
@@ -2424,7 +2424,7 @@
       "category": "Tourist Attraction"
     },
     {
-      "name": "Sentosa Island, Singapore: Leisure &amp; Attractions",
+      "name": "Sentosa Island, Singapore: Leisure & Attractions",
       "description": "Sentosa Island is Singapore’s favourite leisure destination, with more than 500 hectares filled with exciting attractions, golden beaches, luxe retreats and the country’s first integrated resort, Resorts World Sentosa.",
       "altitudeMode": "clampToGround",
       "X_ADDR": "27418.0944",
@@ -2454,7 +2454,7 @@
       "X_ADDR": "17155.207",
       "Y_ADDR": "35016.5698",
       "HYPERLINK": "<a target=\"_blank\" href=\"http://www.science.edu.sg/Pages/SCBHome.aspx\">http://www.science.edu.sg/Pages/SCBHome.aspx</a>",
-      "PHOTOURL": "",
+      "PHOTOURL": "<a target=\"_blank\" href=\"\">www.visitsingapore.com/see-do-singapore/recreation-leisure/fun-things-to-do/science-centre/jcr:content/par-carousel/carousel_detailpage/carousel/item_1.thumbnail.carousel-img.1480.833.jpg</a>",
       "Last Modified": "2015-09-22T10:24:38.376+08:00",
       "latitude": "1.33295",
       "FMEL_UPD_D": "1/9/2017 2:59:32 PM",
@@ -2477,7 +2477,7 @@
       "altitudeMode": "clampToGround",
       "X_ADDR": "29467.9781",
       "Y_ADDR": "30862.2827",
-      "HYPERLINK": "<a target=\"_blank\" href=\"http://www.nparks.gov.sg/cms/index.php?option=com_visitorsguide&amp;task=parks&amp;id=16Th\">http://www.nparks.gov.sg/cms/index.php?option=com_visitorsguide&amp;task=parks&amp;id=16Th</a>",
+      "HYPERLINK": "<a target=\"_blank\" href=\"http://www.nparks.gov.sg/cms/index.php?option=com_visitorsguide&task=parks&id=16Th\">http://www.nparks.gov.sg/cms/index.php?option=com_visitorsguide&task=parks&id=16Th</a>",
       "PHOTOURL": "<a target=\"_blank\" href=\"https://www.visitsingapore.com/content/dam/desktop/global/see-do-singapore/nature-wildlife/fort-canning-park-carousel01-rect.jpg\">www.visitsingapore.com/content/dam/desktop/global/see-do-singapore/nature-wildlife/fort-canning-park-carousel01-rect.jpg</a>",
       "Last Modified": "2015-10-02T14:32:42.018+08:00",
       "latitude": "1.295382",
@@ -2496,7 +2496,7 @@
       "category": "Tourist Attraction"
     },
     {
-      "name": "Jurong Bird Park, Singapore: Attractions &amp; Things to Do",
+      "name": "Jurong Bird Park",
       "description": "Jurong Bird Park has almost every species to impress avian lovers, along with fun exhibits, interactive shows, and of course, its charming residents.",
       "altitudeMode": "clampToGround",
       "X_ADDR": "13879.8679",

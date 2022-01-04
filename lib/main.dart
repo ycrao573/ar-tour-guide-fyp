@@ -53,9 +53,7 @@ class _MyAppState extends State<MyApp> {
               supportedLocales: L10n.all,
               debugShowCheckedModeBanner: false,
               theme: myTheme,
-              // home: HomePage(),
               home: LoginPage(),
-              // home: cardPage(),
             );
           }));
 }

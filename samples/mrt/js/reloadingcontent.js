@@ -28,6 +28,7 @@ var World = {
     markerDrawableIdle: null,
     markerDrawableSelected: null,
     markerDrawableDirectionIndicator: null,
+    markerDrawableImage: null,
 
     /* List of AR.GeoObjects that are currently shown in the scene / World. */
     markerList: [],
@@ -61,6 +62,8 @@ var World = {
             onError: World.onError
         });
 
+        
+
         /* Loop through POI-information and create an AR.GeoObject (=Marker) per POI. */
         for (var currentPlaceNr = 0; currentPlaceNr < poiData.length; currentPlaceNr++) {
             var singlePoi = {
@@ -72,12 +75,16 @@ var World = {
                 "description": poiData[currentPlaceNr].description,
                 "category": poiData[currentPlaceNr].category,
             };
+            World.markerDrawableImage = new AR.ImageResource("https://shaws.com.sg/wp-content/uploads/2018/11/ace104cd9f.png", {
+                onError: World.onError
+            });
             var long1 = singlePoi.longitude / 57.29577951;
             var lat1 = singlePoi.latitude / 57.29577951;
             var long2 = World.userLocation.longitude / 57.29577951;
             var lat2 = World.userLocation.latitude / 57.29577951;
             var res = 1.609344 * 3963.0 * Math.acos((Math.sin(lat1) * Math.sin(lat2)) + Math.cos(lat1) * Math.cos(lat2) * Math.cos(long2 - long1));
             if (res < 4.0) {
+                singlePoi.distance = res.toFixed(2);
                 World.markerList.push(new Marker(singlePoi));
             }
         }

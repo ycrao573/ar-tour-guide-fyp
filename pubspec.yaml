@@ -18,7 +18,7 @@ dependencies:
   location: ^4.1.1
   path_provider: ^2.0.1
   wakelock: ^0.5.1
-
+  
   augmented_reality_plugin_wikitude:
     path: ./plugin/augmented_reality_plugin_wikitude/
     
@@ -40,6 +40,10 @@ dependencies:
   cloud_firestore: ^3.1.1
   sign_button: ^2.0.2
   shimmer: ^2.0.0
+  html: ^0.15.0
+  flutter_local_notifications: ^9.2.0
+  flutter_image: ^4.1.0
+  cached_network_image: ^3.2.0
   
 dev_dependencies:
   flutter_test:

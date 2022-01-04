@@ -17,8 +17,8 @@ class ShimmeringWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Shimmer.fromColors(
-        baseColor: Colors.grey[300]!,
-        highlightColor: Colors.grey[100]!,
+        baseColor: Color(0x18000000),
+        highlightColor: Color(0x09000000),
         child: Padding(
           padding: const EdgeInsets.all(4.0),
           child: ClipRRect(
