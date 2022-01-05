@@ -23,6 +23,7 @@ class _ArPageState extends State<ArPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0x44a2d7e2),
       body: Container(
         child: Center(
           child: Column(
@@ -60,82 +61,122 @@ class _ArPageState extends State<ArPage> {
               //     ));
               //   },
               // ),
-              SizedBox(height: 9.0),
+              Center(
+                child: Text("Live View - AR Experience",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 24.0,
+                      height: 1.4,
+                      fontWeight: FontWeight.w700,
+                    )),
+              ),
+              Center(
+                child: SizedBox(
+                  width: 300.0,
+                  child: Text(
+                      "\nWe use Augmented Reality (AR) to help you discover interesting places in your neighborhood. You can simply choose a category below and explore potential places nearby in 'AR' fashion. \nClick the location pin inside for more information!",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16.0,
+                        height: 1.4,
+                        fontWeight: FontWeight.w400,
+                      )),
+                ),
+              ),
+              SizedBox(height: 60.0),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  MaterialButton(
-                    padding: EdgeInsets.all(4.0),
-                    textColor: Colors.white,
-                    splashColor: Colors.greenAccent,
-                    elevation: 8.0,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(8.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: AssetImage('assets/images/mrt.jpg'),
-                              fit: BoxFit.cover),
+                  Column(
+                    children: [
+                      Ink(
+                        padding: EdgeInsets.all(4.0),
+                        decoration: ShapeDecoration(
+                          color: Colors.redAccent[100],
+                          shape: CircleBorder(),
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(36, 50, 36, 50),
-                          child: Text("MRT",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 32.0,
-                                  color: Colors.yellow)),
+                        child: IconButton(
+                          iconSize: 40.0,
+                          icon: const Icon(Icons.subway_outlined),
+                          color: Colors.white,
+                          onPressed: () {
+                            _pushArView(new Sample(
+                              name: "MRT",
+                              path: 'mrt/index.html',
+                              requiredFeatures: ["geo"],
+                              startupConfiguration: new StartupConfiguration(
+                                  cameraPosition: CameraPosition.BACK,
+                                  cameraResolution: CameraResolution.AUTO,
+                                  cameraFocusMode: CameraFocusMode.CONTINUOUS),
+                              requiredExtensions: ["native_detail"],
+                            ));
+                          },
                         ),
                       ),
-                    ),
-                    onPressed: () {
-                      _pushArView(new Sample(
-                        name: "MRT",
-                        path: 'mrt/index.html',
-                        requiredFeatures: ["geo"],
-                        startupConfiguration: new StartupConfiguration(
-                            cameraPosition: CameraPosition.BACK,
-                            cameraResolution: CameraResolution.AUTO,
-                            cameraFocusMode: CameraFocusMode.CONTINUOUS),
-                        requiredExtensions: ["native_detail"],
-                      ));
-                    },
+                      SizedBox(height: 10.0),
+                      Text('MRT Station'),
+                    ],
                   ),
-                  MaterialButton(
-                    padding: EdgeInsets.all(8.0),
-                    textColor: Colors.white,
-                    splashColor: Colors.greenAccent,
-                    elevation: 8.0,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(8.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: AssetImage('assets/images/mall.jpg'),
-                              fit: BoxFit.cover),
+                  Column(
+                    children: [
+                      Ink(
+                        padding: EdgeInsets.all(4.0),
+                        decoration: ShapeDecoration(
+                          color: Colors.redAccent[100],
+                          shape: CircleBorder(),
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(30, 50, 27, 50),
-                          child: Text("MALL",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 32.0,
-                                  color: Colors.yellow)),
+                        child: IconButton(
+                          iconSize: 40.0,
+                          icon: const Icon(Icons.shopping_cart),
+                          color: Colors.white,
+                          onPressed: () {
+                            _pushArView(new Sample(
+                              name: "Mall",
+                              path: 'mall/index.html',
+                              requiredFeatures: ["geo"],
+                              startupConfiguration: new StartupConfiguration(
+                                  cameraPosition: CameraPosition.BACK,
+                                  cameraResolution: CameraResolution.AUTO,
+                                  cameraFocusMode: CameraFocusMode.CONTINUOUS),
+                              requiredExtensions: ["native_detail"],
+                            ));
+                          },
                         ),
                       ),
-                    ),
-                    onPressed: () {
-                      _pushArView(new Sample(
-                        name: "Mall",
-                        path: 'mall/index.html',
-                        requiredFeatures: ["geo"],
-                        startupConfiguration: new StartupConfiguration(
-                            cameraPosition: CameraPosition.BACK,
-                            cameraResolution: CameraResolution.AUTO,
-                            cameraFocusMode: CameraFocusMode.CONTINUOUS),
-                        requiredExtensions: ["native_detail"],
-                      ));
-                    },
+                      SizedBox(height: 10.0),
+                      Text('Shopping Mall'),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Ink(
+                        padding: EdgeInsets.all(4.0),
+                        decoration: ShapeDecoration(
+                          color: Colors.redAccent[100],
+                          shape: CircleBorder(),
+                        ),
+                        child: IconButton(
+                          iconSize: 40.0,
+                          icon: const Icon(Icons.landscape),
+                          color: Colors.white,
+                          onPressed: () {
+                            _pushArView(new Sample(
+                              name: "Landmark",
+                              path: 'mall/index.html',
+                              requiredFeatures: ["geo"],
+                              startupConfiguration: new StartupConfiguration(
+                                  cameraPosition: CameraPosition.BACK,
+                                  cameraResolution: CameraResolution.AUTO,
+                                  cameraFocusMode: CameraFocusMode.CONTINUOUS),
+                              requiredExtensions: ["native_detail"],
+                            ));
+                          },
+                        ),
+                      ),
+                      SizedBox(height: 10.0),
+                      Text('Landmark'),
+                    ],
                   ),
                 ],
               ),

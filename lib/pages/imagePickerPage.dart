@@ -183,45 +183,48 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             SizedBox(
-              height: 240,
               width: 320,
-              child: Card(
-                color: Colors.white.withOpacity(0.1),
-                shape: RoundedRectangleBorder(
-                  side: BorderSide(color: Colors.white54, width: 2),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.image_search,
-                      color: Color(0xff5594b4),
-                      size: 64.0,
-                      semanticLabel: 'Text to announce in accessibility modes',
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    'Landmark Detection',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 26.0,
+                      color: Color(0xff081c1e),
+                      height: 1.5,
                     ),
-                    SizedBox(height: 22.0),
-                    Text(
-                      'Recognize Landmarks 🏞️ \n in Your Photos 🤳',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 20.0,
-                        color: Color(0xff081c1e),
-                        height: 1.4,
-                      ),
-                      textAlign: TextAlign.center,
+                    textAlign: TextAlign.center,
+                  ),
+                  Image(
+                    image: AssetImage(
+                      'assets/images/onboarding.png',
                     ),
-                  ],
-                ),
+                    height: 240.0,
+                    width: 320.0,
+                  ),
+                  Text(
+                    'Recognize Landmarks 🏞️ \n in Your Photos 🤳 \n within few seconds',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 18.0,
+                      color: Color(0xff081c1e),
+                      height: 1.4,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
               ),
             ),
-            SizedBox(height: 130),
+            SizedBox(height: 120),
             Text(
               'Pick a photo from:  ',
               style: TextStyle(
                   fontSize: 18.0,
-                  color: Color(0xff081c1e),
-                  fontWeight: FontWeight.w500),
+                  color: Colors.red[400],
+                  fontWeight: FontWeight.w600),
               textAlign: TextAlign.left,
             ),
             SizedBox(height: 90),

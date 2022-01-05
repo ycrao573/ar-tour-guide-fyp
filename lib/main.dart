@@ -6,6 +6,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:wikitude_flutter_app/l10n/l10n.dart';
 import 'package:wikitude_flutter_app/pages/loginPage.dart';
+import 'package:wikitude_flutter_app/pages/onboardingScreen.dart';
 import 'package:wikitude_flutter_app/service/googleSignIn.dart';
 import 'dart:async';
 import 'theme.dart';
@@ -53,7 +54,7 @@ class _MyAppState extends State<MyApp> {
               supportedLocales: L10n.all,
               debugShowCheckedModeBanner: false,
               theme: myTheme,
-              home: LoginPage(),
+              home: OnboardingScreen(),
             );
           }));
 }

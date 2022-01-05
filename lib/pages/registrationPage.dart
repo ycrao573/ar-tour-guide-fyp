@@ -182,7 +182,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
     );
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color(0xfffedede),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -197,7 +197,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
       body: Center(
         child: SingleChildScrollView(
           child: Container(
-            color: Colors.white,
+            color: Color(0xfffedede),
             child: Padding(
               padding: const EdgeInsets.all(36.0),
               child: Form(
@@ -295,7 +295,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
         .set(userModel.toMap());
     Fluttertoast.showToast(msg: "Account created successfully :) ");
 
-    Navigator.pushAndRemoveUntil((context),
-        MaterialPageRoute(builder: (context) => HomePage(loginMethod: "Email")), (route) => false);
+    Navigator.pushAndRemoveUntil(
+        (context),
+        MaterialPageRoute(builder: (context) => HomePage(loginMethod: "Email")),
+        (route) => false);
   }
 }

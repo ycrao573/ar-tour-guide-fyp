@@ -86,6 +86,8 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       _activityModels = data.map((e) => ActivityModel.fromJson(e)).toList();
       _activityModels.sort(compareDistance);
+      createNotification(
+          "Check out fun activities nearby!", _activityModels[0].title + "!");
     });
   }
 
@@ -100,6 +102,14 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       _attractionModels = data.map((e) => AttractionModel.fromJson(e)).toList();
       _attractionModels.sort(compareDistance);
+      createNotification(
+          "Don't miss out tourist attractions around you!",
+          "Check out " +
+              _attractionModels[0].name +
+              ", only " +
+              getDistanceToUser(_attractionModels[0].longitude,
+                  _attractionModels[0].latitude) +
+              " km away");
     });
   }
 
