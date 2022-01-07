@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:wikitude_flutter_app/ar/arpage.dart';
 import 'package:wikitude_flutter_app/l10n/l10n.dart';
 import 'dart:async';
+import 'package:http/http.dart' as http;
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
@@ -76,15 +77,24 @@ class _HomePageState extends State<HomePage> {
 
   // Fetch content from the json file
   Future<void> readActivtiesJson() async {
-    final String response =
-        await rootBundle.loadString('assets/data/activities_data.json');
-    final data = await json.decode(response) as List<dynamic>;
+    // final String response =
+    //     await rootBundle.loadString('assets/data/activities_data.json');
+    final response = await http.read(
+        Uri.parse(
+            "https://api.jsonbin.io/v3/b/61d734442675917a628b69fc/latest"),
+        headers: {
+          "Accept": "application/json",
+          "X-Master-Key":
+              "\$2b\$10\$M6L3eXj646aBmRdVgsJzHewx5S2ZEf6FXP.4gFg1S3DlbQ9i8Yfr."
+        });
+    List<dynamic> listJson = json.decode(response)["record"];
     var compareDistance = (a, b) =>
         (double.parse(getDistanceToUser(a.longitude, a.latitude)) -
                 double.parse(getDistanceToUser(b.longitude, b.latitude)))
             .round();
     setState(() {
-      _activityModels = data.map((e) => ActivityModel.fromJson(e)).toList();
+      _activityModels = List<ActivityModel>.from(
+          listJson.map((i) => ActivityModel.fromJson(i)));
       _activityModels.sort(compareDistance);
       createNotification(
           "Check out fun activities nearby!", _activityModels[0].title + "!");
@@ -92,15 +102,22 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> readPlacesJson() async {
-    final String response =
-        await rootBundle.loadString('assets/data/attractions_data.json');
-    final data = await json.decode(response) as List<dynamic>;
+    final response = await http.read(
+        Uri.parse(
+            "https://api.jsonbin.io/v3/b/61d7344e2362237a3a336843/latest"),
+        headers: {
+          "Accept": "application/json",
+          "X-Master-Key":
+              "\$2b\$10\$M6L3eXj646aBmRdVgsJzHewx5S2ZEf6FXP.4gFg1S3DlbQ9i8Yfr."
+        });
+    List<dynamic> listJson = json.decode(response)["record"];
     var compareDistance = (a, b) =>
         (double.parse(getDistanceToUser(a.longitude, a.latitude)) -
                 double.parse(getDistanceToUser(b.longitude, b.latitude)))
             .round();
     setState(() {
-      _attractionModels = data.map((e) => AttractionModel.fromJson(e)).toList();
+      _attractionModels = List<AttractionModel>.from(
+          listJson.map((i) => AttractionModel.fromJson(i)));
       _attractionModels.sort(compareDistance);
       createNotification(
           "Don't miss out tourist attractions around you!",

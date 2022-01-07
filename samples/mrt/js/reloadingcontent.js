@@ -363,13 +363,13 @@ var World = {
 
         // /* Use GET request to fetch the JSON data from the server */
         var xhr = new XMLHttpRequest();
-        xhr.open("GET", "https://api.jsonbin.io/b/61828c684a82881d6c6a096d/latest", true);
-        xhr.setRequestHeader("Secret-Key", "$2b$10$UC8h.Kj3npKiFT7EUTqiK.IuNhbQGMipxT5uE4GE6BrVIknwNPSF.");
+        xhr.open("GET", "https://api.jsonbin.io/v3/b/61828c684a82881d6c6a096d/latest", true);
+        xhr.setRequestHeader("X-Master-Key", "$2b$10$M6L3eXj646aBmRdVgsJzHewx5S2ZEf6FXP.4gFg1S3DlbQ9i8Yfr.");
         xhr.responseType = 'json';
         xhr.onload = function() {
             var status = xhr.status;
             if (status === 200) {
-                World.loadPoisFromJsonData(xhr.response);
+                World.loadPoisFromJsonData(xhr.response["record"]);
                 World.isRequestingData = false;
             } else {
                 World.updateStatusMessage("Invalid web-service response.", true);

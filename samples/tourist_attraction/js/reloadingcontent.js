@@ -28,6 +28,7 @@ var World = {
     markerDrawableIdle: null,
     markerDrawableSelected: null,
     markerDrawableDirectionIndicator: null,
+    markerDrawableImage: null,
 
     /* List of AR.GeoObjects that are currently shown in the scene / World. */
     markerList: [],
@@ -61,6 +62,8 @@ var World = {
             onError: World.onError
         });
 
+        
+
         /* Loop through POI-information and create an AR.GeoObject (=Marker) per POI. */
         for (var currentPlaceNr = 0; currentPlaceNr < poiData.length; currentPlaceNr++) {
             var singlePoi = {
@@ -72,13 +75,16 @@ var World = {
                 "description": poiData[currentPlaceNr].description,
                 "category": poiData[currentPlaceNr].category,
             };
-
+            World.markerDrawableImage = new AR.ImageResource("https://shaws.com.sg/wp-content/uploads/2018/11/ace104cd9f.png", {
+                onError: World.onError
+            });
             var long1 = singlePoi.longitude / 57.29577951;
             var lat1 = singlePoi.latitude / 57.29577951;
             var long2 = World.userLocation.longitude / 57.29577951;
             var lat2 = World.userLocation.latitude / 57.29577951;
             var res = 1.609344 * 3963.0 * Math.acos((Math.sin(lat1) * Math.sin(lat2)) + Math.cos(lat1) * Math.cos(lat2) * Math.cos(long2 - long1));
             if (res < 4.0) {
+                singlePoi.distance = res.toFixed(2);
                 World.markerList.push(new Marker(singlePoi));
             }
         }
@@ -130,8 +136,6 @@ var World = {
             // reviews: currentMarker.poiData.reviews,
             // imageUrl: currentMarker.poiData.imageUrl,
         };
-        // console.log("============================================================");
-        // console.log(markerSelectedJSON.description);
         /*	
             The sendJSONObject method can be used to send data from javascript to the native code.	
         */	
@@ -234,7 +238,7 @@ var World = {
         /* Sort places by distance so the first entry is the one with the maximum distance. */
         World.markerList.sort(World.sortByDistanceSortingDescending);
 
-        var maxDistanceMeters = 2727;
+        var maxDistanceMeters = 5454;
         /* Use distanceToUser to get max-distance. */
         for (let i = 0; i < World.markerList.length; i++){
             if (World.markerList[i].distanceToUser >= maxDistanceMeters) {
@@ -359,13 +363,13 @@ var World = {
 
         // /* Use GET request to fetch the JSON data from the server */
         var xhr = new XMLHttpRequest();
-        xhr.open("GET", "https://api.jsonbin.io/v3/b/61d732af2675917a628b693c/latest", true);
-        xhr.setRequestHeader("X-Master-Key", "$2b$10$M6L3eXj646aBmRdVgsJzHewx5S2ZEf6FXP.4gFg1S3DlbQ9i8Yfr.");
+        xhr.open("GET", "https://api.jsonbin.io/b/61828c684a82881d6c6a096d/latest", true);
+        xhr.setRequestHeader("Secret-Key", "$2b$10$UC8h.Kj3npKiFT7EUTqiK.IuNhbQGMipxT5uE4GE6BrVIknwNPSF.");
         xhr.responseType = 'json';
         xhr.onload = function() {
             var status = xhr.status;
             if (status === 200) {
-                World.loadPoisFromJsonData(xhr.response["record"]);
+                World.loadPoisFromJsonData(xhr.response);
                 World.isRequestingData = false;
             } else {
                 World.updateStatusMessage("Invalid web-service response.", true);
