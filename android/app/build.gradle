@@ -27,8 +27,8 @@ apply plugin: 'com.google.gms.google-services'
 
 android {
     ndkVersion "21.0.6113669"
-    compileSdkVersion 30
-
+    compileSdkVersion 31
+    
     lintOptions {
         disable 'InvalidPackage'
     }
@@ -59,4 +59,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.google.firebase:firebase-functions:20.0.1'
+    implementation(name:'wikitudesdk', ext:'aar')
 }

@@ -1,6 +1,6 @@
 var myJsonData = [
   {
-    "id": "2000",
+    "id": "20222000",
     "longitude": "103.843488359469",
     "latitude": "1.27468281482263",
     "name": "100 AM",
@@ -9,7 +9,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2001",
+    "id": "20222001",
     "longitude": "103.837684350436",
     "latitude": "1.30138510214714",
     "name": "313@Somerset",
@@ -18,7 +18,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2002",
+    "id": "20222002",
     "longitude": "103.86431321816",
     "latitude": "1.3104736675734",
     "name": "Aperia",
@@ -27,7 +27,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2003",
+    "id": "20222003",
     "longitude": "103.843741438467",
     "latitude": "1.32616307866261",
     "name": "Balestier Hill Shopping Centre",
@@ -36,7 +36,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2004",
+    "id": "20222004",
     "longitude": "103.855635339249",
     "latitude": "1.2981408343975",
     "name": "Bugis Cube",
@@ -45,7 +45,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2005",
+    "id": "20222005",
     "longitude": "103.855411173758",
     "latitude": "1.29911287475873",
     "name": "Bugis Junction",
@@ -54,7 +54,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2006",
+    "id": "20222006",
     "longitude": "103.855172625542",
     "latitude": "1.30095171530648",
     "name": "Bugis+",
@@ -63,7 +63,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2007",
+    "id": "20222007",
     "longitude": "103.851261982149",
     "latitude": "1.29307884763132",
     "name": "Capitol Piazza",
@@ -72,7 +72,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2008",
+    "id": "20222008",
     "longitude": "103.836429655016",
     "latitude": "1.30152101873533",
     "name": "Cathay Cineleisure Orchard",
@@ -81,7 +81,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2009",
+    "id": "20222009",
     "longitude": "103.862331661034",
     "latitude": "1.30231590504573",
     "name": "City Gate",
@@ -90,7 +90,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2010",
+    "id": "20222010",
     "longitude": "103.856624019991",
     "latitude": "1.31142103107683",
     "name": "City Square Mall",
@@ -99,7 +99,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2011",
+    "id": "20222011",
     "longitude": "103.854173501417",
     "latitude": "1.2927777312893",
     "name": "CityLink Mall",
@@ -108,7 +108,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2013",
+    "id": "20222013",
     "longitude": "103.85840168774",
     "latitude": "1.29953434891664",
     "name": "Duo",
@@ -117,7 +117,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2014",
+    "id": "20222014",
     "longitude": "103.833792932243",
     "latitude": "1.30717698071189",
     "name": "Far East Plaza",
@@ -126,7 +126,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2015",
+    "id": "20222015",
     "longitude": "103.849989790085",
     "latitude": "1.29134759697794",
     "name": "Funan",
@@ -135,7 +135,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2016",
+    "id": "20222016",
     "longitude": "103.832022146655",
     "latitude": "1.29342272650003",
     "name": "Great World City",
@@ -144,7 +144,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2017",
+    "id": "20222017",
     "longitude": "103.848418718015",
     "latitude": "1.33256779261697",
     "name": "HDB Hub",
@@ -153,7 +153,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2019",
+    "id": "20222019",
     "longitude": "103.832032328465",
     "latitude": "1.30397974144505",
     "name": "ION Orchard",
@@ -162,7 +162,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2020",
+    "id": "20222020",
     "longitude": "103.848760473211",
     "latitude": "1.3504812534505",
     "name": "Junction 8",
@@ -171,7 +171,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2022",
+    "id": "20222022",
     "longitude": "103.844547179775",
     "latitude": "1.29065860407434",
     "name": "Liang Court",
@@ -180,7 +180,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2023",
+    "id": "20222023",
     "longitude": "103.830722581168",
     "latitude": "1.30508722710852",
     "name": "Liat Towers",
@@ -189,7 +189,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2024",
+    "id": "20222024",
     "longitude": "103.833962339817",
     "latitude": "1.30450604646634",
     "name": "Lucky Plaza",
@@ -198,7 +198,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2025",
+    "id": "20222025",
     "longitude": "103.854457600432",
     "latitude": "1.27912493489912",
     "name": "Marina Bay Financial Centre Tower 3",
@@ -207,7 +207,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2026",
+    "id": "20222026",
     "longitude": "103.853369662547",
     "latitude": "1.28023825446086",
     "name": "Marina Bay Link Mall",
@@ -216,7 +216,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2027",
+    "id": "20222027",
     "longitude": "103.860809048956",
     "latitude": "1.28345419690844",
     "name": "Marina Bay Sands",
@@ -225,7 +225,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2028",
+    "id": "20222028",
     "longitude": "103.852851650485",
     "latitude": "1.27790633974599",
     "name": "Marina One",
@@ -234,7 +234,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2029",
+    "id": "20222029",
     "longitude": "103.85857808906",
     "latitude": "1.29185533273026",
     "name": "Marina Square",
@@ -243,7 +243,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2030",
+    "id": "20222030",
     "longitude": "103.838659766022",
     "latitude": "1.30178778502846",
     "name": "Midpoint Orchard",
@@ -252,7 +252,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2031",
+    "id": "20222031",
     "longitude": "103.859724944443",
     "latitude": "1.29260544462492",
     "name": "Millenia Walk",
@@ -261,7 +261,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2033",
+    "id": "20222033",
     "longitude": "103.835181912297",
     "latitude": "1.30224168528687",
     "name": "Ngee Ann City",
@@ -270,7 +270,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2034",
+    "id": "20222034",
     "longitude": "103.839434733899",
     "latitude": "1.30083890839245",
     "name": "Orchard Central",
@@ -279,7 +279,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2035",
+    "id": "20222035",
     "longitude": "103.839442780042",
     "latitude": "1.30044325279546",
     "name": "Orchard Gateway",
@@ -288,7 +288,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2036",
+    "id": "20222036",
     "longitude": "103.841150144584",
     "latitude": "1.30125729409965",
     "name": "Orchard Plaza",
@@ -297,7 +297,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2037",
+    "id": "20222037",
     "longitude": "103.837888257002",
     "latitude": "1.30149992510852",
     "name": "Orchard Shopping Centre",
@@ -306,7 +306,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2038",
+    "id": "20222038",
     "longitude": "103.829588045188",
     "latitude": "1.30665484543191",
     "name": "Palais Renaissance",
@@ -315,7 +315,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2039",
+    "id": "20222039",
     "longitude": "103.842507723868",
     "latitude": "1.28486980177486",
     "name": "Peoples Park Centre",
@@ -324,7 +324,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2041",
+    "id": "20222041",
     "longitude": "103.845047573431",
     "latitude": "1.30074770963916",
     "name": "Plaza Singapura",
@@ -333,7 +333,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2043",
+    "id": "20222043",
     "longitude": "103.853119904656",
     "latitude": "1.29389357863312",
     "name": "Raffles City",
@@ -342,7 +342,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2044",
+    "id": "20222044",
     "longitude": "103.83308338186",
     "latitude": "1.30576292435884",
     "name": "Scotts Square",
@@ -351,7 +351,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2045",
+    "id": "20222045",
     "longitude": "103.855146819671",
     "latitude": "1.31078075190145",
     "name": "Serangoon Plaza",
@@ -360,7 +360,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2047",
+    "id": "20222047",
     "longitude": "103.853037818418",
     "latitude": "1.30302426686761",
     "name": "Sim Lim Square",
@@ -369,7 +369,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2048",
+    "id": "20222048",
     "longitude": "103.844111318107",
     "latitude": "1.29815265394505",
     "name": "Singapore Shopping Centre",
@@ -378,7 +378,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2049",
+    "id": "20222049",
     "longitude": "103.844160709661",
     "latitude": "1.32070510956845",
     "name": "Square 2",
@@ -387,7 +387,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2050",
+    "id": "20222050",
     "longitude": "103.858585026016",
     "latitude": "1.29546675589675",
     "name": "Suntec City",
@@ -396,7 +396,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2051",
+    "id": "20222051",
     "longitude": "103.823852794772",
     "latitude": "1.30484344196915",
     "name": "Tanglin Mall",
@@ -405,7 +405,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2052",
+    "id": "20222052",
     "longitude": "103.832971130126",
     "latitude": "1.30495005564842",
     "name": "Tangs",
@@ -414,7 +414,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2053",
+    "id": "20222053",
     "longitude": "103.845936303594",
     "latitude": "1.27658360696843",
     "name": "Tanjong Pagar Centre",
@@ -423,7 +423,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2054",
+    "id": "20222054",
     "longitude": "103.850609985486",
     "latitude": "1.30617773048079",
     "name": "Tekka Centre",
@@ -432,7 +432,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2055",
+    "id": "20222055",
     "longitude": "103.839759023144",
     "latitude": "1.30197836876806",
     "name": "The Centrepoint",
@@ -441,7 +441,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2056",
+    "id": "20222056",
     "longitude": "103.835857545469",
     "latitude": "1.30387230879994",
     "name": "The Paragon",
@@ -450,7 +450,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2058",
+    "id": "20222058",
     "longitude": "103.858982282698",
     "latitude": "1.28423496027027",
     "name": "The Shoppes at Marina Bay Sands",
@@ -459,7 +459,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2059",
+    "id": "20222059",
     "longitude": "103.856276242094",
     "latitude": "1.29498804392056",
     "name": "The South Beach",
@@ -468,7 +468,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2060",
+    "id": "20222060",
     "longitude": "103.83030941613",
     "latitude": "1.35436282723449",
     "name": "Thomson Plaza",
@@ -477,7 +477,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2062",
+    "id": "20222062",
     "longitude": "103.844033569199",
     "latitude": "1.31978949204523",
     "name": "Velocity",
@@ -486,7 +486,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2063",
+    "id": "20222063",
     "longitude": "103.830642027577",
     "latitude": "1.30467628730252",
     "name": "Wheelock Place",
@@ -495,7 +495,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2064",
+    "id": "20222064",
     "longitude": "103.833205752808",
     "latitude": "1.30370477426147",
     "name": "Wisma Atria",
@@ -504,7 +504,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2065",
+    "id": "20222065",
     "longitude": "103.846554377679",
     "latitude": "1.32694504456951",
     "name": "Zhongshan Mall",
@@ -513,7 +513,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2066",
+    "id": "20222066",
     "longitude": "103.905046110228",
     "latitude": "1.30520653617341",
     "name": "112 Katong",
@@ -522,7 +522,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2067",
+    "id": "20222067",
     "longitude": "103.929256259998",
     "latitude": "1.32473632784728",
     "name": "Bedok Mall",
@@ -531,7 +531,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2068",
+    "id": "20222068",
     "longitude": "103.932360131921",
     "latitude": "1.32496142991054",
     "name": "Bedok Point",
@@ -540,7 +540,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2069",
+    "id": "20222069",
     "longitude": "103.943812302253",
     "latitude": "1.35236829566862",
     "name": "Century Square",
@@ -549,7 +549,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2070",
+    "id": "20222070",
     "longitude": "103.982913693484",
     "latitude": "1.34580556425439",
     "name": "Changi Airport",
@@ -558,7 +558,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2071",
+    "id": "20222071",
     "longitude": "103.962917615531",
     "latitude": "1.33403637902708",
     "name": "Changi City Point",
@@ -567,7 +567,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2072",
+    "id": "20222072",
     "longitude": "103.893472115119",
     "latitude": "1.3147868971977",
     "name": "City Plaza",
@@ -576,7 +576,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2073",
+    "id": "20222073",
     "longitude": "103.929554495615",
     "latitude": "1.32611970329469",
     "name": "Djitsun Mall Bedok",
@@ -585,7 +585,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2074",
+    "id": "20222074",
     "longitude": "103.955036748549",
     "latitude": "1.37691412455433",
     "name": "Downtown East",
@@ -594,7 +594,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2075",
+    "id": "20222075",
     "longitude": "103.946201241591",
     "latitude": "1.3317758150305",
     "name": "East Village",
@@ -603,7 +603,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2076",
+    "id": "20222076",
     "longitude": "103.953024618234",
     "latitude": "1.34270592355576",
     "name": "Eastpoint Mall",
@@ -612,7 +612,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2077",
+    "id": "20222077",
     "longitude": "103.942364336974",
     "latitude": "1.37782876616465",
     "name": "Elias Mall",
@@ -621,7 +621,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2078",
+    "id": "20222078",
     "longitude": "103.873149707591",
     "latitude": "1.30307515150401",
     "name": "Kallang Wave Mall",
@@ -630,7 +630,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2079",
+    "id": "20222079",
     "longitude": "103.904307160288",
     "latitude": "1.30513510179213",
     "name": "Katong Square",
@@ -639,7 +639,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2080",
+    "id": "20222080",
     "longitude": "103.902850370889",
     "latitude": "1.30385030375719",
     "name": "Katong V",
@@ -648,7 +648,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2082",
+    "id": "20222082",
     "longitude": "103.876473975883",
     "latitude": "1.30230108405227",
     "name": "Leisure Park Kallang",
@@ -657,7 +657,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2083",
+    "id": "20222083",
     "longitude": "103.964598499523",
     "latitude": "1.36645364010349",
     "name": "Loyang Point",
@@ -666,7 +666,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2084",
+    "id": "20222084",
     "longitude": "103.940408135311",
     "latitude": "1.35313359828812",
     "name": "Our Tampines Hub",
@@ -675,7 +675,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2085",
+    "id": "20222085",
     "longitude": "103.905279491524",
     "latitude": "1.30106975506311",
     "name": "Parkway Parade",
@@ -684,7 +684,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2086",
+    "id": "20222086",
     "longitude": "103.892580778514",
     "latitude": "1.31881487007651",
     "name": "Paya Lebar Square",
@@ -693,7 +693,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2087",
+    "id": "20222087",
     "longitude": "103.892836694432",
     "latitude": "1.31756115921",
     "name": "PLQ Mall",
@@ -702,7 +702,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2088",
+    "id": "20222088",
     "longitude": "103.894894915962",
     "latitude": "1.31899666903663",
     "name": "Singapore Post Centre",
@@ -711,7 +711,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2089",
+    "id": "20222089",
     "longitude": "103.942903567808",
     "latitude": "1.35270160272274",
     "name": "Tampines 1",
@@ -720,7 +720,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2090",
+    "id": "20222090",
     "longitude": "103.944698751072",
     "latitude": "1.35252737278519",
     "name": "Tampines Mall",
@@ -729,7 +729,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2091",
+    "id": "20222091",
     "longitude": "103.904203116447",
     "latitude": "1.30457354662016",
     "name": "The Flow",
@@ -738,7 +738,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2092",
+    "id": "20222092",
     "longitude": "103.949715694737",
     "latitude": "1.37244981663527",
     "name": "White Sands",
@@ -747,7 +747,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2093",
+    "id": "20222093",
     "longitude": "103.795314383823",
     "latitude": "1.43712301500434",
     "name": "888 Plaza",
@@ -756,7 +756,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2094",
+    "id": "20222094",
     "longitude": "103.801791019595",
     "latitude": "1.4398809549057",
     "name": "Admiralty Place",
@@ -765,7 +765,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2095",
+    "id": "20222095",
     "longitude": "103.84847796594",
     "latitude": "1.36938922690344",
     "name": "AMK Hub",
@@ -774,7 +774,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2096",
+    "id": "20222096",
     "longitude": "103.776539385406",
     "latitude": "1.34241264188642",
     "name": "Beauty World Centre",
@@ -783,7 +783,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2097",
+    "id": "20222097",
     "longitude": "103.776259359854",
     "latitude": "1.34180018619223",
     "name": "Beauty World Plaza",
@@ -792,7 +792,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2098",
+    "id": "20222098",
     "longitude": "103.845949444498",
     "latitude": "1.37193729131781",
     "name": "Broadway Plaza",
@@ -801,7 +801,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2099",
+    "id": "20222099",
     "longitude": "103.881623070164",
     "latitude": "1.38433426615655",
     "name": "Buangkok Square",
@@ -810,7 +810,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2100",
+    "id": "20222100",
     "longitude": "103.764357180314",
     "latitude": "1.37992045176243",
     "name": "Bukit Panjang Plaza",
@@ -819,7 +819,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2101",
+    "id": "20222101",
     "longitude": "103.778600077834",
     "latitude": "1.33875930729064",
     "name": "Bukit Timah Plaza",
@@ -828,7 +828,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2102",
+    "id": "20222102",
     "longitude": "103.785981524253",
     "latitude": "1.4360700650803",
     "name": "Causeway Point",
@@ -837,7 +837,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2103",
+    "id": "20222103",
     "longitude": "103.89507054384",
     "latitude": "1.39205314156706",
     "name": "Compass One",
@@ -846,7 +846,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2104",
+    "id": "20222104",
     "longitude": "103.929554495615",
     "latitude": "1.32611970329469",
     "name": "Djitsun Mall",
@@ -855,7 +855,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2105",
+    "id": "20222105",
     "longitude": "103.771029603101",
     "latitude": "1.38400582466296",
     "name": "Fajar Shopping Centre",
@@ -864,7 +864,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2106",
+    "id": "20222106",
     "longitude": "103.766228468185",
     "latitude": "1.38540569283271",
     "name": "Greenridge Shopping Centre",
@@ -873,7 +873,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2107",
+    "id": "20222107",
     "longitude": "103.869135978173",
     "latitude": "1.38739539397015",
     "name": "Greenwich V",
@@ -882,7 +882,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2108",
+    "id": "20222108",
     "longitude": "103.885167372726",
     "latitude": "1.35954177325561",
     "name": "Heartland Mall",
@@ -891,7 +891,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2109",
+    "id": "20222109",
     "longitude": "103.762842789877",
     "latitude": "1.37843100827586",
     "name": "Hillion Mall",
@@ -900,7 +900,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2110",
+    "id": "20222110",
     "longitude": "103.76417292006",
     "latitude": "1.36267450828024",
     "name": "HillV2",
@@ -909,7 +909,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2111",
+    "id": "20222111",
     "longitude": "103.879472337592",
     "latitude": "1.37571530699875",
     "name": "Hougang 1",
@@ -918,7 +918,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2112",
+    "id": "20222112",
     "longitude": "103.887832017102",
     "latitude": "1.3792452907016",
     "name": "Hougang Green Shopping Mall",
@@ -927,7 +927,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2113",
+    "id": "20222113",
     "longitude": "103.893775562605",
     "latitude": "1.37249493810003",
     "name": "Hougang Mall",
@@ -936,7 +936,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2114",
+    "id": "20222114",
     "longitude": "103.847837565378",
     "latitude": "1.37178558575829",
     "name": "Jubilee Square",
@@ -945,7 +945,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2115",
+    "id": "20222115",
     "longitude": "103.760167883439",
     "latitude": "1.38033681049385",
     "name": "Junction 10",
@@ -954,7 +954,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2116",
+    "id": "20222116",
     "longitude": "103.841649364872",
     "latitude": "1.43306021695327",
     "name": "Junction 9",
@@ -963,7 +963,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2117",
+    "id": "20222117",
     "longitude": "103.744393648768",
     "latitude": "1.37736607441394",
     "name": "Keat Hong Shopping Centre",
@@ -972,7 +972,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2119",
+    "id": "20222119",
     "longitude": "103.743387228295",
     "latitude": "1.39164865474084",
     "name": "Limbang Shopping Centre",
@@ -981,7 +981,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2120",
+    "id": "20222120",
     "longitude": "103.745011766388",
     "latitude": "1.38497459672379",
     "name": "Lot One",
@@ -990,7 +990,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2121",
+    "id": "20222121",
     "longitude": "103.77988189197",
     "latitude": "1.43354318137534",
     "name": "Marsiling Mall",
@@ -999,7 +999,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2123",
+    "id": "20222123",
     "longitude": "103.872296143862",
     "latitude": "1.35076935257845",
     "name": "NEX",
@@ -1008,7 +1008,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2124",
+    "id": "20222124",
     "longitude": "103.878811757886",
     "latitude": "1.32359095684442",
     "name": "North East",
@@ -1017,7 +1017,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2125",
+    "id": "20222125",
     "longitude": "103.786826166174",
     "latitude": "1.4350449476836",
     "name": "North West",
@@ -1026,7 +1026,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2126",
+    "id": "20222126",
     "longitude": "103.835776491468",
     "latitude": "1.42969848626288",
     "name": "Northpoint City",
@@ -1035,7 +1035,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2127",
+    "id": "20222127",
     "longitude": "103.913215101343",
     "latitude": "1.40278015725693",
     "name": "Oasis Terraces",
@@ -1044,7 +1044,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2128",
+    "id": "20222128",
     "longitude": "103.913047323223",
     "latitude": "1.39423719717117",
     "name": "Punggol Plaza",
@@ -1053,7 +1053,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2129",
+    "id": "20222129",
     "longitude": "103.767585300058",
     "latitude": "1.35976061966283",
     "name": "Rail Mall",
@@ -1062,7 +1062,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2130",
+    "id": "20222130",
     "longitude": "103.904471600025",
     "latitude": "1.39219777838449",
     "name": "Rivervale Mall",
@@ -1071,7 +1071,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2131",
+    "id": "20222131",
     "longitude": "103.901841044122",
     "latitude": "1.38533736107771",
     "name": "Rivervale Plaza",
@@ -1080,7 +1080,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2132",
+    "id": "20222132",
     "longitude": "103.824845207237",
     "latitude": "1.44182470675733",
     "name": "Sembawang Shopping Centre",
@@ -1089,7 +1089,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2133",
+    "id": "20222133",
     "longitude": "103.819502127155",
     "latitude": "1.44819535371132",
     "name": "Sun Plaza",
@@ -1098,7 +1098,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2134",
+    "id": "20222134",
     "longitude": "103.739015486021",
     "latitude": "1.37789727654673",
     "name": "Sunshine Place",
@@ -1107,7 +1107,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2135",
+    "id": "20222135",
     "longitude": "103.752483841199",
     "latitude": "1.38004752975397",
     "name": "Teck Whye Shopping Centre",
@@ -1116,7 +1116,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2136",
+    "id": "20222136",
     "longitude": "103.895291518188",
     "latitude": "1.37050445523679",
     "name": "The Midtown",
@@ -1125,7 +1125,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2137",
+    "id": "20222137",
     "longitude": "103.876125507257",
     "latitude": "1.39147015374628",
     "name": "The Seletar Mall",
@@ -1134,7 +1134,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2138",
+    "id": "20222138",
     "longitude": "103.878828134896",
     "latitude": "1.35348082277147",
     "name": "Upper Serangoon Shopping Centre",
@@ -1143,7 +1143,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2139",
+    "id": "20222139",
     "longitude": "103.902105680785",
     "latitude": "1.40648462132006",
     "name": "Waterway Point",
@@ -1152,7 +1152,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2140",
+    "id": "20222140",
     "longitude": "103.749244800677",
     "latitude": "1.35001920979845",
     "name": "West Mall",
@@ -1161,7 +1161,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2141",
+    "id": "20222141",
     "longitude": "103.841268831617",
     "latitude": "1.41795288501536",
     "name": "Wisteria Mall",
@@ -1170,7 +1170,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2142",
+    "id": "20222142",
     "longitude": "103.798140993891",
     "latitude": "1.44562290720221",
     "name": "Woodlands Mart",
@@ -1179,7 +1179,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2143",
+    "id": "20222143",
     "longitude": "103.746662121143",
     "latitude": "1.39705741516141",
     "name": "Yew Tee Point",
@@ -1188,7 +1188,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2145",
+    "id": "20222145",
     "longitude": "103.747344866472",
     "latitude": "1.39832134857945",
     "name": "Yew Tee Square",
@@ -1197,7 +1197,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2146",
+    "id": "20222146",
     "longitude": "103.801399416665",
     "latitude": "1.27414893629254",
     "name": "Alexandra Retail Centre",
@@ -1206,7 +1206,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2147",
+    "id": "20222147",
     "longitude": "103.820243325181",
     "latitude": "1.26396991176004",
     "name": "HarbourFront Centre",
@@ -1215,7 +1215,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2148",
+    "id": "20222148",
     "longitude": "103.82230469365",
     "latitude": "1.26429316783973",
     "name": "VivoCity",
@@ -1224,7 +1224,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2149",
+    "id": "20222149",
     "longitude": "103.764986676365",
     "latitude": "1.31200212030821",
     "name": "321 Clementi",
@@ -1233,7 +1233,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2150",
+    "id": "20222150",
     "longitude": "103.805414652014",
     "latitude": "1.28745612377699",
     "name": "Alexandra Central",
@@ -1242,7 +1242,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2151",
+    "id": "20222151",
     "longitude": "103.805009964592",
     "latitude": "1.28861469030586",
     "name": "Anchorpoint",
@@ -1251,7 +1251,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2152",
+    "id": "20222152",
     "longitude": "103.744920406659",
     "latitude": "1.33191839981568",
     "name": "Big Box",
@@ -1260,7 +1260,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2153",
+    "id": "20222153",
     "longitude": "103.712430373455",
     "latitude": "1.34633552457315",
     "name": "Boon Lay Shopping Centre",
@@ -1269,7 +1269,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2154",
+    "id": "20222154",
     "longitude": "103.678409741897",
     "latitude": "1.32561767765205",
     "name": "Fairprice Hub",
@@ -1278,7 +1278,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2155",
+    "id": "20222155",
     "longitude": "103.698298780189",
     "latitude": "1.34874400271888",
     "name": "Gek Poh Shopping Centre",
@@ -1287,7 +1287,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2156",
+    "id": "20222156",
     "longitude": "103.765147487482",
     "latitude": "1.31427043922294",
     "name": "Grantral Mall",
@@ -1296,7 +1296,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2157",
+    "id": "20222157",
     "longitude": "103.746734487309",
     "latitude": "1.33489844010888",
     "name": "IMM",
@@ -1305,7 +1305,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2158",
+    "id": "20222158",
     "longitude": "103.740187071348",
     "latitude": "1.33332312550425",
     "name": "JCube",
@@ -1314,7 +1314,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2159",
+    "id": "20222159",
     "longitude": "103.743278742341",
     "latitude": "1.33329334473462",
     "name": "Jem",
@@ -1323,7 +1323,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2160",
+    "id": "20222160",
     "longitude": "103.70668501289",
     "latitude": "1.33945271661445",
     "name": "Jurong Point",
@@ -1332,7 +1332,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2162",
+    "id": "20222162",
     "longitude": "103.697174842118",
     "latitude": "1.34169239214292",
     "name": "Pioneer Mall",
@@ -1341,7 +1341,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2163",
+    "id": "20222163",
     "longitude": "103.803391140455",
     "latitude": "1.2876179255874",
     "name": "Queensway Shopping Centre",
@@ -1350,7 +1350,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2164",
+    "id": "20222164",
     "longitude": "103.788446680148",
     "latitude": "1.30540765569962",
     "name": "Rochester Mall",
@@ -1359,7 +1359,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2165",
+    "id": "20222165",
     "longitude": "103.720462024278",
     "latitude": "1.33484487416514",
     "name": "Taman Jurong Shopping Centre",
@@ -1368,7 +1368,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2166",
+    "id": "20222166",
     "longitude": "103.764423054189",
     "latitude": "1.31489619639366",
     "name": "The Clementi Mall",
@@ -1377,7 +1377,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2167",
+    "id": "20222167",
     "longitude": "103.788420274115",
     "latitude": "1.30697044038323",
     "name": "The Star Vista",
@@ -1386,7 +1386,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2168",
+    "id": "20222168",
     "longitude": "103.827015256194",
     "latitude": "1.28645889472825",
     "name": "Tiong Bahru Plaza",
@@ -1395,7 +1395,7 @@ var myJsonData = [
     "category": "Mall"
   },
   {
-    "id": "2169",
+    "id": "20222169",
     "longitude": "103.766131294678",
     "latitude": "1.30369748971099",
     "name": "West Coast Plaza",

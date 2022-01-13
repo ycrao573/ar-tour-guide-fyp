@@ -1,25 +1,49 @@
 buildscript {
     repositories {
-        google()
-        jcenter()
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        mavenCentral()
+        flatDir {
+            dirs project(':augmented_reality_plugin_wikitude').file('wikitudesdk')
+        }
+        // maven { url 'htinclude ':spotify-auth'tps://cdn.wikitude.com/sdk/maven' }
+        // maven { url 'https://maven.aliyun.com/repository/google' }
+        // maven { url 'https://maven.aliyun.com/repository/jcenter' }
+        // maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
+        // maven { url "http://download.flutter.io" }
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.6.0'
+        classpath 'com.android.tools.build:gradle:4.1.0'
         classpath 'com.google.gms:google-services:4.3.10'
     }
 }
 
 allprojects {
     repositories {
-        google()
-        jcenter()
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        mavenCentral()
+        flatDir {
+            dirs project(':augmented_reality_plugin_wikitude').file('wikitudesdk')
+        }
+        // maven { url 'https://cdn.wikitude.com/sdk/maven' }
+        // maven { url 'https://cdn.wikitude.com/sdk/maven' }
+        // maven { url 'https://maven.aliyun.com/repository/google' }
+        // maven { url 'https://maven.aliyun.com/repository/jcenter' }
+        // maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
+        // maven { url "http://download.flutter.io" }
     }
+    // configurations.all {
+    //     resolutionStrategy { 
+    //         force 'org.glassfish.jaxb:jaxb-runtime:2.2.11'
+    //         force 'com.google.android.gms:play-services-location:16.+'
+    //     }
+    // }
 }
 
 rootProject.buildDir = '../build'
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
+
 }
 subprojects {
     project.evaluationDependsOn(':app')
