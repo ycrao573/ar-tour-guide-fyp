@@ -5,7 +5,7 @@ html, body {
 }
 
 #mainHeader {
-    background-color: #dddddddd;
+    background-color: #00000000;
     position: absolute;
     width: 100%;
     display: flex;

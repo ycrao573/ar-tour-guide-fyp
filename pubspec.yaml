@@ -44,6 +44,7 @@ dependencies:
   flutter_local_notifications: ^9.2.0
   flutter_image: ^4.1.0
   cached_network_image: ^3.2.0
+  another_flushbar: ^1.10.28
   
 dev_dependencies:
   flutter_test:

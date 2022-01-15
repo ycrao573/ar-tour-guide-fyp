@@ -9,7 +9,9 @@ import 'package:wikitude_flutter_app/ar/poiDetails.dart';
 import 'poi.dart';
 
 import 'sample.dart';
-
+import 'package:another_flushbar/flushbar.dart';
+import 'package:another_flushbar/flushbar_helper.dart';
+import 'package:another_flushbar/flushbar_route.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'package:augmented_reality_plugin_wikitude/architect_widget.dart';
@@ -61,21 +63,54 @@ class ArViewState extends State<ArViewWidget> with WidgetsBindingObserver {
       case AppLifecycleState.resumed:
         this.architectWidget.resume();
         break;
-
       default:
     }
+  }
+
+  void show_Custom_Flushbar(BuildContext context) {
+    Flushbar(
+      duration: Duration(seconds: 3),
+      margin: EdgeInsets.all(10),
+      padding: EdgeInsets.all(16),
+      icon: Icon(Icons.warning_amber, color: Colors.redAccent[700], size: 30.0),
+      backgroundGradient: LinearGradient(
+        colors: [Color(0xeef08e8d), Color(0xd0ee8d8c)],
+        stops: [0.6, 1],
+      ),
+      borderRadius: BorderRadius.circular(8),
+      boxShadows: [
+        BoxShadow(
+          color: Colors.black45,
+          offset: Offset(3, 3),
+          blurRadius: 3,
+        ),
+      ],
+      isDismissible: true,
+      // All of the previous Flushbars could be dismissed by swiping down
+      // now we want to swipe to the sides
+      dismissDirection: FlushbarDismissDirection.HORIZONTAL,
+      // The default curve is Curves.easeOut
+      forwardAnimationCurve: Curves.fastLinearToSlowEaseIn,
+      title: 'Caution!',
+      message:
+          "For you safety, please do not look at screens while walking, especially when crossing the street",
+    ).show(context);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(sample.name)),
-      body: Container(child: architectWidget),
+      appBar:
+          AppBar(title: Text(sample.name), backgroundColor: Color(0x9985ccd8)),
+      body: Container(
+        child: architectWidget,
+      ),
     );
   }
 
   Future<void> onLoadSuccess() async {
     loadFailed = false;
+    show_Custom_Flushbar(context);
   }
 
   Future<void> onLoadFailed(String error) async {
@@ -103,8 +138,8 @@ class ArViewState extends State<ArViewWidget> with WidgetsBindingObserver {
   Future<void> onArchitectWidgetCreated() async {
     this.architectWidget.load(loadPath, onLoadSuccess, onLoadFailed);
     this.architectWidget.resume();
-    
-    if((sample.requiredExtensions.contains("screenshot") ||
+
+    if ((sample.requiredExtensions.contains("screenshot") ||
         sample.requiredExtensions.contains("save_load_instant_target") ||
         sample.requiredExtensions.contains("native_detail"))) {
       this.architectWidget.setJSONObjectReceivedCallback(onJSONObjectReceived);

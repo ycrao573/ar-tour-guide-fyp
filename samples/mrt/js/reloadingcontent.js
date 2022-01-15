@@ -187,10 +187,13 @@ var World = {
             In this sample a POI detail panel appears when pressing a cam-marker (the blue box with title &
             description), compare index.html in the sample's directory.
         */
+        
         /* Update panel values. */
         document.getElementById("poiDetailTitle").innerHTML = marker.poiData.title;
         document.getElementById("poiDetailDescription").innerHTML = marker.poiData.description;
-
+        document.getElementById("viewmore").href = "https://www.google.com/maps/search/?api=1&query=" + marker.poiData.title;
+        document.getElementById("poiDetailImage").src = "https://maps.googleapis.com/maps/api/staticmap?center="+ marker.poiData.title +"&markers="+ marker.poiData.title +"&zoom=14&size=400x400&key=AIzaSyCcuOYBEHg6xRvC-NU-ScSPH01aDndnV_w"
+        
         /*
             It's ok for AR.Location subclass objects to return a distance of `undefined`. In case such a distance
             was calculated when all distances were queried in `updateDistanceToUserValues`, we recalculate this
@@ -238,7 +241,7 @@ var World = {
         /* Sort places by distance so the first entry is the one with the maximum distance. */
         World.markerList.sort(World.sortByDistanceSortingDescending);
 
-        var maxDistanceMeters = 5454;
+        var maxDistanceMeters = 2500;
         /* Use distanceToUser to get max-distance. */
         for (let i = 0; i < World.markerList.length; i++){
             if (World.markerList[i].distanceToUser >= maxDistanceMeters) {
