@@ -81,4 +81,8 @@ flutter:
     - samples/mall/js/
     - samples/mall/css/
     - samples/mall/assets/
+    - samples/landmark/
+    - samples/landmark/js/
+    - samples/landmark/css/
+    - samples/landmark/assets/
     - assets/data/

@@ -1,5 +1,5 @@
-var changeAnimationDuration = 500;
-var resizeAnimationDuration = 1000;
+var changeAnimationDuration = 400;
+var resizeAnimationDuration = 800;
 
 function Marker(poiData) {
 
@@ -17,10 +17,10 @@ function Marker(poiData) {
     this.animationGroupSelected = null;
 
     /* Create the AR.GeoLocation from the poi data. */
-    var markerLocation = new AR.GeoLocation(poiData.latitude, poiData.longitude, poiData.altitude, poiData.category, poiData.distance);
+    var markerLocation = new AR.GeoLocation(poiData.latitude, poiData.longitude, poiData.altitude, poiData.distance);
 
     /* Create an AR.ImageDrawable for the marker in idle state. */
-    this.markerDrawableIdle = new AR.ImageDrawable(World.markerDrawableIdle, 8.2, {
+    this.markerDrawableIdle = new AR.ImageDrawable(World.markerDrawableIdle, 8, {
         zOrder: 0,
         opacity: 1.0,
         /*
@@ -34,7 +34,7 @@ function Marker(poiData) {
     });
 
     /* Create an AR.ImageDrawable for the marker in selected state. */
-    this.markerDrawableSelected = new AR.ImageDrawable(World.markerDrawableSelected, 8.4, {
+    this.markerDrawableSelected = new AR.ImageDrawable(World.markerDrawableSelected, 8, {
         zOrder: 0,
         opacity: 0.0,
         onClick: null
@@ -52,7 +52,7 @@ function Marker(poiData) {
     });
 
     /* Create an AR.Label for the marker's title . */
-    this.titleLabel = new AR.Label(poiData.title.trim().trunc(14), 0.7, {
+    this.titleLabel = new AR.Label(poiData.title.split("(")[0].trim().replace("MRT STATION", "")+"("+poiData.title.split("(")[1].trim(), 0.7, {
         zOrder: 1,
         translate: {
             x: 1.0,
@@ -80,7 +80,7 @@ function Marker(poiData) {
         World. Set options regarding the offset and anchor of the image so that it will be displayed correctly on
         the edge of the screen.
     */
-    this.directionIndicatorDrawable = new AR.ImageDrawable(World.markerDrawableDirectionIndicator, 0.2, {
+    this.directionIndicatorDrawable = new AR.ImageDrawable(World.markerDrawableDirectionIndicator, 0.1, {
         enabled: false,
         verticalAnchor: AR.CONST.VERTICAL_ANCHOR.TOP
     });
@@ -105,7 +105,7 @@ function Marker(poiData) {
         horizontalAnchor: AR.CONST.HORIZONTAL_ANCHOR.CENTER,
         opacity: 0.8,
         style: {
-            fillColor: "#0066ff"
+            fillColor: "#85ccd8"
         }
     });
 
@@ -188,7 +188,8 @@ Marker.prototype.setSelected = function(marker) {
         /* Create AR.PropertyAnimation that animates the opacity to 1.0 in order to show the selected-state-drawable. */
         var showSelectedDrawableAnimation = new AR.PropertyAnimation(
             marker.markerDrawableSelected, "opacity", null, 1.0, changeAnimationDuration);
-
+        
+        
         var showImageDrawableAnimation = new AR.PropertyAnimation(
             marker.markerDrawableImage, "opacity", null, 1.0, changeAnimationDuration
         );
@@ -198,8 +199,7 @@ Marker.prototype.setSelected = function(marker) {
         var imageDrawableResizeAnimationY = new AR.PropertyAnimation(
             marker.markerDrawableImage, 'scale.y', null, 1.2, resizeAnimationDuration, easingCurve
         )
-    
-        
+
         /* Create AR.PropertyAnimation that animates the scaling of the idle-state-drawable to 1.2. */
         var idleDrawableResizeAnimationX = new AR.PropertyAnimation(
             marker.markerDrawableIdle, 'scale.x', null, 1.2, resizeAnimationDuration, easingCurve);

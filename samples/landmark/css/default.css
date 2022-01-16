@@ -1,8 +1,7 @@
 html, body {
     margin: 0;
     height: 100%;
-    overflow: hidden;
-    font-family: Helvetica, Arial
+    overflow: hidden
 }
 
 #mainHeader {

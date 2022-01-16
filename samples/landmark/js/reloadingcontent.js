@@ -11,7 +11,6 @@ var ServerInformation = {
 
 /* Implementation of AR-Experience (aka "World"). */
 var World = {
-
     /*
         User's latest known location, accessible via userLocation.latitude, userLocation.longitude,
         userLocation.altitude.
@@ -83,7 +82,7 @@ var World = {
             var long2 = World.userLocation.longitude / 57.29577951;
             var lat2 = World.userLocation.latitude / 57.29577951;
             var res = 1.609344 * 3963.0 * Math.acos((Math.sin(lat1) * Math.sin(lat2)) + Math.cos(lat1) * Math.cos(lat2) * Math.cos(long2 - long1));
-            if (res < 3) {
+            if (res < 4.0) {
                 singlePoi.distance = res.toFixed(2);
                 World.markerList.push(new Marker(singlePoi));
             }
@@ -366,7 +365,7 @@ var World = {
 
         // /* Use GET request to fetch the JSON data from the server */
         var xhr = new XMLHttpRequest();
-        xhr.open("GET", "https://api.jsonbin.io/v3/b/61828c684a82881d6c6a096d/latest", true);
+        xhr.open("GET", "https://api.jsonbin.io/v3/b/61d7344e2362237a3a336843/latest", true);
         xhr.setRequestHeader("X-Master-Key", "$2b$10$M6L3eXj646aBmRdVgsJzHewx5S2ZEf6FXP.4gFg1S3DlbQ9i8Yfr.");
         xhr.responseType = 'json';
         xhr.onload = function() {

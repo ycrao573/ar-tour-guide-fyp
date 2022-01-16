@@ -80,7 +80,7 @@ function Marker(poiData) {
         World. Set options regarding the offset and anchor of the image so that it will be displayed correctly on
         the edge of the screen.
     */
-    this.directionIndicatorDrawable = new AR.ImageDrawable(World.markerDrawableDirectionIndicator, 0.1, {
+    this.directionIndicatorDrawable = new AR.ImageDrawable(World.markerDrawableDirectionIndicator, 0.2, {
         enabled: false,
         verticalAnchor: AR.CONST.VERTICAL_ANCHOR.TOP
     });
