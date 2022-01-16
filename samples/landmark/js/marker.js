@@ -17,7 +17,7 @@ function Marker(poiData) {
     this.animationGroupSelected = null;
 
     /* Create the AR.GeoLocation from the poi data. */
-    var markerLocation = new AR.GeoLocation(poiData.latitude, poiData.longitude, poiData.altitude, poiData.distance);
+    var markerLocation = new AR.GeoLocation(poiData.latitude, poiData.longitude, poiData.altitude, poiData.distance, poiData.officiallink, poiData.hyperlink, poiData.urlpath, poiData.photourl, poiData.imagetext, poiData.address, poiData.openinghours);
 
     /* Create an AR.ImageDrawable for the marker in idle state. */
     this.markerDrawableIdle = new AR.ImageDrawable(World.markerDrawableIdle, 8, {
@@ -34,28 +34,28 @@ function Marker(poiData) {
     });
 
     /* Create an AR.ImageDrawable for the marker in selected state. */
-    this.markerDrawableSelected = new AR.ImageDrawable(World.markerDrawableSelected, 8, {
+    this.markerDrawableSelected = new AR.ImageDrawable(World.markerDrawableSelected, 8.2, {
         zOrder: 0,
         opacity: 0.0,
         onClick: null
     });
 
     /* Create an AR.ImageDrawable for the marker in idle state. */
-    this.markerDrawableImage = new AR.ImageDrawable(World.markerDrawableImage, 1.5, {
+    this.markerDrawableImage = new AR.ImageDrawable(World.markerDrawableImage, 3.8, {
         zOrder: 1,
         opacity: 1.0,
         translate: {
-            x: -2.7,
-            y: 1.4
+            x: 0,
+            y: 5.3
         },
         onClick: null
     });
 
     /* Create an AR.Label for the marker's title . */
-    this.titleLabel = new AR.Label(poiData.title.split("(")[0].trim().replace("MRT STATION", "")+"("+poiData.title.split("(")[1].trim(), 0.7, {
+    this.titleLabel = new AR.Label(poiData.title, 0.7, {
         zOrder: 1,
         translate: {
-            x: 1.0,
+            x: 0,
             y: 2.0
         },
         style: {
@@ -64,10 +64,10 @@ function Marker(poiData) {
         }
     });
 
-    this.descriptionLabel = new AR.Label(poiData.distance+" km", 0.6, {
+    this.descriptionLabel = new AR.Label(poiData.distance+" km", 0.7, {
         zOrder: 1,
         translate: {
-            x: -0.6,
+            x: 0,
             y: 0.9
         },
         style: {

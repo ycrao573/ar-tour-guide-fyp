@@ -98,6 +98,11 @@ class AttractionModel {
   }
 
   String parseHtmlLink(String input) {
-    return "https://" + parseFragment(input, container: 'a').text.toString();
+    var string = parseFragment(input, container: 'a').text.toString();
+    if (string.startsWith("https://") || string.startsWith("http://") ) {
+      return string;
+    }else{
+      return "https://"+string;
+    }
   }
 }

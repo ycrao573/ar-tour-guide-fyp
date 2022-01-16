@@ -19,7 +19,6 @@ import 'locale_provider.dart';
 import 'package:provider/provider.dart';
 import 'pages/settingsPage.dart';
 import 'pages/homePage.dart';
-import 'pages/homePage.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 Future main() async {
@@ -54,7 +53,7 @@ class _MyAppState extends State<MyApp> {
               supportedLocales: L10n.all,
               debugShowCheckedModeBanner: false,
               theme: myTheme,
-              home: OnboardingScreen(),
+              home: LoginPage(),
             );
           }));
 }

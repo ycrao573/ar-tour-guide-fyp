@@ -187,7 +187,6 @@ var World = {
             In this sample a POI detail panel appears when pressing a cam-marker (the blue box with title &
             description), compare index.html in the sample's directory.
         */
-        
         /* Update panel values. */
         document.getElementById("poiDetailTitle").innerHTML = marker.poiData.title;
         document.getElementById("poiDetailDescription").innerHTML = marker.poiData.description;

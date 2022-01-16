@@ -702,12 +702,6 @@ class _HomePageState extends State<HomePage> {
       case 1:
         return ArPage();
       case 2:
-        // return Column(
-        //   mainAxisSize: MainAxisSize.min,
-        //   children: <Widget>[
-        //     Text("This is the Plan page"),
-        //   ],
-        // );
         return CardPage();
       case 3:
         return ImagePickerPage(title: 'Image Picker Example');
