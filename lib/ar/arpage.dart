@@ -65,9 +65,10 @@ class _ArPageState extends State<ArPage> {
                 child: Text("Live View - AR Experience",
                     style: TextStyle(
                       color: Colors.black,
-                      fontSize: 24.0,
+                      fontFamily: 'Billabong',
+                      fontSize: 38.0,
                       height: 1.4,
-                      fontWeight: FontWeight.w700,
+                      fontWeight: FontWeight.w500,
                     )),
               ),
               Center(

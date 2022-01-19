@@ -12,7 +12,7 @@ dependencies:
   permission_handler: ^8.1.1
   flutter_localizations:
     sdk: flutter
-
+  
   intl: ^0.17.0 # Add this line
   cupertino_icons: ^1.0.3
   location: ^4.1.1
@@ -86,3 +86,8 @@ flutter:
     - samples/landmark/css/
     - samples/landmark/assets/
     - assets/data/
+  
+  fonts:
+    - family: Billabong
+      fonts:
+        - asset: assets/fonts/Billabong.ttf

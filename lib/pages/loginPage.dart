@@ -145,11 +145,11 @@ class _LoginPageState extends State<LoginPage> {
     // );
 
     return Scaffold(
-      backgroundColor: Color(0xffc6dde0),
+      backgroundColor: Color(0xffc1eaed),
       body: Center(
         child: SingleChildScrollView(
           child: Container(
-            color: Color(0xffc6dde0),
+            color: Color(0xffc1eaed),
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: Form(
@@ -164,12 +164,13 @@ class _LoginPageState extends State<LoginPage> {
                           "assets/images/logo.png",
                           fit: BoxFit.contain,
                         )),
-                    Text("TRAVELEE",
-                        style: TextStyle(
-                            fontSize: 25.0,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: 1.18,
-                            color: Color(0xff091d1f))),
+                    Text(
+                      "Travelee",
+                      style: TextStyle(
+                        fontFamily: 'Billabong',
+                        fontSize: 46.0,
+                      ),
+                    ),
                     SizedBox(height: 40),
                     emailField,
                     SizedBox(height: 20),

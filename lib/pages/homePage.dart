@@ -5,9 +5,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wikitude_flutter_app/ar/arpage.dart';
 import 'package:wikitude_flutter_app/l10n/l10n.dart';
 import 'dart:async';
+import 'package:http/http.dart' as http;
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
@@ -21,6 +23,8 @@ import 'package:wikitude_flutter_app/model/googleUserModel.dart';
 import 'package:wikitude_flutter_app/model/userModel.dart';
 import 'package:wikitude_flutter_app/pages/activityScreen.dart';
 import 'package:wikitude_flutter_app/pages/attractionScreen.dart';
+import 'package:wikitude_flutter_app/pages/covidScreen.dart';
+import 'package:wikitude_flutter_app/pages/feedScreen.dart';
 import 'package:wikitude_flutter_app/pages/imagePickerPage.dart';
 import 'package:wikitude_flutter_app/pages/loginPage.dart';
 import 'package:wikitude_flutter_app/pages/visionPage.dart';
@@ -54,6 +58,7 @@ class _HomePageState extends State<HomePage> {
   dynamic loggedInUser = UserModel();
   GoogleUserModel googleLoggedInUser = GoogleUserModel();
   String loginMethod = "";
+  Placemark placemark = Placemark();
   Widget loginPage = LoginPage();
   Position _currentPosition = new Position(
       accuracy: 0,
@@ -66,19 +71,30 @@ class _HomePageState extends State<HomePage> {
       timestamp: new DateTime.now());
   String _currentAddress = "";
   LoadingTextModel addressText = new LoadingTextModel(text: "");
+  LoadingTextModel landmarkText = new LoadingTextModel(text: "");
   bool isAddressLoading = true;
   bool isActivityLoading = true;
   bool isAttractionLoading = true;
+  bool isLandmarkLoading = true;
+  bool isLandmarkNearEnough = false;
   List<ActivityModel> _activityModels = [];
   List<AttractionModel> _attractionModels = [];
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
+  String weather = "loading...";
+  String icon_link = "http://openweathermap.org/img/w/04n.png";
 
   // Fetch content from the json file
   Future<void> readActivtiesJson() async {
-    final String response =
-        await rootBundle.loadString('assets/data/activities_data.json');
-    final data = await json.decode(response) as List<dynamic>;
+    final response = await http.get(
+        Uri.parse(
+            "https://api.jsonbin.io/v3/b/61d734442675917a628b69fc/latest"),
+        headers: {
+          'Content-type': 'application/json',
+          "X-Master-Key":
+              "\$2b\$10\$M6L3eXj646aBmRdVgsJzHewx5S2ZEf6FXP.4gFg1S3DlbQ9i8Yfr."
+        });
+    final data = await json.decode(response.body)["record"] as List<dynamic>;
     var compareDistance = (a, b) =>
         (double.parse(getDistanceToUser(a.longitude, a.latitude)) -
                 double.parse(getDistanceToUser(b.longitude, b.latitude)))
@@ -86,15 +102,21 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       _activityModels = data.map((e) => ActivityModel.fromJson(e)).toList();
       _activityModels.sort(compareDistance);
-      createNotification(
-          "Check out fun activities nearby!", _activityModels[0].title + "!");
+      // createNotification(
+      //     "Check out fun activities nearby!", _activityModels[0].title + "!");
     });
   }
 
   Future<void> readPlacesJson() async {
-    final String response =
-        await rootBundle.loadString('assets/data/attractions_data.json');
-    final data = await json.decode(response) as List<dynamic>;
+    final response = await http.get(
+        Uri.parse(
+            "https://api.jsonbin.io/v3/b/61d7344e2362237a3a336843/latest"),
+        headers: {
+          'Content-type': 'application/json',
+          "X-Master-Key":
+              "\$2b\$10\$M6L3eXj646aBmRdVgsJzHewx5S2ZEf6FXP.4gFg1S3DlbQ9i8Yfr."
+        });
+    final data = await json.decode(response.body)["record"] as List<dynamic>;
     var compareDistance = (a, b) =>
         (double.parse(getDistanceToUser(a.longitude, a.latitude)) -
                 double.parse(getDistanceToUser(b.longitude, b.latitude)))
@@ -110,7 +132,25 @@ class _HomePageState extends State<HomePage> {
               getDistanceToUser(_attractionModels[0].longitude,
                   _attractionModels[0].latitude) +
               " km away");
+      if (double.parse(getDistanceToUser(
+              _attractionModels[0].longitude, _attractionModels[0].latitude)) <=
+          0.4) {
+        landmarkText = new LoadingTextModel(text: _attractionModels[0].name);
+        isLandmarkLoading = false;
+        isLandmarkNearEnough = true;
+      }
     });
+  }
+
+  Future<void> readWeatherJson() async {
+    Uri _uri = Uri.parse(
+        "https://api.openweathermap.org/data/2.5/weather?lat=${_currentPosition.latitude}&lon=${_currentPosition.longitude}&appid=df33d4922d23eaad8d9077a561144719");
+    final response = await http.get(_uri);
+    final data = json.decode(response.body);
+    weather = data["weather"][0]["main"];
+    icon_link = "http://openweathermap.org/img/w/" +
+        data["weather"][0]["icon"] +
+        ".png";
   }
 
   Future<void> initializeNotification() async {
@@ -189,7 +229,18 @@ class _HomePageState extends State<HomePage> {
           // LocationDropdown(currentAddress: _currentAddress),
           // LanguageDropdown(),
           IconButton(
-              icon: Icon(Icons.refresh, color: Colors.pink[200]),
+              icon: ImageIcon(NetworkImage(icon_link), size: 28.0),
+              tooltip: weather,
+              onPressed: () {}),
+          IconButton(
+              icon: Icon(Icons.masks, size: 30),
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => CovidScreen(country: placemark.country),
+                ));
+              }),
+          IconButton(
+              icon: Icon(Icons.update, size: 25.0),
               onPressed: () {
                 _getAddressFromLatLng();
                 createNotification(
@@ -198,11 +249,11 @@ class _HomePageState extends State<HomePage> {
                             ? "${loggedInUser.firstName} ${loggedInUser.lastName}"
                             : "${loggedInUser.displayName.split(' ')[0]}") +
                         ", click here to explore your neighborhood!");
-              })
+              }),
         ],
       ),
       body: Container(
-        color: Color(0xffd0e3e3),
+        color: Color(0x6f85ccd8),
         child: Container(
           child: _getPage(currentPage),
         ),
@@ -216,13 +267,11 @@ class _HomePageState extends State<HomePage> {
             title: AppLocalizations.of(context)!.menu_home,
           ),
           TabData(iconData: Icons.view_in_ar_outlined, title: "AR"),
-          TabData(
-              iconData: Icons.view_list_outlined,
-              title: AppLocalizations.of(context)!.menu_plan),
           TabData(iconData: Icons.camera, title: "Vision"
               //,onclick: () => Navigator.of(context)
               //     .push(MaterialPageRoute(builder: (context) => VisionPage()))
               ),
+          TabData(iconData: Icons.groups, title: "Moments"),
         ],
         initialSelection: 0,
         key: bottomNavigationKey,
@@ -248,7 +297,7 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.all(20.0),
             child: Column(
               children: <Widget>[
-                SizedBox(height: 75.0),
+                SizedBox(height: 70.0),
                 Padding(
                   padding: EdgeInsets.all(4.0),
                   child: Column(
@@ -262,25 +311,96 @@ class _HomePageState extends State<HomePage> {
                                 : "${loggedInUser.displayName.split(' ')[0]}") +
                             ",",
                         style: TextStyle(
-                            fontSize: 28, fontWeight: FontWeight.w700),
+                            fontSize: 26, fontWeight: FontWeight.w700),
                       ),
                       SizedBox(height: 5.0),
                       isAddressLoading
                           ? buildAddressShimmer()
                           : buildAddressText(addressText),
                       // buildAddressShimmer(),
-                      SizedBox(height: 10.0),
-                      Divider(),
-                      SizedBox(height: 10.0),
+                      SizedBox(height: 16.0),
+                      isLandmarkNearEnough
+                          ? Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.0),
+                                color: Colors.red[200],
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.5),
+                                    spreadRadius: 2,
+                                    blurRadius: 4,
+                                    offset: Offset(
+                                        0, 2), // changes position of shadow
+                                  ),
+                                ],
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.fromLTRB(6, 12, 6, 6),
+                                child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Align(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          'YAY! you\'ve made it to',
+                                          style: TextStyle(
+                                            fontSize: 15.0,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(height: 4.0),
+                                      isLandmarkLoading
+                                          ? buildLandmarkShimmer()
+                                          : buildLandmarkText(landmarkText),
+                                      SizedBox(height: 8.0),
+                                      Align(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          'Tick it off ✅, take a photo 🤳\nand share with your friends 🧑‍🤝‍🧑!',
+                                          style: TextStyle(
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.w400),
+                                        ),
+                                      ),
+                                      SizedBox(height: 4.0),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          IconButton(
+                                              icon: Icon(Icons.bookmark_added,
+                                                  color: Colors.yellow[100],
+                                                  size: 27),
+                                              onPressed: () {}),
+                                          IconButton(
+                                              icon: FaIcon(
+                                                  FontAwesomeIcons.camera,
+                                                  color: Colors.yellow[100],
+                                                  size: 23.0),
+                                              onPressed: () {}),
+                                          IconButton(
+                                              icon: Icon(Icons.share,
+                                                  color: Colors.yellow[100],
+                                                  size: 26.0),
+                                              onPressed: () {}),
+                                        ],
+                                      ),
+                                    ]),
+                              ),
+                            )
+                          : SizedBox(height: 4.0),
+                      SizedBox(height: 15.0),
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 2.0),
+                        padding: EdgeInsets.symmetric(horizontal: 1.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             Text(
                               'Recommended Activties',
                               style: TextStyle(
-                                fontSize: 19.0,
+                                fontSize: 17.0,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -320,16 +440,9 @@ class _HomePageState extends State<HomePage> {
                                         //color: Colors.red,
                                         borderRadius:
                                             BorderRadius.circular(20.0),
-                                        // boxShadow: [
-                                        //   BoxShadow(
-                                        //     color: Colors.black26,
-                                        //     offset: Offset(0.0, 2.0),
-                                        //     blurRadius: 4.0,
-                                        //   ),
-                                        // ],
                                       ),
-                                      margin: EdgeInsets.all(8.0),
-                                      width: 170.0,
+                                      margin: EdgeInsets.all(6.0),
+                                      width: 165.0,
                                       child: Stack(
                                         alignment: Alignment.topCenter,
                                         children: [
@@ -466,19 +579,20 @@ class _HomePageState extends State<HomePage> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             Text(
-                              'Nearby Places',
+                              'Landmarks Nearby',
                               style: TextStyle(
-                                fontSize: 19.0,
+                                fontSize: 17.0,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             GestureDetector(
-                              onTap: () => print('See All'),
+                              onTap: () => print('View in AR'),
                               child: Text(
-                                'See All',
+                                'View in AR',
                                 style: TextStyle(
                                   fontSize: 14.0,
-                                  fontWeight: FontWeight.w400,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.red,
                                 ),
                               ),
                             ),
@@ -508,8 +622,8 @@ class _HomePageState extends State<HomePage> {
                                         borderRadius:
                                             BorderRadius.circular(20.0),
                                       ),
-                                      margin: EdgeInsets.all(8.0),
-                                      width: 170.0,
+                                      margin: EdgeInsets.all(6.0),
+                                      width: 165.0,
                                       child: Stack(
                                         alignment: Alignment.topCenter,
                                         children: [
@@ -701,9 +815,9 @@ class _HomePageState extends State<HomePage> {
         );
       case 1:
         return ArPage();
-      case 2:
-        return CardPage();
       case 3:
+        return FeedScreen();
+      case 2:
         return ImagePickerPage(title: 'Image Picker Example');
       default:
         return Column(
@@ -728,6 +842,7 @@ class _HomePageState extends State<HomePage> {
         .then((Position position) {
       setState(() {
         _currentPosition = position;
+        readWeatherJson();
         _getAddressFromLatLng();
       });
     }).catchError((e) {
@@ -746,7 +861,7 @@ class _HomePageState extends State<HomePage> {
           _currentPosition.latitude, _currentPosition.longitude);
       readActivtiesJson();
       readPlacesJson();
-      Placemark place = placemarks[0];
+      Placemark place = placemark = placemarks[0];
       setState(() {
         _currentAddress = "${place.locality}";
         addressText = new LoadingTextModel(text: _currentAddress);
@@ -773,7 +888,15 @@ class _HomePageState extends State<HomePage> {
 
   Widget buildAddressText(LoadingTextModel model) =>
       Text("Discover More in ${model.text} !",
-          style: TextStyle(fontSize: 19, fontWeight: FontWeight.w500));
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500));
+
+  Widget buildLandmarkText(LoadingTextModel model) => Align(
+        alignment: Alignment.center,
+        child: Text(
+          model.text,
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+        ),
+      );
 
   Widget buildAddressShimmer() => ShimmeringWidget.rectangular(
         height: 17,
@@ -783,5 +906,10 @@ class _HomePageState extends State<HomePage> {
   Widget buildActivityShimmer() => ShimmeringWidget.rectangular(
         height: 11,
         width: MediaQuery.of(context).size.width / 1.8,
+      );
+
+  Widget buildLandmarkShimmer() => ShimmeringWidget.rectangular(
+        height: 11,
+        width: MediaQuery.of(context).size.width / 1.4,
       );
 }
