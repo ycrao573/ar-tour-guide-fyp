@@ -194,9 +194,9 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
                   Text(
                     'Landmark Detection',
                     style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontFamily: 'Billabong',
-                      fontSize: 44.0,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: 'Poppins',
+                      fontSize: 30.0,
                       color: Color(0xff081c1e),
                       height: 1.5,
                     ),
@@ -213,8 +213,9 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
                     'Recognize Landmarks 🏞️ \n in Your Photos 🤳 \n within few seconds',
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
-                      fontSize: 18.0,
+                      fontSize: 17.0,
                       color: Color(0xff081c1e),
+                      fontFamily: 'Poppins',
                       height: 1.5,
                     ),
                     textAlign: TextAlign.center,

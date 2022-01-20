@@ -298,7 +298,9 @@ class _HomePageState extends State<HomePage> {
                                 : "${loggedInUser.displayName.split(' ')[0]}") +
                             ",",
                         style: TextStyle(
-                            fontSize: 26, fontWeight: FontWeight.w700),
+                            fontSize: 25,
+                            fontWeight: FontWeight.w700,
+                            fontFamily: 'Poppins'),
                       ),
                       SizedBox(height: 5.0),
                       isAddressLoading
@@ -873,15 +875,32 @@ class _HomePageState extends State<HomePage> {
     return res.toStringAsFixed(1);
   }
 
-  Widget buildAddressText(LoadingTextModel model) =>
-      Text("Discover More in ${model.text} !",
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500));
+  Widget buildAddressText(LoadingTextModel model) => Row(
+        children: [
+          Text("Discover More in ${model.text} ",
+              style: TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.w500,
+                  fontFamily: "Poppins")),
+          SizedBox(
+              height: 17,
+              child: Image(
+                  image: NetworkImage(
+                      "https://disease.sh/assets/img/flags/sg.png"))),
+          Text(" !",
+              style: TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.w500,
+                  fontFamily: "Poppins")),
+        ],
+      );
 
   Widget buildLandmarkText(LoadingTextModel model) => Align(
         alignment: Alignment.center,
         child: Text(
           model.text,
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+          style: TextStyle(
+              fontSize: 20, fontWeight: FontWeight.w600, fontFamily: 'Poppins'),
         ),
       );
 

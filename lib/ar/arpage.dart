@@ -65,23 +65,27 @@ class _ArPageState extends State<ArPage> {
                 child: Text("Live View - AR Experience",
                     style: TextStyle(
                       color: Colors.black,
-                      fontFamily: 'Billabong',
-                      fontSize: 38.0,
+                      fontFamily: 'Poppins',
+                      fontSize: 25.0,
                       height: 1.4,
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.w600,
                     )),
               ),
               Center(
                 child: SizedBox(
                   width: 300.0,
-                  child: Text(
-                      "\nWe use Augmented Reality (AR) to help you discover interesting places in your neighborhood. You can simply choose a category below and explore potential places nearby in 'AR' fashion. \nClick the location pin inside for more information!",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 16.0,
-                        height: 1.4,
-                        fontWeight: FontWeight.w400,
-                      )),
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                        "\nWe use Augmented Reality (AR) to help you discover interesting places in your neighborhood. You can simply choose a category below and explore potential places nearby in 'AR' fashion. \nClick any location pin for more information!",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: 'Poppins',
+                          fontSize: 15.0,
+                          height: 1.4,
+                          fontWeight: FontWeight.w400,
+                        )),
+                  ),
                 ),
               ),
               SizedBox(height: 40.0),
