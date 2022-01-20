@@ -122,7 +122,9 @@ class _HomePageState extends State<HomePage> {
       if (double.parse(getDistanceToUser(
               _attractionModels[0].longitude, _attractionModels[0].latitude)) <=
           0.4) {
-        landmarkText = new LoadingTextModel(text: _attractionModels[0].name);
+        createNotification(
+            "YAY! You\'ve made it to " + _attractionModels[0].name + "!",
+            "Tick it off ✅, take a photo 🤳\nand share with your friends NOW 🧑‍🤝‍🧑!");
         isLandmarkLoading = false;
         isLandmarkNearEnough = true;
       }
