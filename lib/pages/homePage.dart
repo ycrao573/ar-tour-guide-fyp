@@ -236,7 +236,7 @@ class _HomePageState extends State<HomePage> {
                 isAttractionLoading = true;
                 isLandmarkLoading = true;
                 isLandmarkNearEnough = false;
-                _getAddressFromLatLng();
+                _getCurrentLocation();
                 createNotification(
                     "Welcome to " + _currentAddress + "!",
                     ((loginMethod != "Google")

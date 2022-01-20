@@ -10,8 +10,8 @@ import 'package:wikitude_flutter_app/widgets/counter.dart';
 import 'package:wikitude_flutter_app/widgets/myheader.dart';
 
 Future<CovidData> fetchCovidDatas(http.Client client, String? country) async {
-  final response = await client.get(Uri.parse(
-      'https://corona.lmao.ninja/v2/countries/$country?yesterday=true&strict=true&query'));
+  final response = await client
+      .get(Uri.parse('https://corona.lmao.ninja/v2/countries/Singapore'));
   return CovidData.fromJson(jsonDecode(response.body));
 }
 
@@ -164,7 +164,7 @@ class _CovidHomeScreenState extends State<CovidHomeScreen> {
                         text: TextSpan(
                           children: [
                             TextSpan(
-                              text: "Case Update\n",
+                              text: "Covid Cases Report\n",
                               style: TextStyle(
                                 color: Colors.black,
                                 fontFamily: 'Poppins',
@@ -173,7 +173,7 @@ class _CovidHomeScreenState extends State<CovidHomeScreen> {
                               ),
                             ),
                             TextSpan(
-                              text: "Newest update on " +
+                              text: "Newest update at " +
                                   DateFormat('kk:mm, MMM dd, yyyy')
                                       .format(widget.data!.updated),
                               style: TextStyle(
@@ -270,6 +270,22 @@ class _CovidHomeScreenState extends State<CovidHomeScreen> {
                       SizedBox(
                         width: 300,
                         child: ElevatedButton.icon(
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.red[300]),
+                          ),
+                          onPressed: () {
+                            _launchURL(
+                                "https://d209m3w127yzkd.cloudfront.net/index.html");
+                          },
+                          icon: Icon(Icons.place_outlined, size: 18),
+                          label: Text("Check Covid Hotspots",
+                              style: TextStyle(fontSize: 15)),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 300,
+                        child: ElevatedButton.icon(
                           onPressed: () =>
                               _launchURL("https://www.spaceout.gov.sg/"),
                           icon: Icon(Icons.local_mall, size: 18),
@@ -297,22 +313,6 @@ class _CovidHomeScreenState extends State<CovidHomeScreen> {
                         child: ElevatedButton.icon(
                           style: ButtonStyle(
                             backgroundColor:
-                                MaterialStateProperty.all(Colors.red[300]),
-                          ),
-                          onPressed: () {
-                            _launchURL(
-                                "https://d209m3w127yzkd.cloudfront.net/index.html");
-                          },
-                          icon: Icon(Icons.place_outlined, size: 18),
-                          label: Text("Check Covid Hotspots",
-                              style: TextStyle(fontSize: 15)),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 300,
-                        child: ElevatedButton.icon(
-                          style: ButtonStyle(
-                            backgroundColor:
                                 MaterialStateProperty.all(Colors.blue[400]),
                           ),
                           onPressed: () {
@@ -327,7 +327,7 @@ class _CovidHomeScreenState extends State<CovidHomeScreen> {
                       Align(
                         alignment: Alignment.center,
                         child: Text(
-                            "  If you need to travel abroad,\nkindly refer to MFA's information:",
+                            "          If you need to travel abroad,\n   please refer to the information from\n Ministry of Foreign Affairs, Singapore:",
                             style: TextStyle(
                               fontSize: 16.0,
                             )),
@@ -362,7 +362,7 @@ class _CovidHomeScreenState extends State<CovidHomeScreen> {
                       Align(
                         alignment: Alignment.center,
                         child: Text(
-                            "Alternatively, you can use border restriction \n    checking tool provided by Skyscanner",
+                            "Alternatively, you can use the Border \n Restriction Check tool provided by:",
                             style: TextStyle(
                               fontSize: 16.0,
                             )),

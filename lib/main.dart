@@ -2,6 +2,8 @@ import 'dart:ui';
 import 'package:augmented_reality_plugin_wikitude/startupConfiguration.dart';
 import 'package:augmented_reality_plugin_wikitude/wikitude_plugin.dart';
 import 'package:augmented_reality_plugin_wikitude/wikitude_response.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:wikitude_flutter_app/l10n/l10n.dart';
@@ -53,7 +55,11 @@ class _MyAppState extends State<MyApp> {
               supportedLocales: L10n.all,
               debugShowCheckedModeBanner: false,
               theme: myTheme,
-              home: LoginPage(),
+              home: FirebaseAuth.instance.currentUser == null
+                  ? LoginPage()
+                  : FirebaseFirestore.instance.collection("users").id == ""
+                      ? HomePage(loginMethod: 'Google')
+                      : HomePage(loginMethod: 'Email'),
             );
           }));
 }
