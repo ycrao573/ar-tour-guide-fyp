@@ -173,7 +173,7 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
       return Container(
           width: double.infinity,
           height: double.infinity,
-          color: Color(0x7d85ccd8),
+          color: Color(0x5d85ccd8),
           child: Text(
             'Pick image error: $_pickImageError',
             textAlign: TextAlign.center,
@@ -266,7 +266,7 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0x8885ccd8),
+      backgroundColor: Color(0x3585ccd8),
       body: Center(
         child: !kIsWeb && defaultTargetPlatform == TargetPlatform.android
             ? FutureBuilder<void>(

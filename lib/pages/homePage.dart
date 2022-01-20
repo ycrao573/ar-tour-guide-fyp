@@ -4,19 +4,13 @@ import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wikitude_flutter_app/ar/arpage.dart';
-import 'package:wikitude_flutter_app/l10n/l10n.dart';
 import 'dart:async';
 import 'package:http/http.dart' as http;
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:settings_ui/settings_ui.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:provider/provider.dart';
 import 'package:wikitude_flutter_app/model/activityModel.dart';
 import 'package:wikitude_flutter_app/model/attractionModel.dart';
 import 'package:wikitude_flutter_app/model/googleUserModel.dart';
@@ -27,18 +21,11 @@ import 'package:wikitude_flutter_app/pages/covidScreen.dart';
 import 'package:wikitude_flutter_app/pages/feedScreen.dart';
 import 'package:wikitude_flutter_app/pages/imagePickerPage.dart';
 import 'package:wikitude_flutter_app/pages/loginPage.dart';
-import 'package:wikitude_flutter_app/pages/visionPage.dart';
-import 'package:wikitude_flutter_app/service/googleSignIn.dart';
 import 'package:wikitude_flutter_app/widgets/drawer.dart';
-import 'package:wikitude_flutter_app/widgets/languageDropdown.dart';
-import 'package:wikitude_flutter_app/widgets/locationDropdown.dart';
 import 'package:wikitude_flutter_app/widgets/shrimmingWidget.dart';
-import 'card.dart';
-import 'settingsPage.dart';
 import 'loginPage.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:shimmer/shimmer.dart';
 import '../model/loadingTextModel.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
@@ -253,7 +240,7 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: Container(
-        color: Color(0x6f85ccd8),
+        color: Color(0x7f85ccd8),
         child: Container(
           child: _getPage(currentPage),
         ),
