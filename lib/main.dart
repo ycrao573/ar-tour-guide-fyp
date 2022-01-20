@@ -7,6 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:wikitude_flutter_app/l10n/l10n.dart';
+import 'package:wikitude_flutter_app/model/userModel.dart';
 import 'package:wikitude_flutter_app/pages/loginPage.dart';
 import 'package:wikitude_flutter_app/pages/onboardingScreen.dart';
 import 'package:wikitude_flutter_app/service/googleSignIn.dart';
@@ -43,6 +44,7 @@ class _MyAppState extends State<MyApp> {
           create: (context) => GoogleSignInProvider(),
           builder: (context, child) {
             final provider = Provider.of<LocaleProvider>(context);
+            final user = FirebaseAuth.instance.currentUser;
             return MaterialApp(
               title: '',
               localizationsDelegates: [
@@ -55,9 +57,9 @@ class _MyAppState extends State<MyApp> {
               supportedLocales: L10n.all,
               debugShowCheckedModeBanner: false,
               theme: myTheme,
-              home: FirebaseAuth.instance.currentUser == null
+              home: user == null
                   ? LoginPage()
-                  : FirebaseFirestore.instance.collection("users").id == ""
+                  : user.displayName != null
                       ? HomePage(loginMethod: 'Google')
                       : HomePage(loginMethod: 'Email'),
             );
