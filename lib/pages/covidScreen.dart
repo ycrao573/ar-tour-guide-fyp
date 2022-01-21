@@ -10,8 +10,8 @@ import 'package:wikitude_flutter_app/widgets/counter.dart';
 import 'package:wikitude_flutter_app/widgets/myheader.dart';
 
 Future<CovidData> fetchCovidDatas(http.Client client, String? country) async {
-  final response = await client
-      .get(Uri.parse('https://corona.lmao.ninja/v2/countries/Singapore'));
+  final response = await client.get(Uri.parse(
+      'https://corona.lmao.ninja/v2/countries/Singapore?yesterday=true&strict=true&query'));
   return CovidData.fromJson(jsonDecode(response.body));
 }
 
