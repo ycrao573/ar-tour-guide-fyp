@@ -69,7 +69,9 @@ class _HomePageState extends State<HomePage> {
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
   String weather = "loading...";
+  // ignore: non_constant_identifier_names
   String icon_link = "http://openweathermap.org/img/w/04n.png";
+  String popupLandmarkCircle = "";
 
   // Fetch content from the json file
   Future<void> readActivtiesJson() async {
@@ -126,6 +128,7 @@ class _HomePageState extends State<HomePage> {
         createNotification(
             "YAY! You\'ve made it to " + _attractionModels[0].name + "!",
             "Tick it off ✅, take a photo 🤳\nand share with your friends NOW 🧑‍🤝‍🧑!");
+        popupLandmarkCircle = _attractionModels[0].photourl;
         isLandmarkLoading = false;
         isLandmarkNearEnough = true;
       }
@@ -339,7 +342,7 @@ class _HomePageState extends State<HomePage> {
                                       Align(
                                         alignment: Alignment.center,
                                         child: Text(
-                                          'YAY! you\'ve made it to',
+                                          'YAY! 🍾 you\'ve made it to',
                                           style: TextStyle(
                                             fontSize: 15.0,
                                             fontWeight: FontWeight.w600,
@@ -350,11 +353,15 @@ class _HomePageState extends State<HomePage> {
                                       isLandmarkLoading
                                           ? buildLandmarkShimmer()
                                           : buildLandmarkText(landmarkText),
+                                      isLandmarkLoading
+                                          ? buildCircleShimmer()
+                                          : buildCircleImage(
+                                              popupLandmarkCircle),
                                       SizedBox(height: 8.0),
                                       Align(
                                         alignment: Alignment.center,
                                         child: Text(
-                                          'Tick it off ✅, take a photo 🤳\nand share with your friends 🧑‍🤝‍🧑!',
+                                          'Claim your trophy🏆, take a photo🤳\nand share with your friends🧑‍🤝‍🧑 NOW!',
                                           style: TextStyle(
                                               fontSize: 14.0,
                                               fontWeight: FontWeight.w400),
@@ -366,14 +373,15 @@ class _HomePageState extends State<HomePage> {
                                             MainAxisAlignment.spaceEvenly,
                                         children: [
                                           IconButton(
-                                              icon: Icon(Icons.bookmark_added,
-                                                  color: Colors.yellow[100],
-                                                  size: 27),
+                                              icon: FaIcon(
+                                                  FontAwesomeIcons.trophy,
+                                                  color: Colors.yellow[700],
+                                                  size: 23.0),
                                               onPressed: () {}),
                                           IconButton(
                                               icon: FaIcon(
                                                   FontAwesomeIcons.camera,
-                                                  color: Colors.yellow[100],
+                                                  color: Colors.blueGrey[400],
                                                   size: 23.0),
                                               onPressed: () {}),
                                           IconButton(
@@ -882,6 +890,18 @@ class _HomePageState extends State<HomePage> {
     return res.toStringAsFixed(1);
   }
 
+  Widget buildCircleImage(String path) => Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: CircleAvatar(
+          backgroundColor: Colors.white,
+          radius: 60.0,
+          child: CircleAvatar(
+            backgroundImage: NetworkImage(path),
+            radius: 55.0,
+          ),
+        ),
+      );
+
   Widget buildAddressText(LoadingTextModel model) => Row(
         children: [
           Text("Discover More in ${model.text} ",
@@ -924,5 +944,9 @@ class _HomePageState extends State<HomePage> {
   Widget buildLandmarkShimmer() => ShimmeringWidget.rectangular(
         height: 11,
         width: MediaQuery.of(context).size.width / 1.4,
+      );
+
+  Widget buildCircleShimmer() => ShimmeringWidget.circular(
+        height: 35,
       );
 }

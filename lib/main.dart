@@ -59,7 +59,7 @@ class _MyAppState extends State<MyApp> {
               theme: myTheme,
               home: user == null
                   ? LoginPage()
-                  : user.displayName != null
+                  : user.displayName != ''
                       ? HomePage(loginMethod: 'Google')
                       : HomePage(loginMethod: 'Email'),
             );
