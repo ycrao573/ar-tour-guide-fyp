@@ -72,13 +72,16 @@ var World = {
                 "description": poiData[currentPlaceNr].description,
                 "category": poiData[currentPlaceNr].category,
             };
-
+            World.markerDrawableImage = new AR.ImageResource("https://cdn-icons-png.flaticon.com/512/469/469962.png", {
+                onError: World.onError
+            });
             var long1 = singlePoi.longitude / 57.29577951;
             var lat1 = singlePoi.latitude / 57.29577951;
             var long2 = World.userLocation.longitude / 57.29577951;
             var lat2 = World.userLocation.latitude / 57.29577951;
             var res = 1.609344 * 3963.0 * Math.acos((Math.sin(lat1) * Math.sin(lat2)) + Math.cos(lat1) * Math.cos(lat2) * Math.cos(long2 - long1));
-            if (res < 4.0) {
+            if (res < 3) {
+                singlePoi.distance = res.toFixed(2);
                 World.markerList.push(new Marker(singlePoi));
             }
         }
@@ -186,7 +189,9 @@ var World = {
         /* Update panel values. */
         document.getElementById("poiDetailTitle").innerHTML = marker.poiData.title;
         document.getElementById("poiDetailDescription").innerHTML = marker.poiData.description;
-
+        document.getElementById("viewmore").href = "https://www.google.com/maps/search/?api=1&query=" + marker.poiData.title;
+        document.getElementById("poiDetailImage").src = "https://maps.googleapis.com/maps/api/staticmap?center="+ marker.poiData.title +"&markers="+ marker.poiData.title +"&zoom=14&size=400x400&key=AIzaSyCcuOYBEHg6xRvC-NU-ScSPH01aDndnV_w"
+        
         /*
             It's ok for AR.Location subclass objects to return a distance of `undefined`. In case such a distance
             was calculated when all distances were queried in `updateDistanceToUserValues`, we recalculate this

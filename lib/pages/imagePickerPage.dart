@@ -170,15 +170,18 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
       // },
       // itemCount: _imageFileList!.length,
     } else if (_pickImageError != null) {
-      return Text(
-        'Pick image error: $_pickImageError',
-        textAlign: TextAlign.center,
-      );
+      return Container(
+          width: double.infinity,
+          height: double.infinity,
+          color: Color(0x5d85ccd8),
+          child: Text(
+            'Pick image error: $_pickImageError',
+            textAlign: TextAlign.center,
+          ));
     } else {
       return Container(
         width: double.infinity,
         height: double.infinity,
-        color: Color(0xffd0e3e3),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
@@ -191,8 +194,9 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
                   Text(
                     'Landmark Detection',
                     style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 26.0,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: 'Poppins',
+                      fontSize: 30.0,
                       color: Color(0xff081c1e),
                       height: 1.5,
                     ),
@@ -209,16 +213,17 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
                     'Recognize Landmarks 🏞️ \n in Your Photos 🤳 \n within few seconds',
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
-                      fontSize: 18.0,
+                      fontSize: 17.0,
                       color: Color(0xff081c1e),
-                      height: 1.4,
+                      fontFamily: 'Poppins',
+                      height: 1.5,
                     ),
                     textAlign: TextAlign.center,
                   ),
                 ],
               ),
             ),
-            SizedBox(height: 120),
+            SizedBox(height: 40),
             Text(
               'Pick a photo from:  ',
               style: TextStyle(
@@ -227,7 +232,7 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
                   fontWeight: FontWeight.w600),
               textAlign: TextAlign.left,
             ),
-            SizedBox(height: 90),
+            SizedBox(height: 110),
           ],
         ),
       );
@@ -262,6 +267,7 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0x3585ccd8),
       body: Center(
         child: !kIsWeb && defaultTargetPlatform == TargetPlatform.android
             ? FutureBuilder<void>(
@@ -294,131 +300,133 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
             : _previewImages(_detectionType),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
-      floatingActionButton: Wrap(
-        runSpacing: 5.0,
-        spacing: 5.0,
-        children: <Widget>[
-          // Padding(
-          //   padding: const EdgeInsets.only(top: 6.0),
-          //   child: FloatingActionButton.extended(
-          //     onPressed: () {
-          //       isVideo = false;
-          //       _onImageButtonPressed(ImageSource.camera, "landmark",
-          //           context: context);
-          //     },
-          //     label: const Text('Camera'),
-          //     heroTag: 'image1',
-          //     tooltip: 'Take a Photo and do landmark detection',
-          //     icon: const Icon(Icons.landscape_sharp),
-          //   ),
-          // ),
-          // Padding(
-          //   padding: const EdgeInsets.only(top: 6.0),
-          //   child: FloatingActionButton.extended(
-          //     onPressed: () {
-          //       isVideo = false;
-          //       _onImageButtonPressed(ImageSource.gallery, "landmark",
-          //           context: context);
-          //     },
-          //     heroTag: 'image2',
-          //     label: const Text('Gallery'),
-          //     tooltip: 'Pick a Photo and do landmark detection',
-          //     icon: const Icon(Icons.landscape),
-          //   ),
-          // ),
-          // Padding(
-          //   padding: const EdgeInsets.only(top: 6.0),
-          //   child: FloatingActionButton.extended(
-          //     backgroundColor: Colors.red,
-          //     onPressed: () {
-          //       isVideo = false;
-          //       _onImageButtonPressed(ImageSource.camera, "web",
-          //           context: context);
-          //     },
-          //     label: const Text('Camera'),
-          //     heroTag: 'image3',
-          //     tooltip: 'Take a Photo and do web detection',
-          //     icon: const Icon(Icons.image_search),
-          //   ),
-          // ),
-          // Padding(
-          //   padding: const EdgeInsets.only(top: 6.0),
-          //   child: FloatingActionButton.extended(
-          //     backgroundColor: Colors.red,
-          //     onPressed: () {
-          //       isVideo = false;
-          //       _onImageButtonPressed(ImageSource.gallery, "web",
-          //           context: context);
-          //     },
-          //     label: const Text('Gallery'),
-          //     heroTag: 'image4',
-          //     tooltip: 'Pick a Photo and do web detection',
-          //     icon: const Icon(Icons.image_search_sharp),
-          //   ),
-          // ),
-          Padding(
-            padding: const EdgeInsets.all(2.0),
-            child: FloatingActionButton.extended(
-              backgroundColor: Color(0xfff08e8d),
-              foregroundColor: Color(0xfffafafa),
-              onPressed: () {
-                isVideo = false;
-                _onImageButtonPressed(ImageSource.gallery, "mixed",
-                    context: context);
-              },
-              label: const Text('Gallery',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w500, color: Color(0xfffafafa))),
-              heroTag: 'image5',
-              tooltip: 'Pick a Photo from Gallery',
-              icon: const Icon(Icons.photo_album),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.fromLTRB(0, 0, 0, 30),
+        child: Wrap(
+          runSpacing: 5.0,
+          spacing: 5.0,
+          children: <Widget>[
+            // Padding(
+            //   padding: const EdgeInsets.only(top: 6.0),
+            //   child: FloatingActionButton.extended(
+            //     onPressed: () {
+            //       isVideo = false;
+            //       _onImageButtonPressed(ImageSource.camera, "landmark",
+            //           context: context);
+            //     },
+            //     label: const Text('Camera'),
+            //     heroTag: 'image1',
+            //     tooltip: 'Take a Photo and do landmark detection',
+            //     icon: const Icon(Icons.landscape_sharp),
+            //   ),
+            // ),
+            // Padding(
+            //   padding: const EdgeInsets.only(top: 6.0),
+            //   child: FloatingActionButton.extended(
+            //     onPressed: () {
+            //       isVideo = false;
+            //       _onImageButtonPressed(ImageSource.gallery, "landmark",
+            //           context: context);
+            //     },
+            //     heroTag: 'image2',
+            //     label: const Text('Gallery'),
+            //     tooltip: 'Pick a Photo and do landmark detection',
+            //     icon: const Icon(Icons.landscape),
+            //   ),
+            // ),
+            // Padding(
+            //   padding: const EdgeInsets.only(top: 6.0),
+            //   child: FloatingActionButton.extended(
+            //     backgroundColor: Colors.red,
+            //     onPressed: () {
+            //       isVideo = false;
+            //       _onImageButtonPressed(ImageSource.camera, "web",
+            //           context: context);
+            //     },
+            //     label: const Text('Camera'),
+            //     heroTag: 'image3',
+            //     tooltip: 'Take a Photo and do web detection',
+            //     icon: const Icon(Icons.image_search),
+            //   ),
+            // ),
+            // Padding(
+            //   padding: const EdgeInsets.only(top: 6.0),
+            //   child: FloatingActionButton.extended(
+            //     backgroundColor: Colors.red,
+            //     onPressed: () {
+            //       isVideo = false;
+            //       _onImageButtonPressed(ImageSource.gallery, "web",
+            //           context: context);
+            //     },
+            //     label: const Text('Gallery'),
+            //     heroTag: 'image4',
+            //     tooltip: 'Pick a Photo and do web detection',
+            //     icon: const Icon(Icons.image_search_sharp),
+            //   ),
+            // ),
+            Padding(
+              padding: const EdgeInsets.all(2.0),
+              child: FloatingActionButton.extended(
+                backgroundColor: Color(0xfff08e8d),
+                foregroundColor: Color(0xfffafafa),
+                onPressed: () {
+                  isVideo = false;
+                  _onImageButtonPressed(ImageSource.gallery, "mixed",
+                      context: context);
+                },
+                label: const Text('Gallery',
+                    style: TextStyle(
+                        fontWeight: FontWeight.w500, color: Color(0xfffafafa))),
+                heroTag: 'image5',
+                tooltip: 'Pick a Photo from Gallery',
+                icon: const Icon(Icons.photo_album),
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(2.0),
-            child: FloatingActionButton.extended(
-              backgroundColor: Color(0xfff08e8d),
-              foregroundColor: Color(0xfffafafa),
-              onPressed: () {
-                isVideo = false;
-                _onImageButtonPressed(ImageSource.camera, "mixed",
-                    context: context);
-              },
-              label: const Text('Camera',
-                  style: TextStyle(fontWeight: FontWeight.w500)),
-              heroTag: 'image6',
-              tooltip: 'Pick a Photo from Camera',
-              icon: const Icon(Icons.camera),
+            Padding(
+              padding: const EdgeInsets.all(2.0),
+              child: FloatingActionButton.extended(
+                backgroundColor: Color(0xfff08e8d),
+                foregroundColor: Color(0xfffafafa),
+                onPressed: () {
+                  isVideo = false;
+                  _onImageButtonPressed(ImageSource.camera, "mixed",
+                      context: context);
+                },
+                label: const Text('Camera',
+                    style: TextStyle(fontWeight: FontWeight.w500)),
+                heroTag: 'image6',
+                tooltip: 'Pick a Photo from Camera',
+                icon: const Icon(Icons.camera),
+              ),
             ),
-          ),
-          SizedBox(height: 50.0)
-          // Padding(
-          //   padding: const EdgeInsets.only(top: 6.0),
-          //   child: FloatingActionButton(
-          //     backgroundColor: Colors.red,
-          //     onPressed: () {
-          //       isVideo = true;
-          //       _onImageButtonPressed(ImageSource.gallery);
-          //     },
-          //     heroTag: 'video0',
-          //     tooltip: 'Pick Video from gallery',
-          //     child: const Icon(Icons.video_library),
-          //   ),
-          // ),
-          // Padding(
-          //   padding: const EdgeInsets.only(top: 6.0),
-          //   child: FloatingActionButton(
-          //     backgroundColor: Colors.red,
-          //     onPressed: () {
-          //       isVideo = true;
-          //       _onImageButtonPressed(ImageSource.camera);
-          //     },
-          //     heroTag: 'video1',
-          //     tooltip: 'Take a Video',
-          //     child: const Icon(Icons.videocam),
-          //   ),
-          // ),
-        ],
+            // Padding(
+            //   padding: const EdgeInsets.only(top: 6.0),
+            //   child: FloatingActionButton(
+            //     backgroundColor: Colors.red,
+            //     onPressed: () {
+            //       isVideo = true;
+            //       _onImageButtonPressed(ImageSource.gallery);
+            //     },
+            //     heroTag: 'video0',
+            //     tooltip: 'Pick Video from gallery',
+            //     child: const Icon(Icons.video_library),
+            //   ),
+            // ),
+            // Padding(
+            //   padding: const EdgeInsets.only(top: 6.0),
+            //   child: FloatingActionButton(
+            //     backgroundColor: Colors.red,
+            //     onPressed: () {
+            //       isVideo = true;
+            //       _onImageButtonPressed(ImageSource.camera);
+            //     },
+            //     heroTag: 'video1',
+            //     tooltip: 'Take a Video',
+            //     child: const Icon(Icons.videocam),
+            //   ),
+            // ),
+          ],
+        ),
       ),
     );
   }

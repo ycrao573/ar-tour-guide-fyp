@@ -1,11 +1,12 @@
 html, body {
     margin: 0;
     height: 100%;
-    overflow: hidden
+    overflow: hidden;
+    font-family: Helvetica, Arial
 }
 
 #mainHeader {
-    background-color: #dddddddd;
+    background-color: #ffffffbf;
     position: absolute;
     width: 100%;
     display: flex;
@@ -42,7 +43,6 @@ html, body {
   text-align: center;
   border-radius: 6px;
   padding: 5px 0;
-
   position: absolute;
   z-index: 1;
   bottom: 100%;
@@ -54,7 +54,7 @@ html, body {
 }
 
 #panelPoiDetail {
-    background-color: #eeeeeeee;
+    background-color: #ffffffbf;
     height: 100%;
     right: 0;
     position: absolute;
@@ -64,11 +64,11 @@ html, body {
 }
 
 #poiDetailDistance {
-    color: #3979db;
+    color: #061d1d;
 }
 
 #panelRange {
-    background-color: #eeeeeeee;
+    background-color: #ffffffbf;
     height: 100%;
     left: 0;
     position: absolute;
@@ -78,11 +78,11 @@ html, body {
 }
 
 #panelRangeValue {
-    color: #3979db;
+    color: #071d1f;
 }
 
 #panelRangePlaces {
-    color: #3979db;
+    color: #071d1f;
 }
 
 #panelRangeSliderContainer {
@@ -91,13 +91,13 @@ html, body {
 }
 
 #panelRangeSliderValue{
-    background-color: #cccccccc;
+    background-color: #bbbbbbbb;
     border-radius: 4px;
     text-align: center;
 }
 
 .header {
-    background-color: #dddddddd;
+    background-color: #ffffff55;
     position: absolute;
     width: 100%;
     align-items: center;
@@ -108,10 +108,10 @@ html, body {
     z-index: 1;
     border-radius: 20px;
     border-style: solid;
-    border-color: #ccc;
+    border-color: #85ccd6;
     font-weight: bold;
-    font-size: small;
-    background-color: #ffffffee;
+    font-size: medium;
+    background-color: #85ccd6;
     white-space: nowrap;
 }
 

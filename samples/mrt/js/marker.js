@@ -41,21 +41,21 @@ function Marker(poiData) {
     });
 
     /* Create an AR.ImageDrawable for the marker in idle state. */
-    this.markerDrawableImage = new AR.ImageDrawable(World.markerDrawableImage, 1.75, {
+    this.markerDrawableImage = new AR.ImageDrawable(World.markerDrawableImage, 1.5, {
         zOrder: 1,
         opacity: 1.0,
         translate: {
-            x: -2.6,
+            x: -2.7,
             y: 1.4
         },
         onClick: null
     });
 
     /* Create an AR.Label for the marker's title . */
-    this.titleLabel = new AR.Label(poiData.title.split("(")[0].trim().replace("MRT STATION", "")+"("+poiData.title.split("(")[1].trim(), 0.75, {
+    this.titleLabel = new AR.Label(poiData.title.split("(")[0].trim().replace("MRT STATION", "")+"("+poiData.title.split("(")[1].trim(), 0.7, {
         zOrder: 1,
         translate: {
-            x: 1.4,
+            x: 1.0,
             y: 2.0
         },
         style: {
@@ -67,8 +67,8 @@ function Marker(poiData) {
     this.descriptionLabel = new AR.Label(poiData.distance+" km", 0.6, {
         zOrder: 1,
         translate: {
-            x: -0.4,
-            y: 0.8
+            x: -0.6,
+            y: 0.9
         },
         style: {
             textColor: '#000000'
@@ -80,7 +80,7 @@ function Marker(poiData) {
         World. Set options regarding the offset and anchor of the image so that it will be displayed correctly on
         the edge of the screen.
     */
-    this.directionIndicatorDrawable = new AR.ImageDrawable(World.markerDrawableDirectionIndicator, 0.1, {
+    this.directionIndicatorDrawable = new AR.ImageDrawable(World.markerDrawableDirectionIndicator, 0.2, {
         enabled: false,
         verticalAnchor: AR.CONST.VERTICAL_ANCHOR.TOP
     });
@@ -105,7 +105,7 @@ function Marker(poiData) {
         horizontalAnchor: AR.CONST.HORIZONTAL_ANCHOR.CENTER,
         opacity: 0.8,
         style: {
-            fillColor: "#0066ff"
+            fillColor: "#85ccd8"
         }
     });
 

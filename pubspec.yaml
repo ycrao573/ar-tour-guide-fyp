@@ -12,7 +12,7 @@ dependencies:
   permission_handler: ^8.1.1
   flutter_localizations:
     sdk: flutter
-
+  
   intl: ^0.17.0 # Add this line
   cupertino_icons: ^1.0.3
   location: ^4.1.1
@@ -44,6 +44,8 @@ dependencies:
   flutter_local_notifications: ^9.2.0
   flutter_image: ^4.1.0
   cached_network_image: ^3.2.0
+  another_flushbar: ^1.10.28
+  flutter_svg: ^0.22.0
   
 dev_dependencies:
   flutter_test:
@@ -80,4 +82,22 @@ flutter:
     - samples/mall/js/
     - samples/mall/css/
     - samples/mall/assets/
+    - samples/landmark/
+    - samples/landmark/js/
+    - samples/landmark/css/
+    - samples/landmark/assets/
     - assets/data/
+    - assets/icons/
+    - assets/fonts/Poppins/
+  
+  fonts:
+    - family: Billabong
+      fonts:
+        - asset: assets/fonts/Billabong.ttf
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins/Poppins-Regular.ttf
+        - asset: assets/fonts/Poppins/Poppins-Medium.ttf
+          weight: 600
+        - asset: assets/fonts/Poppins/Poppins-Bold.ttf
+          weight: 700

@@ -174,10 +174,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
             signUp(emailEditingController.text, passwordEditingController.text);
           },
           child: Text(
-            "SignUp",
+            "Join Travelee Today!",
             textAlign: TextAlign.center,
             style: TextStyle(
-                fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
+                fontSize: 18, color: Colors.white, fontWeight: FontWeight.w700),
           )),
     );
 
@@ -207,24 +207,31 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     SizedBox(
-                        height: 180,
+                        height: 170,
                         child: Image.asset(
                           "assets/images/logo.png",
                           fit: BoxFit.contain,
                         )),
-                    SizedBox(height: 45),
-                    firstNameField,
-                    SizedBox(height: 20),
-                    lastNameField,
-                    SizedBox(height: 20),
-                    emailField,
-                    SizedBox(height: 20),
-                    passwordField,
-                    SizedBox(height: 20),
-                    confirmPasswordField,
-                    SizedBox(height: 20),
-                    signUpButton,
+                    Text(
+                      "Travelee",
+                      style: TextStyle(
+                        fontFamily: 'Billabong',
+                        fontSize: 46.0,
+                      ),
+                    ),
                     SizedBox(height: 15),
+                    firstNameField,
+                    SizedBox(height: 12),
+                    lastNameField,
+                    SizedBox(height: 12),
+                    emailField,
+                    SizedBox(height: 12),
+                    passwordField,
+                    SizedBox(height: 12),
+                    confirmPasswordField,
+                    SizedBox(height: 18),
+                    signUpButton,
+                    SizedBox(height: 22),
                   ],
                 ),
               ),

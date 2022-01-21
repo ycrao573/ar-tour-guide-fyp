@@ -65,25 +65,30 @@ class _ArPageState extends State<ArPage> {
                 child: Text("Live View - AR Experience",
                     style: TextStyle(
                       color: Colors.black,
-                      fontSize: 24.0,
+                      fontFamily: 'Poppins',
+                      fontSize: 25.0,
                       height: 1.4,
-                      fontWeight: FontWeight.w700,
+                      fontWeight: FontWeight.w600,
                     )),
               ),
               Center(
                 child: SizedBox(
                   width: 300.0,
-                  child: Text(
-                      "\nWe use Augmented Reality (AR) to help you discover interesting places in your neighborhood. You can simply choose a category below and explore potential places nearby in 'AR' fashion. \nClick the location pin inside for more information!",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 16.0,
-                        height: 1.4,
-                        fontWeight: FontWeight.w400,
-                      )),
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                        "\nWe use Augmented Reality (AR) to help you discover interesting places in your neighborhood. You can simply choose a category below and explore potential places nearby in 'AR' fashion. \nClick any location pin for more information!",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: 'Poppins',
+                          fontSize: 15.0,
+                          height: 1.4,
+                          fontWeight: FontWeight.w400,
+                        )),
+                  ),
                 ),
               ),
-              SizedBox(height: 60.0),
+              SizedBox(height: 40.0),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -97,7 +102,7 @@ class _ArPageState extends State<ArPage> {
                           shape: CircleBorder(),
                         ),
                         child: IconButton(
-                          iconSize: 40.0,
+                          iconSize: 36.0,
                           icon: const Icon(Icons.subway_outlined),
                           color: Colors.white,
                           onPressed: () {
@@ -127,7 +132,7 @@ class _ArPageState extends State<ArPage> {
                           shape: CircleBorder(),
                         ),
                         child: IconButton(
-                          iconSize: 40.0,
+                          iconSize: 36.0,
                           icon: const Icon(Icons.shopping_cart),
                           color: Colors.white,
                           onPressed: () {
@@ -157,13 +162,13 @@ class _ArPageState extends State<ArPage> {
                           shape: CircleBorder(),
                         ),
                         child: IconButton(
-                          iconSize: 40.0,
+                          iconSize: 36.0,
                           icon: const Icon(Icons.landscape),
                           color: Colors.white,
                           onPressed: () {
                             _pushArView(new Sample(
                               name: "Landmark",
-                              path: 'mall/index.html',
+                              path: 'landmark/index.html',
                               requiredFeatures: ["geo"],
                               startupConfiguration: new StartupConfiguration(
                                   cameraPosition: CameraPosition.BACK,
@@ -176,6 +181,103 @@ class _ArPageState extends State<ArPage> {
                       ),
                       SizedBox(height: 10.0),
                       Text('Landmark'),
+                    ],
+                  ),
+                ],
+              ),
+              SizedBox(height: 20.0),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Column(
+                    children: [
+                      Ink(
+                        padding: EdgeInsets.all(4.0),
+                        decoration: ShapeDecoration(
+                          color: Colors.redAccent[100],
+                          shape: CircleBorder(),
+                        ),
+                        child: IconButton(
+                          iconSize: 36.0,
+                          icon: const Icon(Icons.restaurant),
+                          color: Colors.white,
+                          onPressed: () {
+                            _pushArView(new Sample(
+                              name: "Restaurant",
+                              path: 'landmark/index.html',
+                              requiredFeatures: ["geo"],
+                              startupConfiguration: new StartupConfiguration(
+                                  cameraPosition: CameraPosition.BACK,
+                                  cameraResolution: CameraResolution.AUTO,
+                                  cameraFocusMode: CameraFocusMode.CONTINUOUS),
+                              requiredExtensions: ["native_detail"],
+                            ));
+                          },
+                        ),
+                      ),
+                      SizedBox(height: 10.0),
+                      Text('Restaurant'),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Ink(
+                        padding: EdgeInsets.all(4.0),
+                        decoration: ShapeDecoration(
+                          color: Colors.redAccent[100],
+                          shape: CircleBorder(),
+                        ),
+                        child: IconButton(
+                          iconSize: 36.0,
+                          icon: const Icon(Icons.hotel_outlined),
+                          color: Colors.white,
+                          onPressed: () {
+                            _pushArView(new Sample(
+                              name: "Hotel",
+                              path: 'landmark/index.html',
+                              requiredFeatures: ["geo"],
+                              startupConfiguration: new StartupConfiguration(
+                                  cameraPosition: CameraPosition.BACK,
+                                  cameraResolution: CameraResolution.AUTO,
+                                  cameraFocusMode: CameraFocusMode.CONTINUOUS),
+                              requiredExtensions: ["native_detail"],
+                            ));
+                          },
+                        ),
+                      ),
+                      SizedBox(height: 10.0),
+                      Text('Hotel'),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Ink(
+                        padding: EdgeInsets.all(4.0),
+                        decoration: ShapeDecoration(
+                          color: Colors.redAccent[100],
+                          shape: CircleBorder(),
+                        ),
+                        child: IconButton(
+                          iconSize: 36.0,
+                          icon: const Icon(Icons.park_outlined),
+                          color: Colors.white,
+                          onPressed: () {
+                            _pushArView(new Sample(
+                              name: "Park",
+                              path: 'landmark/index.html',
+                              requiredFeatures: ["geo"],
+                              startupConfiguration: new StartupConfiguration(
+                                  cameraPosition: CameraPosition.BACK,
+                                  cameraResolution: CameraResolution.AUTO,
+                                  cameraFocusMode: CameraFocusMode.CONTINUOUS),
+                              requiredExtensions: ["native_detail"],
+                            ));
+                          },
+                        ),
+                      ),
+                      SizedBox(height: 10.0),
+                      Text('Park'),
                     ],
                   ),
                 ],

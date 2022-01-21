@@ -19,7 +19,7 @@ class _AttractionScreenState extends State<AttractionScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.teal[300],
+        backgroundColor: Color(0xff85ccd8),
         body: Column(children: [
           Stack(children: [
             Stack(children: <Widget>[
