@@ -127,7 +127,7 @@ class _HomePageState extends State<HomePage> {
         landmarkText = new LoadingTextModel(text: _attractionModels[0].name);
         createNotification(
             "YAY! You\'ve made it to " + _attractionModels[0].name + "!",
-            "Tick it off ✅, take a photo 🤳\nand share with your friends NOW 🧑‍🤝‍🧑!");
+            "Claim your trophy🏆, take a photo🤳\nand share with your friends🧑‍🤝‍🧑 NOW!");
         popupLandmarkCircle = _attractionModels[0].photourl;
         isLandmarkLoading = false;
         isLandmarkNearEnough = true;

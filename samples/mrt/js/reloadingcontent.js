@@ -89,6 +89,29 @@ var World = {
             }
         }
 
+        //TODO: THIS SHOULD ADJUST ACCORDINGLY:
+        
+        var compareDistanceToUser = (a, b) => {
+          if (parseFloat(a.poiData.distance) < parseFloat(b.poiData.distance)) {
+            return -1;
+          }
+          if (parseFloat(a.poiData.distance) > parseFloat(b.poiData.distance)) {
+            return 1;
+          }
+          return 0;
+        }
+
+        //TODO: THIS SHOULD ADJUST ACCORDINGLY:
+
+        World.markerList.sort(compareDistanceToUser);
+        if (World.markerList[0].poiData.distance <= 0.25) {
+            document.getElementById("currentSpot").innerHTML = World.markerList[0].poiData.title;
+            document.getElementById("viewmorespot").href = "https://www.google.com/maps/search/?api=1&query=" + World.markerList[0].poiData.title;
+            document.getElementById("popupButton").style.display = 'block';
+        } else {
+            
+        }
+        
         /* Updates distance information of all placemarks. */
         World.updateDistanceToUserValues();
 
@@ -97,7 +120,7 @@ var World = {
 
         /* Set distance slider to 100%. */
         var maxPlaceDistance = Math.round(World.getMaxDistance());
-        const defaultDisplayDistance = 1200;
+        const defaultDisplayDistance = 1300;
         var defaultDisplayPosition = (maxPlaceDistance > defaultDisplayDistance) ? Math.round(maxPlaceDistance / defaultDisplayDistance) : 100;
 
         document.getElementById("panelRangeSliderValue").innerHTML = defaultDisplayPosition;
@@ -115,8 +138,6 @@ var World = {
 
     /* Updates status message shown in small "i"-button aligned bottom center. */
     updateStatusMessage: function updateStatusMessageFn(message, isWarning) {
-        document.getElementById("popupButtonImage").src = isWarning ? "assets/warning_icon.png" : "assets/info_icon.png";
-        document.getElementById("popupButtonTooltip").innerHTML = message;
     },
 
 	/*	
@@ -126,15 +147,15 @@ var World = {
     */	
     /* User clicked "More" button in POI-detail panel -> fire event to open native screen. */	
     onPoiDetailMoreButtonClicked: function onPoiDetailMoreButtonClickedFn() {	
-        var currentMarker = World.currentMarker;	
+        var currentMarker = World.currentMarker;
         var markerSelectedJSON = {
             action: "present_poi_details",
             id: currentMarker.poiData.id,
             title: currentMarker.poiData.title,
             description: currentMarker.poiData.description,
             category: currentMarker.poiData.category,
-            // reviews: currentMarker.poiData.reviews,
-            // imageUrl: currentMarker.poiData.imageUrl,
+            latitude: currentMarker.poiData.latitude.toString(),
+            longitude: currentMarker.poiData.longitude.toString(),
         };
         /*	
             The sendJSONObject method can be used to send data from javascript to the native code.	

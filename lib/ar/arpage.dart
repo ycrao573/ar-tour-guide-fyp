@@ -150,7 +150,7 @@ class _ArPageState extends State<ArPage> {
                         ),
                       ),
                       SizedBox(height: 10.0),
-                      Text('Shopping Mall'),
+                      Text('Mall'),
                     ],
                   ),
                   Column(
@@ -195,7 +195,7 @@ class _ArPageState extends State<ArPage> {
                       Ink(
                         padding: EdgeInsets.all(4.0),
                         decoration: ShapeDecoration(
-                          color: Colors.redAccent[100],
+                          color: Colors.grey[400],
                           shape: CircleBorder(),
                         ),
                         child: IconButton(
@@ -203,16 +203,16 @@ class _ArPageState extends State<ArPage> {
                           icon: const Icon(Icons.restaurant),
                           color: Colors.white,
                           onPressed: () {
-                            _pushArView(new Sample(
-                              name: "Restaurant",
-                              path: 'landmark/index.html',
-                              requiredFeatures: ["geo"],
-                              startupConfiguration: new StartupConfiguration(
-                                  cameraPosition: CameraPosition.BACK,
-                                  cameraResolution: CameraResolution.AUTO,
-                                  cameraFocusMode: CameraFocusMode.CONTINUOUS),
-                              requiredExtensions: ["native_detail"],
-                            ));
+                            // _pushArView(new Sample(
+                            //   name: "Restaurant",
+                            //   path: 'landmark/index.html',
+                            //   requiredFeatures: ["geo"],
+                            //   startupConfiguration: new StartupConfiguration(
+                            //       cameraPosition: CameraPosition.BACK,
+                            //       cameraResolution: CameraResolution.AUTO,
+                            //       cameraFocusMode: CameraFocusMode.CONTINUOUS),
+                            //   requiredExtensions: ["native_detail"],
+                            // ));
                           },
                         ),
                       ),
@@ -225,7 +225,7 @@ class _ArPageState extends State<ArPage> {
                       Ink(
                         padding: EdgeInsets.all(4.0),
                         decoration: ShapeDecoration(
-                          color: Colors.redAccent[100],
+                          color: Colors.grey[400],
                           shape: CircleBorder(),
                         ),
                         child: IconButton(
@@ -233,16 +233,16 @@ class _ArPageState extends State<ArPage> {
                           icon: const Icon(Icons.hotel_outlined),
                           color: Colors.white,
                           onPressed: () {
-                            _pushArView(new Sample(
-                              name: "Hotel",
-                              path: 'landmark/index.html',
-                              requiredFeatures: ["geo"],
-                              startupConfiguration: new StartupConfiguration(
-                                  cameraPosition: CameraPosition.BACK,
-                                  cameraResolution: CameraResolution.AUTO,
-                                  cameraFocusMode: CameraFocusMode.CONTINUOUS),
-                              requiredExtensions: ["native_detail"],
-                            ));
+                            // _pushArView(new Sample(
+                            //   name: "Hotel",
+                            //   path: 'landmark/index.html',
+                            //   requiredFeatures: ["geo"],
+                            //   startupConfiguration: new StartupConfiguration(
+                            //       cameraPosition: CameraPosition.BACK,
+                            //       cameraResolution: CameraResolution.AUTO,
+                            //       cameraFocusMode: CameraFocusMode.CONTINUOUS),
+                            //   requiredExtensions: ["native_detail"],
+                            // ));
                           },
                         ),
                       ),
@@ -255,7 +255,7 @@ class _ArPageState extends State<ArPage> {
                       Ink(
                         padding: EdgeInsets.all(4.0),
                         decoration: ShapeDecoration(
-                          color: Colors.redAccent[100],
+                          color: Colors.grey[400],
                           shape: CircleBorder(),
                         ),
                         child: IconButton(
@@ -263,16 +263,16 @@ class _ArPageState extends State<ArPage> {
                           icon: const Icon(Icons.park_outlined),
                           color: Colors.white,
                           onPressed: () {
-                            _pushArView(new Sample(
-                              name: "Park",
-                              path: 'landmark/index.html',
-                              requiredFeatures: ["geo"],
-                              startupConfiguration: new StartupConfiguration(
-                                  cameraPosition: CameraPosition.BACK,
-                                  cameraResolution: CameraResolution.AUTO,
-                                  cameraFocusMode: CameraFocusMode.CONTINUOUS),
-                              requiredExtensions: ["native_detail"],
-                            ));
+                            // _pushArView(new Sample(
+                            //   name: "Park",
+                            //   path: 'landmark/index.html',
+                            //   requiredFeatures: ["geo"],
+                            //   startupConfiguration: new StartupConfiguration(
+                            //       cameraPosition: CameraPosition.BACK,
+                            //       cameraResolution: CameraResolution.AUTO,
+                            //       cameraFocusMode: CameraFocusMode.CONTINUOUS),
+                            //   requiredExtensions: ["native_detail"],
+                            // ));
                           },
                         ),
                       ),

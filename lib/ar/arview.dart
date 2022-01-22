@@ -100,8 +100,9 @@ class ArViewState extends State<ArViewWidget> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:
-          AppBar(title: Text(sample.name), backgroundColor: Color(0x9985ccd8)),
+      appBar: AppBar(
+          title: Text("Live View - " + sample.name),
+          backgroundColor: Color(0x9985ccd8)),
       body: Container(
         child: architectWidget,
       ),
@@ -126,9 +127,13 @@ class ArViewState extends State<ArViewWidget> with WidgetsBindingObserver {
             context,
             MaterialPageRoute(
                 builder: (context) => PoiDetailsWidget(
-                    id: jsonObject["id"],
-                    title: jsonObject["title"],
-                    description: jsonObject["description"])),
+                      category: jsonObject["category"],
+                      id: jsonObject["id"],
+                      title: jsonObject["title"],
+                      description: jsonObject["description"],
+                      latitude: jsonObject["latitude"],
+                      longitude: jsonObject["longitude"],
+                    )),
           );
           break;
       }
