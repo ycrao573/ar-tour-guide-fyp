@@ -24,6 +24,7 @@ html, body {
     align-items: center;
     justify-content: space-between;
     bottom: calc(1vh + env(safe-area-inset-bottom));
+    visibility: hidden;
 }
 
 #popupButton {

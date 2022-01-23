@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_image/flutter_image.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:wikitude_flutter_app/model/attractionModel.dart';
 import 'package:wikitude_flutter_app/widgets/shrimmingWidget.dart';

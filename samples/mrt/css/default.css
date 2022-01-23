@@ -20,6 +20,7 @@ html, body {
     position: absolute;
     text-align: center;
     background-color: #ffffffe2;
+    visibility: hidden;
     width: 100%;
     align-items: center;
     justify-content: space-between;
@@ -27,7 +28,6 @@ html, body {
 }
 
 #popupButton {
-    display: none;
     margin: auto;
 }
 

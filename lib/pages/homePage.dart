@@ -28,6 +28,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import '../model/loadingTextModel.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:rating_dialog/rating_dialog.dart';
 
 class HomePage extends StatefulWidget {
   final String loginMethod;
@@ -275,6 +276,15 @@ class _HomePageState extends State<HomePage> {
         onTabChangedListener: (position) {
           setState(() {
             currentPage = position;
+            // show the dialog
+            if (Random().nextInt(100) <= 5) {
+              showDialog(
+                context: context,
+                barrierDismissible:
+                    true, // set to false if you want to force a rating
+                builder: (context) => _dialog,
+              );
+            }
           });
         },
       ),
@@ -950,3 +960,33 @@ class _HomePageState extends State<HomePage> {
         height: 35,
       );
 }
+
+final _dialog = RatingDialog(
+  initialRating: 5.0,
+  title: Text(
+    'Enjoy Travelee so far?',
+    textAlign: TextAlign.center,
+    style: const TextStyle(
+      fontSize: 24,
+      fontWeight: FontWeight.w700,
+    ),
+  ),
+  starSize: 20.0,
+  // encourage your user to leave a high rating?
+  message: Text(
+    'We love to hear your feedback!',
+    textAlign: TextAlign.center,
+    style: const TextStyle(fontSize: 15),
+  ),
+  // your app's logo?
+  image: Image(image: AssetImage("assets/images/logo.png"), height: 150.0),
+  submitButtonText: 'Submit',
+  onCancelled: () => print('cancelled'),
+  onSubmitted: (response) {
+    print('rating: ${response.rating}, comment: ${response.comment}');
+    if (response.rating < 3.0) {
+      // send their comments to your email or anywhere you wish
+      // ask the user to contact you instead of leaving a bad review
+    } else {}
+  },
+);

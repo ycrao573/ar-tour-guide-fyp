@@ -62,8 +62,6 @@ var World = {
             onError: World.onError
         });
 
-        
-
         /* Loop through POI-information and create an AR.GeoObject (=Marker) per POI. */
         for (var currentPlaceNr = 0; currentPlaceNr < poiData.length; currentPlaceNr++) {
             var singlePoi = {
@@ -104,14 +102,15 @@ var World = {
         //TODO: THIS SHOULD ADJUST ACCORDINGLY:
 
         World.markerList.sort(compareDistanceToUser);
-        if (World.markerList[0].poiData.distance <= 0.25) {
-            document.getElementById("currentSpot").innerHTML = World.markerList[0].poiData.title;
-            document.getElementById("viewmorespot").href = "https://www.google.com/maps/search/?api=1&query=" + World.markerList[0].poiData.title;
-            document.getElementById("popupButton").style.display = 'block';
-        } else {
-            
+        if (parseFloat(World.markerList[0].poiData.distance) < 1.5) {
+            document.getElementById("footer").style.visibility = "visible";
+            document.getElementById("currentSpot").innerHTML =
+              World.markerList[0].poiData.title;
+            document.getElementById("viewmorespot").href =
+              "https://www.google.com/maps/search/?api=1&query=" +
+              World.markerList[0].poiData.title;
         }
-        
+
         /* Updates distance information of all placemarks. */
         World.updateDistanceToUserValues();
 
@@ -163,6 +162,23 @@ var World = {
         AR.platform.sendJSONObject(markerSelectedJSON);	
     },
 
+    /* User clicked "More" button in POI-detail panel -> fire event to open native screen. */	
+    onNearestPoiMoreButtonClicked: function onNearestPoiMoreButtonClickedFn(nearestPoiData) {
+            var markerSelectedJSON = {
+                action: "present_poi_details",
+                id: nearestPoiData.poiData.id,
+                title: nearestPoiData.poiData.title,
+                description: nearestPoiData.poiData.description,
+                category: nearestPoiData.poiData.category,
+                latitude: nearestPoiData.poiData.latitude.toString(),
+                longitude: nearestPoiData.poiData.longitude.toString(),
+            };
+            /*	
+                The sendJSONObject method can be used to send data from javascript to the native code.	
+            */	
+            AR.platform.sendJSONObject(markerSelectedJSON);	
+        },
+
     /* Location updates, fired every time you call architectView.setLocation() in native environment. */
     locationChanged: function locationChangedFn(lat, lon, alt, acc) {
 
@@ -212,7 +228,7 @@ var World = {
         document.getElementById("poiDetailTitle").innerHTML = marker.poiData.title;
         document.getElementById("poiDetailDescription").innerHTML = marker.poiData.description;
         document.getElementById("viewmore").href = "https://www.google.com/maps/search/?api=1&query=" + marker.poiData.title;
-        document.getElementById("poiDetailImage").src = "https://maps.googleapis.com/maps/api/staticmap?center="+ marker.poiData.title +"&markers="+ marker.poiData.title +"&zoom=14&size=400x400&key=AIzaSyCcuOYBEHg6xRvC-NU-ScSPH01aDndnV_w"
+        document.getElementById("poiDetailImage").src = "https://maps.googleapis.com/maps/api/staticmap?center="+ marker.poiData.title +"&markers="+ marker.poiData.title +"&zoom=15&size=400x400&key=AIzaSyCcuOYBEHg6xRvC-NU-ScSPH01aDndnV_w"
         
         /*
             It's ok for AR.Location subclass objects to return a distance of `undefined`. In case such a distance
