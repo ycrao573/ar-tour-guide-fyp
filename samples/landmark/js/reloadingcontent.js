@@ -92,7 +92,7 @@ var World = {
         photourl:
           extractContent(poiData[currentPlaceNr].PHOTOURL) || "https://e7.pngegg.com/pngimages/356/449/png-clipart-red-and-white-international-flag-illustration-flag-of-singapore-transpa-duck-hippo-national-flag-china-flag-love-miscellaneous.png",
         imagetext: poiData[currentPlaceNr]["Image Text"],
-        address: poiData[currentPlaceNr].ADDRESSSTREETNAME,
+        address: poiData[currentPlaceNr].ADDRESSSTREETNAME + (poiData[currentPlaceNr].ADDRESSPOSTALCODE.length > 0 ? (", " + poiData[currentPlaceNr].ADDRESSPOSTALCODE) : ""),
         openinghours: poiData[currentPlaceNr]["Opening Hours"],
       };
       World.markerDrawableImage = new AR.ImageResource(
@@ -164,17 +164,24 @@ var World = {
   onPoiDetailMoreButtonClicked: function onPoiDetailMoreButtonClickedFn() {
     var currentMarker = World.currentMarker;
     var markerSelectedJSON = {
-      action: "present_poi_details",
+      action: "present_landmark_poi_details",
       id: currentMarker.poiData.id,
       title: currentMarker.poiData.title,
       description: currentMarker.poiData.description,
       category: currentMarker.poiData.category,
-      // reviews: currentMarker.poiData.reviews,
-      // imageUrl: currentMarker.poiData.imageUrl,
+      latitude: currentMarker.poiData.latitude,
+      longitude: currentMarker.poiData.longitude,
+      officiallink: currentMarker.poiData.officiallink,
+      hyperlink: currentMarker.poiData.hyperlink,
+      urlpath: currentMarker.poiData.urlpath,
+      photourl: currentMarker.poiData.photourl,
+      imagetext: currentMarker.poiData.imagetext,
+      address: currentMarker.poiData.address,
+      openinghours: currentMarker.poiData.openinghours,
     };
     /*	
-            The sendJSONObject method can be used to send data from javascript to the native code.	
-        */
+      The sendJSONObject method can be used to send data from javascript to the native code.	
+    */
     AR.platform.sendJSONObject(markerSelectedJSON);
   },
 

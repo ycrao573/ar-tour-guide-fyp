@@ -102,7 +102,7 @@ var World = {
         //TODO: THIS SHOULD ADJUST ACCORDINGLY:
 
         World.markerList.sort(compareDistanceToUser);
-        if (parseFloat(World.markerList[0].poiData.distance) < 1.5) {
+        if (parseFloat(World.markerList[0].poiData.distance) < 0.25) {
             document.getElementById("footer").style.visibility = "visible";
             document.getElementById("currentSpot").innerHTML =
               World.markerList[0].poiData.title;
@@ -163,21 +163,21 @@ var World = {
     },
 
     /* User clicked "More" button in POI-detail panel -> fire event to open native screen. */	
-    onNearestPoiMoreButtonClicked: function onNearestPoiMoreButtonClickedFn(nearestPoiData) {
-            var markerSelectedJSON = {
-                action: "present_poi_details",
-                id: nearestPoiData.poiData.id,
-                title: nearestPoiData.poiData.title,
-                description: nearestPoiData.poiData.description,
-                category: nearestPoiData.poiData.category,
-                latitude: nearestPoiData.poiData.latitude.toString(),
-                longitude: nearestPoiData.poiData.longitude.toString(),
-            };
-            /*	
-                The sendJSONObject method can be used to send data from javascript to the native code.	
-            */	
-            AR.platform.sendJSONObject(markerSelectedJSON);	
-        },
+    // onNearestPoiMoreButtonClicked: function onNearestPoiMoreButtonClickedFn(nearestPoiData) {
+    //         var markerSelectedJSON = {
+    //             action: "present_poi_details",
+    //             id: nearestPoiData.poiData.id,
+    //             title: nearestPoiData.poiData.title,
+    //             description: nearestPoiData.poiData.description,
+    //             category: nearestPoiData.poiData.category,
+    //             latitude: nearestPoiData.poiData.latitude.toString(),
+    //             longitude: nearestPoiData.poiData.longitude.toString(),
+    //         };
+    //         /*	
+    //             The sendJSONObject method can be used to send data from javascript to the native code.	
+    //         */	
+    //         AR.platform.sendJSONObject(markerSelectedJSON);	
+    //     },
 
     /* Location updates, fired every time you call architectView.setLocation() in native environment. */
     locationChanged: function locationChangedFn(lat, lon, alt, acc) {

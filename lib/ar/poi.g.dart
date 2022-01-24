@@ -37,14 +37,13 @@ LandmarkPoi _$LandmarkPoiFromJson(Map<String, dynamic> json) {
     (json['altitude'] as num).toDouble(),
     json['name'] as String,
     json['category'] as String,
-    parseHtmlLink(json['hyperlink']),
-    parseHtmlLink(json['photourl']),
-    json['openingHours'] as String,
-    json['postalcode'] as String,
-    parseHtmlLink(json['urlpath']),
-    json['address'] as String,
-    json['imageText'],
-    json['field1'],
+    json['officiallink'],
+    json['hyperlink'],
+    json['photourl'],
+    json['openinghours'],
+    json['urlpath'],
+    json['address'],
+    json['imagetext'],
   );
 }
 
@@ -56,14 +55,13 @@ Map<String, dynamic> _$LandmarkPoiToJson(LandmarkPoi instance) => <String, dynam
       'altitude': 100.0,
       'name': instance.name,
       'category': instance.category,
-      'hyperlink' : instance..hyperlink,
+      'officiallink': instance.officiallink,
+      'hyperlink' : instance.hyperlink,
       'photourl' : instance.photourl,
-      'openingHours': instance.openingHours,
-      'postalcode': instance.postalcode,
+      'openinghours': instance.openinghours,
       'urlpath': instance.urlpath,
       'address': instance.address,
-      'imageText': instance.imageText,
-      'field1': instance.field1,
+      'imagetext': instance.imagetext,
     };
 
   String parseHtmlLink(String input) {

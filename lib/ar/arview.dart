@@ -136,6 +136,27 @@ class ArViewState extends State<ArViewWidget> with WidgetsBindingObserver {
                     )),
           );
           break;
+        case "present_landmark_poi_details":
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => LandmarkPoiDetailsWidget(
+                      category: jsonObject["category"],
+                      id: jsonObject["id"],
+                      title: jsonObject["title"],
+                      description: jsonObject["description"],
+                      latitude: jsonObject["latitude"].toString(),
+                      longitude: jsonObject["longitude"].toString(),
+                      officiallink: jsonObject["officiallink"],
+                      hyperlink: jsonObject["hyperlink"],
+                      photourl: jsonObject["photourl"],
+                      openinghours: jsonObject["openinghours"],
+                      urlpath: jsonObject["urlpath"],
+                      address: jsonObject["address"],
+                      imagetext: jsonObject["imagetext"],
+                    )),
+          );
+          break;
       }
     }
   }

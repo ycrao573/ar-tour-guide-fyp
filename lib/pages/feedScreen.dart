@@ -13,7 +13,7 @@ class _FeedScreenState extends State<FeedScreen> {
       padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
       child: Container(
         width: double.infinity,
-        height: 466.0,
+        height: 480.0,
         decoration: BoxDecoration(
           color: Colors.white60,
           borderRadius: BorderRadius.circular(25.0),
@@ -94,8 +94,17 @@ class _FeedScreenState extends State<FeedScreen> {
                       ),
                     ),
                   ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(13, 4, 0, 0),
+                        child: Text("Enjoy this beautiful night in Singapore!"),
+                      ),
+                    ],
+                  ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20.0),
+                    padding: EdgeInsets.symmetric(horizontal: 12.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
@@ -105,24 +114,24 @@ class _FeedScreenState extends State<FeedScreen> {
                               children: <Widget>[
                                 IconButton(
                                   icon: Icon(Icons.favorite_border),
-                                  iconSize: 30.0,
+                                  iconSize: 20.0,
                                   onPressed: () => print('Like post'),
                                 ),
                                 Text(
                                   '251',
                                   style: TextStyle(
-                                    fontSize: 14.0,
+                                    fontSize: 13.0,
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
                               ],
                             ),
-                            SizedBox(width: 20.0),
+                            SizedBox(width: 15.0),
                             Row(
                               children: <Widget>[
                                 IconButton(
                                   icon: Icon(Icons.chat),
-                                  iconSize: 30.0,
+                                  iconSize: 20.0,
                                   onPressed: () {
                                     Navigator.push(
                                       context,
@@ -137,7 +146,7 @@ class _FeedScreenState extends State<FeedScreen> {
                                 Text(
                                   '37',
                                   style: TextStyle(
-                                    fontSize: 14.0,
+                                    fontSize: 13.0,
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
@@ -147,7 +156,7 @@ class _FeedScreenState extends State<FeedScreen> {
                         ),
                         IconButton(
                           icon: Icon(Icons.bookmark_border),
-                          iconSize: 30.0,
+                          iconSize: 20.0,
                           onPressed: () => print('Save post'),
                         ),
                       ],

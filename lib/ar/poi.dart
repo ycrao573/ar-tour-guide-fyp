@@ -29,14 +29,13 @@ class LandmarkPoi {
   double altitude;
   String name;
   String category;
+  String officiallink;
   String hyperlink;
-  String photourl;
-  String openingHours;
-  String postalcode;
   String urlpath;
+  String photourl;
+  String imagetext;
+  String openinghours;
   String address;
-  String imageText;
-  String field1;
 
   LandmarkPoi(
       this.id,
@@ -46,14 +45,14 @@ class LandmarkPoi {
       this.altitude,
       this.name,
       this.category,
+      this.officiallink,
       this.hyperlink,
-      this.photourl,
-      this.openingHours,
-      this.postalcode,
       this.urlpath,
+      this.photourl,
+      this.imagetext,
+      this.openinghours,
       this.address,
-      this.imageText,
-      this.field1);
+    );
 
   factory LandmarkPoi.fromJson(Map<String, dynamic> json) =>
       _$LandmarkPoiFromJson(json);
