@@ -117,6 +117,31 @@ var World = {
         World.markerList.push(new Marker(singlePoi));
       }
     }
+    
+    var compareDistanceToUser = (a, b) => {
+      if (parseFloat(a.poiData.distance) < parseFloat(b.poiData.distance)) {
+        return -1;
+      }
+      if (parseFloat(a.poiData.distance) > parseFloat(b.poiData.distance)) {
+        return 1;
+      }
+      return 0;
+    };
+
+    //TODO: THIS SHOULD ADJUST ACCORDINGLY:
+    World.markerList.sort(compareDistanceToUser);
+    if (parseFloat(World.markerList[0].poiData.distance) < 5) {
+      document.getElementById("footer").style.visibility = "visible";
+      // document.getElementById("popupImage").src =
+      //   World.markerList[0].poiData.photourl;
+      document.getElementById("currentSpot").innerHTML =
+        World.markerList[0].poiData.title;
+      document.getElementById("viewofficial").href = World.markerList[0].poiData.officiallink;
+      document.getElementById("viewmorespot").href =
+        "https://www.google.com/maps/search/?api=1&query=" +
+        World.markerList[0].poiData.title +
+        ", Singapore";
+    }
 
     /* Updates distance information of all placemarks. */
     World.updateDistanceToUserValues();
@@ -149,10 +174,6 @@ var World = {
 
   /* Updates status message shown in small "i"-button aligned bottom center. */
   updateStatusMessage: function updateStatusMessageFn(message, isWarning) {
-    document.getElementById("popupButtonImage").src = isWarning
-      ? "assets/warning_icon.png"
-      : "assets/info_icon.png";
-    document.getElementById("popupButtonTooltip").innerHTML = message;
   },
 
   /*	

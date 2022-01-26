@@ -13,7 +13,7 @@ class _FeedScreenState extends State<FeedScreen> {
       padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
       child: Container(
         width: double.infinity,
-        height: 480.0,
+        height: 540,
         decoration: BoxDecoration(
           color: Colors.white60,
           borderRadius: BorderRadius.circular(25.0),
@@ -98,10 +98,23 @@ class _FeedScreenState extends State<FeedScreen> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(13, 4, 0, 0),
-                        child: Text("Enjoy this beautiful night in Singapore!"),
+                        padding: const EdgeInsets.fromLTRB(20, 4, 0, 5),
+                        child: Text("Enjoy this beautiful view in Singapore!"),
                       ),
                     ],
+                  ),
+                  SizedBox(
+                    width: 306,
+                    child: ElevatedButton.icon(
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.red[200]),
+                      ),
+                      onPressed: () {},
+                      icon: Icon(Icons.pin_drop_outlined, size: 22),
+                      label: Text("Marina Bay Sands, Singapore",
+                          style: TextStyle(fontSize: 15)),
+                    ),
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 12.0),
