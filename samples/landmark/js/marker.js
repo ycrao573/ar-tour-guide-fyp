@@ -20,7 +20,7 @@ function Marker(poiData) {
     var markerLocation = new AR.GeoLocation(poiData.latitude, poiData.longitude, poiData.altitude, poiData.distance, poiData.officiallink, poiData.hyperlink, poiData.urlpath, poiData.photourl, poiData.imagetext, poiData.address, poiData.openinghours);
 
     /* Create an AR.ImageDrawable for the marker in idle state. */
-    this.markerDrawableIdle = new AR.ImageDrawable(World.markerDrawableIdle, 9, {
+    this.markerDrawableIdle = new AR.ImageDrawable(World.markerDrawableIdle, 8, {
         zOrder: 0,
         opacity: 1.0,
         /*
@@ -41,7 +41,7 @@ function Marker(poiData) {
     });
 
     /* Create an AR.ImageDrawable for the marker in idle state. */
-    this.markerDrawableImage = new AR.ImageDrawable(World.markerDrawableImage, 3.8, {
+    this.markerDrawableImage = new AR.ImageDrawable(World.markerDrawableImage, 4.4, {
         zOrder: 1,
         opacity: 1.0,
         translate: {
