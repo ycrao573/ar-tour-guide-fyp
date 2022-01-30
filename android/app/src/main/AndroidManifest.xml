@@ -61,6 +61,17 @@
                 android:name="flutterEmbedding"
                 android:value="2" />
         </activity>
+
+        <!-- <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.ryc.artourguide.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider> -->
+
         <meta-data android:name="com.google.ar.core" android:value="optional" />
     </application>
 </manifest>

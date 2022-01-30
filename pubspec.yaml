@@ -48,7 +48,10 @@ dependencies:
   flutter_svg: ^0.22.0
   flutter_rating_bar: ^4.0.0
   rating_dialog: ^2.0.3
-  
+  line_awesome_flutter: ^2.0.0
+  share_plus: ^3.0.1
+  material_floating_search_bar: ^0.3.6
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

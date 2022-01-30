@@ -2,11 +2,11 @@ html, body {
     margin: 0;
     height: 100%;
     overflow: hidden;
-    font-family: Helvetica, Arial
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 #mainHeader {
-    background-color: #ffffffbf;
+    background-color: #ffffffc9;
     position: absolute;
     width: 100%;
     display: flex;
@@ -19,7 +19,7 @@ html, body {
     z-index: 2;
     position: absolute;
     text-align: center;
-    background-color: #ffffffe2;
+    background-color: #ffffffe7;
     visibility: hidden;
     width: 100%;
     align-items: center;
@@ -33,7 +33,7 @@ html, body {
 
 #panelPoiDetail {
     z-index: 3;
-    background-color: #ffffffd0;
+    background-color: #ffffffbf;
     height: 100%;
     right: 0;
     position: absolute;
@@ -47,7 +47,7 @@ html, body {
 }
 
 #panelRange {
-    background-color: #ffffffbf;
+    background-color: #ffffffc9;
     height: 100%;
     left: 0;
     position: absolute;
@@ -76,7 +76,7 @@ html, body {
 }
 
 .header {
-    background-color: #ffffff55;
+    background-color: #ffffff00;
     position: absolute;
     width: 100%;
     align-items: center;
@@ -85,13 +85,26 @@ html, body {
 
 .customButton {
     z-index: 1;
-    border-radius: 20px;
+    border-style: none;
+    font-size: 17px;
+    font-weight: 600;
+    background-color: #ffffff00;
+    white-space: normal;
+}
+
+.customButton1 {
+    z-index: 1;
+    border-radius: 18px;
     border-style: solid;
-    border-color: #85ccd6;
-    font-weight: bold;
-    font-size: medium;
-    background-color: #85ccd6;
-    white-space: nowrap;
+    border-color: #85ccd6cc;
+    font-size: 14.5px;
+    font-weight: 500;
+    background-color: #85ccd6cc;
+    white-space: normal;
+}
+
+#poiDetailDescription {
+    font-size: small;
 }
 
 #\#poiDetailMoreButton {
@@ -99,9 +112,9 @@ html, body {
 }
 
 .headerTitle {
-    flex: 1;
-    text-align:center;
-    font-weight: normal;
+    text-align: center;
+    font-weight: bold;
+    margin: auto;
 }
 
 .content {

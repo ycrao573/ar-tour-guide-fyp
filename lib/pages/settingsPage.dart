@@ -52,63 +52,61 @@ class _SettingPageState extends State<SettingPage> {
   bool isSwitched = false;
   @override
   Widget build(BuildContext context) {
-    return SettingsList(
-      sections: [
-        SettingsSection(
-          titlePadding: EdgeInsets.all(20),
-          title: 'Account',
-          tiles: [
-            SettingsTile(
-              title: 'Change Username',
-              leading: Icon(Icons.person),
-              onPressed: (BuildContext context) {},
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        title: Text("Settings"),
+      ),
+      body: Container(
+        child: SettingsList(
+          sections: [
+            SettingsSection(
+              titlePadding: EdgeInsets.all(20),
+              title: 'Account',
+              tiles: [
+                SettingsTile(
+                  title: 'Change Username',
+                  leading: Icon(Icons.person),
+                  onPressed: (BuildContext context) {},
+                ),
+                SettingsTile(
+                  title: 'Change Password',
+                  leading: Icon(Icons.lock),
+                  onPressed: (BuildContext context) {},
+                ),
+                SettingsTile(
+                  title: 'Language',
+                  subtitle: AppLocalizations.of(context)!.language,
+                  leading: Icon(Icons.language),
+                  onPressed: (BuildContext context) => buildDialog(context),
+                ),
+                SettingsTile.switchTile(
+                  title: 'Use System Theme',
+                  leading: Icon(Icons.phone_android),
+                  switchValue: isSwitched,
+                  onToggle: (value) {
+                    setState(() {
+                      isSwitched = value;
+                    });
+                  },
+                ),
+              ],
             ),
-            SettingsTile(
-              title: 'Change Password',
-              leading: Icon(Icons.lock),
-              onPressed: (BuildContext context) {},
-            ),
-            SettingsTile(
-              title: 'Language',
-              subtitle: AppLocalizations.of(context)!.language,
-              leading: Icon(Icons.language),
-              onPressed: (BuildContext context) => buildDialog(context),
-            ),
-            SettingsTile.switchTile(
-              title: 'Use System Theme',
-              leading: Icon(Icons.phone_android),
-              switchValue: isSwitched,
-              onToggle: (value) {
-                setState(() {
-                  isSwitched = value;
-                });
-              },
+            SettingsSection(
+              titlePadding: EdgeInsets.all(20),
+              title: 'Notifications',
+              tiles: [
+                SettingsTile(
+                  title: 'Security',
+                  subtitle: 'Fingerprint',
+                  leading: Icon(Icons.fingerprint),
+                  onPressed: (BuildContext context) {},
+                ),
+              ],
             ),
           ],
         ),
-        SettingsSection(
-          titlePadding: EdgeInsets.all(20),
-          title: 'Notifications',
-          tiles: [
-            SettingsTile(
-              title: 'Security',
-              subtitle: 'Fingerprint',
-              leading: Icon(Icons.fingerprint),
-              onPressed: (BuildContext context) {},
-            ),
-            // SettingsTile.switchTile(
-            //   title: 'Use fingerprint',
-            //   leading: Icon(Icons.fingerprint),
-            //   switchValue: isSwitched,
-            //     onToggle: (value) {
-            //       setState(() {
-            //         isSwitched = value;
-            //       });
-            //     },
-            // ),
-          ],
-        ),
-      ],
+      ),
     );
   }
 }

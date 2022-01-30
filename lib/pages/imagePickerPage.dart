@@ -7,6 +7,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -173,69 +174,80 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
       return Container(
           width: double.infinity,
           height: double.infinity,
-          color: Color(0x5d85ccd8),
           child: Text(
             'Pick image error: $_pickImageError',
             textAlign: TextAlign.center,
           ));
     } else {
       return Container(
-        width: double.infinity,
-        height: double.infinity,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            SizedBox(
-              width: 320,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    'Landmark Detection',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontFamily: 'Poppins',
-                      fontSize: 30.0,
-                      color: Color(0xff081c1e),
-                      height: 1.5,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  Image(
-                    image: AssetImage(
-                      'assets/images/onboarding.png',
-                    ),
-                    height: 240.0,
-                    width: 320.0,
-                  ),
-                  Text(
-                    'Recognize Landmarks 🏞️ \n in Your Photos 🤳 \n within few seconds',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 17.0,
-                      color: Color(0xff081c1e),
-                      fontFamily: 'Poppins',
-                      height: 1.5,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: NetworkImage(
+                  "https://purepng.com/public/uploads/large/landmark-hq9.png"),
+              colorFilter: ColorFilter.mode(
+                  Colors.white.withOpacity(0.66), BlendMode.srcATop),
+              fit: BoxFit.cover,
             ),
-            SizedBox(height: 40),
-            Text(
-              'Pick a photo from:  ',
-              style: TextStyle(
-                  fontSize: 18.0,
-                  color: Colors.red[400],
-                  fontWeight: FontWeight.w600),
-              textAlign: TextAlign.left,
-            ),
-            SizedBox(height: 110),
-          ],
-        ),
-      );
+          ),
+          child: new BackdropFilter(
+              filter: new ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
+              child: Container(
+                width: double.infinity,
+                height: double.infinity,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    SizedBox(
+                      width: 320,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Landmark Detection',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontFamily: 'Poppins',
+                              fontSize: 30.0,
+                              color: Color(0xff081c1e),
+                              height: 1.5,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          Image(
+                            image: AssetImage(
+                              'assets/images/onboarding.png',
+                            ),
+                            height: 240.0,
+                            width: 320.0,
+                          ),
+                          Text(
+                            'Recognize Landmarks 🏞️ \n in Your Photos 🤳 \n within few seconds',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 17.0,
+                              color: Color(0xff081c1e),
+                              fontFamily: 'Poppins',
+                              height: 1.5,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 80),
+                    Text(
+                      'Pick a photo from:  ',
+                      style: TextStyle(
+                          fontSize: 18.0,
+                          color: Colors.red[300],
+                          fontWeight: FontWeight.w600),
+                      textAlign: TextAlign.left,
+                    ),
+                    SizedBox(height: 110),
+                  ],
+                ),
+              )));
       // return const Text(
       //   'Search with Your Image!',
       //   textAlign: TextAlign.center,
@@ -267,7 +279,6 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0x3585ccd8),
       body: Center(
         child: !kIsWeb && defaultTargetPlatform == TargetPlatform.android
             ? FutureBuilder<void>(
@@ -299,71 +310,13 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
               )
             : _previewImages(_detectionType),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: Padding(
         padding: const EdgeInsets.fromLTRB(0, 0, 0, 30),
         child: Wrap(
           runSpacing: 5.0,
           spacing: 5.0,
           children: <Widget>[
-            // Padding(
-            //   padding: const EdgeInsets.only(top: 6.0),
-            //   child: FloatingActionButton.extended(
-            //     onPressed: () {
-            //       isVideo = false;
-            //       _onImageButtonPressed(ImageSource.camera, "landmark",
-            //           context: context);
-            //     },
-            //     label: const Text('Camera'),
-            //     heroTag: 'image1',
-            //     tooltip: 'Take a Photo and do landmark detection',
-            //     icon: const Icon(Icons.landscape_sharp),
-            //   ),
-            // ),
-            // Padding(
-            //   padding: const EdgeInsets.only(top: 6.0),
-            //   child: FloatingActionButton.extended(
-            //     onPressed: () {
-            //       isVideo = false;
-            //       _onImageButtonPressed(ImageSource.gallery, "landmark",
-            //           context: context);
-            //     },
-            //     heroTag: 'image2',
-            //     label: const Text('Gallery'),
-            //     tooltip: 'Pick a Photo and do landmark detection',
-            //     icon: const Icon(Icons.landscape),
-            //   ),
-            // ),
-            // Padding(
-            //   padding: const EdgeInsets.only(top: 6.0),
-            //   child: FloatingActionButton.extended(
-            //     backgroundColor: Colors.red,
-            //     onPressed: () {
-            //       isVideo = false;
-            //       _onImageButtonPressed(ImageSource.camera, "web",
-            //           context: context);
-            //     },
-            //     label: const Text('Camera'),
-            //     heroTag: 'image3',
-            //     tooltip: 'Take a Photo and do web detection',
-            //     icon: const Icon(Icons.image_search),
-            //   ),
-            // ),
-            // Padding(
-            //   padding: const EdgeInsets.only(top: 6.0),
-            //   child: FloatingActionButton.extended(
-            //     backgroundColor: Colors.red,
-            //     onPressed: () {
-            //       isVideo = false;
-            //       _onImageButtonPressed(ImageSource.gallery, "web",
-            //           context: context);
-            //     },
-            //     label: const Text('Gallery'),
-            //     heroTag: 'image4',
-            //     tooltip: 'Pick a Photo and do web detection',
-            //     icon: const Icon(Icons.image_search_sharp),
-            //   ),
-            // ),
             Padding(
               padding: const EdgeInsets.all(2.0),
               child: FloatingActionButton.extended(

@@ -85,12 +85,11 @@ html, body {
 
 .customButton {
     z-index: 1;
-    border-radius: 20px;
+    border-radius: 18px;
     border-style: solid;
-    border-color: #85ccd6;
-    font-weight: bold;
-    font-size: medium;
-    background-color: #85ccd6;
+    border-color: #85ccd6cc;
+    font-size: small;
+    background-color: #85ccd6cc;
     white-space: nowrap;
 }
 

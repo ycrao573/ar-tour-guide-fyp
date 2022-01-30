@@ -21,7 +21,9 @@ import 'package:wikitude_flutter_app/pages/covidScreen.dart';
 import 'package:wikitude_flutter_app/pages/feedScreen.dart';
 import 'package:wikitude_flutter_app/pages/imagePickerPage.dart';
 import 'package:wikitude_flutter_app/pages/loginPage.dart';
+import 'package:wikitude_flutter_app/pages/profilePage.dart';
 import 'package:wikitude_flutter_app/widgets/drawer.dart';
+import 'package:wikitude_flutter_app/widgets/searchbar.dart';
 import 'package:wikitude_flutter_app/widgets/shrimmingWidget.dart';
 import 'loginPage.dart';
 import 'package:geocoding/geocoding.dart';
@@ -127,8 +129,8 @@ class _HomePageState extends State<HomePage> {
           0.4) {
         landmarkText = new LoadingTextModel(text: _attractionModels[0].name);
         createNotification(
-            "YAY! You\'ve made it to " + _attractionModels[0].name + "!",
-            "Claim your trophy🏆, take a photo🤳\nand share with your friends🧑‍🤝‍🧑 NOW!");
+            "YAY! 🍾 You\'ve made it to " + _attractionModels[0].name + "!",
+            "Claim your rewards🏆, and share with your friends🧑‍🤝‍🧑 NOW!");
         popupLandmarkCircle = _attractionModels[0].photourl;
         isLandmarkLoading = false;
         isLandmarkNearEnough = true;
@@ -199,25 +201,26 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Color(0x00000000),
         elevation: 0,
-        leading: Builder(
-          builder: (context) => IconButton(
-            onPressed: () => Scaffold.of(context).openDrawer(),
-            icon: ClipOval(
-              child: Image.network(
-                (loginMethod != "Google")
-                    ? 'https://avatarfiles.alphacoders.com/152/thumb-152841.jpg'
-                    : loggedInUser.photoURL!,
-                fit: BoxFit.cover,
-                width: 90,
-                height: 90,
-              ),
-            ),
-          ),
-        ),
+        // leading: Builder(
+        //   builder: (context) => IconButton(
+        //     onPressed: () => Scaffold.of(context).openDrawer(),
+        //     icon: ClipOval(
+        //       child: Image.network(
+        //         (loginMethod != "Google")
+        //             ? 'https://avatarfiles.alphacoders.com/152/thumb-152841.jpg'
+        //             : loggedInUser.photoURL!,
+        //         fit: BoxFit.cover,
+        //         width: 90,
+        //         height: 90,
+        //       ),
+        //     ),
+        //   ),
+        // ),
         actions: <Widget>[
           // LocationDropdown(currentAddress: _currentAddress),
           // LanguageDropdown(),
@@ -251,7 +254,6 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: Container(
-        color: Color(0x7f85ccd8),
         child: Container(
           child: _getPage(currentPage),
         ),
@@ -265,11 +267,8 @@ class _HomePageState extends State<HomePage> {
             title: AppLocalizations.of(context)!.menu_home,
           ),
           TabData(iconData: Icons.view_in_ar_outlined, title: "AR"),
-          TabData(iconData: Icons.camera, title: "Vision"
-              //,onclick: () => Navigator.of(context)
-              //     .push(MaterialPageRoute(builder: (context) => VisionPage()))
-              ),
-          TabData(iconData: Icons.groups, title: "Moments"),
+          TabData(iconData: Icons.camera, title: "Vision"),
+          TabData(iconData: Icons.person, title: "Profile"),
         ],
         initialSelection: 0,
         key: bottomNavigationKey,
@@ -288,458 +287,303 @@ class _HomePageState extends State<HomePage> {
           });
         },
       ),
-      drawer: (loginMethod != "Google")
-          ? NavigationDrawerWidget(
-              currentUser: loggedInUser, loginMethod: loginMethod)
-          : NavigationDrawerWidget(
-              currentUser: loggedInUser, loginMethod: loginMethod),
+      // drawer: (loginMethod != "Google")
+      //     ? NavigationDrawerWidget(
+      //         currentUser: loggedInUser, loginMethod: loginMethod)
+      //     : NavigationDrawerWidget(
+      //         currentUser: loggedInUser, loginMethod: loginMethod),
     );
   }
 
   _getPage(int page) {
     switch (page) {
       case 0:
-        return SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              children: <Widget>[
-                SizedBox(height: 70.0),
-                Padding(
-                  padding: EdgeInsets.all(4.0),
+        return Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: NetworkImage(
+                  "https://i.pinimg.com/564x/ac/1c/3f/ac1c3fdcdd13bc52f5cb9fc3ec73c271.jpg"),
+              colorFilter: ColorFilter.mode(
+                  Colors.white.withOpacity(0.6), BlendMode.srcATop),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: new BackdropFilter(
+            filter: new ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
+            child: Container(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(
-                        "Hi👋 " +
-                            ((loginMethod != "Google")
-                                ? "${loggedInUser.firstName} ${loggedInUser.lastName}"
-                                : "${loggedInUser.displayName.split(' ')[0]}") +
-                            ",",
-                        style: TextStyle(
-                            fontSize: 25,
-                            fontWeight: FontWeight.w700,
-                            fontFamily: 'Poppins'),
-                      ),
-                      SizedBox(height: 5.0),
-                      isAddressLoading
-                          ? buildAddressShimmer()
-                          : buildAddressText(addressText),
-                      // buildAddressShimmer(),
-                      SizedBox(height: 16.0),
-                      isLandmarkNearEnough
-                          ? Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10.0),
-                                color: Colors.red[200],
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.5),
-                                    spreadRadius: 2,
-                                    blurRadius: 4,
-                                    offset: Offset(
-                                        0, 2), // changes position of shadow
+                      SizedBox(height: 68.0),
+                      Padding(
+                        padding: EdgeInsets.all(4.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              "Hi👋 " +
+                                  ((loginMethod != "Google")
+                                      ? "${loggedInUser.firstName} ${loggedInUser.lastName}"
+                                      : "${loggedInUser.displayName.split(' ')[0]}") +
+                                  ",",
+                              style: TextStyle(
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.w700,
+                                  fontFamily: 'Poppins'),
+                            ),
+                            SizedBox(height: 10.0),
+                            isAddressLoading
+                                ? buildAddressShimmer()
+                                : buildAddressText(addressText),
+                            SizedBox(height: 19.0),
+                            GestureDetector(
+                              child: buildSearchBar(),
+                              onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SearchBarScreen()),
+                              ),
+                            ),
+                            SizedBox(height: 19.0),
+                            isLandmarkNearEnough
+                                ? Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      color: Colors.red[200],
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.5),
+                                          spreadRadius: 2,
+                                          blurRadius: 4,
+                                          offset: Offset(0,
+                                              2), // changes position of shadow
+                                        ),
+                                      ],
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          6, 12, 6, 6),
+                                      child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: [
+                                            Align(
+                                              alignment: Alignment.center,
+                                              child: Text(
+                                                'YAY! 🍾 You\'ve made it to',
+                                                style: TextStyle(
+                                                  fontSize: 15.0,
+                                                  fontWeight: FontWeight.w600,
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(height: 4.0),
+                                            isLandmarkLoading
+                                                ? buildLandmarkShimmer()
+                                                : buildLandmarkText(
+                                                    landmarkText),
+                                            isLandmarkLoading
+                                                ? buildCircleShimmer()
+                                                : buildCircleImage(
+                                                    popupLandmarkCircle),
+                                            SizedBox(height: 8.0),
+                                            Align(
+                                              alignment: Alignment.center,
+                                              child: Text(
+                                                '             Claim your rewards🏆 \nand share with your friends🧑‍🤝‍🧑 NOW!',
+                                                style: TextStyle(
+                                                    fontSize: 14.4,
+                                                    fontWeight:
+                                                        FontWeight.w400),
+                                              ),
+                                            ),
+                                            SizedBox(height: 4.0),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                IconButton(
+                                                    icon: FaIcon(
+                                                        FontAwesomeIcons.trophy,
+                                                        color:
+                                                            Colors.yellow[600],
+                                                        size: 24.0),
+                                                    onPressed: () {}),
+                                                IconButton(
+                                                    icon: Icon(Icons.share,
+                                                        color: Colors.blue[50],
+                                                        size: 25.0),
+                                                    onPressed: () {}),
+                                              ],
+                                            ),
+                                          ]),
+                                    ),
+                                  )
+                                : SizedBox(height: 6.0),
+                            SizedBox(height: 20.0),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 1.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Text(
+                                    'Recommended Activties',
+                                    style: TextStyle(
+                                      fontSize: 17.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () => print('See All'),
+                                    child: Text(
+                                      'See All',
+                                      style: TextStyle(
+                                        fontSize: 14.0,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
                                   ),
                                 ],
                               ),
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(6, 12, 6, 6),
-                                child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    children: [
-                                      Align(
-                                        alignment: Alignment.center,
-                                        child: Text(
-                                          'YAY! 🍾 you\'ve made it to',
-                                          style: TextStyle(
-                                            fontSize: 15.0,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(height: 4.0),
-                                      isLandmarkLoading
-                                          ? buildLandmarkShimmer()
-                                          : buildLandmarkText(landmarkText),
-                                      isLandmarkLoading
-                                          ? buildCircleShimmer()
-                                          : buildCircleImage(
-                                              popupLandmarkCircle),
-                                      SizedBox(height: 8.0),
-                                      Align(
-                                        alignment: Alignment.center,
-                                        child: Text(
-                                          'Claim your trophy🏆, take a photo🤳\nand share with your friends🧑‍🤝‍🧑 NOW!',
-                                          style: TextStyle(
-                                              fontSize: 14.0,
-                                              fontWeight: FontWeight.w400),
-                                        ),
-                                      ),
-                                      SizedBox(height: 4.0),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          IconButton(
-                                              icon: FaIcon(
-                                                  FontAwesomeIcons.trophy,
-                                                  color: Colors.yellow[700],
-                                                  size: 23.0),
-                                              onPressed: () {}),
-                                          IconButton(
-                                              icon: FaIcon(
-                                                  FontAwesomeIcons.camera,
-                                                  color: Colors.blueGrey[400],
-                                                  size: 23.0),
-                                              onPressed: () {}),
-                                          IconButton(
-                                              icon: Icon(Icons.share,
-                                                  color: Colors.yellow[100],
-                                                  size: 26.0),
-                                              onPressed: () {}),
-                                        ],
-                                      ),
-                                    ]),
-                              ),
-                            )
-                          : SizedBox(height: 4.0),
-                      SizedBox(height: 15.0),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 1.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Text(
-                              'Recommended Activties',
-                              style: TextStyle(
-                                fontSize: 17.0,
-                                fontWeight: FontWeight.bold,
-                              ),
                             ),
-                            GestureDetector(
-                              onTap: () => print('See All'),
-                              child: Text(
-                                'See All',
-                                style: TextStyle(
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: 10.0),
-                      Container(
-                          height: 260.0,
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: 6,
-                            itemBuilder: (BuildContext context, int index) {
-                              if (_activityModels.length == 0) {
-                                return buildActivityShimmer();
-                              } else {
-                                ActivityModel activity = _activityModels[index];
-                                return GestureDetector(
-                                  onTap: () => Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (_) => ActivityScreen(
-                                                activity: activity,
-                                              ))),
-                                  child: Container(
-                                      decoration: BoxDecoration(
-                                        //color: Colors.red,
-                                        borderRadius:
-                                            BorderRadius.circular(20.0),
-                                      ),
-                                      margin: EdgeInsets.all(6.0),
-                                      width: 165.0,
-                                      child: Stack(
-                                        alignment: Alignment.topCenter,
-                                        children: [
-                                          Positioned(
-                                            bottom: 10.0,
-                                            child: Container(
-                                              height: 120.0,
-                                              width: 180.0,
-                                              decoration: BoxDecoration(
-                                                  color: Color(0x80ffffff),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          20.0)),
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.fromLTRB(
-                                                        15, 55, 15, 5),
-                                                child: Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.start,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text(
-                                                        activity.title,
-                                                        overflow:
-                                                            TextOverflow.fade,
-                                                        maxLines: 3,
-                                                        style: TextStyle(
-                                                          fontSize: 15.0,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                        ),
-                                                      ),
-                                                      // Text(
-                                                      //   activity.description,
-                                                      //   overflow: TextOverflow.fade,
-                                                      //   maxLines: 2,
-                                                      //   style: TextStyle(
-                                                      //     color: Colors.grey,
-                                                      //   ),
-                                                      // ),
-                                                    ]),
-                                              ),
+                            SizedBox(height: 10.0),
+                            Container(
+                                height: 260.0,
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: 6,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    if (_activityModels.length == 0) {
+                                      return buildActivityShimmer();
+                                    } else {
+                                      ActivityModel activity =
+                                          _activityModels[index];
+                                      return GestureDetector(
+                                        onTap: () => Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (_) => ActivityScreen(
+                                                      activity: activity,
+                                                    ))),
+                                        child: Container(
+                                            decoration: BoxDecoration(
+                                              //color: Colors.red,
+                                              borderRadius:
+                                                  BorderRadius.circular(20.0),
                                             ),
-                                          ),
-                                          Container(
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(20.0),
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                    color: Colors.black26,
-                                                    offset: Offset(0.0, 2.0),
-                                                    blurRadius: 6.0,
+                                            margin: EdgeInsets.all(6.0),
+                                            width: 165.0,
+                                            child: Stack(
+                                              alignment: Alignment.topCenter,
+                                              children: [
+                                                Positioned(
+                                                  bottom: 10.0,
+                                                  child: Container(
+                                                    height: 120.0,
+                                                    width: 180.0,
+                                                    decoration: BoxDecoration(
+                                                        color:
+                                                            Color(0x80ffffff),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(
+                                                                    20.0)),
+                                                    child: Padding(
+                                                      padding: const EdgeInsets
+                                                              .fromLTRB(
+                                                          15, 55, 15, 5),
+                                                      child: Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .start,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Text(
+                                                              activity.title,
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .fade,
+                                                              maxLines: 3,
+                                                              style: TextStyle(
+                                                                fontSize: 15.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                              ),
+                                                            ),
+                                                            // Text(
+                                                            //   activity.description,
+                                                            //   overflow: TextOverflow.fade,
+                                                            //   maxLines: 2,
+                                                            //   style: TextStyle(
+                                                            //     color: Colors.grey,
+                                                            //   ),
+                                                            // ),
+                                                          ]),
+                                                    ),
                                                   ),
-                                                ],
-                                              ),
-                                              child: Stack(
-                                                children: [
-                                                  Hero(
-                                                    tag: activity.imageUrl,
-                                                    child: ClipRRect(
+                                                ),
+                                                Container(
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.white,
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               20.0),
-                                                      child: Image(
-                                                        height: 160.0,
-                                                        width: 160.0,
-                                                        image: NetworkImage(
-                                                            activity.imageUrl),
-                                                        fit: BoxFit.cover,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Positioned(
-                                                    left: 10.0,
-                                                    bottom: 10.0,
-                                                    child: Row(
-                                                      children: <Widget>[
-                                                        Icon(
-                                                          Icons.pin_drop,
-                                                          size: 12.0,
-                                                          color: Colors.white,
+                                                      boxShadow: [
+                                                        BoxShadow(
+                                                          color: Colors.black26,
+                                                          offset:
+                                                              Offset(0.0, 2.0),
+                                                          blurRadius: 6.0,
                                                         ),
-                                                        Text(
-                                                          " " +
-                                                              getDistanceToUser(
-                                                                  activity
-                                                                      .longitude,
-                                                                  activity
-                                                                      .latitude) +
-                                                              " km",
-                                                          style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: 16.0,
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                          ),
-                                                        ),
-                                                        // Row(
-                                                        //   children: <Widget>[
-                                                        //     // Icon(
-                                                        //     //   FontAwesomeIcons.locationArrow,
-                                                        //     //   size: 10.0,
-                                                        //     //   color: Colors.white,
-                                                        //     // ),
-                                                        //     SizedBox(width: 5.0),
-                                                        //     Text(
-                                                        //       activity.longitude,
-                                                        //       style: TextStyle(
-                                                        //         color: Colors.white,
-                                                        //       ),
-                                                        //     ),
-                                                        //   ],
-                                                        // ),
                                                       ],
                                                     ),
-                                                  ),
-                                                ],
-                                              ))
-                                        ],
-                                      )),
-                                );
-                              }
-                            },
-                          )),
-                      SizedBox(height: 10.0),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 2.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Text(
-                              'Landmarks Nearby',
-                              style: TextStyle(
-                                fontSize: 17.0,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () => print('View in AR'),
-                              child: Text(
-                                'View in AR',
-                                style: TextStyle(
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.red,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: 10.0),
-                      Container(
-                          height: 260.0,
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: 6,
-                            itemBuilder: (BuildContext context, int index) {
-                              if (_attractionModels.length == 0) {
-                                return buildActivityShimmer();
-                              } else {
-                                AttractionModel place =
-                                    _attractionModels[index];
-                                return GestureDetector(
-                                  onTap: () => Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (_) => AttractionScreen(
-                                              attraction: place))),
-                                  child: Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(20.0),
-                                      ),
-                                      margin: EdgeInsets.all(6.0),
-                                      width: 165.0,
-                                      child: Stack(
-                                        alignment: Alignment.topCenter,
-                                        children: [
-                                          Positioned(
-                                            bottom: 10.0,
-                                            child: Container(
-                                              height: 120.0,
-                                              width: 180.0,
-                                              decoration: BoxDecoration(
-                                                  color: Color(0x80ffffff),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          20.0)),
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.fromLTRB(
-                                                        15, 55, 15, 5),
-                                                child: Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.start,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      // Text(
-                                                      //   place.name,
-                                                      //   overflow:
-                                                      //       TextOverflow.fade,
-                                                      //   maxLines: 3,
-                                                      //   style: TextStyle(
-                                                      //     fontSize: 16.0,
-                                                      //     fontWeight:
-                                                      //         FontWeight.w600,
-                                                      //   ),
-                                                      // ),
-                                                      Text(
-                                                        place.description,
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        maxLines: 3,
-                                                        style: TextStyle(
-                                                          color:
-                                                              Colors.grey[850],
+                                                    child: Stack(
+                                                      children: [
+                                                        Hero(
+                                                          tag:
+                                                              activity.imageUrl,
+                                                          child: ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        20.0),
+                                                            child: Image(
+                                                              height: 160.0,
+                                                              width: 160.0,
+                                                              image: NetworkImage(
+                                                                  activity
+                                                                      .imageUrl),
+                                                              fit: BoxFit.cover,
+                                                            ),
+                                                          ),
                                                         ),
-                                                      ),
-                                                    ]),
-                                              ),
-                                            ),
-                                          ),
-                                          Container(
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(20.0),
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                    color: Colors.black26,
-                                                    offset: Offset(0.0, 2.0),
-                                                    blurRadius: 6.0,
-                                                  ),
-                                                ],
-                                              ),
-                                              child: Stack(
-                                                children: [
-                                                  Hero(
-                                                    tag: place.photourl,
-                                                    child: ClipRRect(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              20.0),
-                                                      child: Image(
-                                                        height: 160.0,
-                                                        width: 160.0,
-                                                        image: NetworkImage(
-                                                            place.photourl),
-                                                        fit: BoxFit.cover,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Positioned(
-                                                    left: 10.0,
-                                                    bottom: 10.0,
-                                                    child: Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: <Widget>[
-                                                        Row(
-                                                          children: [
-                                                            Container(
-                                                              constraints:
-                                                                  BoxConstraints(
-                                                                      minWidth:
-                                                                          10,
-                                                                      maxWidth:
-                                                                          150),
-                                                              child: Text(
-                                                                place.name,
-                                                                overflow:
-                                                                    TextOverflow
-                                                                        .fade,
-                                                                maxLines: 3,
+                                                        Positioned(
+                                                          left: 10.0,
+                                                          bottom: 10.0,
+                                                          child: Row(
+                                                            children: <Widget>[
+                                                              Icon(
+                                                                Icons.pin_drop,
+                                                                size: 12.0,
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
+                                                              Text(
+                                                                " " +
+                                                                    getDistanceToUser(
+                                                                        activity
+                                                                            .longitude,
+                                                                        activity
+                                                                            .latitude) +
+                                                                    " km",
                                                                 style:
                                                                     TextStyle(
                                                                   color: Colors
@@ -751,88 +595,333 @@ class _HomePageState extends State<HomePage> {
                                                                           .w500,
                                                                 ),
                                                               ),
-                                                            ),
-                                                          ],
+                                                              // Row(
+                                                              //   children: <Widget>[
+                                                              //     // Icon(
+                                                              //     //   FontAwesomeIcons.locationArrow,
+                                                              //     //   size: 10.0,
+                                                              //     //   color: Colors.white,
+                                                              //     // ),
+                                                              //     SizedBox(width: 5.0),
+                                                              //     Text(
+                                                              //       activity.longitude,
+                                                              //       style: TextStyle(
+                                                              //         color: Colors.white,
+                                                              //       ),
+                                                              //     ),
+                                                              //   ],
+                                                              // ),
+                                                            ],
+                                                          ),
                                                         ),
-                                                        Row(
-                                                          children: <Widget>[
-                                                            Icon(
-                                                              Icons.pin_drop,
-                                                              size: 12.0,
-                                                              color:
-                                                                  Colors.white,
-                                                            ),
-                                                            SizedBox(
-                                                                width: 1.0),
+                                                      ],
+                                                    ))
+                                              ],
+                                            )),
+                                      );
+                                    }
+                                  },
+                                )),
+                            SizedBox(height: 10.0),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 2.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Text(
+                                    'Landmarks Nearby',
+                                    style: TextStyle(
+                                      fontSize: 17.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () => print('View in AR'),
+                                    child: Text(
+                                      'View in AR',
+                                      style: TextStyle(
+                                        fontSize: 14.0,
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.red,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(height: 10.0),
+                            Container(
+                                height: 260.0,
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: 6,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    if (_attractionModels.length == 0) {
+                                      return buildActivityShimmer();
+                                    } else {
+                                      AttractionModel place =
+                                          _attractionModels[index];
+                                      return GestureDetector(
+                                        onTap: () => Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (_) =>
+                                                    AttractionScreen(
+                                                        attraction: place))),
+                                        child: Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(20.0),
+                                            ),
+                                            margin: EdgeInsets.all(6.0),
+                                            width: 165.0,
+                                            child: Stack(
+                                              alignment: Alignment.topCenter,
+                                              children: [
+                                                Positioned(
+                                                  bottom: 10.0,
+                                                  child: Container(
+                                                    height: 120.0,
+                                                    width: 180.0,
+                                                    decoration: BoxDecoration(
+                                                        color:
+                                                            Color(0x80ffffff),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(
+                                                                    20.0)),
+                                                    child: Padding(
+                                                      padding: const EdgeInsets
+                                                              .fromLTRB(
+                                                          15, 55, 15, 5),
+                                                      child: Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .start,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            // Text(
+                                                            //   place.name,
+                                                            //   overflow:
+                                                            //       TextOverflow.fade,
+                                                            //   maxLines: 3,
+                                                            //   style: TextStyle(
+                                                            //     fontSize: 16.0,
+                                                            //     fontWeight:
+                                                            //         FontWeight.w600,
+                                                            //   ),
+                                                            // ),
                                                             Text(
-                                                              " " +
-                                                                  getDistanceToUser(
-                                                                      place
-                                                                          .longitude,
-                                                                      place
-                                                                          .latitude) +
-                                                                  " km",
+                                                              place.description,
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                              maxLines: 3,
                                                               style: TextStyle(
                                                                 color: Colors
-                                                                    .white,
+                                                                    .grey[850],
                                                               ),
                                                             ),
-                                                          ],
+                                                          ]),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Container(
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.white,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20.0),
+                                                      boxShadow: [
+                                                        BoxShadow(
+                                                          color: Colors.black26,
+                                                          offset:
+                                                              Offset(0.0, 2.0),
+                                                          blurRadius: 6.0,
                                                         ),
                                                       ],
                                                     ),
-                                                  ),
-                                                ],
-                                              ))
-                                        ],
-                                      )),
-                                );
-                              }
-                            },
-                          )),
-
-                      // Text((_currentPosition.latitude == 0)
-                      //     ? ""
-                      //     : "LAT: ${_currentPosition.latitude}, LNG: ${_currentPosition.longitude}"),
-                      // Text(
-                      //     (loginMethod != "Google")
-                      //         ? "${loggedInUser.email}"
-                      //         : "${loggedInUser.email!}",
-                      //     style: TextStyle(
-                      //       color: Colors.black54,
-                      //       fontWeight: FontWeight.w500,
-                      //     )),
-                      // SizedBox(
-                      //   height: 15,
-                      // ),
-                      // ActionChip(
-                      //     label: Text("Logout"),
-                      //     onPressed: () {
-                      //       if (loginMethod != "Google")
-                      //         logout(context);
-                      //       else {
-                      //         final provider = Provider.of<GoogleSignInProvider>(
-                      //             context,
-                      //             listen: false);
-                      //         provider.logout();
-                      //         Navigator.of(context).pushReplacement(
-                      //             MaterialPageRoute(
-                      //                 builder: (context) => LoginPage()));
-                      //       }
-                      //     }),
+                                                    child: Stack(
+                                                      children: [
+                                                        Hero(
+                                                          tag: place.photourl,
+                                                          child: ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        20.0),
+                                                            child: Image(
+                                                              height: 160.0,
+                                                              width: 160.0,
+                                                              image: NetworkImage(
+                                                                  place
+                                                                      .photourl),
+                                                              fit: BoxFit.cover,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        Positioned(
+                                                          left: 10.0,
+                                                          bottom: 10.0,
+                                                          child: Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: <Widget>[
+                                                              Row(
+                                                                children: [
+                                                                  Container(
+                                                                    constraints: BoxConstraints(
+                                                                        minWidth:
+                                                                            10,
+                                                                        maxWidth:
+                                                                            150),
+                                                                    child: Text(
+                                                                      place
+                                                                          .name,
+                                                                      overflow:
+                                                                          TextOverflow
+                                                                              .fade,
+                                                                      maxLines:
+                                                                          3,
+                                                                      style:
+                                                                          TextStyle(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        fontSize:
+                                                                            16.0,
+                                                                        fontWeight:
+                                                                            FontWeight.w500,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              Row(
+                                                                children: <
+                                                                    Widget>[
+                                                                  Icon(
+                                                                    Icons
+                                                                        .pin_drop,
+                                                                    size: 12.0,
+                                                                    color: Colors
+                                                                        .white,
+                                                                  ),
+                                                                  SizedBox(
+                                                                      width:
+                                                                          1.0),
+                                                                  Text(
+                                                                    " " +
+                                                                        getDistanceToUser(
+                                                                            place.longitude,
+                                                                            place.latitude) +
+                                                                        " km",
+                                                                    style:
+                                                                        TextStyle(
+                                                                      color: Colors
+                                                                          .white,
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ))
+                                              ],
+                                            )),
+                                      );
+                                    }
+                                  },
+                                )),
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.0),
+                                color: Colors.yellow[200],
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.5),
+                                    spreadRadius: 2,
+                                    blurRadius: 4,
+                                    offset: Offset(
+                                        0, 2), // changes position of shadow
+                                  ),
+                                ],
+                              ),
+                              child: SizedBox(
+                                width: 400.0,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(12.0),
+                                  child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        SizedBox(height: 8.0),
+                                        Text("🤔",
+                                            style: TextStyle(fontSize: 50)),
+                                        SizedBox(height: 8.0),
+                                        Text(
+                                            "    Still can't decide where to have fun? \n Let Travelee make the decision for you!",
+                                            style: TextStyle(
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.w600)),
+                                        SizedBox(height: 8.0),
+                                        ElevatedButton(
+                                          style: ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStateProperty.all(
+                                                    Colors.red[200]),
+                                            shape: MaterialStateProperty.all<
+                                                RoundedRectangleBorder>(
+                                              RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(18.0),
+                                              ),
+                                            ),
+                                          ),
+                                          onPressed: () => print(
+                                              "Travelee makes the decision for you!"),
+                                          child: new Text('It\'s Our Job Now!',
+                                              style: TextStyle(
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.w600,
+                                                color: Colors.white,
+                                              )),
+                                        )
+                                      ]),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ),
-              ],
+              ),
             ),
           ),
         );
       case 1:
         return ArPage();
-      case 3:
-        return FeedScreen();
       case 2:
         return ImagePickerPage(title: 'Image Picker Example');
+      case 3:
+        return ProfilePage(
+          iconlink: (loginMethod != "Google")
+              ? 'https://avatarfiles.alphacoders.com/152/thumb-152841.jpg'
+              : loggedInUser.photoURL!,
+          name: (loginMethod != "Google")
+              ? "${loggedInUser.firstName} ${loggedInUser.lastName}"
+              : "${loggedInUser.displayName}",
+          email: loggedInUser.email!,
+          loginMethod: loginMethod,
+        );
       default:
         return Column(
           mainAxisSize: MainAxisSize.min,
@@ -959,6 +1048,26 @@ class _HomePageState extends State<HomePage> {
   Widget buildCircleShimmer() => ShimmeringWidget.circular(
         height: 35,
       );
+
+  Widget buildSearchBar() => Padding(
+      padding: const EdgeInsets.all(1.0),
+      child: ClipRRect(
+          borderRadius: BorderRadius.all(Radius.circular(8.0)),
+          child: SizedBox(
+              height: 36,
+              child: Container(
+                color: Colors.grey[300],
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('   Search...'),
+                      Icon(Icons.search),
+                    ],
+                  ),
+                ),
+              ))));
 }
 
 final _dialog = RatingDialog(
