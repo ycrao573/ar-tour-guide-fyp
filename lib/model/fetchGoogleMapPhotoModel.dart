@@ -2,13 +2,20 @@ class FetchGoogleMapPhotoModel {
   late String reference;
   late String photoReference;
   late String rating;
+  late List<GoogleMapReview> reviewlist;
 
-  FetchGoogleMapPhotoModel(
-      {this.reference = "", this.photoReference = "", required this.rating});
+  FetchGoogleMapPhotoModel({
+    this.reference = "",
+    this.photoReference = "",
+    required this.rating,
+    this.reviewlist = const <GoogleMapReview>[],
+  });
 
   FetchGoogleMapPhotoModel.fromJson(Map<String, dynamic> json) {
     reference = json['reference'];
     photoReference = json['photo_reference'];
+
+    reviewlist = json['reviewlist'];
     rating = json['rating'];
   }
 
@@ -17,6 +24,7 @@ class FetchGoogleMapPhotoModel {
     data['reference'] = this.reference;
     data['photo_reference'] = this.photoReference;
     data['rating'] = this.rating;
+
     return data;
   }
 }
@@ -26,18 +34,21 @@ class FetchGoogleMapPhotoWithReviewsModel {
   late String photoReference;
   late String rating;
   late List<GoogleMapReview> reviewlist;
+  late String numrating;
 
   FetchGoogleMapPhotoWithReviewsModel(
       {this.placeid = "",
       this.photoReference = "",
       required this.rating,
-      this.reviewlist = const <GoogleMapReview>[]});
+      this.reviewlist = const <GoogleMapReview>[],
+      required this.numrating});
 
   FetchGoogleMapPhotoWithReviewsModel.fromJson(Map<String, dynamic> json) {
     placeid = json['place_id'];
     photoReference = json['photo_reference'];
     rating = json['rating'];
     reviewlist = json['reviewlist'];
+    numrating = json['numrating'];
   }
 
   Map<String, dynamic> toJson() {
@@ -45,6 +56,7 @@ class FetchGoogleMapPhotoWithReviewsModel {
     data['place_id'] = this.placeid;
     data['photo_reference'] = this.photoReference;
     data['rating'] = this.rating;
+    data['numrating'] = this.numrating;
     return data;
   }
 }

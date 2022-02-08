@@ -182,15 +182,14 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
       return Container(
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: NetworkImage(
-                  "https://purepng.com/public/uploads/large/landmark-hq9.png"),
+              image: AssetImage("assets/images/landmark_bg.png"),
               colorFilter: ColorFilter.mode(
-                  Colors.white.withOpacity(0.66), BlendMode.srcATop),
+                  Colors.white.withOpacity(0.1), BlendMode.srcATop),
               fit: BoxFit.cover,
             ),
           ),
           child: new BackdropFilter(
-              filter: new ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
+              filter: new ImageFilter.blur(sigmaX: 0, sigmaY: 0),
               child: Container(
                 width: double.infinity,
                 height: double.infinity,
@@ -214,13 +213,14 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
                             ),
                             textAlign: TextAlign.center,
                           ),
-                          Image(
-                            image: AssetImage(
-                              'assets/images/onboarding.png',
-                            ),
-                            height: 240.0,
-                            width: 320.0,
-                          ),
+                          // Image(
+                          //   image: AssetImage(
+                          //     'assets/images/onboarding.png',
+                          //   ),
+                          //   height: 240.0,
+                          //   width: 320.0,
+                          // ),
+                          SizedBox(height: 20),
                           Text(
                             'Recognize Landmarks 🏞️ \n in Your Photos 🤳 \n within few seconds',
                             style: TextStyle(
@@ -235,7 +235,7 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
                         ],
                       ),
                     ),
-                    SizedBox(height: 80),
+                    SizedBox(height: 60),
                     Text(
                       'Pick a photo from:  ',
                       style: TextStyle(

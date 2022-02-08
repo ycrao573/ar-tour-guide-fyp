@@ -13,9 +13,12 @@ import 'package:wikitude_flutter_app/widgets/shrimmingWidget.dart';
 Future<FetchGoogleMapPhotoModel> fetchGoogleMapData(
     http.Client client, String name) async {
   final response = await client.get(Uri.parse(
-      'https://maps.googleapis.com/maps/api/place/findplacefromtext/json?fields=name%2Crating%2Cphotos&input=$name%20singapore&inputtype=textquery&key=AIzaSyBhQ60FpF7ytOVR2DlMvrBI-FL3l_Sopu0'));
+      'https://maps.googleapis.com/maps/api/place/findplacefromtext/json?fields=name%2Cplace_id%2Crating%2Cphotos%2Cuser_ratings_total&input=$name%20singapore&inputtype=textquery&key=AIzaSyBhQ60FpF7ytOVR2DlMvrBI-FL3l_Sopu0'));
   var jsonString = jsonDecode(response.body);
   var rating = jsonDecode(response.body)["candidates"][0]["rating"].toString();
+  var user_ratings_total = jsonDecode(response.body)["candidates"][0]
+          ["user_ratings_total"]
+      .toString();
   String reference = "";
   String photoReference = "";
   if (jsonString["candidates"][0].containsKey("photos")) {
@@ -27,16 +30,32 @@ Future<FetchGoogleMapPhotoModel> fetchGoogleMapData(
             "photo_reference=$reference" +
             "&key=AIzaSyBhQ60FpF7ytOVR2DlMvrBI-FL3l_Sopu0";
   }
+  String place_id = "";
+  if (jsonString["candidates"][0].containsKey("place_id")) {
+    place_id = jsonDecode(response.body)["candidates"][0]["place_id"];
+  }
+  final response2 = await client.get(Uri.parse(
+      'https://maps.googleapis.com/maps/api/place/details/json?fields=reviews&place_id=$place_id&key=AIzaSyBhQ60FpF7ytOVR2DlMvrBI-FL3l_Sopu0'));
+  var jsonString2 = jsonDecode(response2.body);
+  var reviewlist = <GoogleMapReview>[];
+  var reviews = jsonString2["result"]["reviews"] as List;
+  reviewlist = reviews.map((i) => GoogleMapReview.fromJson(i)).toList();
   return FetchGoogleMapPhotoModel(
-      reference: reference, photoReference: photoReference, rating: rating);
+      reference: user_ratings_total,
+      photoReference: photoReference,
+      rating: rating,
+      reviewlist: reviewlist);
 }
 
 Future<FetchGoogleMapPhotoWithReviewsModel> fetchGoogleLandmarkModel(
     http.Client client, String name) async {
   final response = await client.get(Uri.parse(
-      'https://maps.googleapis.com/maps/api/place/findplacefromtext/json?fields=name%2Cplace_id%2Crating%2Cphotos&input=$name%20Singapore&inputtype=textquery&key=AIzaSyBhQ60FpF7ytOVR2DlMvrBI-FL3l_Sopu0'));
+      'https://maps.googleapis.com/maps/api/place/findplacefromtext/json?fields=name%2Cplace_id%2Crating%2Cphotos%2Cuser_ratings_total&input=$name%20Singapore&inputtype=textquery&key=AIzaSyBhQ60FpF7ytOVR2DlMvrBI-FL3l_Sopu0'));
   var jsonString = jsonDecode(response.body);
   var rating = jsonDecode(response.body)["candidates"][0]["rating"].toString();
+  var user_ratings_total = jsonDecode(response.body)["candidates"][0]
+          ["user_ratings_total"]
+      .toString();
   String reference = "";
   String photoReference = "";
   String place_id = "";
@@ -63,7 +82,8 @@ Future<FetchGoogleMapPhotoWithReviewsModel> fetchGoogleLandmarkModel(
       placeid: place_id,
       photoReference: photoReference,
       rating: rating,
-      reviewlist: reviewlist);
+      reviewlist: reviewlist,
+      numrating: user_ratings_total);
 }
 
 class PoiDetailsState extends State<PoiDetailsWidget> {
@@ -137,15 +157,18 @@ class PoiDetailsState extends State<PoiDetailsWidget> {
                           )
                         : SizedBox(height: 90.0),
                     PoiDetailWidget(
-                        poiDetail: PoiDetailsState(
-                          category: this.category,
-                          id: this.id,
-                          title: this.title,
-                          description: this.description,
-                          latitude: this.latitude,
-                          longitude: this.longitude,
-                        ),
-                        rating: double.parse(data.rating)),
+                      poiDetail: PoiDetailsState(
+                        category: this.category,
+                        id: this.id,
+                        title: this.title,
+                        description: this.description,
+                        latitude: this.latitude,
+                        longitude: this.longitude,
+                      ),
+                      rating: double.parse(data.rating),
+                      numrating: data.reference,
+                      reviewlist: data.reviewlist,
+                    ),
                   ],
                 ),
               ));
@@ -190,11 +213,15 @@ class PoiDetailsWidget extends StatefulWidget {
 class PoiDetailWidget extends StatefulWidget {
   final PoiDetailsState? poiDetail;
   final double rating;
+  final String numrating;
+  final List<GoogleMapReview> reviewlist;
 
   const PoiDetailWidget({
     Key? key,
     required this.poiDetail,
     required this.rating,
+    required this.numrating,
+    required this.reviewlist,
   }) : super(key: key);
 
   @override
@@ -224,7 +251,7 @@ class _PoiDetailWidgetState extends State<PoiDetailWidget> {
                     allowHalfRating: true,
                     itemCount: 5,
                     itemSize: 20.0,
-                    itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                    itemPadding: EdgeInsets.symmetric(horizontal: 3.0),
                     itemBuilder: (context, _) => Icon(
                       Icons.star,
                       color: Colors.amber,
@@ -234,8 +261,10 @@ class _PoiDetailWidgetState extends State<PoiDetailWidget> {
                       print(rating);
                     },
                   ),
-                  SizedBox(width: 15.0),
+                  SizedBox(width: 8.0),
                   Text(widget.rating.toString()),
+                  SizedBox(width: 5.0),
+                  Text("(" + widget.numrating.toString() + ")"),
                   SizedBox(height: 2),
                 ],
               )
@@ -316,6 +345,112 @@ class _PoiDetailWidgetState extends State<PoiDetailWidget> {
               ],
             ),
           ],
+        ),
+        Divider(color: Colors.white),
+        SizedBox(height: 10),
+        Text("Reviews",
+            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18)),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(0, 0, 0, 50),
+          child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: widget.reviewlist.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 3.0),
+                  child: Container(
+                    // height should be fixed for vertical scrolling
+                    height: 100.0,
+                    // SingleChildScrollView should be
+                    // wrapped in an Expanded Widget
+                    child: Expanded(
+                      // SingleChildScrollView contains a
+                      // single child which is scrollable
+                      child: SingleChildScrollView(
+                        // for Vertical scrolling
+                        scrollDirection: Axis.vertical,
+                        child: Card(
+                          color: Colors.white70,
+                          child: ListTile(
+                            title: Column(
+                              children: [
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(0, 2, 2, 2),
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                          widget.reviewlist[index].authorName
+                                              .toString(),
+                                          style: TextStyle(
+                                              fontSize: 13,
+                                              fontWeight: FontWeight.bold)),
+                                      SizedBox(width: 4.0),
+                                      RatingBar.builder(
+                                        initialRating:
+                                            widget.reviewlist[index].rating! +
+                                                0.0,
+                                        minRating: 0,
+                                        direction: Axis.horizontal,
+                                        allowHalfRating: true,
+                                        itemCount: 5,
+                                        itemSize: 12.0,
+                                        itemPadding: EdgeInsets.symmetric(
+                                            horizontal: 1.0),
+                                        itemBuilder: (context, _) => Icon(
+                                          Icons.star,
+                                          color: Colors.amber,
+                                        ),
+                                        ignoreGestures: true,
+                                        onRatingUpdate: (rating) {
+                                          print(rating);
+                                        },
+                                      ),
+                                      SizedBox(width: 4.0),
+                                      Text(
+                                          widget.reviewlist[index].rating!
+                                              .toDouble()
+                                              .toStringAsFixed(1),
+                                          style: TextStyle(fontSize: 12))
+                                    ],
+                                  ),
+                                ),
+                                Text(widget.reviewlist[index].text.toString(),
+                                    style: TextStyle(fontSize: 13)),
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Text(
+                                          DateFormat('- MMM dd, yyyy')
+                                              .format(DateTime
+                                                  .fromMillisecondsSinceEpoch(
+                                                      1000 *
+                                                          (widget
+                                                              .reviewlist[index]
+                                                              .time!)))
+                                              .toString(),
+                                          style: TextStyle(
+                                              fontSize: 13,
+                                              fontWeight: FontWeight.w600)),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            leading: CircleAvatar(
+                              backgroundImage: NetworkImage(widget
+                                  .reviewlist[index].profilePhotoUrl
+                                  .toString()),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              }),
         ),
       ]),
     );
@@ -429,7 +564,8 @@ class LandmarkPoiDetailsState extends State<LandmarkPoiDetailsWidget> {
                           officiallink: this.officiallink,
                         ),
                         rating: double.parse(data.rating),
-                        reviewlist: data.reviewlist),
+                        reviewlist: data.reviewlist,
+                        numrating: data.numrating),
                   ],
                 ),
               ));
@@ -495,6 +631,7 @@ class LandmarkPoiDetailsWidget extends StatefulWidget {
 class LandmarkPoiDetailWidget extends StatefulWidget {
   final LandmarkPoiDetailsState? landmarkPoiDetail;
   final double rating;
+  final String numrating;
 
   final List<GoogleMapReview> reviewlist;
 
@@ -502,7 +639,8 @@ class LandmarkPoiDetailWidget extends StatefulWidget {
       {Key? key,
       required this.landmarkPoiDetail,
       required this.rating,
-      required this.reviewlist})
+      required this.reviewlist,
+      required this.numrating})
       : super(key: key);
 
   @override
@@ -546,8 +684,10 @@ class _LandmarkPoiDetailWidgetState extends State<LandmarkPoiDetailWidget> {
                           print(rating);
                         },
                       ),
-                      SizedBox(width: 15.0),
+                      SizedBox(width: 8.0),
                       Text(widget.rating.toString()),
+                      SizedBox(width: 5.0),
+                      Text("(" + widget.numrating.toString() + ")"),
                       SizedBox(height: 2),
                     ],
                   )

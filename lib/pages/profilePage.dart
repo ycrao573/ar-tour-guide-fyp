@@ -4,8 +4,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:wikitude_flutter_app/pages/achievementScreen.dart';
+import 'package:wikitude_flutter_app/pages/covidScreen.dart';
 import 'package:wikitude_flutter_app/pages/loginPage.dart';
 import 'package:wikitude_flutter_app/pages/settingsPage.dart';
+import 'package:wikitude_flutter_app/pages/EatPage.dart';
 import 'package:wikitude_flutter_app/service/googleSignIn.dart';
 import 'package:wikitude_flutter_app/widgets/counter.dart';
 
@@ -34,41 +36,39 @@ class _ProfilePageState extends State<ProfilePage> {
       child: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: NetworkImage(
-                "https://images.unsplash.com/photo-1516685304081-de7947d419d5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTN8fHRyYXZlbGVyfGVufDB8fDB8fA%3D%3D&w=1000&q=80"),
-            colorFilter: ColorFilter.mode(Colors.black12, BlendMode.srcATop),
+            image: AssetImage("assets/images/profile_bg.png"),
             fit: BoxFit.cover,
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(18.0),
+          padding: const EdgeInsets.all(12.0),
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: 69,
+                  height: 108,
                 ),
                 SizedBox(
-                  height: 80,
+                  height: 74,
                   child: ClipRRect(
-                    borderRadius: BorderRadius.circular(40.0),
+                    borderRadius: BorderRadius.circular(37.0),
                     child: Image(
                       image: NetworkImage(widget.iconlink),
                     ),
                   ),
                 ),
-                SizedBox(height: 8.0),
+                SizedBox(height: 16.0),
                 Text(widget.name,
                     style: TextStyle(
                         fontSize: 17.5,
                         fontWeight: FontWeight.bold,
                         color: Colors.white)),
-                SizedBox(height: 2.0),
-                Text(widget.email,
-                    style: TextStyle(fontSize: 14, color: Colors.white)),
-                SizedBox(height: 12.0),
+                // SizedBox(height: 2.0),
+                // Text(widget.email,
+                //     style: TextStyle(fontSize: 14, color: Colors.white)),
+                SizedBox(height: 15.0),
                 SizedBox(
                     height: 34,
                     child: ElevatedButton(
@@ -81,9 +81,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             ))),
                         onPressed: () => {},
                         child: Text("View Full Profile"))),
-                SizedBox(height: 12.0),
-                Divider(color: Colors.amberAccent),
-                SizedBox(height: 12.0),
+                SizedBox(height: 30.0),
                 SizedBox(
                   height: 45,
                   width: 330,
@@ -107,14 +105,49 @@ class _ProfilePageState extends State<ProfilePage> {
                         color: Colors.orange[700], size: 18),
                     label: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                      child: Text("Achievement",
+                      child: Text(" Achievement",
                           style: TextStyle(
                               fontSize: 16.5,
                               color: Colors.orange[900],
-                              fontWeight: FontWeight.w600)),
+                              fontWeight: FontWeight.bold)),
                     ),
                   ),
                 ),
+                SizedBox(height: 12.0),
+                SizedBox(
+                    height: 45,
+                    width: 330,
+                    child: ElevatedButton.icon(
+                      style: ButtonStyle(
+                          alignment: Alignment.centerLeft,
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.teal[100]),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(32.0),
+                            ),
+                          )),
+                      onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CovidScreen(
+                                    country: 'Singapore',
+                                  ))),
+                      icon: Icon(
+                        Icons.masks,
+                        size: 25,
+                        color: Colors.teal[700],
+                      ),
+                      label: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                        child: Text("Covid-19 Support",
+                            style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.teal[700],
+                                fontWeight: FontWeight.bold)),
+                      ),
+                    )),
                 SizedBox(height: 12.0),
                 SizedBox(
                   height: 45,
@@ -156,39 +189,18 @@ class _ProfilePageState extends State<ProfilePage> {
                               borderRadius: BorderRadius.circular(32.0),
                             ),
                           )),
-                      onPressed: () => {},
-                      icon: FaIcon(FontAwesomeIcons.solidHeart,
-                          size: 20, color: Colors.red),
-                      label: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                        child:
-                            Text(" Favorites", style: TextStyle(fontSize: 16)),
-                      ),
-                    )),
-                SizedBox(height: 12.0),
-                SizedBox(
-                    height: 45,
-                    width: 330,
-                    child: ElevatedButton.icon(
-                      style: ButtonStyle(
-                          alignment: Alignment.centerLeft,
-                          backgroundColor:
-                              MaterialStateProperty.all(Color(0xd2ffffff)),
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(32.0),
-                            ),
-                          )),
-                      onPressed: () => {},
+                      onPressed: () => {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => EatPage()))
+                      },
                       icon: Icon(
                         Icons.support_agent,
                         color: Colors.greenAccent[700],
                       ),
                       label: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                        child: Text("Help & Support",
-                            style: TextStyle(fontSize: 16)),
+                        child:
+                            Text("Contact Us", style: TextStyle(fontSize: 16)),
                       ),
                     )),
                 SizedBox(height: 12.0),
@@ -208,7 +220,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         )),
                     onPressed: () => {
                       Share.share(
-                          'Check out my GitHub page! https://github.com/ycrao573')
+                          'Hey friend, come and check out this awesome app! https://github.com/ycrao573/Travelee')
                     },
                     icon: Icon(Icons.person_add, color: Colors.indigo),
                     label: Padding(

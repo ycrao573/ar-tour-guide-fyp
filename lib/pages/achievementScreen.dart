@@ -33,10 +33,9 @@ class _AchievementScreenState extends State<AchievementScreen> {
         body: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: NetworkImage(
-                  "https://images.unsplash.com/photo-1578952258885-6ee0651294e6?ixid=MXwxMjA3fDB8MHxwcm9maWxlLWxpa2VkfDR8fHxlbnwwfHx8&ixlib=rb-1.2.1&w=1000&q=80"),
+              image: AssetImage("assets/images/achievement-bg.png"),
               colorFilter: ColorFilter.mode(
-                  Colors.white.withOpacity(0.18), BlendMode.srcATop),
+                  Colors.black.withOpacity(0.16), BlendMode.srcATop),
               fit: BoxFit.cover,
             ),
           ),
@@ -47,7 +46,7 @@ class _AchievementScreenState extends State<AchievementScreen> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(height: 80),
+                SizedBox(height: 90),
                 SizedBox(
                   height: 76,
                   child: ClipRRect(
@@ -60,7 +59,7 @@ class _AchievementScreenState extends State<AchievementScreen> {
                 SizedBox(height: 8.0),
                 Text(widget.name,
                     style: TextStyle(
-                      fontSize: 17,
+                      fontSize: 16,
                       fontWeight: FontWeight.bold,
                     )),
                 SizedBox(height: 15.0),

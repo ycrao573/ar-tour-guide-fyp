@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wikitude_flutter_app/ar/arpage.dart';
 import 'dart:async';
@@ -14,6 +15,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:wikitude_flutter_app/model/activityModel.dart';
 import 'package:wikitude_flutter_app/model/attractionModel.dart';
 import 'package:wikitude_flutter_app/model/googleUserModel.dart';
+import 'package:wikitude_flutter_app/model/restaurantModel.dart';
 import 'package:wikitude_flutter_app/model/userModel.dart';
 import 'package:wikitude_flutter_app/pages/activityScreen.dart';
 import 'package:wikitude_flutter_app/pages/attractionScreen.dart';
@@ -23,6 +25,7 @@ import 'package:wikitude_flutter_app/pages/imagePickerPage.dart';
 import 'package:wikitude_flutter_app/pages/loginPage.dart';
 import 'package:wikitude_flutter_app/pages/profilePage.dart';
 import 'package:wikitude_flutter_app/widgets/drawer.dart';
+import 'package:wikitude_flutter_app/widgets/restaurantScreen.dart';
 import 'package:wikitude_flutter_app/widgets/searchbar.dart';
 import 'package:wikitude_flutter_app/widgets/shrimmingWidget.dart';
 import 'loginPage.dart';
@@ -67,8 +70,10 @@ class _HomePageState extends State<HomePage> {
   bool isAttractionLoading = true;
   bool isLandmarkLoading = true;
   bool isLandmarkNearEnough = false;
+  bool isRestaurantLoading = true;
   List<ActivityModel> _activityModels = [];
   List<AttractionModel> _attractionModels = [];
+  List<RestaurantModel> _restaurantModels = [];
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
   String weather = "loading...";
@@ -126,7 +131,7 @@ class _HomePageState extends State<HomePage> {
               " km away");
       if (double.parse(getDistanceToUser(
               _attractionModels[0].longitude, _attractionModels[0].latitude)) <=
-          0.4) {
+          0.3) {
         landmarkText = new LoadingTextModel(text: _attractionModels[0].name);
         createNotification(
             "YAY! 🍾 You\'ve made it to " + _attractionModels[0].name + "!",
@@ -147,6 +152,28 @@ class _HomePageState extends State<HomePage> {
     icon_link = "http://openweathermap.org/img/w/" +
         data["weather"][0]["icon"] +
         ".png";
+  }
+
+  // Fetch content from the json file
+  Future<void> readRestaurantJson() async {
+    final response =
+        await rootBundle.loadString('assets/data/restaurant_mock.json');
+    var restaurantJson = jsonDecode(response)["data"] as List;
+
+    var compareRating = (a, b) =>
+        (10 * (double.parse(b.rating) - double.parse(a.rating))).round() +
+        int.parse(b.numReviews) -
+        int.parse(a.numReviews);
+    setState(() {
+      _restaurantModels = restaurantJson
+          .map((r) => RestaurantModel.fromJson(r))
+          .toList()
+          .where((i) =>
+              (i.name != null) && (i.rating != null) && (i.numReviews != null))
+          .toList();
+      _restaurantModels.sort(compareRating);
+      //   // createNotification(
+    });
   }
 
   Future<void> initializeNotification() async {
@@ -225,18 +252,19 @@ class _HomePageState extends State<HomePage> {
           // LocationDropdown(currentAddress: _currentAddress),
           // LanguageDropdown(),
           IconButton(
-              icon: ImageIcon(NetworkImage(icon_link), size: 28.0),
+              icon: ImageIcon(NetworkImage(icon_link),
+                  size: 28.0, color: Colors.blue[900]),
               tooltip: weather,
               onPressed: () {}),
           IconButton(
-              icon: Icon(Icons.masks, size: 30),
+              icon: Icon(Icons.masks, size: 30, color: Colors.teal[800]),
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => CovidScreen(country: placemark.country),
                 ));
               }),
           IconButton(
-              icon: Icon(Icons.update, size: 25.0),
+              icon: Icon(Icons.update, size: 25.0, color: Colors.red[900]),
               onPressed: () {
                 isAddressLoading = true;
                 isActivityLoading = true;
@@ -304,12 +332,12 @@ class _HomePageState extends State<HomePage> {
               image: NetworkImage(
                   "https://i.pinimg.com/564x/ac/1c/3f/ac1c3fdcdd13bc52f5cb9fc3ec73c271.jpg"),
               colorFilter: ColorFilter.mode(
-                  Colors.white.withOpacity(0.6), BlendMode.srcATop),
+                  Colors.white.withOpacity(0.5), BlendMode.srcATop),
               fit: BoxFit.cover,
             ),
           ),
           child: new BackdropFilter(
-            filter: new ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
+            filter: new ImageFilter.blur(sigmaX: 1.0, sigmaY: 1.0),
             child: Container(
               child: SingleChildScrollView(
                 child: Padding(
@@ -419,11 +447,11 @@ class _HomePageState extends State<HomePage> {
                                                     onPressed: () {}),
                                               ],
                                             ),
+                                            SizedBox(height: 20.0),
                                           ]),
                                     ),
                                   )
-                                : SizedBox(height: 6.0),
-                            SizedBox(height: 20.0),
+                                : SizedBox(height: 8.0),
                             Padding(
                               padding: EdgeInsets.symmetric(horizontal: 1.0),
                               child: Row(
@@ -437,16 +465,16 @@ class _HomePageState extends State<HomePage> {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  GestureDetector(
-                                    onTap: () => print('See All'),
-                                    child: Text(
-                                      'See All',
-                                      style: TextStyle(
-                                        fontSize: 14.0,
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                    ),
-                                  ),
+                                  // GestureDetector(
+                                  //   onTap: () => print('See All'),
+                                  //   child: Text(
+                                  //     'See All',
+                                  //     style: TextStyle(
+                                  //       fontSize: 14.0,
+                                  //       fontWeight: FontWeight.w400,
+                                  //     ),
+                                  //   ),
+                                  // ),
                                 ],
                               ),
                             ),
@@ -636,17 +664,17 @@ class _HomePageState extends State<HomePage> {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  GestureDetector(
-                                    onTap: () => print('View in AR'),
-                                    child: Text(
-                                      'View in AR',
-                                      style: TextStyle(
-                                        fontSize: 14.0,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.red,
-                                      ),
-                                    ),
-                                  ),
+                                  // GestureDetector(
+                                  //   onTap: () => print('View in AR'),
+                                  //   child: Text(
+                                  //     'View in AR',
+                                  //     style: TextStyle(
+                                  //       fontSize: 14.0,
+                                  //       fontWeight: FontWeight.w600,
+                                  //       color: Colors.red[900],
+                                  //     ),
+                                  //   ),
+                                  // ),
                                 ],
                               ),
                             ),
@@ -839,6 +867,216 @@ class _HomePageState extends State<HomePage> {
                                     }
                                   },
                                 )),
+                            SizedBox(height: 10.0),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 1.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Text(
+                                    'Restaurants Nearby',
+                                    style: TextStyle(
+                                      fontSize: 17.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                                height: 174.0,
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: 9,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    if (_restaurantModels.length == 0) {
+                                      return buildRestaurantShimmer();
+                                    } else {
+                                      RestaurantModel restaurant =
+                                          _restaurantModels[index];
+                                      return GestureDetector(
+                                        onTap: () => Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (_) =>
+                                                    RestaurantScreen(
+                                                        restaurant:
+                                                            restaurant))),
+                                        child: Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(20.0),
+                                            ),
+                                            margin: EdgeInsets.all(6.0),
+                                            width: 272.0,
+                                            child: Stack(
+                                              alignment: Alignment.centerLeft,
+                                              children: [
+                                                Positioned(
+                                                  bottom: 10.0,
+                                                  child: Container(
+                                                    height: 150.0,
+                                                    width: 270.0,
+                                                    decoration: BoxDecoration(
+                                                        color:
+                                                            Color(0x80ffffff),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(
+                                                                    20.0)),
+                                                    child: Padding(
+                                                      padding: const EdgeInsets
+                                                              .fromLTRB(
+                                                          105, 20, 10, 5),
+                                                      child: Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .start,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Text(
+                                                              restaurant.name!,
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .fade,
+                                                              maxLines: 3,
+                                                              style: TextStyle(
+                                                                fontSize: 15.5,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w700,
+                                                              ),
+                                                            ),
+                                                            SizedBox(height: 3),
+                                                            Row(
+                                                                children: <
+                                                                    Widget>[
+                                                                  Icon(
+                                                                    Icons
+                                                                        .pin_drop,
+                                                                    size: 14.0,
+                                                                  ),
+                                                                  Text(
+                                                                    " " +
+                                                                        getDistanceToUser(
+                                                                            restaurant.longitude!,
+                                                                            restaurant.latitude!) +
+                                                                        " km",
+                                                                    style:
+                                                                        TextStyle(
+                                                                      fontSize:
+                                                                          14.0,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w400,
+                                                                    ),
+                                                                  ),
+                                                                  // Text(
+                                                                  //   activity.description,
+                                                                  //   overflow: TextOverflow.fade,
+                                                                  //   maxLines: 2,
+                                                                  //   style: TextStyle(
+                                                                  //     color: Colors.grey,
+                                                                  //   ),
+                                                                  // ),
+                                                                ]),
+                                                            Row(children: <
+                                                                Widget>[
+                                                              Icon(
+                                                                Icons.star,
+                                                                size: 14.0,
+                                                                color: Colors
+                                                                    .orange,
+                                                              ),
+                                                              Text(
+                                                                " " +
+                                                                    restaurant
+                                                                        .rating! +
+                                                                    " (" +
+                                                                    restaurant
+                                                                        .numReviews! +
+                                                                    ")",
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize:
+                                                                      14.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                ),
+                                                              ),
+                                                            ]),
+                                                            restaurant.cuisine!
+                                                                        .length !=
+                                                                    0
+                                                                ? SingleChildScrollView(
+                                                                    scrollDirection:
+                                                                        Axis.horizontal,
+                                                                    child: Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize
+                                                                                .min,
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment
+                                                                                .start,
+                                                                        children: restaurant
+                                                                            .cuisine!
+                                                                            .map((item) =>
+                                                                                Chip(
+                                                                                  backgroundColor: Colors.cyan[200],
+                                                                                  label: Text(item.name!, style: TextStyle(fontSize: 13)),
+                                                                                ))
+                                                                            .toList()
+                                                                        // .toList(),
+                                                                        ),
+                                                                  )
+                                                                : Text("")
+                                                          ]),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsets.all(
+                                                      10.0),
+                                                  child: Container(
+                                                      child: Stack(
+                                                    children: [
+                                                      Hero(
+                                                        tag: restaurant.name!,
+                                                        child: ClipRRect(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      42.0),
+                                                          child: Image(
+                                                            height: 84.0,
+                                                            width: 84.0,
+                                                            image: NetworkImage(
+                                                                (restaurant.photo !=
+                                                                        null)
+                                                                    ? restaurant
+                                                                        .photo!
+                                                                        .images!
+                                                                        .original!
+                                                                        .url!
+                                                                    : "https://www.freeiconspng.com/uploads/restaurant-icon-png-10.png"),
+                                                            fit: BoxFit.cover,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  )),
+                                                )
+                                              ],
+                                            )),
+                                      );
+                                    }
+                                  },
+                                )),
                             Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10.0),
@@ -959,11 +1197,13 @@ class _HomePageState extends State<HomePage> {
         isAddressLoading = true;
         isActivityLoading = true;
         isAttractionLoading = true;
+        isRestaurantLoading = true;
       });
       List<Placemark> placemarks = await placemarkFromCoordinates(
           _currentPosition.latitude, _currentPosition.longitude);
       readActivtiesJson();
       readPlacesJson();
+      readRestaurantJson();
       Placemark place = placemark = placemarks[0];
       setState(() {
         _currentAddress = "${place.locality}";
@@ -971,6 +1211,7 @@ class _HomePageState extends State<HomePage> {
         isAddressLoading = false;
         isActivityLoading = false;
         isAttractionLoading = false;
+        isRestaurantLoading = false;
       });
     } catch (e) {
       print(e);
@@ -986,7 +1227,7 @@ class _HomePageState extends State<HomePage> {
         3963.0 *
         acos((sin(lat1) * sin(lat2)) +
             cos(lat1) * cos(lat2) * cos(long2 - long1));
-    return res.toStringAsFixed(1);
+    return res.toStringAsFixed(2);
   }
 
   Widget buildCircleImage(String path) => Padding(
@@ -1037,12 +1278,17 @@ class _HomePageState extends State<HomePage> {
 
   Widget buildActivityShimmer() => ShimmeringWidget.rectangular(
         height: 11,
-        width: MediaQuery.of(context).size.width / 1.8,
+        width: MediaQuery.of(context).size.width / 2.2,
       );
 
   Widget buildLandmarkShimmer() => ShimmeringWidget.rectangular(
         height: 11,
-        width: MediaQuery.of(context).size.width / 1.4,
+        width: MediaQuery.of(context).size.width / 2.2,
+      );
+
+  Widget buildRestaurantShimmer() => ShimmeringWidget.rectangular(
+        height: 11,
+        width: MediaQuery.of(context).size.width / 2.2,
       );
 
   Widget buildCircleShimmer() => ShimmeringWidget.circular(

@@ -27,15 +27,14 @@ class _ArPageState extends State<ArPage> {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: NetworkImage(
-                "https://imageio.forbes.com/specials-images/imageserve/61b213d230ba8d277c91a193/Finding-Direction-With-Augmented-Reality-On-Smartphone-On-Street/960x0.jpg?fit=bounds&format=jpg&width=960"),
+            image: AssetImage("assets/images/ar_bg.png"),
             colorFilter: ColorFilter.mode(
-                Colors.white.withOpacity(0.48), BlendMode.srcATop),
+                Colors.white.withOpacity(0.1), BlendMode.srcATop),
             fit: BoxFit.cover,
           ),
         ),
         child: new BackdropFilter(
-          filter: new ImageFilter.blur(sigmaX: 4.0, sigmaY: 4.0),
+          filter: new ImageFilter.blur(sigmaX: 0.0, sigmaY: 0.0),
           child: Container(
             child: Center(
               child: Column(
@@ -73,13 +72,13 @@ class _ArPageState extends State<ArPage> {
                   //     ));
                   //   },
                   // ),
-                  SizedBox(height: 30),
+                  SizedBox(height: 250),
                   Center(
                     child: Text("Live View - AR Experience",
                         style: TextStyle(
                           color: Colors.black,
                           fontFamily: 'Poppins',
-                          fontSize: 25.0,
+                          fontSize: 24.0,
                           height: 1.4,
                           fontWeight: FontWeight.w600,
                         )),
@@ -90,27 +89,26 @@ class _ArPageState extends State<ArPage> {
                       child: Align(
                         alignment: Alignment.center,
                         child: Text(
-                            "\nWe use Augmented Reality (AR) to help you discover interesting places in your neighborhood. You can simply choose a category below and explore potential places nearby in 'AR' fashion. \nClick any location pin for more information!",
+                            "\nWe use Augmented Reality (AR) to help you discover interesting places in your neighborhood. You can simply choose a category below and explore potential places nearby in 'AR' fashion. Click location pin for more information!",
                             style: TextStyle(
                               color: Colors.black,
                               fontFamily: 'Poppins',
-                              fontSize: 15.0,
+                              fontSize: 14.5,
                               height: 1.4,
                               fontWeight: FontWeight.w400,
                             )),
                       ),
                     ),
                   ),
-                  SizedBox(height: 20.0),
                   Padding(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.fromLTRB(24, 18, 24, 10),
                     child: ClipRRect(
                       borderRadius: BorderRadius.all(Radius.circular(18)),
                       child: Container(
-                        color: Colors.black26,
+                        color: Colors.black45,
                         child: Column(
                           children: [
-                            SizedBox(height: 10.0),
+                            SizedBox(height: 5.0),
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -305,11 +303,11 @@ class _ArPageState extends State<ArPage> {
                                       ),
                                       child: IconButton(
                                         iconSize: 36.0,
-                                        icon: const Icon(Icons.park_outlined),
+                                        icon: const Icon(Icons.star_border),
                                         color: Colors.white24,
                                         onPressed: () {
                                           // _pushArView(new Sample(
-                                          //   name: "Park",
+                                          //   name: "Saved",
                                           //   path: 'landmark/index.html',
                                           //   requiredFeatures: ["geo"],
                                           //   startupConfiguration: new StartupConfiguration(
@@ -321,14 +319,14 @@ class _ArPageState extends State<ArPage> {
                                         },
                                       ),
                                     ),
-                                    Text('Park',
+                                    Text('Saved',
                                         style:
                                             TextStyle(color: Colors.white24)),
                                   ],
                                 ),
                               ],
                             ),
-                            SizedBox(height: 25.0),
+                            SizedBox(height: 20.0),
                           ],
                         ),
                       ),

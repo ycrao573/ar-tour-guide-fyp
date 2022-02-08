@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:http/http.dart' as http;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -68,6 +71,8 @@ class _AttractionScreenState extends State<AttractionScreen> {
                           fontWeight: FontWeight.w700,
                         ),
                       ),
+                      SizedBox(height: 3.0),
+                      buildStarRatingWidget(widget.attraction.name),
                       SizedBox(height: 5.0),
                       Row(
                         children: <Widget>[
@@ -312,4 +317,86 @@ class _AttractionScreenState extends State<AttractionScreen> {
         height: 170,
         width: MediaQuery.of(context).size.width,
       );
+
+  Widget buildStarRatingWidget(String name) {
+    var result = fetchRatings(name);
+    return FutureBuilder<LandmarkRating>(
+      future: result,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              RatingBar.builder(
+                initialRating: double.parse(snapshot.data!.rating),
+                minRating: 0,
+                direction: Axis.horizontal,
+                allowHalfRating: true,
+                itemCount: 5,
+                itemSize: 16.0,
+                itemPadding: EdgeInsets.symmetric(horizontal: 3.0),
+                itemBuilder: (context, _) => Icon(
+                  Icons.star,
+                  color: Colors.amber,
+                ),
+                ignoreGestures: true,
+                onRatingUpdate: (double rating) {
+                  print(rating);
+                },
+              ),
+              SizedBox(width: 8.0),
+              Text(snapshot.data!.rating,
+                  style: TextStyle(color: Colors.white)),
+              SizedBox(width: 5.0),
+              Text("(" + snapshot.data!.user_ratings_total + ")",
+                  style: TextStyle(color: Colors.white)),
+              SizedBox(height: 2),
+            ],
+          );
+        } else if (snapshot.hasError) {
+          return Text('${snapshot.error}');
+        }
+
+        // By default, show a loading spinner.
+        return SizedBox();
+      },
+    );
+  }
+
+  Future<LandmarkRating> fetchRatings(String name) async {
+    final response = await http.get(Uri.parse(
+        'https://maps.googleapis.com/maps/api/place/findplacefromtext/json?fields=name%2Cplace_id%2Crating%2Cphotos%2Cuser_ratings_total&input=$name%20singapore&inputtype=textquery&key=AIzaSyBhQ60FpF7ytOVR2DlMvrBI-FL3l_Sopu0'));
+
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      var jsonString = jsonDecode(response.body);
+      var rating =
+          jsonDecode(response.body)["candidates"][0]["rating"].toString();
+      var user_ratings_total = jsonDecode(response.body)["candidates"][0]
+              ["user_ratings_total"]
+          .toString();
+      return LandmarkRating.fromJson(
+          {"rating": rating, "user_ratings_total": user_ratings_total});
+    } else {
+      return LandmarkRating.fromJson({"rating": "", "user_ratings_total": ""});
+    }
+  }
+}
+
+class LandmarkRating {
+  final String rating;
+  final String user_ratings_total;
+
+  const LandmarkRating({
+    required this.rating,
+    required this.user_ratings_total,
+  });
+
+  factory LandmarkRating.fromJson(Map<String, dynamic> json) {
+    return LandmarkRating(
+      rating: json['rating'],
+      user_ratings_total: json['user_ratings_total'],
+    );
+  }
 }

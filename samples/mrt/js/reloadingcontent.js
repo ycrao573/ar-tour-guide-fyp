@@ -86,8 +86,6 @@ var World = {
                 World.markerList.push(new Marker(singlePoi));
             }
         }
-
-        //TODO: THIS SHOULD ADJUST ACCORDINGLY:
         
         var compareDistanceToUser = (a, b) => {
           if (parseFloat(a.poiData.distance) < parseFloat(b.poiData.distance)) {
@@ -226,8 +224,8 @@ var World = {
         */
         /* Update panel values. */
         document.getElementById("poiDetailTitle").innerHTML = marker.poiData.title;
-        document.getElementById("poiDetailDescription").innerHTML = marker.poiData.description;
-        document.getElementById("viewmore").href = "https://www.google.com/maps/search/?api=1&query=" + marker.poiData.title;
+        // document.getElementById("poiDetailDescription").innerHTML = marker.poiData.description;
+        // document.getElementById("viewmore").href = "https://www.google.com/maps/search/?api=1&query=" + marker.poiData.title;
         document.getElementById("poiDetailImage").src = "https://maps.googleapis.com/maps/api/staticmap?center="+ marker.poiData.title +"&markers="+ marker.poiData.title +"&zoom=15&size=400x400&key=AIzaSyCcuOYBEHg6xRvC-NU-ScSPH01aDndnV_w"
         
         /*

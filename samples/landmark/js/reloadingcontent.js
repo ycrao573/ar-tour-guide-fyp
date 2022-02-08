@@ -130,17 +130,17 @@ var World = {
 
     //TODO: THIS SHOULD ADJUST ACCORDINGLY:
     World.markerList.sort(compareDistanceToUser);
-    if (parseFloat(World.markerList[0].poiData.distance) < 5) {
+    if (parseFloat(World.markerList[0].poiData.distance) < 0.3) {
       document.getElementById("footer").style.visibility = "visible";
       // document.getElementById("popupImage").src =
       //   World.markerList[0].poiData.photourl;
       document.getElementById("currentSpot").innerHTML =
         World.markerList[0].poiData.title;
-      document.getElementById("viewofficial").href = World.markerList[0].poiData.officiallink;
-      document.getElementById("viewmorespot").href =
-        "https://www.google.com/maps/search/?api=1&query=" +
-        World.markerList[0].poiData.title +
-        ", Singapore";
+      // document.getElementById("viewofficial").href = World.markerList[0].poiData.officiallink;
+      // document.getElementById("viewmorespot").href =
+      //   "https://www.google.com/maps/search/?api=1&query=" +
+      //   World.markerList[0].poiData.title +
+      //   ", Singapore";v
     }
 
     /* Updates distance information of all placemarks. */
