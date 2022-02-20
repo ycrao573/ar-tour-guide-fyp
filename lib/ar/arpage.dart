@@ -3,6 +3,7 @@ import 'package:augmented_reality_plugin_wikitude/startupConfiguration.dart';
 import 'package:augmented_reality_plugin_wikitude/wikitude_plugin.dart';
 import 'package:augmented_reality_plugin_wikitude/wikitude_response.dart';
 import 'package:flutter/material.dart';
+import 'package:wikitude_flutter_app/widgets/mapScreen.dart';
 import 'arview.dart';
 import 'sample.dart';
 import '../theme.dart';
@@ -304,7 +305,7 @@ class _ArPageState extends State<ArPage> {
                                       child: IconButton(
                                         iconSize: 36.0,
                                         icon: const Icon(Icons.star_border),
-                                        color: Colors.white24,
+                                        color: Colors.orange,
                                         onPressed: () {
                                           // _pushArView(new Sample(
                                           //   name: "Saved",
@@ -316,12 +317,18 @@ class _ArPageState extends State<ArPage> {
                                           //       cameraFocusMode: CameraFocusMode.CONTINUOUS),
                                           //   requiredExtensions: ["native_detail"],
                                           // ));
+
+                                          Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      MapScreen()));
                                         },
                                       ),
                                     ),
                                     Text('Saved',
-                                        style:
-                                            TextStyle(color: Colors.white24)),
+                                        style: TextStyle(
+                                          color: Colors.orange,
+                                        )),
                                   ],
                                 ),
                               ],

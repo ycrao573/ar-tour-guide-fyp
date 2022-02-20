@@ -103,6 +103,20 @@ html, body {
     white-space: normal;
 }
 
+.mrtButton {
+    margin: 2px;
+    z-index: 1;
+    border-radius: 20px;
+    font-size: 14.5px;
+    border: none;
+    width: 190px;
+    padding: 4px;
+    font-weight: 600;
+    background-color: #029841;
+    color: white;
+    white-space: normal;
+}
+
 #poiDetailDescription {
     font-size: small;
 }

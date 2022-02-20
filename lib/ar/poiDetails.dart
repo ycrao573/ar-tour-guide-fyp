@@ -385,28 +385,13 @@ class _PoiDetailWidgetState extends State<PoiDetailWidget> {
                                           style: TextStyle(
                                               fontSize: 13,
                                               fontWeight: FontWeight.bold)),
-                                      SizedBox(width: 4.0),
-                                      RatingBar.builder(
-                                        initialRating:
-                                            widget.reviewlist[index].rating! +
-                                                0.0,
-                                        minRating: 0,
-                                        direction: Axis.horizontal,
-                                        allowHalfRating: true,
-                                        itemCount: 5,
-                                        itemSize: 12.0,
-                                        itemPadding: EdgeInsets.symmetric(
-                                            horizontal: 1.0),
-                                        itemBuilder: (context, _) => Icon(
-                                          Icons.star,
-                                          color: Colors.amber,
-                                        ),
-                                        ignoreGestures: true,
-                                        onRatingUpdate: (rating) {
-                                          print(rating);
-                                        },
+                                      SizedBox(width: 6.0),
+                                      Icon(
+                                        Icons.star,
+                                        color: Colors.orange[300],
+                                        size: 15.0,
                                       ),
-                                      SizedBox(width: 4.0),
+                                      SizedBox(width: 2.0),
                                       Text(
                                           widget.reviewlist[index].rating!
                                               .toDouble()

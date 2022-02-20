@@ -48,7 +48,7 @@ class _ProfilePageState extends State<ProfilePage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: 108,
+                  height: 90,
                 ),
                 SizedBox(
                   height: 74,
@@ -81,7 +81,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             ))),
                         onPressed: () => {},
                         child: Text("View Full Profile"))),
-                SizedBox(height: 30.0),
+                SizedBox(height: 50.0),
                 SizedBox(
                   height: 45,
                   width: 330,

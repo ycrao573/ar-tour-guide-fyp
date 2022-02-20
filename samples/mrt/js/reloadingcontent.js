@@ -223,7 +223,63 @@ var World = {
             description), compare index.html in the sample's directory.
         */
         /* Update panel values. */
+
+        function insertAfter(referenceNode, newNode) {
+            referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+        }
+        
+        let anchor = document.getElementById("insertafterthis");
         document.getElementById("poiDetailTitle").innerHTML = marker.poiData.title;
+        let mrtname = marker.poiData.title.match(/\((.*?)\)/)[1].replace(/\s/g,'');
+        if (mrtname.includes("EW") || mrtname.includes("CG")) {
+            var el = document.createElement("button");
+            el.innerHTML = "East West Line";
+            el.className = "mrtButton";
+            el.style.backgroundColor = "#009539";
+            insertAfter(anchor, el);
+            anchor = el;
+        }
+        if (mrtname.includes("NS")) {
+            var el = document.createElement("button");
+            el.innerHTML = "North South Line";
+            el.className = "mrtButton";
+            el.style.backgroundColor = "#de261a";
+            insertAfter(anchor, el);
+            anchor = el;
+        }
+        if (mrtname.includes("NE")) {
+            var el = document.createElement("button");
+            el.innerHTML = "North East Line";
+            el.className = "mrtButton";
+            el.style.backgroundColor = "#9b27af";
+            insertAfter(anchor, el);
+            anchor = el;
+        }
+        if (mrtname.includes("CC") || mrtname.includes("CG")) {
+            var el = document.createElement("button");
+            el.innerHTML = "Circle Line";
+            el.className = "mrtButton";
+            el.style.backgroundColor = "#9b27af";
+            insertAfter(anchor, el);
+            anchor = el;
+        }
+        if (mrtname.includes("DT")) {
+            var el = document.createElement("button");
+            el.innerHTML = "Downtown Line";
+            el.className = "mrtButton";
+            el.style.backgroundColor = "#fe9c15";
+            insertAfter(anchor, el);
+            anchor = el;
+        }
+        if (mrtname.includes("TE")) {
+            var el = document.createElement("button");
+            el.innerHTML = "Thomson-East Coast Line";
+            el.className = "mrtButton";
+            el.style.backgroundColor = "#9c591a";
+            insertAfter(anchor, el);
+            anchor = el;
+        }
+
         // document.getElementById("poiDetailDescription").innerHTML = marker.poiData.description;
         // document.getElementById("viewmore").href = "https://www.google.com/maps/search/?api=1&query=" + marker.poiData.title;
         document.getElementById("poiDetailImage").src = "https://maps.googleapis.com/maps/api/staticmap?center="+ marker.poiData.title +"&markers="+ marker.poiData.title +"&zoom=15&size=400x400&key=AIzaSyCcuOYBEHg6xRvC-NU-ScSPH01aDndnV_w"
@@ -260,6 +316,11 @@ var World = {
             /* Deselect AR-marker when user exits detail screen div. */
             World.currentMarker.setDeselected(World.currentMarker);
             World.currentMarker = null;
+            const boxes = Array.from(document.getElementsByClassName('mrtButton'));
+            // TODO: Check whether this one works or not!
+            boxes.forEach(box => {
+                box.remove();
+            });
         }
     },
 

@@ -51,6 +51,10 @@ dependencies:
   line_awesome_flutter: ^2.0.0
   share_plus: ^3.0.1
   material_floating_search_bar: ^0.3.6
+  dio: ^4.0.4
+  flutter_polyline_points: ^1.0.0
+  google_maps_flutter: ^2.0.9
+  flutter_google_places: ^0.3.0
 
 dev_dependencies:
   flutter_test:

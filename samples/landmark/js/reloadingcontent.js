@@ -253,14 +253,11 @@ var World = {
 
     /* Update panel values. */
     document.getElementById("poiDetailTitle").innerHTML = marker.poiData.title;
-    document.getElementById("poiDetailDescription").innerHTML =
-      marker.poiData.description;
-    console.log("****************************************************************");
-    console.log(marker.poiData.hyperlink, marker.poiData.urlpath, marker.poiData.officiallink);
-    document.getElementById("viewwebsite").href = marker.poiData.officiallink || marker.poiData.hyperlink || "https://" + marker.poiData.urlpath; 
-    document.getElementById("viewmore").href =
-      "https://www.google.com/maps/search/?api=1&query=" +
-      marker.poiData.title + "%20Singapore";
+    document.getElementById("poiDetailDescription").innerHTML = marker.poiData.description;
+    // document.getElementById("viewwebsite").href = marker.poiData.officiallink || marker.poiData.hyperlink || "https://" + marker.poiData.urlpath; 
+    // document.getElementById("viewmore").href =
+    //   "https://www.google.com/maps/search/?api=1&query=" +
+    //   marker.poiData.title + "%20Singapore";
     document.getElementById("poiDetailImage").src = "https://maps.googleapis.com/maps/api/staticmap?center="+ marker.poiData.title + "%20Singapore"+"&markers="+ marker.poiData.title+ "%20Singapore" +"&zoom=14&size=400x400&key=AIzaSyCcuOYBEHg6xRvC-NU-ScSPH01aDndnV_w"
 
     // if (marker.poiData.photourl.startsWith("https://")) {

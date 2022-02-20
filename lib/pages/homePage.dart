@@ -145,7 +145,8 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> readWeatherJson() async {
     Uri _uri = Uri.parse(
-        "https://api.openweathermap.org/data/2.5/weather?lat=${_currentPosition.latitude}&lon=${_currentPosition.longitude}&appid=df33d4922d23eaad8d9077a561144719");
+      "https://api.openweathermap.org/data/2.5/weather?lat=${_currentPosition.latitude}&lon=${_currentPosition.longitude}&appid=df33d4922d23eaad8d9077a561144719",
+    );
     final response = await http.get(_uri);
     final data = json.decode(response.body);
     weather = data["weather"][0]["main"];
@@ -156,12 +157,20 @@ class _HomePageState extends State<HomePage> {
 
   // Fetch content from the json file
   Future<void> readRestaurantJson() async {
-    final response =
-        await rootBundle.loadString('assets/data/restaurant_mock.json');
-    var restaurantJson = jsonDecode(response)["data"] as List;
+    // final response =
+    //     await rootBundle.loadString('assets/data/restaurant_mock.json');
+    // var restaurantJson = jsonDecode(response)["data"] as List;
+    Uri _uri = Uri.parse(
+        "https://travel-advisor.p.rapidapi.com/restaurants/list-by-latlng?latitude=${_currentPosition.latitude}&longitude=${_currentPosition.longitude}&limit=30&currency=SGD&distance=4&lunit=km&lang=en_US&min_rating=3.5");
 
+    final response = await http.get(_uri, headers: {
+      "x-rapidapi-host": "travel-advisor.p.rapidapi.com",
+      "x-rapidapi-key": "9db9c9d246msh25db841ec6d88cbp1c2b50jsne2a3c0836744",
+    });
+    final restaurantJson =
+        await json.decode(utf8.decode(response.bodyBytes))["data"] as List;
     var compareRating = (a, b) =>
-        (10 * (double.parse(b.rating) - double.parse(a.rating))).round() +
+        (20 * (double.parse(b.rating) - double.parse(a.rating))).round() +
         int.parse(b.numReviews) -
         int.parse(a.numReviews);
     setState(() {
@@ -304,7 +313,7 @@ class _HomePageState extends State<HomePage> {
           setState(() {
             currentPage = position;
             // show the dialog
-            if (Random().nextInt(100) <= 5) {
+            if (Random().nextInt(100) <= 3) {
               showDialog(
                 context: context,
                 barrierDismissible:
@@ -888,7 +897,7 @@ class _HomePageState extends State<HomePage> {
                                 height: 174.0,
                                 child: ListView.builder(
                                   scrollDirection: Axis.horizontal,
-                                  itemCount: 9,
+                                  itemCount: 7,
                                   itemBuilder:
                                       (BuildContext context, int index) {
                                     if (_restaurantModels.length == 0) {
@@ -910,7 +919,7 @@ class _HomePageState extends State<HomePage> {
                                                   BorderRadius.circular(20.0),
                                             ),
                                             margin: EdgeInsets.all(6.0),
-                                            width: 272.0,
+                                            width: 299.0,
                                             child: Stack(
                                               alignment: Alignment.centerLeft,
                                               children: [
@@ -918,7 +927,7 @@ class _HomePageState extends State<HomePage> {
                                                   bottom: 10.0,
                                                   child: Container(
                                                     height: 150.0,
-                                                    width: 270.0,
+                                                    width: 296.0,
                                                     decoration: BoxDecoration(
                                                         color:
                                                             Color(0x80ffffff),
@@ -929,7 +938,7 @@ class _HomePageState extends State<HomePage> {
                                                     child: Padding(
                                                       padding: const EdgeInsets
                                                               .fromLTRB(
-                                                          105, 20, 10, 5),
+                                                          105, 20, 10, 0),
                                                       child: Column(
                                                           mainAxisAlignment:
                                                               MainAxisAlignment
@@ -942,10 +951,10 @@ class _HomePageState extends State<HomePage> {
                                                               restaurant.name!,
                                                               overflow:
                                                                   TextOverflow
-                                                                      .fade,
-                                                              maxLines: 3,
+                                                                      .ellipsis,
+                                                              maxLines: 2,
                                                               style: TextStyle(
-                                                                fontSize: 15.5,
+                                                                fontSize: 15,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w700,
@@ -986,28 +995,25 @@ class _HomePageState extends State<HomePage> {
                                                                 ]),
                                                             Row(children: <
                                                                 Widget>[
-                                                              Icon(
-                                                                Icons.star,
-                                                                size: 14.0,
-                                                                color: Colors
-                                                                    .orange,
+                                                              ImageIcon(
+                                                                NetworkImage(
+                                                                    "https://cdn-icons-png.flaticon.com/512/1216/1216908.png"),
+                                                                size: 23,
+                                                                color: Color(
+                                                                    0xff00AF87),
                                                               ),
                                                               Text(
-                                                                " " +
+                                                                " Rating: " +
                                                                     restaurant
-                                                                        .rating! +
-                                                                    " (" +
-                                                                    restaurant
-                                                                        .numReviews! +
-                                                                    ")",
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontSize:
-                                                                      14.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w400,
-                                                                ),
+                                                                        .rating!,
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        14.0,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                    color: Color(
+                                                                        0xff00AF87)),
                                                               ),
                                                             ]),
                                                             restaurant.cuisine!
@@ -1026,9 +1032,14 @@ class _HomePageState extends State<HomePage> {
                                                                         children: restaurant
                                                                             .cuisine!
                                                                             .map((item) =>
-                                                                                Chip(
-                                                                                  backgroundColor: Colors.cyan[200],
-                                                                                  label: Text(item.name!, style: TextStyle(fontSize: 13)),
+                                                                                Padding(
+                                                                                  padding: const EdgeInsets.symmetric(
+                                                                                    horizontal: 2.0,
+                                                                                  ),
+                                                                                  child: Chip(
+                                                                                    backgroundColor: Colors.cyan[200],
+                                                                                    label: Text(item.name!, style: TextStyle(fontSize: 13)),
+                                                                                  ),
                                                                                 ))
                                                                             .toList()
                                                                         // .toList(),
