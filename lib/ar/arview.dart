@@ -102,7 +102,8 @@ class ArViewState extends State<ArViewWidget> with WidgetsBindingObserver {
     return Scaffold(
       appBar: AppBar(
           title: Text("Live View - " + sample.name),
-          backgroundColor: Color(0x9985ccd8)),
+          backgroundColor: Colors.red.withOpacity(.5),
+          elevation: 0),
       body: Container(
         child: architectWidget,
       ),

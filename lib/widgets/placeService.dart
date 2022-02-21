@@ -7,7 +7,7 @@ class PlacesService {
   static const kGoogleApiKey = "AIzaSyBhQ60FpF7ytOVR2DlMvrBI-FL3l_Sopu0";
   Future<List<PlaceSearch>> getAutocomplete(String search) async {
     var url =
-        'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$search&types=geocode&components=country:sg&key=$kGoogleApiKey';
+        'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$search&types=establishment&components=country:sg&key=$kGoogleApiKey';
     var response = await http.get(Uri.parse(url));
     var json = convert.jsonDecode(response.body);
     var jsonResults = json['predictions'] as List;

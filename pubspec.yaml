@@ -55,6 +55,7 @@ dependencies:
   flutter_polyline_points: ^1.0.0
   google_maps_flutter: ^2.0.9
   flutter_google_places: ^0.3.0
+  uuid: ^3.0.6
 
 dev_dependencies:
   flutter_test:
@@ -79,10 +80,10 @@ flutter:
     # - samples/experience/augmentation-assets/719402231_yunnan/613053d0d72c5d27792623c6/
     # - samples/experience/augmentation-assets/1625189067_chc_building/61306f6665ddc2277258444e/
     # - samples/experience/augmentation-assets/1625189067_chc_building/6130701865ddc22772584482/
-    # - samples/poi_experience/
-    # - samples/poi_experience/js/
-    # - samples/poi_experience/css/
-    # - samples/poi_experience/assets/
+    - samples/customized/
+    - samples/customized/js/
+    - samples/customized/css/
+    - samples/customized/assets/
     - samples/mrt/
     - samples/mrt/js/
     - samples/mrt/css/

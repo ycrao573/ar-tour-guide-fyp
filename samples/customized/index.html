@@ -12,6 +12,9 @@
     <script src="https://www.wikitude.com/libs/architect.js"></script>
     <script src="../ade.js"></script>
 
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
     <!-- positioning of poi-radar -->
     <link rel="stylesheet" href="css/poi-radar.css"/>
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -26,7 +29,6 @@
 
     <!-- radar component -->
     <script type="text/javascript" src="js/radar.js"></script>
-
     <link rel="stylesheet" href="css/default.css"/>
 </head>
 
@@ -53,7 +55,6 @@
         <div class="content">
             <h3 id="poiDetailTitle"></h3>
             <h4> Distance: <a id="poiDetailDistance"></a></h4>
-            <button class="customButton1" id="#poiDetailMoreButton" onclick="World.onPoiDetailMoreButtonClicked();" data-role="button" data-icon="arrow-r" data-iconpos="right" data-inline="true">Mall Information</button>
             <p id="poiDetailDescription"></p>
             <img id="poiDetailImage" style="display: relative; max-width: 200px; border-radius: 3%; border-radius: 3%;" src="https://via.placeholder.com/200"></img>
             <br>

@@ -259,7 +259,7 @@ var World = {
             var el = document.createElement("button");
             el.innerHTML = "Circle Line";
             el.className = "mrtButton";
-            el.style.backgroundColor = "#9b27af";
+            el.style.backgroundColor = "#fe9c15";
             insertAfter(anchor, el);
             anchor = el;
         }
@@ -267,7 +267,7 @@ var World = {
             var el = document.createElement("button");
             el.innerHTML = "Downtown Line";
             el.className = "mrtButton";
-            el.style.backgroundColor = "#fe9c15";
+            el.style.backgroundColor = "#005ca3";
             insertAfter(anchor, el);
             anchor = el;
         }

@@ -85,12 +85,22 @@ html, body {
 
 .customButton {
     z-index: 1;
+    border-style: none;
+    font-size: 17px;
+    font-weight: 600;
+    background-color: #ffffff00;
+    white-space: normal;
+}
+
+.customButton1 {
+    z-index: 1;
     border-radius: 18px;
     border-style: solid;
     border-color: #85ccd6cc;
-    font-size: small;
+    font-size: 14.5px;
+    font-weight: 500;
     background-color: #85ccd6cc;
-    white-space: nowrap;
+    white-space: normal;
 }
 
 #\#poiDetailMoreButton {

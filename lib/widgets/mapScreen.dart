@@ -1,11 +1,18 @@
 import 'dart:async';
 
+import 'package:augmented_reality_plugin_wikitude/startupConfiguration.dart'
+    as startupConfiguration;
+import 'package:augmented_reality_plugin_wikitude/wikitude_response.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:wikitude_flutter_app/ar/arview.dart';
+import 'package:wikitude_flutter_app/ar/sample.dart';
 import 'package:wikitude_flutter_app/widgets/placeSearch.dart';
 import 'package:wikitude_flutter_app/widgets/placeService.dart';
+import 'package:uuid/uuid.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({Key? key}) : super(key: key);
@@ -26,17 +33,7 @@ class _MapScreenState extends State<MapScreen> {
   GoogleMapController? _googleMapController;
   StreamController<Place> selectedLocation = StreamController<Place>();
   Marker? _origin;
-  // dynamic _origin = Marker(
-  //     markerId: const MarkerId('origin'),
-  //     infoWindow: const InfoWindow(title: 'Origin'),
-  //     icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
-  //     position: LatLng(1.3444711, 103.6872788));
   Marker? _destination;
-  // dynamic _destination = Marker(
-  //     markerId: const MarkerId('destination'),
-  //     infoWindow: const InfoWindow(title: 'Destination'),
-  //     icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
-  //     position: LatLng(1.3444711, 103.6872788));
 
   @override
   void dispose() {
@@ -170,7 +167,27 @@ class _MapScreenState extends State<MapScreen> {
         child: FloatingActionButton(
           backgroundColor: Color(0xdcffffff),
           foregroundColor: Colors.black,
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => ArViewWidget(
+                          sample: new Sample(
+                        name: "Customized",
+                        path: 'customized/index.html',
+                        requiredFeatures: ["geo"],
+                        startupConfiguration:
+                            new startupConfiguration.StartupConfiguration(
+                                cameraPosition:
+                                    startupConfiguration.CameraPosition.BACK,
+                                cameraResolution:
+                                    startupConfiguration.CameraResolution.AUTO,
+                                cameraFocusMode: startupConfiguration
+                                    .CameraFocusMode.CONTINUOUS),
+                        requiredExtensions: ["native_detail"],
+                      ))),
+            );
+          },
           child: const Icon(Icons.view_in_ar_rounded),
         ),
       ),
@@ -184,6 +201,17 @@ class _MapScreenState extends State<MapScreen> {
         infoWindow: const InfoWindow(title: 'Destination'),
         icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
         position: pos,
+      );
+      FirebaseFirestore.instance.collection('diy_places').doc().set(
+        {
+          "id": Uuid().v1(),
+          "longitude": pos.longitude.toString(),
+          "latitude": pos.latitude.toString(),
+          "name": "Destination",
+          "description": " ",
+          "altitude": "100.0",
+          "category": "Customized"
+        },
       );
     });
   }
@@ -201,6 +229,17 @@ class _MapScreenState extends State<MapScreen> {
           icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
           position:
               LatLng(place.geometry.location.lat, place.geometry.location.lng));
+      FirebaseFirestore.instance.collection('diy_places').doc().set(
+        {
+          "id": Uuid().v1(),
+          "longitude": place.geometry.location.lat.toString(),
+          "latitude": place.geometry.location.lng.toString(),
+          "name": place.name,
+          "description": place.vicinity,
+          "altitude": "100.0",
+          "category": "Customized"
+        },
+      );
     });
   }
 

@@ -3,6 +3,7 @@ import 'package:augmented_reality_plugin_wikitude/startupConfiguration.dart';
 import 'package:augmented_reality_plugin_wikitude/wikitude_plugin.dart';
 import 'package:augmented_reality_plugin_wikitude/wikitude_response.dart';
 import 'package:flutter/material.dart';
+import 'package:wikitude_flutter_app/widgets/locationSharingScreen.dart';
 import 'package:wikitude_flutter_app/widgets/mapScreen.dart';
 import 'arview.dart';
 import 'sample.dart';
@@ -104,9 +105,9 @@ class _ArPageState extends State<ArPage> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(24, 18, 24, 10),
                     child: ClipRRect(
-                      borderRadius: BorderRadius.all(Radius.circular(18)),
+                      borderRadius: BorderRadius.all(Radius.circular(36)),
                       child: Container(
-                        color: Colors.black45,
+                        color: Colors.black54,
                         child: Column(
                           children: [
                             SizedBox(height: 5.0),
@@ -148,7 +149,9 @@ class _ArPageState extends State<ArPage> {
                                       ),
                                     ),
                                     Text('MRT Station',
-                                        style: TextStyle(color: Colors.white)),
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 12.5)),
                                   ],
                                 ),
                                 Column(
@@ -244,18 +247,7 @@ class _ArPageState extends State<ArPage> {
                                         iconSize: 36.0,
                                         icon: const Icon(Icons.restaurant),
                                         color: Colors.white24,
-                                        onPressed: () {
-                                          // _pushArView(new Sample(
-                                          //   name: "Restaurant",
-                                          //   path: 'landmark/index.html',
-                                          //   requiredFeatures: ["geo"],
-                                          //   startupConfiguration: new StartupConfiguration(
-                                          //       cameraPosition: CameraPosition.BACK,
-                                          //       cameraResolution: CameraResolution.AUTO,
-                                          //       cameraFocusMode: CameraFocusMode.CONTINUOUS),
-                                          //   requiredExtensions: ["native_detail"],
-                                          // ));
-                                        },
+                                        onPressed: () {},
                                       ),
                                     ),
                                     Text('Restaurant',
@@ -273,25 +265,18 @@ class _ArPageState extends State<ArPage> {
                                       ),
                                       child: IconButton(
                                         iconSize: 36.0,
-                                        icon: const Icon(Icons.hotel_outlined),
-                                        color: Colors.white24,
+                                        icon: const Icon(Icons.people_alt),
+                                        color: Colors.orange[400],
                                         onPressed: () {
-                                          // _pushArView(new Sample(
-                                          //   name: "Hotel",
-                                          //   path: 'landmark/index.html',
-                                          //   requiredFeatures: ["geo"],
-                                          //   startupConfiguration: new StartupConfiguration(
-                                          //       cameraPosition: CameraPosition.BACK,
-                                          //       cameraResolution: CameraResolution.AUTO,
-                                          //       cameraFocusMode: CameraFocusMode.CONTINUOUS),
-                                          //   requiredExtensions: ["native_detail"],
-                                          // ));
+                                          Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      LocationSharingScreen()));
                                         },
                                       ),
                                     ),
-                                    Text('Hotel',
-                                        style:
-                                            TextStyle(color: Colors.white24)),
+                                    Text('Friend',
+                                        style: TextStyle(color: Colors.white)),
                                   ],
                                 ),
                                 Column(
@@ -304,20 +289,10 @@ class _ArPageState extends State<ArPage> {
                                       ),
                                       child: IconButton(
                                         iconSize: 36.0,
-                                        icon: const Icon(Icons.star_border),
-                                        color: Colors.orange,
+                                        icon:
+                                            const Icon(Icons.pin_drop_rounded),
+                                        color: Colors.orange[400],
                                         onPressed: () {
-                                          // _pushArView(new Sample(
-                                          //   name: "Saved",
-                                          //   path: 'landmark/index.html',
-                                          //   requiredFeatures: ["geo"],
-                                          //   startupConfiguration: new StartupConfiguration(
-                                          //       cameraPosition: CameraPosition.BACK,
-                                          //       cameraResolution: CameraResolution.AUTO,
-                                          //       cameraFocusMode: CameraFocusMode.CONTINUOUS),
-                                          //   requiredExtensions: ["native_detail"],
-                                          // ));
-
                                           Navigator.of(context).push(
                                               MaterialPageRoute(
                                                   builder: (context) =>
@@ -325,10 +300,11 @@ class _ArPageState extends State<ArPage> {
                                         },
                                       ),
                                     ),
-                                    Text('Saved',
-                                        style: TextStyle(
-                                          color: Colors.orange,
-                                        )),
+                                    Text(
+                                      'Customized',
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 13),
+                                    )
                                   ],
                                 ),
                               ],
