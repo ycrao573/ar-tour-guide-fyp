@@ -298,7 +298,7 @@ class _VisionPageState extends State<VisionPage> {
                                           maxHeight: 260,
                                         ),
                                         child: Image.network(
-                                            "https://maps.googleapis.com/maps/api/staticmap?center=${response["landmarkName"]}&markers=${response["landmarkName"]}&zoom=14&size=400x400&key=AIzaSyCcuOYBEHg6xRvC-NU-ScSPH01aDndnV_w")),
+                                            "https://maps.googleapis.com/maps/api/staticmap?center=${response["latitude"]},${response["longitude"]}&markers=${response["latitude"]},${response["longitude"]}&zoom=14&size=400x400&key=AIzaSyCcuOYBEHg6xRvC-NU-ScSPH01aDndnV_w")),
                                   ),
                                   ButtonBar(
                                     alignment: MainAxisAlignment.start,

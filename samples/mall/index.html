@@ -39,8 +39,9 @@
 
     <div id="footer">
         <div id="popupButton">
-            <img id="popupButtonImage" src="assets/warning_icon.png"/>
-            <span id="popupButtonTooltip">Trying to find out where you are</span>
+            <div style="width: 25%"><img src="https://img.icons8.com/plasticine/100/000000/shopping-cart.png" style="width:50px;height:50px;margin-right:15px;float:left"/></div>
+            <div style="width: 100%"><p>You are currently at<br><b><span id="currentSpot"></span></b></p></div>
+            <div><button class="customButton1" id="#poiDetailMoreButton" style="margin-left:56px"><a id="viewmorespot" style="text-decoration: none; color: #071d1f;" href="" title="Open in Google Map">View More in Google Map</a></button></div>
         </div>
     </div>
 
@@ -52,12 +53,12 @@
         <div class="content">
             <h3 id="poiDetailTitle"></h3>
             <h4> Distance: <a id="poiDetailDistance"></a></h4>
-            <button class="customButton" id="#poiDetailMoreButton" onclick="World.onPoiDetailMoreButtonClicked();" data-role="button" data-icon="arrow-r" data-iconpos="right" data-inline="true">More</button>
+            <button class="customButton1" id="#poiDetailMoreButton" onclick="World.onPoiDetailMoreButtonClicked();" data-role="button" data-icon="arrow-r" data-iconpos="right" data-inline="true">Mall Information</button>
             <p id="poiDetailDescription"></p>
             <img id="poiDetailImage" style="display: relative; max-width: 200px; border-radius: 3%; border-radius: 3%;" src="https://via.placeholder.com/200"></img>
             <br>
             <br><br>
-            <button class="customButton" id="#poiDetailMoreButton"><a id="viewmore" style="text-decoration: none; color: #071d1f;" href="">View in Google Map</a></button>
+            <!-- <button class="customButton" id="#poiDetailMoreButton"><a id="viewmore" style="text-decoration: none; color: #071d1f;" href="">View in Google Map</a></button> -->
         </div>
     </div>
 

@@ -41,7 +41,7 @@ function Marker(poiData) {
     });
 
     /* Create an AR.ImageDrawable for the marker in idle state. */
-    this.markerDrawableImage = new AR.ImageDrawable(World.markerDrawableImage, 3.8, {
+    this.markerDrawableImage = new AR.ImageDrawable(World.markerDrawableImage, 4.4, {
         zOrder: 1,
         opacity: 1.0,
         translate: {

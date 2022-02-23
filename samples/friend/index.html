@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <!--  basic meta information -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Type" content="application/json; charset=utf-8">
+    <!-- disables pinch-scaling of the webview, so that gestures only do what they're supposed to -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"/>
+
+    <title>My ARchitect World</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://www.wikitude.com/libs/architect.js"></script>
+    <script src="../ade.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+    <!-- positioning of poi-radar -->
+    <link rel="stylesheet" href="css/poi-radar.css"/>
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
+    <!-- marker representation-->
+    <script src="js/marker.js"></script>
+    <script src="js/myJsonData.js"/></script>
+    
+    <!-- World logic-->
+    <script type="text/javascript" src="js/reloadingcontent.js"></script>
+
+    <!-- radar component -->
+    <script type="text/javascript" src="js/radar.js"></script>
+    <link rel="stylesheet" href="css/default.css"/>
+</head>
+
+<body>
+    <div id="mainHeader">
+        <button class="customButton" id="rangeButton" onclick="World.showRange();"><i class="fa fa-sliders" aria-hidden="true"></i></button>
+        <button class="customButton" id="refreshButton" onclick="World.reloadPlaces();"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+    </div>
+    <div class="radarContainer_left" id="radarContainer" onclick="PoiRadar.clickedRadar()"></div>
+
+    <div id="footer">
+        <div id="popupButton">
+            <div style="width: 25%"><img src="" id="friendAvatar" style="width:50px;height:50px;margin-right:15px;float:left;border-radius: 50%;"/></div>
+            <div style="width: 100%"><p><span id="friendName"></span> is only <br><b><span id="currentSpot"></span> m away from you </b></p></div>
+        </div>
+    </div>
+
+    <div id="panelPoiDetail">
+        <div class="header">
+            <button class="customButton" id="closePanelPoiDetailButton" onclick="World.closePanel()"><i class="fa fa-times" aria-hidden="true"></i></button>
+            <h3 class="headerTitle">Details</h3>
+        </div>
+        <div class="content">
+            <h3 id="poiDetailTitle"></h3>
+            <h4> Distance: <a id="poiDetailDistance"></a></h4>
+            <p id="poiDetailDescription"></p>
+            <img id="poiDetailImage" style="display: relative; max-width: 200px; border-radius: 3%; border-radius: 3%;" src="https://via.placeholder.com/200"></img>
+            <br>
+            <br><br>
+            <!-- <button class="customButton" id="#poiDetailMoreButton"><a id="viewmore" style="text-decoration: none; color: #071d1f;" href="">View in Google Map</a></button> -->
+        </div>
+    </div>
+
+    <div id="panelRange">
+        <div class="header">
+            <button class="customButton" id="closePanelRangeButton" onclick="World.closePanel()"><i class="fa fa-times" aria-hidden="true"></i></button>
+            <h3 class="headerTitle">Range</h3>
+        </div>
+        <div class="content">
+            <h4> Range: <a id="panelRangeValue"></a></h4>
+            <h4> Places: <a id="panelRangePlaces"></a></h4>
+            <div id="panelRangeSliderContainer">
+                <span id="panelRangeSliderValue"></span>
+                <input id="panelRangeSlider" type="range" min="1" value="100" max="100" step="1"
+                       oninput="World.updateRangeValues()">
+            </div>
+        </div>
+        <!-- <div class="filter">
+            <input type="checkbox" id="attraction" name="attraction" value="Tourist Attraction">
+            <label for="attraction"> Attrations</label><br>
+            <input type="checkbox" id="station" name="station" value="Station">
+            <label for="station"> Stations</label><br>
+            <input type="checkbox" id="hotel" name="hotel" value="Hotel">
+            <label for="hotel"> Hotels</label><br><br>
+            <button onClick="filter()"><i class="fa fa-filter" aria-hidden="true"></i></button>
+        </div> -->
+    </div>
+</body>
+</html>

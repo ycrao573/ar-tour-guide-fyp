@@ -62,8 +62,6 @@ var World = {
             onError: World.onError
         });
 
-        
-
         /* Loop through POI-information and create an AR.GeoObject (=Marker) per POI. */
         for (var currentPlaceNr = 0; currentPlaceNr < poiData.length; currentPlaceNr++) {
             var singlePoi = {
@@ -88,6 +86,28 @@ var World = {
                 World.markerList.push(new Marker(singlePoi));
             }
         }
+        
+        var compareDistanceToUser = (a, b) => {
+          if (parseFloat(a.poiData.distance) < parseFloat(b.poiData.distance)) {
+            return -1;
+          }
+          if (parseFloat(a.poiData.distance) > parseFloat(b.poiData.distance)) {
+            return 1;
+          }
+          return 0;
+        }
+
+        //TODO: THIS SHOULD ADJUST ACCORDINGLY:
+
+        World.markerList.sort(compareDistanceToUser);
+        if (parseFloat(World.markerList[0].poiData.distance) < 0.25) {
+            document.getElementById("footer").style.visibility = "visible";
+            document.getElementById("currentSpot").innerHTML =
+              World.markerList[0].poiData.title;
+            document.getElementById("viewmorespot").href =
+              "https://www.google.com/maps/search/?api=1&query=" +
+              World.markerList[0].poiData.title;
+        }
 
         /* Updates distance information of all placemarks. */
         World.updateDistanceToUserValues();
@@ -97,7 +117,7 @@ var World = {
 
         /* Set distance slider to 100%. */
         var maxPlaceDistance = Math.round(World.getMaxDistance());
-        const defaultDisplayDistance = 1200;
+        const defaultDisplayDistance = 1300;
         var defaultDisplayPosition = (maxPlaceDistance > defaultDisplayDistance) ? Math.round(maxPlaceDistance / defaultDisplayDistance) : 100;
 
         document.getElementById("panelRangeSliderValue").innerHTML = defaultDisplayPosition;
@@ -115,8 +135,6 @@ var World = {
 
     /* Updates status message shown in small "i"-button aligned bottom center. */
     updateStatusMessage: function updateStatusMessageFn(message, isWarning) {
-        document.getElementById("popupButtonImage").src = isWarning ? "assets/warning_icon.png" : "assets/info_icon.png";
-        document.getElementById("popupButtonTooltip").innerHTML = message;
     },
 
 	/*	
@@ -126,21 +144,38 @@ var World = {
     */	
     /* User clicked "More" button in POI-detail panel -> fire event to open native screen. */	
     onPoiDetailMoreButtonClicked: function onPoiDetailMoreButtonClickedFn() {	
-        var currentMarker = World.currentMarker;	
+        var currentMarker = World.currentMarker;
         var markerSelectedJSON = {
             action: "present_poi_details",
             id: currentMarker.poiData.id,
             title: currentMarker.poiData.title,
             description: currentMarker.poiData.description,
             category: currentMarker.poiData.category,
-            // reviews: currentMarker.poiData.reviews,
-            // imageUrl: currentMarker.poiData.imageUrl,
+            latitude: currentMarker.poiData.latitude.toString(),
+            longitude: currentMarker.poiData.longitude.toString(),
         };
         /*	
             The sendJSONObject method can be used to send data from javascript to the native code.	
         */	
         AR.platform.sendJSONObject(markerSelectedJSON);	
     },
+
+    /* User clicked "More" button in POI-detail panel -> fire event to open native screen. */	
+    // onNearestPoiMoreButtonClicked: function onNearestPoiMoreButtonClickedFn(nearestPoiData) {
+    //         var markerSelectedJSON = {
+    //             action: "present_poi_details",
+    //             id: nearestPoiData.poiData.id,
+    //             title: nearestPoiData.poiData.title,
+    //             description: nearestPoiData.poiData.description,
+    //             category: nearestPoiData.poiData.category,
+    //             latitude: nearestPoiData.poiData.latitude.toString(),
+    //             longitude: nearestPoiData.poiData.longitude.toString(),
+    //         };
+    //         /*	
+    //             The sendJSONObject method can be used to send data from javascript to the native code.	
+    //         */	
+    //         AR.platform.sendJSONObject(markerSelectedJSON);	
+    //     },
 
     /* Location updates, fired every time you call architectView.setLocation() in native environment. */
     locationChanged: function locationChangedFn(lat, lon, alt, acc) {
@@ -188,10 +223,66 @@ var World = {
             description), compare index.html in the sample's directory.
         */
         /* Update panel values. */
+
+        function insertAfter(referenceNode, newNode) {
+            referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+        }
+        
+        let anchor = document.getElementById("insertafterthis");
         document.getElementById("poiDetailTitle").innerHTML = marker.poiData.title;
-        document.getElementById("poiDetailDescription").innerHTML = marker.poiData.description;
-        document.getElementById("viewmore").href = "https://www.google.com/maps/search/?api=1&query=" + marker.poiData.title;
-        document.getElementById("poiDetailImage").src = "https://maps.googleapis.com/maps/api/staticmap?center="+ marker.poiData.title +"&markers="+ marker.poiData.title +"&zoom=14&size=400x400&key=AIzaSyCcuOYBEHg6xRvC-NU-ScSPH01aDndnV_w"
+        let mrtname = marker.poiData.title.match(/\((.*?)\)/)[1].replace(/\s/g,'');
+        if (mrtname.includes("EW") || mrtname.includes("CG")) {
+            var el = document.createElement("button");
+            el.innerHTML = "East West Line";
+            el.className = "mrtButton";
+            el.style.backgroundColor = "#009539";
+            insertAfter(anchor, el);
+            anchor = el;
+        }
+        if (mrtname.includes("NS")) {
+            var el = document.createElement("button");
+            el.innerHTML = "North South Line";
+            el.className = "mrtButton";
+            el.style.backgroundColor = "#de261a";
+            insertAfter(anchor, el);
+            anchor = el;
+        }
+        if (mrtname.includes("NE")) {
+            var el = document.createElement("button");
+            el.innerHTML = "North East Line";
+            el.className = "mrtButton";
+            el.style.backgroundColor = "#9b27af";
+            insertAfter(anchor, el);
+            anchor = el;
+        }
+        if (mrtname.includes("CC") || mrtname.includes("CG")) {
+            var el = document.createElement("button");
+            el.innerHTML = "Circle Line";
+            el.className = "mrtButton";
+            el.style.backgroundColor = "#fe9c15";
+            insertAfter(anchor, el);
+            anchor = el;
+        }
+        if (mrtname.includes("DT")) {
+            var el = document.createElement("button");
+            el.innerHTML = "Downtown Line";
+            el.className = "mrtButton";
+            el.style.backgroundColor = "#005ca3";
+            insertAfter(anchor, el);
+            anchor = el;
+        }
+        if (mrtname.includes("TE")) {
+            var el = document.createElement("button");
+            el.innerHTML = "Thomson-East Coast Line";
+            el.className = "mrtButton";
+            el.style.backgroundColor = "#9c591a";
+            insertAfter(anchor, el);
+            anchor = el;
+        }
+
+        // document.getElementById("poiDetailDescription").innerHTML = marker.poiData.description;
+        // document.getElementById("viewmore").href = "https://www.google.com/maps/search/?api=1&query=" + marker.poiData.title;
+        document.getElementById("poiDetailImage").src = "https://maps.googleapis.com/maps/api/staticmap?center="+ marker.poiData.title +"&markers="+ marker.poiData.title +"&zoom=15&size=400x400&key=AIzaSyCcuOYBEHg6xRvC-NU-ScSPH01aDndnV_w"
         
         /*
             It's ok for AR.Location subclass objects to return a distance of `undefined`. In case such a distance
@@ -225,6 +316,11 @@ var World = {
             /* Deselect AR-marker when user exits detail screen div. */
             World.currentMarker.setDeselected(World.currentMarker);
             World.currentMarker = null;
+            const boxes = Array.from(document.getElementsByClassName('mrtButton'));
+            // TODO: Check whether this one works or not!
+            boxes.forEach(box => {
+                box.remove();
+            });
         }
     },
 

@@ -92,7 +92,7 @@ var World = {
         photourl:
           extractContent(poiData[currentPlaceNr].PHOTOURL) || "https://e7.pngegg.com/pngimages/356/449/png-clipart-red-and-white-international-flag-illustration-flag-of-singapore-transpa-duck-hippo-national-flag-china-flag-love-miscellaneous.png",
         imagetext: poiData[currentPlaceNr]["Image Text"],
-        address: poiData[currentPlaceNr].ADDRESSSTREETNAME,
+        address: poiData[currentPlaceNr].ADDRESSSTREETNAME + (poiData[currentPlaceNr].ADDRESSPOSTALCODE.length > 0 ? (", " + poiData[currentPlaceNr].ADDRESSPOSTALCODE) : ""),
         openinghours: poiData[currentPlaceNr]["Opening Hours"],
       };
       World.markerDrawableImage = new AR.ImageResource(
@@ -116,6 +116,31 @@ var World = {
         singlePoi.distance = res.toFixed(2);
         World.markerList.push(new Marker(singlePoi));
       }
+    }
+    
+    var compareDistanceToUser = (a, b) => {
+      if (parseFloat(a.poiData.distance) < parseFloat(b.poiData.distance)) {
+        return -1;
+      }
+      if (parseFloat(a.poiData.distance) > parseFloat(b.poiData.distance)) {
+        return 1;
+      }
+      return 0;
+    };
+
+    //TODO: THIS SHOULD ADJUST ACCORDINGLY:
+    World.markerList.sort(compareDistanceToUser);
+    if (parseFloat(World.markerList[0].poiData.distance) < 0.3) {
+      document.getElementById("footer").style.visibility = "visible";
+      // document.getElementById("popupImage").src =
+      //   World.markerList[0].poiData.photourl;
+      document.getElementById("currentSpot").innerHTML =
+        World.markerList[0].poiData.title;
+      // document.getElementById("viewofficial").href = World.markerList[0].poiData.officiallink;
+      // document.getElementById("viewmorespot").href =
+      //   "https://www.google.com/maps/search/?api=1&query=" +
+      //   World.markerList[0].poiData.title +
+      //   ", Singapore";v
     }
 
     /* Updates distance information of all placemarks. */
@@ -149,10 +174,6 @@ var World = {
 
   /* Updates status message shown in small "i"-button aligned bottom center. */
   updateStatusMessage: function updateStatusMessageFn(message, isWarning) {
-    document.getElementById("popupButtonImage").src = isWarning
-      ? "assets/warning_icon.png"
-      : "assets/info_icon.png";
-    document.getElementById("popupButtonTooltip").innerHTML = message;
   },
 
   /*	
@@ -164,17 +185,24 @@ var World = {
   onPoiDetailMoreButtonClicked: function onPoiDetailMoreButtonClickedFn() {
     var currentMarker = World.currentMarker;
     var markerSelectedJSON = {
-      action: "present_poi_details",
+      action: "present_landmark_poi_details",
       id: currentMarker.poiData.id,
       title: currentMarker.poiData.title,
       description: currentMarker.poiData.description,
       category: currentMarker.poiData.category,
-      // reviews: currentMarker.poiData.reviews,
-      // imageUrl: currentMarker.poiData.imageUrl,
+      latitude: currentMarker.poiData.latitude,
+      longitude: currentMarker.poiData.longitude,
+      officiallink: currentMarker.poiData.officiallink,
+      hyperlink: currentMarker.poiData.hyperlink,
+      urlpath: currentMarker.poiData.urlpath,
+      photourl: currentMarker.poiData.photourl,
+      imagetext: currentMarker.poiData.imagetext,
+      address: currentMarker.poiData.address,
+      openinghours: currentMarker.poiData.openinghours,
     };
     /*	
-            The sendJSONObject method can be used to send data from javascript to the native code.	
-        */
+      The sendJSONObject method can be used to send data from javascript to the native code.	
+    */
     AR.platform.sendJSONObject(markerSelectedJSON);
   },
 
@@ -225,14 +253,11 @@ var World = {
 
     /* Update panel values. */
     document.getElementById("poiDetailTitle").innerHTML = marker.poiData.title;
-    document.getElementById("poiDetailDescription").innerHTML =
-      marker.poiData.description;
-    console.log("****************************************************************");
-    console.log(marker.poiData.hyperlink, marker.poiData.urlpath, marker.poiData.officiallink);
-    document.getElementById("viewwebsite").href = marker.poiData.officiallink || marker.poiData.hyperlink || "https://" + marker.poiData.urlpath; 
-    document.getElementById("viewmore").href =
-      "https://www.google.com/maps/search/?api=1&query=" +
-      marker.poiData.title + "%20Singapore";
+    document.getElementById("poiDetailDescription").innerHTML = marker.poiData.description;
+    // document.getElementById("viewwebsite").href = marker.poiData.officiallink || marker.poiData.hyperlink || "https://" + marker.poiData.urlpath; 
+    // document.getElementById("viewmore").href =
+    //   "https://www.google.com/maps/search/?api=1&query=" +
+    //   marker.poiData.title + "%20Singapore";
     document.getElementById("poiDetailImage").src = "https://maps.googleapis.com/maps/api/staticmap?center="+ marker.poiData.title + "%20Singapore"+"&markers="+ marker.poiData.title+ "%20Singapore" +"&zoom=14&size=400x400&key=AIzaSyCcuOYBEHg6xRvC-NU-ScSPH01aDndnV_w"
 
     // if (marker.poiData.photourl.startsWith("https://")) {

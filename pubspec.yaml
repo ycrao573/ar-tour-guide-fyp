@@ -46,7 +46,17 @@ dependencies:
   cached_network_image: ^3.2.0
   another_flushbar: ^1.10.28
   flutter_svg: ^0.22.0
-  
+  flutter_rating_bar: ^4.0.0
+  rating_dialog: ^2.0.3
+  line_awesome_flutter: ^2.0.0
+  share_plus: ^3.0.1
+  material_floating_search_bar: ^0.3.6
+  dio: ^4.0.4
+  flutter_polyline_points: ^1.0.0
+  google_maps_flutter: ^2.0.9
+  flutter_google_places: ^0.3.0
+  uuid: ^3.0.6
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -65,15 +75,19 @@ flutter:
     - samples/experience/styles/
     - samples/experience/scripts/
     - samples/experience/fonts/lato/
-    - samples/experience/augmentation-trackers/
-    - samples/experience/augmentation-trackers/8.0/
-    - samples/experience/augmentation-assets/719402231_yunnan/613053d0d72c5d27792623c6/
-    - samples/experience/augmentation-assets/1625189067_chc_building/61306f6665ddc2277258444e/
-    - samples/experience/augmentation-assets/1625189067_chc_building/6130701865ddc22772584482/
-    - samples/poi_experience/
-    - samples/poi_experience/js/
-    - samples/poi_experience/css/
-    - samples/poi_experience/assets/
+    # - samples/experience/augmentation-trackers/
+    # - samples/experience/augmentation-trackers/8.0/
+    # - samples/experience/augmentation-assets/719402231_yunnan/613053d0d72c5d27792623c6/
+    # - samples/experience/augmentation-assets/1625189067_chc_building/61306f6665ddc2277258444e/
+    # - samples/experience/augmentation-assets/1625189067_chc_building/6130701865ddc22772584482/
+    - samples/customized/
+    - samples/customized/js/
+    - samples/customized/css/
+    - samples/customized/assets/
+    - samples/friend/
+    - samples/friend/js/
+    - samples/friend/css/
+    - samples/friend/assets/
     - samples/mrt/
     - samples/mrt/js/
     - samples/mrt/css/

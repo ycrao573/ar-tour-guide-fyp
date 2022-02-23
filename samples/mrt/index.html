@@ -39,32 +39,35 @@
 
     <div id="footer">
         <div id="popupButton">
-            <img id="popupButtonImage" src="assets/warning_icon.png"/>
-            <span id="popupButtonTooltip">Trying to find out where you are</span>
+            <div style="width: 20%"><img src="https://cdn-icons-png.flaticon.com/512/50/50862.png" style="width:50px;height:50px;margin-top:5px;margin-right:20px;float:left"></div>
+            <div style="width: 100%"><p>You are currently at <br><b><span id="currentSpot"></span></b></p></div>
+            <button class="customButton1" id="#poiDetailMoreButton"><a id="viewmap" style="text-decoration: none; color: #071d1f;" href="https://mrtmapsingapore.com/" title="MRT Map">MRT Map</a></button>
+            <button class="customButton1" id="#poiDetailMoreButton"><a id="viewmorespot" style="text-decoration: none; color: #071d1f;" href="" title="Go to Website">Google Map</a></button>
         </div>
     </div>
 
     <div id="panelPoiDetail">
         <div class="header">
             <button class="customButton" id="closePanelPoiDetailButton" onclick="World.closePanel()"><i class="fa fa-times" aria-hidden="true"></i></button>
-            <h3 class="headerTitle">Details</h3>
+            <h3 class="headerTitle"></h3>
         </div>
         <div class="content">
             <h3 id="poiDetailTitle"></h3>
+            <span id="insertafterthis"></span>
             <h4> Distance: <a id="poiDetailDistance"></a></h4>
-            <button class="customButton" id="#poiDetailMoreButton" onclick="World.onPoiDetailMoreButtonClicked();" data-role="button" data-icon="arrow-r" data-iconpos="right" data-inline="true">More</button>
+            <button class="customButton1" id="#poiDetailMoreButton" onclick="World.onPoiDetailMoreButtonClicked();" data-role="button" data-icon="arrow-r" data-iconpos="right" data-inline="true">MRT Station Details</button>
             <p id="poiDetailDescription"></p>
             <img id="poiDetailImage" style="display: relative; max-width: 200px; border-radius: 3%;" src="https://via.placeholder.com/200"></img>
             <br><br>
-            <button class="customButton" id="#poiDetailMoreButton"><a id="viewmap" style="text-decoration: none; color: #071d1f;" href="https://mrtmapsingapore.com/" title="Go to Website">View MRT Map</a></button>
-            <br><br><button class="customButton" id="#poiDetailMoreButton"><a id="viewmore" style="text-decoration: none; color: #071d1f;" href="">View in Google Map</a></button>
+            <button class="customButton1" id="#poiDetailMoreButton"><a id="viewmap" style="text-decoration: none; color: #071d1f;" href="https://mrtmapsingapore.com/" title="Go to Website">View Singapore MRT Map</a></button>
+            <!-- <br><br><button class="customButton1" id="#poiDetailMoreButton"><a id="viewmore" style="text-decoration: none; color: #071d1f;" href="">View in Google Maps</a></button> -->
         </div>
     </div>
 
     <div id="panelRange">
         <div class="header">
             <button class="customButton" id="closePanelRangeButton" onclick="World.closePanel()"><i class="fa fa-times" aria-hidden="true"></i></button>
-            <h3 class="headerTitle">Range</h3>
+            <h3 class="headerTitle"></h3>
         </div>
         <div class="content">
             <h4> Range: <a id="panelRangeValue"></a></h4>

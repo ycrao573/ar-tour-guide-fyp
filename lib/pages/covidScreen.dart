@@ -11,7 +11,7 @@ import 'package:wikitude_flutter_app/widgets/myheader.dart';
 
 Future<CovidData> fetchCovidDatas(http.Client client, String? country) async {
   final response = await client.get(Uri.parse(
-      'https://corona.lmao.ninja/v2/countries/Singapore?yesterday=true&strict=true&query'));
+      'https://corona.lmao.ninja/v2/countries/$country?yesterday=true&strict=true&query'));
   return CovidData.fromJson(jsonDecode(response.body));
 }
 
@@ -59,15 +59,6 @@ class CovidScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   backgroundColor: Color(0x00ffffff),
-      //   leading: IconButton(
-      //     icon: Icon(Icons.arrow_back),
-      //     onPressed: () {
-      //       Navigator.of(context).pop();
-      //     },
-      //   ),
-      // ),
       body: FutureBuilder<CovidData>(
         future: fetchCovidDatas(http.Client(), country),
         builder: (context, snapshot) {
@@ -76,7 +67,6 @@ class CovidScreen extends StatelessWidget {
               child: Text('An error has occurred!'),
             );
           } else if (snapshot.hasData) {
-            // return Text(snapshot.data!.cases.toString());
             return CovidHomeScreen(country: country, data: snapshot.data);
           } else {
             return const Center(
