@@ -74,7 +74,7 @@ class _ArPageState extends State<ArPage> {
                   //     ));
                   //   },
                   // ),
-                  SizedBox(height: 250),
+                  SizedBox(height: 242),
                   Center(
                     child: Text("Live View - AR Experience",
                         style: TextStyle(
@@ -87,25 +87,42 @@ class _ArPageState extends State<ArPage> {
                   ),
                   Center(
                     child: SizedBox(
-                      width: 300.0,
+                      width: 311.0,
                       child: Align(
                         alignment: Alignment.center,
                         child: Text(
-                            "\nWe use Augmented Reality (AR) to help you discover interesting places in your neighborhood. You can simply choose a category below and explore potential places nearby in 'AR' fashion. Click location pin for more information!",
+                            "\nWe use AR to help you discover interesting places around. Simply choose a category below and explore treasures nearby in 'AR' style. Click signboard for more information!",
                             style: TextStyle(
                               color: Colors.black,
                               fontFamily: 'Poppins',
                               fontSize: 14.5,
-                              height: 1.4,
+                              height: 1.38,
                               fontWeight: FontWeight.w400,
                             )),
                       ),
                     ),
                   ),
+                  Center(
+                    child: SizedBox(
+                      width: 311.0,
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                            "You can now customize your own points of interest, which even includes your friend's location!",
+                            style: TextStyle(
+                              color: Colors.red[800],
+                              fontFamily: 'Poppins',
+                              fontSize: 14,
+                              height: 1.4,
+                              fontWeight: FontWeight.w500,
+                            )),
+                      ),
+                    ),
+                  ),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(24, 18, 24, 10),
+                    padding: const EdgeInsets.fromLTRB(24, 12, 24, 10),
                     child: ClipRRect(
-                      borderRadius: BorderRadius.all(Radius.circular(36)),
+                      borderRadius: BorderRadius.all(Radius.circular(32)),
                       child: Container(
                         color: Colors.black54,
                         child: Column(
@@ -118,7 +135,7 @@ class _ArPageState extends State<ArPage> {
                                 Column(
                                   children: [
                                     Ink(
-                                      padding: EdgeInsets.all(4.0),
+                                      padding: EdgeInsets.all(2.0),
                                       decoration: ShapeDecoration(
                                         color: Colors.redAccent[100],
                                         shape: CircleBorder(),

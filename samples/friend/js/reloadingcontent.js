@@ -86,19 +86,20 @@ var World = {
     ) {
       var singlePoi = {
         id: poiData[currentPlaceNr].id,
-        latitude: parseFloat(poiData[currentPlaceNr].latitude),
-        longitude: parseFloat(poiData[currentPlaceNr].longitude),
-        altitude: parseFloat(poiData[currentPlaceNr].altitude),
+        latitude: poiData[currentPlaceNr].latitude + 0.02,
+        longitude: poiData[currentPlaceNr].longitude + 0.03,
+        altitude: poiData[currentPlaceNr].altitude,
         title: poiData[currentPlaceNr].name,
         description: poiData[currentPlaceNr].description,
         category: poiData[currentPlaceNr].category,
       };
       World.markerDrawableImage = new AR.ImageResource(
-        "https://www.pinclipart.com/picdir/big/363-3639653_location-pin-transparent-location-logo-png-vector-clipart.png",
+        poiData[currentPlaceNr].description,
         {
           onError: World.onError,
         }
       );
+      //poiData[currentPlaceNr].description,
       var long1 = singlePoi.longitude / 57.29577951;
       var lat1 = singlePoi.latitude / 57.29577951;
       var long2 = World.userLocation.longitude / 57.29577951;
@@ -110,10 +111,8 @@ var World = {
           Math.sin(lat1) * Math.sin(lat2) +
             Math.cos(lat1) * Math.cos(lat2) * Math.cos(long2 - long1)
         );
-      if (res < 3) {
-        singlePoi.distance = res.toFixed(2);
-        World.markerList.push(new Marker(singlePoi));
-      }
+      singlePoi.distance = res.toFixed(3);
+      World.markerList.push(new Marker(singlePoi));
     }
 
     var compareDistanceToUser = (a, b) => {
@@ -127,8 +126,11 @@ var World = {
     };
 
     World.markerList.sort(compareDistanceToUser);
-    if (parseFloat(World.markerList[0].poiData.distance) < 0.2) {
-      document.getElementById("currentSpot").innerHTML = World.markerList[0].poiData.name;
+    var nearestdistance = parseFloat(World.markerList[0].poiData.distance) * 100;
+    if (nearestdistance < 300) {
+      document.getElementById("friendAvatar").src = World.markerList[0].poiData.description;
+      document.getElementById("friendName").innerHTML = World.markerList[0].poiData.title;
+      document.getElementById("currentSpot").innerHTML = nearestdistance.toFixed(0);
       document.getElementById("footer").style.visibility = "visible";
     } else {
       document.getElementById("footer").style.visibility = "hidden";
@@ -178,12 +180,10 @@ var World = {
       id: currentMarker.poiData.id,
       title: currentMarker.poiData.title,
       description: currentMarker.poiData.description,
-      category: currentMarker.poiData.category,
+      category: currentMarker.poiData.friend,
       latitude: currentMarker.poiData.latitude.toString(),
       longitude: currentMarker.poiData.longitude.toString(),
     };
-    // console.log("============================================================");
-    // console.log(markerSelectedJSON.description);
     /*	
             The sendJSONObject method can be used to send data from javascript to the native code.	
         */
@@ -219,10 +219,10 @@ var World = {
   },
 
   /*
-        POIs usually have a name and sometimes a quite long description.
-        Depending on your content type you may e.g. display a marker with its name and cropped description but
-        allow the user to get more information after selecting it.
-    */
+      POIs usually have a name and sometimes a quite long description.
+      Depending on your content type you may e.g. display a marker with its name and cropped description but
+      allow the user to get more information after selecting it.
+  */
 
   /* Fired when user pressed maker in cam. */
   onMarkerSelected: function onMarkerSelectedFn(marker) {
@@ -231,16 +231,16 @@ var World = {
     World.currentMarker = marker;
 
     /*
-            In this sample a POI detail panel appears when pressing a cam-marker (the blue box with title &
-            description), compare index.html in the sample's directory.
-        */
+        In this sample a POI detail panel appears when pressing a cam-marker (the blue box with title &
+        description), compare index.html in the sample's directory.
+    */
     /* Update panel values. */
     document.getElementById("poiDetailTitle").innerHTML = marker.poiData.title;
     document.getElementById("poiDetailImage").src =
       "https://maps.googleapis.com/maps/api/staticmap?center=" +
-      marker.poiData.latitude + "," + marker.poiData.longitude +
+      marker.poiData.latitude.toString() + "," + marker.poiData.longitude.toString() +
       "&markers=" +
-      marker.poiData.latitude + "," + marker.poiData.longitude +
+      marker.poiData.latitude.toString() + "," + marker.poiData.longitude.toString() +
       "&zoom=14&size=400x400&key=AIzaSyCcuOYBEHg6xRvC-NU-ScSPH01aDndnV_w";
 
     /*
@@ -263,7 +263,6 @@ var World = {
 
     document.getElementById("poiDetailDistance").innerHTML =
       distanceToUserValue;
-
     /* Show panel. */
     document.getElementById("panelPoiDetail").style.visibility = "visible";
   },
@@ -291,7 +290,7 @@ var World = {
     /* Sort places by distance so the first entry is the one with the maximum distance. */
     World.markerList.sort(World.sortByDistanceSortingDescending);
 
-    var maxDistanceMeters = 2727;
+    var maxDistanceMeters = 8000;
     /* Use distanceToUser to get max-distance. */
     for (let i = 0; i < World.markerList.length; i++) {
       if (World.markerList[i].distanceToUser >= maxDistanceMeters) {
@@ -303,9 +302,9 @@ var World = {
     }
 
     /*
-            Return maximum distance times some factor >1.0 so ther is some room left and small movements of user
-            don't cause places far away to disappear.
-         */
+      Return maximum distance times some factor >1.0 so ther is some room left and small movements of user
+      don't cause places far away to disappear.
+    */
     return maxDistanceMeters * 1.1;
   },
 
@@ -416,7 +415,8 @@ var World = {
     World.isRequestingData = true;
     World.updateStatusMessage("Requesting places from web-service");
 
-    db.collection('diy_places').get().then((querySnapshot) => {
+
+    db.collection('user_location').get().then((querySnapshot) => {
       var jsonlist = [];
       querySnapshot.forEach((doc) => {
         console.log(`${doc.id} => ${JSON.stringify(doc.data())}`);

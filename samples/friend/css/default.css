@@ -1,0 +1,242 @@
+html, body {
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+    font-family: Helvetica, Arial
+}
+
+#mainHeader {
+    background-color: #ffffffbf;
+    position: absolute;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: env(safe-area-inset-top);
+}
+
+#footer {
+    z-index: 2;
+    position: absolute;
+    text-align: center;
+    background-color: #ffffffe2;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    bottom: calc(1vh + env(safe-area-inset-bottom));
+    visibility: hidden;
+}
+
+#popupButton {
+    margin: auto;
+}
+
+#panelPoiDetail {
+    z-index: 3;
+    background-color: #ffffffd0;
+    height: 100%;
+    right: 0;
+    position: absolute;
+    font-family: sans-serif;
+    visibility: hidden;
+    margin-top: env(safe-area-inset-top);
+}
+
+#poiDetailDistance {
+    color: #061d1d;
+}
+
+#panelRange {
+    background-color: #ffffffbf;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    font-family: sans-serif;
+    visibility: hidden;
+    margin-top: env(safe-area-inset-top);
+}
+
+#panelRangeValue {
+    color: #071d1f;
+}
+
+#panelRangePlaces {
+    color: #071d1f;
+}
+
+#panelRangeSliderContainer {
+    display: flex;
+    align-items: center;
+}
+
+#panelRangeSliderValue{
+    background-color: #bbbbbbbb;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.header {
+    background-color: #ffffff55;
+    position: absolute;
+    width: 100%;
+    align-items: center;
+    display: flex;
+}
+
+.customButton {
+    z-index: 1;
+    border-style: none;
+    font-size: 17px;
+    font-weight: 600;
+    background-color: #ffffff00;
+    white-space: normal;
+}
+
+.customButton1 {
+    z-index: 1;
+    border-radius: 18px;
+    border-style: solid;
+    border-color: #85ccd6cc;
+    font-size: 14.5px;
+    font-weight: 500;
+    background-color: #85ccd6cc;
+    white-space: normal;
+}
+
+#\#poiDetailMoreButton {
+    margin: 0;
+}
+
+.headerTitle {
+    flex: 1;
+    text-align:center;
+    font-weight: normal;
+}
+
+.content {
+    position: absolute;
+}
+
+.filter {
+    position: absolute;
+}
+
+@media screen and (orientation: portrait) {
+    #popupButton {
+        width: 70vw;
+        height: 13vh;
+    }
+
+    #panelPoiDetail {
+        top: 5vh;
+        width: 70vw;
+    }
+
+    #panelRange {
+        top: 5vh;
+        width: 70vw;
+    }
+
+    #panelRangeSliderValue{
+        padding: 1vh;
+        margin-right: 1vh;
+        width: 8vw;
+    }
+
+    #mainHeader {
+        height: 5vh;
+    }
+
+    .header {
+        top: 2vh;
+        height: 5vh;
+    }
+
+    .customButton {
+        height: 4vh;
+        margin-left: 1vh;
+        margin-right: 1vh;
+    }
+
+    .headerTitle {
+        margin-left: -10vh;
+        margin-right: 1vw;
+    }
+
+    .content {
+        top: 7vh;
+        margin-left: 5vw;
+        margin-right: 5vw;
+    }
+
+    .filter {
+        top: 30vh;
+        margin-left: 5vw;
+        margin-right: 5vw;
+    }
+}
+
+@media screen and (orientation: landscape) {
+    #popupButton {
+        width: 5vw;
+        height: 5vw;
+    }
+
+    #popupButtonTooltip {
+        width: 40vh;
+        margin-left: -20vh;
+    }
+
+    #panelPoiDetail {
+        top: 5vw;
+        width: calc(70vh + env(safe-area-inset-right));
+        padding-left: env(safe-area-inset-left);
+        padding-right: env(safe-area-inset-right);
+    }
+
+    #panelRange {
+        top: 5vw;
+        width: calc(70vh + env(safe-area-inset-left));
+        padding-left: env(safe-area-inset-left);
+        padding-right: env(safe-area-inset-right);
+    }
+
+    #panelRangeSliderValue{
+        padding: 1vw;
+        margin-right: 1vw;
+        width: 8vh;
+    }
+
+    #mainHeader {
+        height: 5vw;
+    }
+
+    .header {
+        top: 2vw;
+        height: 5vw;
+        width: calc(100% - env(safe-area-inset-left) - env(safe-area-inset-right));
+    }
+
+    .customButton {
+        height: 4vw;
+        margin-left: 1vw;
+        margin-right: 1vw;
+    }
+
+    .headerTitle {
+        margin-left: -10vw;
+        margin-right: 1vh;
+    }
+
+    .content {
+        top: 7vw;
+        margin-left: 5vh;
+        margin-right: 5vh;
+    }
+
+    .filter {
+        top: 25vw;
+        margin-left: 5vh;
+        margin-right: 5vh;
+    }
+}

@@ -84,6 +84,10 @@ flutter:
     - samples/customized/js/
     - samples/customized/css/
     - samples/customized/assets/
+    - samples/friend/
+    - samples/friend/js/
+    - samples/friend/css/
+    - samples/friend/assets/
     - samples/mrt/
     - samples/mrt/js/
     - samples/mrt/css/

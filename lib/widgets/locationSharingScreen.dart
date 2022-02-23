@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart' as loc;
+import 'package:uuid/uuid.dart';
 import 'package:wikitude_flutter_app/widgets/sharingMap.dart';
 
 class LocationSharingScreen extends StatefulWidget {
@@ -46,7 +47,7 @@ class _LocationSharingScreenState extends State<LocationSharingScreen> {
             Expanded(
               child: StreamBuilder(
                 stream: FirebaseFirestore.instance
-                    .collection('location')
+                    .collection('user_location')
                     .snapshots(),
                 builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (!snapshot.hasData) {
@@ -91,10 +92,15 @@ class _LocationSharingScreenState extends State<LocationSharingScreen> {
     try {
       final loc.LocationData _locationResult = await location.getLocation();
       final user = FirebaseAuth.instance.currentUser;
-      await FirebaseFirestore.instance.collection('location').doc('user').set({
-        'latitude': _locationResult.latitude,
-        'longitude': _locationResult.longitude,
-        'name': user!.displayName
+      final id = Uuid().v5(Uuid.NAMESPACE_URL, user!.email);
+      await FirebaseFirestore.instance.collection('user_location').doc(id).set({
+        'latitude': _locationResult.latitude!,
+        'longitude': _locationResult.longitude!,
+        'name': user.displayName,
+        'description': user.photoURL,
+        'altitude': 100.0,
+        'category': 'friend',
+        'id': id,
       }, SetOptions(merge: true));
     } catch (e) {
       print(e);
@@ -103,6 +109,7 @@ class _LocationSharingScreenState extends State<LocationSharingScreen> {
 
   Future<void> _listenLocation() async {
     final user = FirebaseAuth.instance.currentUser;
+    final id = Uuid().v5(Uuid.NAMESPACE_URL, user!.email);
     _locationSubscription = location.onLocationChanged.handleError((onError) {
       print(onError);
       _locationSubscription?.cancel();
@@ -110,16 +117,24 @@ class _LocationSharingScreenState extends State<LocationSharingScreen> {
         _locationSubscription = null;
       });
     }).listen((loc.LocationData currentlocation) async {
-      await FirebaseFirestore.instance.collection('location').doc('user').set({
-        'latitude': currentlocation.latitude,
-        'longitude': currentlocation.longitude,
-        'name': user!.displayName
+      await FirebaseFirestore.instance.collection('user_location').doc(id).set({
+        'latitude': currentlocation.latitude!,
+        'longitude': currentlocation.longitude!,
+        'name': user.displayName,
+        'description': user.photoURL,
+        'altitude': 100.0,
+        'category': 'friend',
+        'id': id,
       }, SetOptions(merge: true));
     });
   }
 
-  _stopListening() {
-    _locationSubscription?.cancel();
+  _stopListening() async {
+    await _locationSubscription?.cancel();
+    final user = FirebaseAuth.instance.currentUser;
+    final id = Uuid().v5(Uuid.NAMESPACE_URL, user!.email);
+    var collection = FirebaseFirestore.instance.collection('user_location');
+    await collection.doc(id).delete();
     setState(() {
       _locationSubscription = null;
     });
