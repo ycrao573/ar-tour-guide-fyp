@@ -1,8 +1,10 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:location/location.dart' as loc;
 import 'package:uuid/uuid.dart';
 import 'package:wikitude_flutter_app/widgets/sharingMap.dart';
@@ -17,9 +19,12 @@ class LocationSharingScreen extends StatefulWidget {
 class _LocationSharingScreenState extends State<LocationSharingScreen> {
   final loc.Location location = loc.Location();
   StreamSubscription<loc.LocationData>? _locationSubscription;
+  Position? _currentPosition;
+  bool isDistanceLoaded = false;
 
   @override
   void initState() {
+    _getCurrentLocation();
     super.initState();
   }
 
@@ -53,34 +58,37 @@ class _LocationSharingScreenState extends State<LocationSharingScreen> {
                   if (!snapshot.hasData) {
                     return Center(child: CircularProgressIndicator());
                   }
-                  return ListView.builder(
-                      itemCount: snapshot.data?.docs.length,
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          title: Text(
-                              snapshot.data!.docs[index]['name'].toString()),
-                          subtitle: Row(
-                            children: [
-                              Text(snapshot.data!.docs[index]['latitude']
+                  return !isDistanceLoaded
+                      ? Center(child: CircularProgressIndicator())
+                      : ListView.builder(
+                          itemCount: snapshot.data?.docs.length,
+                          itemBuilder: (context, index) {
+                            return ListTile(
+                              title: Text(snapshot.data!.docs[index]['name']
                                   .toString()),
-                              SizedBox(
-                                width: 20,
+                              subtitle: Row(
+                                children: [
+                                  Text(getDistanceToUser(
+                                          snapshot
+                                              .data!.docs[index]['longitude']
+                                              .toString(),
+                                          snapshot.data!.docs[index]['latitude']
+                                              .toString()) +
+                                      "km")
+                                ],
                               ),
-                              Text(snapshot.data!.docs[index]['longitude']
-                                  .toString()),
-                            ],
-                          ),
-                          trailing: IconButton(
-                            icon: Icon(Icons.directions),
-                            onPressed: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => MyMap(
-                                        user_id: snapshot.data!.docs[index].id,
-                                      )));
-                            },
-                          ),
-                        );
-                      });
+                              trailing: IconButton(
+                                icon: Icon(Icons.directions),
+                                onPressed: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => MyMap(
+                                            user_id:
+                                                snapshot.data!.docs[index].id,
+                                          )));
+                                },
+                              ),
+                            );
+                          });
                 },
               ),
             ),
@@ -91,6 +99,7 @@ class _LocationSharingScreenState extends State<LocationSharingScreen> {
   _getLocation() async {
     try {
       final loc.LocationData _locationResult = await location.getLocation();
+      _getCurrentLocation();
       final user = FirebaseAuth.instance.currentUser;
       final id = Uuid().v5(Uuid.NAMESPACE_URL, user!.email);
       await FirebaseFirestore.instance.collection('user_location').doc(id).set({
@@ -109,6 +118,7 @@ class _LocationSharingScreenState extends State<LocationSharingScreen> {
 
   Future<void> _listenLocation() async {
     final user = FirebaseAuth.instance.currentUser;
+    _getCurrentLocation();
     final id = Uuid().v5(Uuid.NAMESPACE_URL, user!.email);
     _locationSubscription = location.onLocationChanged.handleError((onError) {
       print(onError);
@@ -126,6 +136,32 @@ class _LocationSharingScreenState extends State<LocationSharingScreen> {
         'category': 'friend',
         'id': id,
       }, SetOptions(merge: true));
+    });
+  }
+
+  String getDistanceToUser(String longitude, String latitude) {
+    double long1 = double.parse(longitude) / 57.29577951;
+    double lat1 = double.parse(latitude) / 57.29577951;
+    double long2 = _currentPosition!.longitude / 57.29577951;
+    double lat2 = _currentPosition!.latitude / 57.29577951;
+    double res = 1.609344 *
+        3963.0 *
+        acos((sin(lat1) * sin(lat2)) +
+            cos(lat1) * cos(lat2) * cos(long2 - long1));
+    return res.toStringAsFixed(2);
+  }
+
+  _getCurrentLocation() {
+    Geolocator.getCurrentPosition(
+            desiredAccuracy: LocationAccuracy.best,
+            forceAndroidLocationManager: true)
+        .then((Position position) {
+      setState(() {
+        _currentPosition = position;
+        isDistanceLoaded = true;
+      });
+    }).catchError((e) {
+      print(e);
     });
   }
 

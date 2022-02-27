@@ -15,6 +15,7 @@ import 'package:wikitude_flutter_app/model/activityModel.dart';
 import 'package:wikitude_flutter_app/model/attractionModel.dart';
 import 'package:wikitude_flutter_app/model/googleUserModel.dart';
 import 'package:wikitude_flutter_app/model/restaurantModel.dart';
+import 'package:wikitude_flutter_app/model/stationModel.dart';
 import 'package:wikitude_flutter_app/model/userModel.dart';
 import 'package:wikitude_flutter_app/pages/activityScreen.dart';
 import 'package:wikitude_flutter_app/pages/attractionScreen.dart';
@@ -65,18 +66,41 @@ class _HomePageState extends State<HomePage> {
   bool isAddressLoading = true;
   bool isActivityLoading = true;
   bool isAttractionLoading = true;
+  bool isStationLoading = true;
   bool isLandmarkLoading = true;
   bool isLandmarkNearEnough = false;
   bool isRestaurantLoading = true;
   List<ActivityModel> _activityModels = [];
   List<AttractionModel> _attractionModels = [];
   List<RestaurantModel> _restaurantModels = [];
+  List<StationModel> _stationModels = [];
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
   String weather = "loading...";
   // ignore: non_constant_identifier_names
   String icon_link = "http://openweathermap.org/img/w/04n.png";
   String popupLandmarkCircle = "";
+
+  Future<void> readStationJson() async {
+    final response = await http.get(
+        Uri.parse(
+            "https://api.jsonbin.io/v3/b/61828c684a82881d6c6a096d/latest"),
+        headers: {
+          'Content-type': 'application/json',
+          "X-Master-Key":
+              "\$2b\$10\$M6L3eXj646aBmRdVgsJzHewx5S2ZEf6FXP.4gFg1S3DlbQ9i8Yfr."
+        });
+    final data = await json.decode(response.body)["record"] as List<dynamic>;
+    var compareDistance = (a, b) =>
+        (double.parse(getDistanceToUser(a.longitude, a.latitude)) * 1000 -
+                double.parse(getDistanceToUser(b.longitude, b.latitude)) * 1000)
+            .round();
+    setState(() {
+      _stationModels = data.map((e) => StationModel.fromJson(e)).toList();
+      _stationModels.sort(compareDistance);
+      _stationModels = _stationModels.getRange(0, 3).toList();
+    });
+  }
 
   // Fetch content from the json file
   Future<void> readActivtiesJson() async {
@@ -90,14 +114,12 @@ class _HomePageState extends State<HomePage> {
         });
     final data = await json.decode(response.body)["record"] as List<dynamic>;
     var compareDistance = (a, b) =>
-        (double.parse(getDistanceToUser(a.longitude, a.latitude)) -
-                double.parse(getDistanceToUser(b.longitude, b.latitude)))
+        (double.parse(getDistanceToUser(a.longitude, a.latitude)) * 1000 -
+                double.parse(getDistanceToUser(b.longitude, b.latitude)) * 1000)
             .round();
     setState(() {
       _activityModels = data.map((e) => ActivityModel.fromJson(e)).toList();
       _activityModels.sort(compareDistance);
-      // createNotification(
-      //     "Check out fun activities nearby!", _activityModels[0].title + "!");
     });
   }
 
@@ -112,8 +134,8 @@ class _HomePageState extends State<HomePage> {
         });
     final data = await json.decode(response.body)["record"] as List<dynamic>;
     var compareDistance = (a, b) =>
-        (double.parse(getDistanceToUser(a.longitude, a.latitude)) -
-                double.parse(getDistanceToUser(b.longitude, b.latitude)))
+        (double.parse(getDistanceToUser(a.longitude, a.latitude)) * 1000 -
+                double.parse(getDistanceToUser(b.longitude, b.latitude)) * 1000)
             .round();
     setState(() {
       _attractionModels = data.map((e) => AttractionModel.fromJson(e)).toList();
@@ -458,6 +480,69 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                   )
                                 : SizedBox(height: 8.0),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 1.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Text(
+                                    'Nearby MRT Station',
+                                    style: TextStyle(
+                                      fontSize: 17.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(height: 10.0),
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(16.0),
+                              child: Container(
+                                color: Colors.white,
+                                child: ListView(
+                                    shrinkWrap: true,
+                                    padding: const EdgeInsets.all(0),
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    children: <Widget>[
+                                      isStationLoading
+                                          ? buildStationShimmer()
+                                          : DataTable(
+                                              dataRowHeight: 30,
+                                              headingRowHeight: 32.0,
+                                              dividerThickness: 0,
+                                              columnSpacing: 12,
+                                              columns: [
+                                                DataColumn(
+                                                    label: Text('Name',
+                                                        style: TextStyle(
+                                                            fontSize: 13,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w600))),
+                                                DataColumn(
+                                                    label: Text('Code',
+                                                        style: TextStyle(
+                                                            fontSize: 13,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w600))),
+                                                DataColumn(
+                                                    label: Text('Distance',
+                                                        style: TextStyle(
+                                                            fontSize: 13,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w600))),
+                                              ],
+                                              rows: getRows(_stationModels),
+                                            ),
+                                    ]),
+                              ),
+                            ),
+                            SizedBox(height: 20.0),
                             Padding(
                               padding: EdgeInsets.symmetric(horizontal: 1.0),
                               child: Row(
@@ -1202,6 +1287,7 @@ class _HomePageState extends State<HomePage> {
   _getAddressFromLatLng() async {
     try {
       setState(() {
+        isStationLoading = true;
         isAddressLoading = true;
         isActivityLoading = true;
         isAttractionLoading = true;
@@ -1209,6 +1295,7 @@ class _HomePageState extends State<HomePage> {
       });
       List<Placemark> placemarks = await placemarkFromCoordinates(
           _currentPosition.latitude, _currentPosition.longitude);
+      readStationJson();
       readActivtiesJson();
       readPlacesJson();
       readRestaurantJson();
@@ -1216,6 +1303,7 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         _currentAddress = "${place.locality}";
         addressText = new LoadingTextModel(text: _currentAddress);
+        isStationLoading = false;
         isAddressLoading = false;
         isActivityLoading = false;
         isAttractionLoading = false;
@@ -1226,6 +1314,91 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  List<DataRow> getRows(List<StationModel> stations) =>
+      stations.map((StationModel station) {
+        var code = station.name!.split('MRT STATION')[1].trim();
+        code = code.substring(1, code.length - 1);
+        final cells = [
+          DataCell(Text(capitalizeFirstofEach(station.name!.split('MRT')[0]),
+              style: TextStyle(fontWeight: FontWeight.w700))),
+          DataCell(_buildStationCode(code)),
+          DataCell(
+            Text((double.parse(getDistanceToUser(
+                            station.longitude!, station.latitude!)) *
+                        1000)
+                    .round()
+                    .toString() +
+                " m"),
+          )
+        ];
+        return DataRow(cells: cells);
+      }).toList();
+
+  Widget _buildStationCode(String code) {
+    List<String> name = code.split('/').map((s) => s.trim()).toList();
+    List<Widget> result = [];
+    var i = 0;
+    if (name[i].contains("EW") || name[i].contains("CG")) {
+      result.add(Text(" " + name[i] + " ",
+          style: TextStyle(
+              backgroundColor: Color(0xff009539),
+              color: Colors.white,
+              fontSize: 12,
+              fontWeight: FontWeight.bold)));
+      i++;
+    }
+    if (i < name.length && name[i].contains("NS")) {
+      result.add(Text(" " + name[i] + " ",
+          style: TextStyle(
+              backgroundColor: Color(0xffde261a),
+              color: Colors.white,
+              fontSize: 12,
+              fontWeight: FontWeight.bold)));
+      i++;
+    }
+    if (i < name.length && name[i].contains("NE")) {
+      result.add(Text(" " + name[i] + " ",
+          style: TextStyle(
+              backgroundColor: Color(0xff9b27af),
+              color: Colors.white,
+              fontSize: 12,
+              fontWeight: FontWeight.bold)));
+      i++;
+    }
+    if (i < name.length && (name[i].contains("CC") || name[i].contains("CE"))) {
+      result.add(Text(" " + name[i] + " ",
+          style: TextStyle(
+              backgroundColor: Color(0xfffe9c15),
+              color: Colors.white,
+              fontSize: 12,
+              fontWeight: FontWeight.bold)));
+      i++;
+    }
+    if (i < name.length && name[i].contains("DT")) {
+      result.add(Text(" " + name[i] + " ",
+          style: TextStyle(
+              backgroundColor: Color(0xff005ca3),
+              color: Colors.white,
+              fontSize: 12,
+              fontWeight: FontWeight.bold)));
+      i++;
+    }
+    if (i < name.length && name[i].contains("TE")) {
+      result.add(Text(" " + name[i] + " ",
+          style: TextStyle(
+              backgroundColor: Color(0xff9c591a),
+              color: Colors.white,
+              fontSize: 12,
+              fontWeight: FontWeight.bold)));
+    }
+    return Row(children: result);
+  }
+
+  String toCapitalized(s) => s.length > 0
+      ? '${s[0].toUpperCase()}${s.substring(1).toLowerCase()}'
+      : '';
+  String capitalizeFirstofEach(s) =>
+      s.split(" ").map((str) => toCapitalized(str)).join(" ");
   String getDistanceToUser(String longitude, String latitude) {
     double long1 = double.parse(longitude) / 57.29577951;
     double lat1 = double.parse(latitude) / 57.29577951;
@@ -1296,7 +1469,12 @@ class _HomePageState extends State<HomePage> {
 
   Widget buildRestaurantShimmer() => ShimmeringWidget.rectangular(
         height: 11,
-        width: MediaQuery.of(context).size.width / 2.2,
+        width: MediaQuery.of(context).size.width / 1.4,
+      );
+
+  Widget buildStationShimmer() => ShimmeringWidget.rectangular(
+        height: 135,
+        width: MediaQuery.of(context).size.width / 1.2,
       );
 
   Widget buildCircleShimmer() => ShimmeringWidget.circular(

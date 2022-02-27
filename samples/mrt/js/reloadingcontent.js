@@ -255,7 +255,7 @@ var World = {
             insertAfter(anchor, el);
             anchor = el;
         }
-        if (mrtname.includes("CC") || mrtname.includes("CG")) {
+        if (mrtname.includes("CC") || mrtname.includes("CE")) {
             var el = document.createElement("button");
             el.innerHTML = "Circle Line";
             el.className = "mrtButton";
