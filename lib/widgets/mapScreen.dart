@@ -34,6 +34,12 @@ class _MapScreenState extends State<MapScreen> {
   StreamController<Place> selectedLocation = StreamController<Place>();
   Marker? _origin;
   Marker? _destination;
+  String? codeDialog;
+  String? valueText;
+  String? codeDialog2;
+  String? valueText2;
+  TextEditingController _textFieldController = TextEditingController();
+  TextEditingController _textFieldController2 = TextEditingController();
 
   @override
   void dispose() {
@@ -127,7 +133,7 @@ class _MapScreenState extends State<MapScreen> {
                           if (_origin != null) _origin!,
                           if (_destination != null) _destination!,
                         },
-                        onLongPress: _addMarker,
+                        onLongPress: displayTextInputDialog,
                       ),
                     ),
                     if (searchResults.length != 0)
@@ -194,11 +200,81 @@ class _MapScreenState extends State<MapScreen> {
     );
   }
 
-  Future<void> _addMarker(LatLng pos) async {
+  Future<void> displayTextInputDialog(LatLng latlng) async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+              title: Text('Add Your Place',
+                  style: TextStyle(fontWeight: FontWeight.w700)),
+              content: Container(
+                height: 250,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Place Name:", style: TextStyle(fontSize: 15)),
+                    TextField(
+                      onChanged: (value) {
+                        setState(() {
+                          valueText = value;
+                        });
+                      },
+                      controller: _textFieldController,
+                      decoration: InputDecoration(
+                          hintText: "What do you want to call it?",
+                          hintStyle: TextStyle(fontSize: 14)),
+                    ),
+                    SizedBox(
+                      height: 8.0,
+                    ),
+                    Text("Place details:", style: TextStyle(fontSize: 15)),
+                    TextField(
+                      onChanged: (value) {
+                        setState(() {
+                          valueText2 = value;
+                        });
+                      },
+                      controller: _textFieldController2,
+                      decoration: InputDecoration(
+                          hintText: "Why it is so important?",
+                          hintStyle: TextStyle(fontSize: 14)),
+                    ),
+                  ],
+                ),
+              ),
+              actions: <Widget>[
+                FlatButton(
+                  color: Colors.red,
+                  textColor: Colors.white,
+                  child: Text('CANCEL'),
+                  onPressed: () {
+                    setState(() {
+                      Navigator.pop(context);
+                    });
+                  },
+                ),
+                FlatButton(
+                  color: Colors.green,
+                  textColor: Colors.white,
+                  child: Text('OK'),
+                  onPressed: () {
+                    setState(() {
+                      codeDialog = valueText;
+                      _addMarker(latlng, valueText!, valueText!);
+                      Navigator.pop(context);
+                    });
+                  },
+                ),
+              ]);
+        });
+  }
+
+  Future<void> _addMarker(LatLng pos, String name, String description) async {
     setState(() {
       _destination = Marker(
-        markerId: const MarkerId('destination'),
-        infoWindow: const InfoWindow(title: 'Destination'),
+        markerId: MarkerId(name),
+        infoWindow: InfoWindow(title: description),
         icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
         position: pos,
       );
@@ -207,12 +283,15 @@ class _MapScreenState extends State<MapScreen> {
           "id": Uuid().v1(),
           "longitude": pos.longitude.toString(),
           "latitude": pos.latitude.toString(),
-          "name": "Destination",
-          "description": " ",
+          "name": name,
+          "description": description,
           "altitude": "100.0",
           "category": "Customized"
         },
       );
+      _textFieldController.clear();
+      _textFieldController2.clear();
+      valueText = valueText2 = "";
     });
   }
 

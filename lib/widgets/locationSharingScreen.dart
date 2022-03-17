@@ -31,24 +31,42 @@ class _LocationSharingScreenState extends State<LocationSharingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text("Location sharing screen")),
+        appBar: AppBar(
+          title: Text("Location sharing screen"),
+          backgroundColor: Colors.orange[400],
+        ),
         body: Column(
           children: [
             TextButton(
                 onPressed: () {
                   _getLocation();
                 },
-                child: Text("Add My Location")),
+                child: Text("Add My Location",
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.orange[700],
+                      fontWeight: FontWeight.w600,
+                    ))),
             TextButton(
                 onPressed: () {
                   _listenLocation();
                 },
-                child: Text("Enable Live Location")),
+                child: Text("Enable Live Location",
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.orange[700],
+                      fontWeight: FontWeight.w600,
+                    ))),
             TextButton(
                 onPressed: () {
                   _stopListening();
                 },
-                child: Text("Stop Live Sharing")),
+                child: Text("Stop Live Sharing",
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.orange[700],
+                      fontWeight: FontWeight.w600,
+                    ))),
             Expanded(
               child: StreamBuilder(
                 stream: FirebaseFirestore.instance
@@ -64,21 +82,25 @@ class _LocationSharingScreenState extends State<LocationSharingScreen> {
                           itemCount: snapshot.data?.docs.length,
                           itemBuilder: (context, index) {
                             return ListTile(
-                              title: Text(snapshot.data!.docs[index]['name']
-                                  .toString()),
+                              title: Text(
+                                  snapshot.data!.docs[index]['name'].toString(),
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)),
+                              leading: ClipRRect(
+                                  borderRadius: BorderRadius.circular(40),
+                                  child: Image.network(snapshot
+                                      .data!.docs[index]['description'])),
                               subtitle: Row(
                                 children: [
                                   Text(getDistanceToUser(
-                                          snapshot
-                                              .data!.docs[index]['longitude']
-                                              .toString(),
-                                          snapshot.data!.docs[index]['latitude']
-                                              .toString()) +
-                                      "km")
+                                      snapshot.data!.docs[index]['longitude']
+                                          .toString(),
+                                      snapshot.data!.docs[index]['latitude']
+                                          .toString()))
                                 ],
                               ),
                               trailing: IconButton(
-                                icon: Icon(Icons.directions),
+                                icon: Icon(Icons.map_rounded),
                                 onPressed: () {
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) => MyMap(
@@ -148,7 +170,11 @@ class _LocationSharingScreenState extends State<LocationSharingScreen> {
         3963.0 *
         acos((sin(lat1) * sin(lat2)) +
             cos(lat1) * cos(lat2) * cos(long2 - long1));
-    return res.toStringAsFixed(2);
+    if (res < 1.1) {
+      return res.toStringAsFixed(1) + ' km';
+    } else {
+      return (res * 1000).toStringAsFixed(0) + ' m';
+    }
   }
 
   _getCurrentLocation() {

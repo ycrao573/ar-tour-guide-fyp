@@ -8,7 +8,7 @@ This is the code repository for my final year project (FYP) in Nanyang Technolog
 
 The total duration of this final year project is around 10 months, starting from the mid of August, 2021, whereas the whole development process starts from mid of September, 2021. It is expected to be fully completed by March.
 
-**[Important!]** Noted that the **version 1.0** is already available through the download link [here](https://github.com/ycrao573/ar-tour-guide-fyp).
+**[Important!]** Noted that the **version 1.1** is already available through the download link [here](https://github.com/ycrao573/ar-tour-guide-fyp).
 
 ## About Travelee
 
@@ -44,8 +44,8 @@ Augmented Reality (AR) is used here to enhance the view of your surroundings! Si
 - [x] **Get live distances and useful information** for each place with just one click!
 - [x] **Support 3 predefined categories:** shopping centres, MRT stations, tourist attractions
 - [x] **Flexible distance filtering:** Avoid places flooding!
-- [ ] [NEW!] Support user-customized places. Add and view any place you care about!
-- [ ] [NEW!] Support multi-user real-time location tracking with AR enabled. Location sharing within your tour group! 
+- [x] [NEW!] Support user-customized places. Add and view any place you care about!
+- [x] [NEW!] Support multi-user real-time location tracking with AR enabled. Location sharing within your tour group! 
 
 **AR SDK resource:**
 
@@ -74,7 +74,7 @@ This intelligent detection leverages the power of Google AI Cloud and its powerf
 
 - [x] **Get real-time recommendation** on interesting places nearby, e.g., activities, landmarks, restaurants
 - [x] **Automatic notification push:** Travelee will notify you if
-  - if you are close enough to one of popular landmarks
+  - if you are close to one of popular landmarks
   - if you’ve made your way to the destination
 
 - [x] **Automatic recommendation push:** recommend popular places nearby occasionally
@@ -87,13 +87,12 @@ This intelligent detection leverages the power of Google AI Cloud and its powerf
 
 ### **Convenient Travel Tools**
 
-- [x] **Weather info: **Get the latest weather conditions based on the user's location
-- [x] **COVID-19 Support: **Travel safely and confidently with one-click access to latest local COVID-19 situation and safety information
+- [x] **Weather info:** Get the latest weather conditions based on the user's location
+- [x] **COVID-19 Support:** Travel safely and confidently with one-click access to latest local COVID-19 situation and safety information
 
 **API resource:**
 
 weather: https://openweathermap.org/api
-
 COVID-19 support: [disease.sh - Open Disease Data API](https://corona.lmao.ninja/)
 
 ## Technical Content
@@ -104,7 +103,7 @@ COVID-19 support: [disease.sh - Open Disease Data API](https://corona.lmao.ninja
 
 **Programming Languages:**
 
-​	Dart (Flutter), HTML/JavaScript/CSS (Wikitude), Python (for web scraping & data cleaning), Ruby (localization)
+​	Dart (Flutter), HTML/JavaScript/CSS (Wikitude), Python (for web scraping & data cleaning)
 
 **Software SDKs:**
 
@@ -116,32 +115,33 @@ COVID-19 support: [disease.sh - Open Disease Data API](https://corona.lmao.ninja
 
 **Other Skills:**
 
-​	Knowledges on JSON, XML, YAML, Gradle, Markdown.
-
-​	Send HTTP request for fetching data or calling APIs.
+​	Knowledges on JSON, XML, YAML, Gradle, Markdown, Network Skills
 
 ### Difficulties met
 
 1. **Global outage: JFrog to Shut down JCenter and Bintray**, click [here](https://www.infoq.com/news/2021/02/jfrog-jcenter-bintray-closure/) for more information. It is suggested to migrating all the dependencies to Maven Central. Detailed implementation can be found in the [commit](https://github.com/ycrao573/ar-tour-guide-fyp/commit/278571d765fa33948a1684f7ce9dfe4a143c0d23#diff-197b190e4a3512994d2cebed8aff5479ff88e136b8cc7a4b148ec9c3945bd65a) done on Jan 13th.
 2. Uneasy configuration needed for merging Wikitude AR SDK into Flutter SDK. Best way to deal with it to post or search your question in [Wikitude's Support Community](https://support.wikitude.com/support/home).
-3. Google Vision AI provides no Flutter support on its Landmark Detection and Web Search features. We need to build the process including image processing, API calling and package all the functions from the scratch. Detailed implementation can be found in [credentials](https://github.com/ycrao573/ar-tour-guide-fyp/blob/master/lib/pages/credentials.dart) and [recognition engine](https://github.com/ycrao573/ar-tour-guide-fyp/blob/master/lib/pages/recognize.dart), which is based on [Google API Client Library v1](https://developers.google.com/api-client-library).
+3. Google Vision AI provides no Flutter support on its Landmark Detection and Web Search features. We need to build the process including image processing, Service authentication, API calling, data formatting and visualisation from the scratch. Detailed implementation can be found in [credentials](https://github.com/ycrao573/ar-tour-guide-fyp/blob/master/lib/pages/credentials.dart) and [recognition engine](https://github.com/ycrao573/ar-tour-guide-fyp/blob/master/lib/pages/recognize.dart), which is based on [Google API Client Library v1](https://developers.google.com/api-client-library).
 
-<img src="D:\Android_Test\test_app\wikitude-flutter-plugin-examples\assets\images\workflow.jpg" style="zoom: 35%; float: left;" />
+<img src="./assets/images/workflow.jpg" style="zoom: 36%; float: left;" />
 
 Special thanks to the valuable online resources that have been of great help to this project: ()
 
 - [Working with APIs in Data Science — Explore Bit-Rent Theory in Singapore’s HDB Resale Market](https://towardsdatascience.com/working-with-apis-in-data-science-explore-bit-rent-theory-in-singapores-hdb-resale-market-d7760fdfc601)
-- [Build and Deploy a Google Maps Travel Companion Application | React.js](https://www.youtube.com/watch?v=UKdQjQX1Pko&t=996s)
+- [Build and Deploy a Google Maps Travel Companion Application | React.js](https://www.youtube.com/watch?v=UKdQjQX1Pko)
 - [Flutter Live Location Tracker - Google map and Firebase + Source Code](https://youtu.be/Uz49GlqJ7m4)
 - [Flutter Travel UI Tutorial | Apps From Scratch](https://youtu.be/CSa6Ocyog4U)
 - [I Build a COVID-19 Tracker - Coronavirus Live Stats | React Tutorial](https://youtu.be/mhA11RJMHEM)
 
 ## Acknowledgement
 
-Firstly, I would like to extend my gratitude to my FYP supervisor, A/P Ling Keck Voon for his guidance and support throughout this long journey. I also want to thank him for his involvement in our regular bi-weekly meeting, which helped me stay on schedule, organize my thoughts and guide me on how to present my ideas better. Despite having previous experience in software programming, it is still challenging to build a full-stack system on my own. This project greatly improved my ability to solve complex problems, learn new things quickly, and extract useful information from technical documentation.
+Firstly, I would like to extend my gratitude to my supervisor, A/P Ling Keck Voon, for guiding and supporting me throughout this long journey. His involvement in our regular bi-weekly meeting helped me stay on schedule and present my ideas better. He provided me with valuable ideas and suggestions to improve the project. Meanwhile, I want to thank A/P Jong Ching Chuen for taking his precious time to review this project.
 
-I would also like to thank those who selflessly post their high-quality technical blogs and tutorials online, which greatly reduced the difficulty of development and helped people better understand concepts and their applications.
+In addition, I would like to express my thanks to the online developer community for providing powerful open-source libraries and valuable blogs that have assisted in the development of this project. I would also like to thank everyone in our FYP group who shared their great ideas and feedback to help others with their projects.
 
-Next, I would like to thank my friends for accompanying me through this degree journey. You all played important roles and left me with unforgettable memories. I also want to thank everyone in our FYP group for their brilliant ideas and findings that may be helpful to each other's projects. Finally, I want to thank my family who has always been supporting me throughout the pandemic.
+Finally, I would like to thank my family, who has been supporting me during the pandemic, and my friends who have accompanied me during these years at NTU.
 
-It's never been an easy journey, but I've enjoyed the whole experience of working on this project. Now I can proudly say that I was able to complete this final year project without compromising the standards I set for myself.
+It's never been an easy journey, but I've enjoyed the whole experience of working on this project. Now I can proudly say that I could complete this final year project without compromising the standards I set for myself.
+
+Rao Yuchen
+March 2022
