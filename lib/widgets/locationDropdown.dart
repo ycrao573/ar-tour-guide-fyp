@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:wikitude_flutter_app/l10n/l10n.dart';
+import 'package:travelee/l10n/l10n.dart';
 import 'dart:async';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -9,8 +9,8 @@ import 'package:geolocator/geolocator.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
-import 'package:wikitude_flutter_app/widgets/languageDropdown.dart';
-import 'package:wikitude_flutter_app/widgets/locationDropdown.dart';
+import 'package:travelee/widgets/languageDropdown.dart';
+import 'package:travelee/widgets/locationDropdown.dart';
 import 'settingsPage.dart';
 
 class LocationDropdown extends StatefulWidget {

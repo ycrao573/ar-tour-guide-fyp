@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:location/location.dart' as loc;
 import 'package:uuid/uuid.dart';
-import 'package:wikitude_flutter_app/widgets/sharingMap.dart';
+import 'package:travelee/widgets/sharingMap.dart';
 
 class LocationSharingScreen extends StatefulWidget {
   const LocationSharingScreen({Key? key}) : super(key: key);

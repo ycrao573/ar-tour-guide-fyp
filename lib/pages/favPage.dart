@@ -6,9 +6,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
-import 'package:wikitude_flutter_app/model/activityModel.dart';
-import 'package:wikitude_flutter_app/model/attractionModel.dart';
-import 'package:wikitude_flutter_app/model/restaurantModel.dart';
+import 'package:travelee/model/activityModel.dart';
+import 'package:travelee/model/attractionModel.dart';
+import 'package:travelee/model/restaurantModel.dart';
 
 class FavPage extends StatefulWidget {
   const FavPage({Key? key}) : super(key: key);

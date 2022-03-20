@@ -7,9 +7,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:wikitude_flutter_app/ar/arview.dart';
-import 'package:wikitude_flutter_app/ar/sample.dart';
-import 'package:wikitude_flutter_app/widgets/counter.dart';
+import 'package:travelee/ar/arview.dart';
+import 'package:travelee/ar/sample.dart';
+import 'package:travelee/widgets/counter.dart';
 
 class AchievementScreen extends StatefulWidget {
   final String icon;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:wikitude_flutter_app/model/activityModel.dart';
+import 'package:travelee/model/activityModel.dart';
 
 class ActivityScreen extends StatefulWidget {
   final ActivityModel activity;

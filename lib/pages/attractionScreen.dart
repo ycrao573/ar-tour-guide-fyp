@@ -4,8 +4,8 @@ import 'package:http/http.dart' as http;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:wikitude_flutter_app/model/attractionModel.dart';
-import 'package:wikitude_flutter_app/widgets/shrimmingWidget.dart';
+import 'package:travelee/model/attractionModel.dart';
+import 'package:travelee/widgets/shrimmingWidget.dart';
 
 class AttractionScreen extends StatefulWidget {
   final AttractionModel attraction;

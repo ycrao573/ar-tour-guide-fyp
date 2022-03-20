@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:wikitude_flutter_app/widgets/counter.dart';
-import 'package:wikitude_flutter_app/widgets/myheader.dart';
+import 'package:travelee/widgets/counter.dart';
+import 'package:travelee/widgets/myheader.dart';
 
 Future<CovidData> fetchCovidDatas(http.Client client, String? country) async {
   final response = await client.get(Uri.parse(

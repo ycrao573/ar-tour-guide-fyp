@@ -8,10 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:wikitude_flutter_app/ar/arview.dart';
-import 'package:wikitude_flutter_app/ar/sample.dart';
-import 'package:wikitude_flutter_app/widgets/placeSearch.dart';
-import 'package:wikitude_flutter_app/widgets/placeService.dart';
+import 'package:travelee/ar/arview.dart';
+import 'package:travelee/ar/sample.dart';
+import 'package:travelee/widgets/placeSearch.dart';
+import 'package:travelee/widgets/placeService.dart';
 import 'package:uuid/uuid.dart';
 
 class MapScreen extends StatefulWidget {

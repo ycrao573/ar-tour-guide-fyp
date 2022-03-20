@@ -13,7 +13,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:video_player/video_player.dart';
-import 'package:wikitude_flutter_app/pages/visionPage.dart';
+import 'package:travelee/pages/visionPage.dart';
 
 import 'recognize.dart';
 

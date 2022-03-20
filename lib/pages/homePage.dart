@@ -7,28 +7,28 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:wikitude_flutter_app/ar/arpage.dart';
+import 'package:travelee/ar/arpage.dart';
 import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:wikitude_flutter_app/model/activityModel.dart';
-import 'package:wikitude_flutter_app/model/attractionModel.dart';
-import 'package:wikitude_flutter_app/model/googleUserModel.dart';
-import 'package:wikitude_flutter_app/model/restaurantModel.dart';
-import 'package:wikitude_flutter_app/model/stationModel.dart';
-import 'package:wikitude_flutter_app/model/userModel.dart';
-import 'package:wikitude_flutter_app/pages/achievementScreen.dart';
-import 'package:wikitude_flutter_app/pages/activityScreen.dart';
-import 'package:wikitude_flutter_app/pages/attractionScreen.dart';
-import 'package:wikitude_flutter_app/pages/covidScreen.dart';
-import 'package:wikitude_flutter_app/pages/imagePickerPage.dart';
-import 'package:wikitude_flutter_app/pages/loginPage.dart';
-import 'package:wikitude_flutter_app/pages/profilePage.dart';
-import 'package:wikitude_flutter_app/widgets/restaurantScreen.dart';
-import 'package:wikitude_flutter_app/widgets/searchbar.dart';
-import 'package:wikitude_flutter_app/widgets/shrimmingWidget.dart';
+import 'package:travelee/model/activityModel.dart';
+import 'package:travelee/model/attractionModel.dart';
+import 'package:travelee/model/googleUserModel.dart';
+import 'package:travelee/model/restaurantModel.dart';
+import 'package:travelee/model/stationModel.dart';
+import 'package:travelee/model/userModel.dart';
+import 'package:travelee/pages/achievementScreen.dart';
+import 'package:travelee/pages/activityScreen.dart';
+import 'package:travelee/pages/attractionScreen.dart';
+import 'package:travelee/pages/covidScreen.dart';
+import 'package:travelee/pages/imagePickerPage.dart';
+import 'package:travelee/pages/loginPage.dart';
+import 'package:travelee/pages/profilePage.dart';
+import 'package:travelee/widgets/restaurantScreen.dart';
+import 'package:travelee/widgets/searchbar.dart';
+import 'package:travelee/widgets/shrimmingWidget.dart';
 import 'loginPage.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -1591,7 +1591,8 @@ class _HomePageState extends State<HomePage> {
                                 child: Text(
                                   'Claim your rewards🏆 NOW!',
                                   style: TextStyle(
-                                      fontSize: 15, fontWeight: FontWeight.w500),
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w500),
                                 ),
                               ),
                             ),

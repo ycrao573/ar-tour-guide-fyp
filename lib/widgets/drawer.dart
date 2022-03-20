@@ -3,10 +3,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
-import 'package:wikitude_flutter_app/model/userModel.dart';
-import 'package:wikitude_flutter_app/pages/loginPage.dart';
-import 'package:wikitude_flutter_app/pages/settingsPage.dart';
-import 'package:wikitude_flutter_app/service/googleSignIn.dart';
+import 'package:travelee/model/userModel.dart';
+import 'package:travelee/pages/loginPage.dart';
+import 'package:travelee/pages/settingsPage.dart';
+import 'package:travelee/service/googleSignIn.dart';
 
 class NavigationDrawerWidget extends StatefulWidget {
   final dynamic currentUser;

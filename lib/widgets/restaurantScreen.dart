@@ -4,9 +4,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:wikitude_flutter_app/model/restaurantModel.dart';
+import 'package:travelee/model/restaurantModel.dart';
 import 'package:http/http.dart' as http;
-import 'package:wikitude_flutter_app/widgets/shrimmingWidget.dart';
+import 'package:travelee/widgets/shrimmingWidget.dart';
 
 class RestaurantScreen extends StatefulWidget {
   final RestaurantModel restaurant;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:wikitude_flutter_app/pages/loginPage.dart';
+import 'package:travelee/pages/loginPage.dart';
 
 final kTitleStyle = TextStyle(
   color: Colors.white,

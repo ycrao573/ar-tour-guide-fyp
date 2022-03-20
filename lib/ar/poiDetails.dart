@@ -7,8 +7,8 @@ import 'package:intl/intl.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:wikitude_flutter_app/model/fetchGoogleMapPhotoModel.dart';
-import 'package:wikitude_flutter_app/widgets/shrimmingWidget.dart';
+import 'package:travelee/model/fetchGoogleMapPhotoModel.dart';
+import 'package:travelee/widgets/shrimmingWidget.dart';
 
 Future<FetchGoogleMapPhotoModel> fetchGoogleMapData(
     http.Client client, String name) async {
@@ -148,8 +148,15 @@ class PoiDetailsState extends State<PoiDetailsWidget> {
                               tag: data.reference,
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(30.0),
-                                child: Image(
-                                  image: NetworkImage(data.photoReference),
+                                child: CachedNetworkImage(
+                                  imageUrl: data.photoReference,
+                                  placeholder: (context, url) =>
+                                      CircularProgressIndicator(),
+                                  errorWidget: (context, url, error) => Image(
+                                    fit: BoxFit.cover,
+                                    image: NetworkImage(
+                                        "https://onecms-res.cloudinary.com/image/upload/s--kWaS0Nq1--/c_fill%2Cg_auto%2Ch_676%2Cw_1200/f_auto%2Cq_auto/v1/tdy-migration/newmrtmap2.jpg?itok=qV4RY6Jo"),
+                                  ),
                                   fit: BoxFit.cover,
                                 ),
                               ),

@@ -4,13 +4,13 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:rating_dialog/rating_dialog.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:wikitude_flutter_app/pages/achievementScreen.dart';
-import 'package:wikitude_flutter_app/pages/covidScreen.dart';
-import 'package:wikitude_flutter_app/pages/loginPage.dart';
-import 'package:wikitude_flutter_app/pages/settingsPage.dart';
-import 'package:wikitude_flutter_app/pages/favPage.dart';
-import 'package:wikitude_flutter_app/service/googleSignIn.dart';
-import 'package:wikitude_flutter_app/widgets/counter.dart';
+import 'package:travelee/pages/achievementScreen.dart';
+import 'package:travelee/pages/covidScreen.dart';
+import 'package:travelee/pages/loginPage.dart';
+import 'package:travelee/pages/settingsPage.dart';
+import 'package:travelee/pages/favPage.dart';
+import 'package:travelee/service/googleSignIn.dart';
+import 'package:travelee/widgets/counter.dart';
 
 class ProfilePage extends StatefulWidget {
   final String iconlink;
@@ -198,8 +198,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           )),
                       onPressed: () => showDialog(
                         context: context,
-                        barrierDismissible:
-                            true,
+                        barrierDismissible: true,
                         builder: (context) => _dialog,
                       ),
                       icon: Icon(

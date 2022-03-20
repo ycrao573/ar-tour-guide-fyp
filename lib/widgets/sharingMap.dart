@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart' as loc;
-import 'package:wikitude_flutter_app/ar/arview.dart';
-import 'package:wikitude_flutter_app/ar/sample.dart';
+import 'package:travelee/ar/arview.dart';
+import 'package:travelee/ar/sample.dart';
 import 'package:augmented_reality_plugin_wikitude/startupConfiguration.dart'
     as startupConfiguration;
 import 'package:http/http.dart' as http;
