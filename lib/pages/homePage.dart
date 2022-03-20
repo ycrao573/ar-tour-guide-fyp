@@ -2,29 +2,33 @@ import 'dart:convert';
 import 'dart:math';
 import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:favorite_button/favorite_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:wikitude_flutter_app/ar/arpage.dart';
+import 'package:travelee/ar/arpage.dart';
 import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:wikitude_flutter_app/model/activityModel.dart';
-import 'package:wikitude_flutter_app/model/attractionModel.dart';
-import 'package:wikitude_flutter_app/model/googleUserModel.dart';
-import 'package:wikitude_flutter_app/model/restaurantModel.dart';
-import 'package:wikitude_flutter_app/model/userModel.dart';
-import 'package:wikitude_flutter_app/pages/activityScreen.dart';
-import 'package:wikitude_flutter_app/pages/attractionScreen.dart';
-import 'package:wikitude_flutter_app/pages/covidScreen.dart';
-import 'package:wikitude_flutter_app/pages/imagePickerPage.dart';
-import 'package:wikitude_flutter_app/pages/loginPage.dart';
-import 'package:wikitude_flutter_app/pages/profilePage.dart';
-import 'package:wikitude_flutter_app/widgets/restaurantScreen.dart';
-import 'package:wikitude_flutter_app/widgets/searchbar.dart';
-import 'package:wikitude_flutter_app/widgets/shrimmingWidget.dart';
+import 'package:travelee/model/activityModel.dart';
+import 'package:travelee/model/attractionModel.dart';
+import 'package:travelee/model/googleUserModel.dart';
+import 'package:travelee/model/restaurantModel.dart';
+import 'package:travelee/model/stationModel.dart';
+import 'package:travelee/model/userModel.dart';
+import 'package:travelee/pages/achievementScreen.dart';
+import 'package:travelee/pages/activityScreen.dart';
+import 'package:travelee/pages/attractionScreen.dart';
+import 'package:travelee/pages/covidScreen.dart';
+import 'package:travelee/pages/imagePickerPage.dart';
+import 'package:travelee/pages/loginPage.dart';
+import 'package:travelee/pages/profilePage.dart';
+import 'package:travelee/widgets/restaurantScreen.dart';
+import 'package:travelee/widgets/searchbar.dart';
+import 'package:travelee/widgets/shrimmingWidget.dart';
 import 'loginPage.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -43,6 +47,9 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int currentPage = 0;
+  List favActivities = [];
+  List favAttractions = [];
+  List favRestaurants = [];
   GlobalKey bottomNavigationKey = GlobalKey();
   User? user = FirebaseAuth.instance.currentUser;
   dynamic loggedInUser = UserModel();
@@ -65,12 +72,14 @@ class _HomePageState extends State<HomePage> {
   bool isAddressLoading = true;
   bool isActivityLoading = true;
   bool isAttractionLoading = true;
+  bool isStationLoading = true;
   bool isLandmarkLoading = true;
   bool isLandmarkNearEnough = false;
   bool isRestaurantLoading = true;
   List<ActivityModel> _activityModels = [];
   List<AttractionModel> _attractionModels = [];
   List<RestaurantModel> _restaurantModels = [];
+  List<StationModel> _stationModels = [];
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
   String weather = "loading...";
@@ -78,8 +87,34 @@ class _HomePageState extends State<HomePage> {
   String icon_link = "http://openweathermap.org/img/w/04n.png";
   String popupLandmarkCircle = "";
 
+  Future<void> readStationJson() async {
+    _getFavorite('activties');
+    _getFavorite('attractions');
+    _getFavorite('restaurants');
+    final response = await http.get(
+        Uri.parse(
+            "https://api.jsonbin.io/v3/b/61828c684a82881d6c6a096d/latest"),
+        headers: {
+          'Content-type': 'application/json',
+          "X-Master-Key":
+              "\$2b\$10\$M6L3eXj646aBmRdVgsJzHewx5S2ZEf6FXP.4gFg1S3DlbQ9i8Yfr."
+        });
+    final data = await json.decode(response.body)["record"] as List<dynamic>;
+    var compareDistance = (a, b) =>
+        (double.parse(getDistanceToUser(a.longitude, a.latitude)) * 1000 -
+                double.parse(getDistanceToUser(b.longitude, b.latitude)) * 1000)
+            .round();
+    setState(() {
+      _stationModels = data.map((e) => StationModel.fromJson(e)).toList();
+      _stationModels.sort(compareDistance);
+      _stationModels = _stationModels.getRange(0, 3).toList();
+    });
+    // ignore: unnecessary_statements
+    isLandmarkNearEnough ? displayRewardDialog() : {};
+  }
+
   // Fetch content from the json file
-  Future<void> readActivtiesJson() async {
+  Future<void> readActivitiesJson() async {
     final response = await http.get(
         Uri.parse(
             "https://api.jsonbin.io/v3/b/61d734442675917a628b69fc/latest"),
@@ -90,14 +125,12 @@ class _HomePageState extends State<HomePage> {
         });
     final data = await json.decode(response.body)["record"] as List<dynamic>;
     var compareDistance = (a, b) =>
-        (double.parse(getDistanceToUser(a.longitude, a.latitude)) -
-                double.parse(getDistanceToUser(b.longitude, b.latitude)))
+        (double.parse(getDistanceToUser(a.longitude, a.latitude)) * 1000 -
+                double.parse(getDistanceToUser(b.longitude, b.latitude)) * 1000)
             .round();
     setState(() {
       _activityModels = data.map((e) => ActivityModel.fromJson(e)).toList();
       _activityModels.sort(compareDistance);
-      // createNotification(
-      //     "Check out fun activities nearby!", _activityModels[0].title + "!");
     });
   }
 
@@ -112,8 +145,8 @@ class _HomePageState extends State<HomePage> {
         });
     final data = await json.decode(response.body)["record"] as List<dynamic>;
     var compareDistance = (a, b) =>
-        (double.parse(getDistanceToUser(a.longitude, a.latitude)) -
-                double.parse(getDistanceToUser(b.longitude, b.latitude)))
+        (double.parse(getDistanceToUser(a.longitude, a.latitude)) * 1000 -
+                double.parse(getDistanceToUser(b.longitude, b.latitude)) * 1000)
             .round();
     setState(() {
       _attractionModels = data.map((e) => AttractionModel.fromJson(e)).toList();
@@ -128,11 +161,11 @@ class _HomePageState extends State<HomePage> {
               " km away");
       if (double.parse(getDistanceToUser(
               _attractionModels[0].longitude, _attractionModels[0].latitude)) <=
-          0.3) {
+          0.36) {
         landmarkText = new LoadingTextModel(text: _attractionModels[0].name);
         createNotification(
             "YAY! 🍾 You\'ve made it to " + _attractionModels[0].name + "!",
-            "Claim your rewards🏆, and share with your friends🧑‍🤝‍🧑 NOW!");
+            "Claim your rewards🏆 NOW!");
         popupLandmarkCircle = _attractionModels[0].photourl;
         isLandmarkLoading = false;
         isLandmarkNearEnough = true;
@@ -158,7 +191,7 @@ class _HomePageState extends State<HomePage> {
     //     await rootBundle.loadString('assets/data/restaurant_mock.json');
     // var restaurantJson = jsonDecode(response)["data"] as List;
     Uri _uri = Uri.parse(
-        "https://travel-advisor.p.rapidapi.com/restaurants/list-by-latlng?latitude=${_currentPosition.latitude}&longitude=${_currentPosition.longitude}&limit=30&currency=SGD&distance=4&lunit=km&lang=en_US&min_rating=3.5");
+        "https://travel-advisor.p.rapidapi.com/restaurants/list-by-latlng?latitude=${_currentPosition.latitude}&longitude=${_currentPosition.longitude}&limit=40&currency=SGD&distance=5&lunit=km&lang=en_US&min_rating=3.5");
 
     final response = await http.get(_uri, headers: {
       "x-rapidapi-host": "travel-advisor.p.rapidapi.com",
@@ -167,9 +200,8 @@ class _HomePageState extends State<HomePage> {
     final restaurantJson =
         await json.decode(utf8.decode(response.bodyBytes))["data"] as List;
     var compareRating = (a, b) =>
-        (20 * (double.parse(b.rating) - double.parse(a.rating))).round() +
-        int.parse(b.numReviews) -
-        int.parse(a.numReviews);
+        (25 * (double.parse(b.rating) - double.parse(a.rating))).round() +
+        (int.parse(b.numReviews) - int.parse(a.numReviews));
     setState(() {
       _restaurantModels = restaurantJson
           .map((r) => RestaurantModel.fromJson(r))
@@ -382,82 +414,7 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                             SizedBox(height: 19.0),
-                            isLandmarkNearEnough
-                                ? Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                      color: Colors.red[200],
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.withOpacity(0.5),
-                                          spreadRadius: 2,
-                                          blurRadius: 4,
-                                          offset: Offset(0,
-                                              2), // changes position of shadow
-                                        ),
-                                      ],
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          6, 12, 6, 6),
-                                      child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: [
-                                            Align(
-                                              alignment: Alignment.center,
-                                              child: Text(
-                                                'YAY! 🍾 You\'ve made it to',
-                                                style: TextStyle(
-                                                  fontSize: 15.0,
-                                                  fontWeight: FontWeight.w600,
-                                                ),
-                                              ),
-                                            ),
-                                            SizedBox(height: 4.0),
-                                            isLandmarkLoading
-                                                ? buildLandmarkShimmer()
-                                                : buildLandmarkText(
-                                                    landmarkText),
-                                            isLandmarkLoading
-                                                ? buildCircleShimmer()
-                                                : buildCircleImage(
-                                                    popupLandmarkCircle),
-                                            SizedBox(height: 8.0),
-                                            Align(
-                                              alignment: Alignment.center,
-                                              child: Text(
-                                                '             Claim your rewards🏆 \nand share with your friends🧑‍🤝‍🧑 NOW!',
-                                                style: TextStyle(
-                                                    fontSize: 14.4,
-                                                    fontWeight:
-                                                        FontWeight.w400),
-                                              ),
-                                            ),
-                                            SizedBox(height: 4.0),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
-                                              children: [
-                                                IconButton(
-                                                    icon: FaIcon(
-                                                        FontAwesomeIcons.trophy,
-                                                        color:
-                                                            Colors.yellow[600],
-                                                        size: 24.0),
-                                                    onPressed: () {}),
-                                                IconButton(
-                                                    icon: Icon(Icons.share,
-                                                        color: Colors.blue[50],
-                                                        size: 25.0),
-                                                    onPressed: () {}),
-                                              ],
-                                            ),
-                                            SizedBox(height: 20.0),
-                                          ]),
-                                    ),
-                                  )
-                                : SizedBox(height: 8.0),
+                            SizedBox(height: 10.0),
                             Padding(
                               padding: EdgeInsets.symmetric(horizontal: 1.0),
                               child: Row(
@@ -465,198 +422,62 @@ class _HomePageState extends State<HomePage> {
                                     MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
                                   Text(
-                                    'Recommended Activties',
+                                    'Nearby MRT Station',
                                     style: TextStyle(
                                       fontSize: 17.0,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  // GestureDetector(
-                                  //   onTap: () => print('See All'),
-                                  //   child: Text(
-                                  //     'See All',
-                                  //     style: TextStyle(
-                                  //       fontSize: 14.0,
-                                  //       fontWeight: FontWeight.w400,
-                                  //     ),
-                                  //   ),
-                                  // ),
                                 ],
                               ),
                             ),
                             SizedBox(height: 10.0),
-                            Container(
-                                height: 260.0,
-                                child: ListView.builder(
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: 6,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    if (_activityModels.length == 0) {
-                                      return buildActivityShimmer();
-                                    } else {
-                                      ActivityModel activity =
-                                          _activityModels[index];
-                                      return GestureDetector(
-                                        onTap: () => Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (_) => ActivityScreen(
-                                                      activity: activity,
-                                                    ))),
-                                        child: Container(
-                                            decoration: BoxDecoration(
-                                              //color: Colors.red,
-                                              borderRadius:
-                                                  BorderRadius.circular(20.0),
-                                            ),
-                                            margin: EdgeInsets.all(6.0),
-                                            width: 165.0,
-                                            child: Stack(
-                                              alignment: Alignment.topCenter,
-                                              children: [
-                                                Positioned(
-                                                  bottom: 10.0,
-                                                  child: Container(
-                                                    height: 120.0,
-                                                    width: 180.0,
-                                                    decoration: BoxDecoration(
-                                                        color:
-                                                            Color(0x80ffffff),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(
-                                                                    20.0)),
-                                                    child: Padding(
-                                                      padding: const EdgeInsets
-                                                              .fromLTRB(
-                                                          15, 55, 15, 5),
-                                                      child: Column(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Text(
-                                                              activity.title,
-                                                              overflow:
-                                                                  TextOverflow
-                                                                      .fade,
-                                                              maxLines: 3,
-                                                              style: TextStyle(
-                                                                fontSize: 15.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
-                                                              ),
-                                                            ),
-                                                            // Text(
-                                                            //   activity.description,
-                                                            //   overflow: TextOverflow.fade,
-                                                            //   maxLines: 2,
-                                                            //   style: TextStyle(
-                                                            //     color: Colors.grey,
-                                                            //   ),
-                                                            // ),
-                                                          ]),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Container(
-                                                    decoration: BoxDecoration(
-                                                      color: Colors.white,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              20.0),
-                                                      boxShadow: [
-                                                        BoxShadow(
-                                                          color: Colors.black26,
-                                                          offset:
-                                                              Offset(0.0, 2.0),
-                                                          blurRadius: 6.0,
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    child: Stack(
-                                                      children: [
-                                                        Hero(
-                                                          tag:
-                                                              activity.imageUrl,
-                                                          child: ClipRRect(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        20.0),
-                                                            child: Image(
-                                                              height: 160.0,
-                                                              width: 160.0,
-                                                              image: NetworkImage(
-                                                                  activity
-                                                                      .imageUrl),
-                                                              fit: BoxFit.cover,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        Positioned(
-                                                          left: 10.0,
-                                                          bottom: 10.0,
-                                                          child: Row(
-                                                            children: <Widget>[
-                                                              Icon(
-                                                                Icons.pin_drop,
-                                                                size: 12.0,
-                                                                color: Colors
-                                                                    .white,
-                                                              ),
-                                                              Text(
-                                                                " " +
-                                                                    getDistanceToUser(
-                                                                        activity
-                                                                            .longitude,
-                                                                        activity
-                                                                            .latitude) +
-                                                                    " km",
-                                                                style:
-                                                                    TextStyle(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  fontSize:
-                                                                      16.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                ),
-                                                              ),
-                                                              // Row(
-                                                              //   children: <Widget>[
-                                                              //     // Icon(
-                                                              //     //   FontAwesomeIcons.locationArrow,
-                                                              //     //   size: 10.0,
-                                                              //     //   color: Colors.white,
-                                                              //     // ),
-                                                              //     SizedBox(width: 5.0),
-                                                              //     Text(
-                                                              //       activity.longitude,
-                                                              //       style: TextStyle(
-                                                              //         color: Colors.white,
-                                                              //       ),
-                                                              //     ),
-                                                              //   ],
-                                                              // ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ))
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(16.0),
+                              child: Container(
+                                color: Colors.white,
+                                child: ListView(
+                                    shrinkWrap: true,
+                                    padding: const EdgeInsets.all(0),
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    children: <Widget>[
+                                      isStationLoading
+                                          ? buildStationShimmer()
+                                          : DataTable(
+                                              dataRowHeight: 30,
+                                              headingRowHeight: 32.0,
+                                              dividerThickness: 0,
+                                              columnSpacing: 12,
+                                              columns: [
+                                                DataColumn(
+                                                    label: Text('Name',
+                                                        style: TextStyle(
+                                                            fontSize: 13,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w600))),
+                                                DataColumn(
+                                                    label: Text('Code',
+                                                        style: TextStyle(
+                                                            fontSize: 13,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w600))),
+                                                DataColumn(
+                                                    label: Text('Distance',
+                                                        style: TextStyle(
+                                                            fontSize: 13,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w600))),
                                               ],
-                                            )),
-                                      );
-                                    }
-                                  },
-                                )),
-                            SizedBox(height: 10.0),
+                                              rows: getRows(_stationModels),
+                                            ),
+                                    ]),
+                              ),
+                            ),
+                            SizedBox(height: 20.0),
                             Padding(
                               padding: EdgeInsets.symmetric(horizontal: 2.0),
                               child: Row(
@@ -863,6 +684,241 @@ class _HomePageState extends State<HomePage> {
                                                                 ],
                                                               ),
                                                             ],
+                                                          ),
+                                                        ),
+                                                        Positioned(
+                                                          left: 125.0,
+                                                          bottom: 125.0,
+                                                          child: FavoriteButton(
+                                                            iconSize: 36.0,
+                                                            iconDisabledColor:
+                                                                Colors.white,
+                                                            isFavorite: favAttractions
+                                                                .contains(place
+                                                                    .id
+                                                                    .toString()),
+                                                            valueChanged:
+                                                                (_isFavorite) {
+                                                              print(
+                                                                  'Is Favorite $_isFavorite, ${favAttractions.contains(place.id.toString())})');
+                                                              _toggleFavorite(
+                                                                  _isFavorite,
+                                                                  place.id
+                                                                      .toString(),
+                                                                  "attractions");
+                                                            },
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ))
+                                              ],
+                                            )),
+                                      );
+                                    }
+                                  },
+                                )),
+                            SizedBox(height: 10.0),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 1.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Text(
+                                    'Recommended Activities',
+                                    style: TextStyle(
+                                      fontSize: 17.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(height: 10.0),
+                            Container(
+                                height: 260.0,
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: 6,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    if (_activityModels.length == 0) {
+                                      return buildActivityShimmer();
+                                    } else {
+                                      ActivityModel activity =
+                                          _activityModels[index];
+                                      return GestureDetector(
+                                        onTap: () => Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (_) => ActivityScreen(
+                                                      activity: activity,
+                                                    ))),
+                                        child: Container(
+                                            decoration: BoxDecoration(
+                                              //color: Colors.red,
+                                              borderRadius:
+                                                  BorderRadius.circular(20.0),
+                                            ),
+                                            margin: EdgeInsets.all(6.0),
+                                            width: 165.0,
+                                            child: Stack(
+                                              alignment: Alignment.topCenter,
+                                              children: [
+                                                Positioned(
+                                                  bottom: 10.0,
+                                                  child: Container(
+                                                    height: 120.0,
+                                                    width: 180.0,
+                                                    decoration: BoxDecoration(
+                                                        color:
+                                                            Color(0x80ffffff),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(
+                                                                    20.0)),
+                                                    child: Padding(
+                                                      padding: const EdgeInsets
+                                                              .fromLTRB(
+                                                          15, 55, 15, 5),
+                                                      child: Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .start,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Text(
+                                                              activity.title,
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .fade,
+                                                              maxLines: 3,
+                                                              style: TextStyle(
+                                                                fontSize: 15.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                              ),
+                                                            ),
+                                                            // Text(
+                                                            //   activity.description,
+                                                            //   overflow: TextOverflow.fade,
+                                                            //   maxLines: 2,
+                                                            //   style: TextStyle(
+                                                            //     color: Colors.grey,
+                                                            //   ),
+                                                            // ),
+                                                          ]),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Container(
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.white,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20.0),
+                                                      boxShadow: [
+                                                        BoxShadow(
+                                                          color: Colors.black26,
+                                                          offset:
+                                                              Offset(0.0, 2.0),
+                                                          blurRadius: 6.0,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    child: Stack(
+                                                      children: [
+                                                        Hero(
+                                                          tag:
+                                                              activity.imageUrl,
+                                                          child: ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        20.0),
+                                                            child: Image(
+                                                              height: 160.0,
+                                                              width: 160.0,
+                                                              image: NetworkImage(
+                                                                  activity
+                                                                      .imageUrl),
+                                                              fit: BoxFit.cover,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        Positioned(
+                                                          left: 10.0,
+                                                          bottom: 10.0,
+                                                          child: Row(
+                                                            children: <Widget>[
+                                                              Icon(
+                                                                Icons.pin_drop,
+                                                                size: 12.0,
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
+                                                              Text(
+                                                                " " +
+                                                                    getDistanceToUser(
+                                                                        activity
+                                                                            .longitude,
+                                                                        activity
+                                                                            .latitude) +
+                                                                    " km",
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize:
+                                                                      16.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                ),
+                                                              ),
+                                                              // Row(
+                                                              //   children: <Widget>[
+                                                              //     // Icon(
+                                                              //     //   FontAwesomeIcons.locationArrow,
+                                                              //     //   size: 10.0,
+                                                              //     //   color: Colors.white,
+                                                              //     // ),
+                                                              //     SizedBox(width: 5.0),
+                                                              //     Text(
+                                                              //       activity.longitude,
+                                                              //       style: TextStyle(
+                                                              //         color: Colors.white,
+                                                              //       ),
+                                                              //     ),
+                                                              //   ],
+                                                              // ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        Positioned(
+                                                          left: 125.0,
+                                                          bottom: 125.0,
+                                                          child: FavoriteButton(
+                                                            iconSize: 36.0,
+                                                            iconDisabledColor:
+                                                                Colors.white,
+                                                            isFavorite: favActivities
+                                                                .contains(activity
+                                                                    .id
+                                                                    .toString()),
+                                                            valueChanged:
+                                                                (_isFavorite) {
+                                                              print(
+                                                                  'Is Favorite $_isFavorite, ${favActivities.contains(activity.id.toString())})');
+                                                              _toggleFavorite(
+                                                                  _isFavorite,
+                                                                  activity.id
+                                                                      .toString(),
+                                                                  "activties");
+                                                            },
                                                           ),
                                                         ),
                                                       ],
@@ -1078,7 +1134,30 @@ class _HomePageState extends State<HomePage> {
                                                       ),
                                                     ],
                                                   )),
-                                                )
+                                                ),
+                                                Positioned(
+                                                  left: 255.0,
+                                                  bottom: 120.0,
+                                                  child: FavoriteButton(
+                                                    iconSize: 36.0,
+                                                    iconDisabledColor:
+                                                        Colors.white,
+                                                    isFavorite: favRestaurants
+                                                        .contains(restaurant
+                                                            .locationId
+                                                            .toString()),
+                                                    valueChanged:
+                                                        (_isFavorite) {
+                                                      print(
+                                                          'Is Favorite $_isFavorite, ${favRestaurants.contains(restaurant.locationId.toString())})');
+                                                      _toggleFavorite(
+                                                          _isFavorite,
+                                                          restaurant.locationId
+                                                              .toString(),
+                                                          "restaurants");
+                                                    },
+                                                  ),
+                                                ),
                                               ],
                                             )),
                                       );
@@ -1202,6 +1281,7 @@ class _HomePageState extends State<HomePage> {
   _getAddressFromLatLng() async {
     try {
       setState(() {
+        isStationLoading = true;
         isAddressLoading = true;
         isActivityLoading = true;
         isAttractionLoading = true;
@@ -1209,13 +1289,15 @@ class _HomePageState extends State<HomePage> {
       });
       List<Placemark> placemarks = await placemarkFromCoordinates(
           _currentPosition.latitude, _currentPosition.longitude);
-      readActivtiesJson();
+      readStationJson();
+      readActivitiesJson();
       readPlacesJson();
       readRestaurantJson();
       Placemark place = placemark = placemarks[0];
       setState(() {
         _currentAddress = "${place.locality}";
         addressText = new LoadingTextModel(text: _currentAddress);
+        isStationLoading = false;
         isAddressLoading = false;
         isActivityLoading = false;
         isAttractionLoading = false;
@@ -1226,6 +1308,91 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  List<DataRow> getRows(List<StationModel> stations) =>
+      stations.map((StationModel station) {
+        var code = station.name!.split('MRT STATION')[1].trim();
+        code = code.substring(1, code.length - 1);
+        final cells = [
+          DataCell(Text(capitalizeFirstofEach(station.name!.split('MRT')[0]),
+              style: TextStyle(fontWeight: FontWeight.w700))),
+          DataCell(_buildStationCode(code)),
+          DataCell(
+            Text((double.parse(getDistanceToUser(
+                            station.longitude!, station.latitude!)) *
+                        1000)
+                    .round()
+                    .toString() +
+                " m"),
+          )
+        ];
+        return DataRow(cells: cells);
+      }).toList();
+
+  Widget _buildStationCode(String code) {
+    List<String> name = code.split('/').map((s) => s.trim()).toList();
+    List<Widget> result = [];
+    var i = 0;
+    if (name[i].contains("EW") || name[i].contains("CG")) {
+      result.add(Text(" " + name[i] + " ",
+          style: TextStyle(
+              backgroundColor: Color(0xff009539),
+              color: Colors.white,
+              fontSize: 12,
+              fontWeight: FontWeight.bold)));
+      i++;
+    }
+    if (i < name.length && name[i].contains("NS")) {
+      result.add(Text(" " + name[i] + " ",
+          style: TextStyle(
+              backgroundColor: Color(0xffde261a),
+              color: Colors.white,
+              fontSize: 12,
+              fontWeight: FontWeight.bold)));
+      i++;
+    }
+    if (i < name.length && name[i].contains("NE")) {
+      result.add(Text(" " + name[i] + " ",
+          style: TextStyle(
+              backgroundColor: Color(0xff9b27af),
+              color: Colors.white,
+              fontSize: 12,
+              fontWeight: FontWeight.bold)));
+      i++;
+    }
+    if (i < name.length && (name[i].contains("CC") || name[i].contains("CE"))) {
+      result.add(Text(" " + name[i] + " ",
+          style: TextStyle(
+              backgroundColor: Color(0xfffe9c15),
+              color: Colors.white,
+              fontSize: 12,
+              fontWeight: FontWeight.bold)));
+      i++;
+    }
+    if (i < name.length && name[i].contains("DT")) {
+      result.add(Text(" " + name[i] + " ",
+          style: TextStyle(
+              backgroundColor: Color(0xff005ca3),
+              color: Colors.white,
+              fontSize: 12,
+              fontWeight: FontWeight.bold)));
+      i++;
+    }
+    if (i < name.length && name[i].contains("TE")) {
+      result.add(Text(" " + name[i] + " ",
+          style: TextStyle(
+              backgroundColor: Color(0xff9c591a),
+              color: Colors.white,
+              fontSize: 12,
+              fontWeight: FontWeight.bold)));
+    }
+    return Row(children: result);
+  }
+
+  String toCapitalized(s) => s.length > 0
+      ? '${s[0].toUpperCase()}${s.substring(1).toLowerCase()}'
+      : '';
+  String capitalizeFirstofEach(s) =>
+      s.split(" ").map((str) => toCapitalized(str)).join(" ");
   String getDistanceToUser(String longitude, String latitude) {
     double long1 = double.parse(longitude) / 57.29577951;
     double lat1 = double.parse(latitude) / 57.29577951;
@@ -1236,6 +1403,59 @@ class _HomePageState extends State<HomePage> {
         acos((sin(lat1) * sin(lat2)) +
             cos(lat1) * cos(lat2) * cos(long2 - long1));
     return res.toStringAsFixed(2);
+  }
+
+  List _getFavorite(String option) {
+    var email = user!.email!;
+    FirebaseFirestore.instance
+        .collection(option)
+        .doc(email)
+        .get()
+        .then((value) {
+      setState(() {
+        switch (option) {
+          case "activties":
+            favActivities = value.data()!["places"];
+            break;
+          case "attractions":
+            favAttractions = value.data()!["places"];
+            break;
+          case "restaurants":
+            favRestaurants = value.data()!["places"];
+            break;
+        }
+      });
+    });
+    switch (option) {
+      case "activties":
+        return favActivities;
+      case "attractions":
+        return favAttractions;
+      case "restaurants":
+        return favRestaurants;
+      default:
+        return [];
+    }
+  }
+
+  _toggleFavorite(bool favorite, String id, String option) {
+    var _list = _getFavorite(option);
+    print(_list);
+    var email = user!.email!;
+    if (favorite) {
+      if (!(_list.contains(id))) _list.add(id);
+      print(_list);
+      FirebaseFirestore.instance
+          .collection(option)
+          .doc(email)
+          .set({"places": _list});
+    } else {
+      if (_list.contains(id)) _list.remove(id);
+      FirebaseFirestore.instance
+          .collection(option)
+          .doc(email)
+          .set({"places": _list});
+    }
   }
 
   Widget buildCircleImage(String path) => Padding(
@@ -1296,12 +1516,94 @@ class _HomePageState extends State<HomePage> {
 
   Widget buildRestaurantShimmer() => ShimmeringWidget.rectangular(
         height: 11,
-        width: MediaQuery.of(context).size.width / 2.2,
+        width: MediaQuery.of(context).size.width / 1.4,
+      );
+
+  Widget buildStationShimmer() => ShimmeringWidget.rectangular(
+        height: 135,
+        width: MediaQuery.of(context).size.width / 1.2,
       );
 
   Widget buildCircleShimmer() => ShimmeringWidget.circular(
         height: 35,
       );
+
+  Future<void> displayRewardDialog() async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+              backgroundColor: Colors.transparent,
+              contentPadding: const EdgeInsets.all(0),
+              content: Container(
+                height: 300,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10.0),
+                  color: Colors.red[200],
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 2,
+                      blurRadius: 4,
+                      offset: Offset(0, 2), // changes position of shadow
+                    ),
+                  ],
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(6, 12, 6, 3),
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Text(
+                          'YAY! 🍾 You\'ve made it to',
+                          style: TextStyle(
+                            fontSize: 15.0,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        SizedBox(height: 4.0),
+                        isLandmarkLoading
+                            ? buildLandmarkShimmer()
+                            : buildLandmarkText(landmarkText),
+                        isLandmarkLoading
+                            ? buildCircleShimmer()
+                            : buildCircleImage(popupLandmarkCircle),
+                        SizedBox(height: 8.0),
+                        Column(
+                          children: [
+                            ClipRRect(
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => AchievementScreen(
+                                            icon: user!.photoURL!,
+                                            name: user!.displayName!,
+                                          )));
+                                },
+                                style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all(
+                                        Colors.yellow[700]),
+                                    shape: MaterialStateProperty.all<
+                                            RoundedRectangleBorder>(
+                                        RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20.0),
+                                    ))),
+                                child: Text(
+                                  'Claim your rewards🏆 NOW!',
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 10.0),
+                      ]),
+                ),
+              ));
+        });
+  }
 
   Widget buildSearchBar() => Padding(
       padding: const EdgeInsets.all(1.0),
@@ -1342,7 +1644,7 @@ final _dialog = RatingDialog(
     style: const TextStyle(fontSize: 15),
   ),
   // your app's logo?
-  image: Image(image: AssetImage("assets/images/logo.png"), height: 150.0),
+  image: Image(image: AssetImage("assets/images/logo.png"), height: 130.0),
   submitButtonText: 'Submit',
   onCancelled: () => print('cancelled'),
   onSubmitted: (response) {

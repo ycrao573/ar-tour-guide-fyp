@@ -1,7 +1,7 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
 
-import 'package:wikitude_flutter_app/widgets/placeSearch.dart';
+import 'package:travelee/widgets/placeSearch.dart';
 
 class PlacesService {
   static const kGoogleApiKey = "AIzaSyBhQ60FpF7ytOVR2DlMvrBI-FL3l_Sopu0";

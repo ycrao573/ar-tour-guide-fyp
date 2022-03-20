@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:wikitude_flutter_app/model/userModel.dart';
-import 'package:wikitude_flutter_app/pages/homePage.dart';
+import 'package:travelee/model/userModel.dart';
+import 'package:travelee/pages/homePage.dart';
 
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({Key? key}) : super(key: key);

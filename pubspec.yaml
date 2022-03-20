@@ -1,5 +1,5 @@
-name: wikitude_flutter_app
-description: A new Flutter project.
+name: travelee
+description: Travelee is an Android app to create a modern travel experience for travelers by applying some advanced technologies.
 
 version: 9.9.0+1
 
@@ -56,6 +56,7 @@ dependencies:
   google_maps_flutter: ^2.0.9
   flutter_google_places: ^0.3.0
   uuid: ^3.0.6
+  favorite_button: ^0.0.4
 
 dev_dependencies:
   flutter_test:
@@ -75,11 +76,11 @@ flutter:
     - samples/experience/styles/
     - samples/experience/scripts/
     - samples/experience/fonts/lato/
-    # - samples/experience/augmentation-trackers/
-    # - samples/experience/augmentation-trackers/8.0/
-    # - samples/experience/augmentation-assets/719402231_yunnan/613053d0d72c5d27792623c6/
-    # - samples/experience/augmentation-assets/1625189067_chc_building/61306f6665ddc2277258444e/
-    # - samples/experience/augmentation-assets/1625189067_chc_building/6130701865ddc22772584482/
+    - samples/experience/augmentation-trackers/
+    - samples/experience/augmentation-trackers/8.0/
+    - samples/experience/augmentation-assets/92247863_chinese_heritage_centre/62333a70b2fd1d005546caaa/
+    - samples/experience/augmentation-assets/92247863_chinese_heritage_centre/62333e7fb2fd1d005546cb6a/
+    - samples/experience/augmentation-assets/92247863_chinese_heritage_centre/62333202b2fd1d005546be2a/
     - samples/customized/
     - samples/customized/js/
     - samples/customized/css/

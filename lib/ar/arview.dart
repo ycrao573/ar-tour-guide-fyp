@@ -5,7 +5,7 @@ import 'dart:ui';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:wakelock/wakelock.dart';
-import 'package:wikitude_flutter_app/ar/poiDetails.dart';
+import 'package:travelee/ar/poiDetails.dart';
 import 'poi.dart';
 
 import 'sample.dart';

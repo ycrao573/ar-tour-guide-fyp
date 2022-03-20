@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:wikitude_flutter_app/pages/infoScreen.dart';
+import 'package:travelee/pages/infoScreen.dart';
 
 class MyHeader extends StatefulWidget {
   final String image;

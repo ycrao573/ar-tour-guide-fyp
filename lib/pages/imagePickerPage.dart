@@ -13,7 +13,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:video_player/video_player.dart';
-import 'package:wikitude_flutter_app/pages/visionPage.dart';
+import 'package:travelee/pages/visionPage.dart';
 
 import 'recognize.dart';
 
@@ -207,7 +207,7 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontFamily: 'Poppins',
-                              fontSize: 30.0,
+                              fontSize: 28.0,
                               color: Color(0xff081c1e),
                               height: 1.5,
                             ),
@@ -222,7 +222,7 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
                           // ),
                           SizedBox(height: 20),
                           Text(
-                            'Recognize Landmarks 🏞️ \n in Your Photos 🤳 \n within few seconds',
+                            'Recognize landmarks 🏞️ \n in your photos 🤳 \n within few seconds!',
                             style: TextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize: 17.0,

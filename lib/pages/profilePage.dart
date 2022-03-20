@@ -2,14 +2,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:rating_dialog/rating_dialog.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:wikitude_flutter_app/pages/achievementScreen.dart';
-import 'package:wikitude_flutter_app/pages/covidScreen.dart';
-import 'package:wikitude_flutter_app/pages/loginPage.dart';
-import 'package:wikitude_flutter_app/pages/settingsPage.dart';
-import 'package:wikitude_flutter_app/pages/EatPage.dart';
-import 'package:wikitude_flutter_app/service/googleSignIn.dart';
-import 'package:wikitude_flutter_app/widgets/counter.dart';
+import 'package:travelee/pages/achievementScreen.dart';
+import 'package:travelee/pages/covidScreen.dart';
+import 'package:travelee/pages/loginPage.dart';
+import 'package:travelee/pages/settingsPage.dart';
+import 'package:travelee/pages/favPage.dart';
+import 'package:travelee/service/googleSignIn.dart';
+import 'package:travelee/widgets/counter.dart';
 
 class ProfilePage extends StatefulWidget {
   final String iconlink;
@@ -163,15 +164,21 @@ class _ProfilePageState extends State<ProfilePage> {
                               borderRadius: BorderRadius.circular(32.0),
                             ),
                           )),
-                      onPressed: () => {},
+                      onPressed: () => {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => FavPage()))
+                          },
                       icon: Icon(
-                        Icons.star,
-                        size: 24,
-                        color: Colors.yellow[700],
+                        Icons.favorite,
+                        size: 23,
+                        color: Colors.red[300],
                       ),
                       label: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                        child: Text("Saved", style: TextStyle(fontSize: 16)),
+                        child:
+                            Text("Favourite", style: TextStyle(fontSize: 16)),
                       )),
                 ),
                 SizedBox(height: 12.0),
@@ -189,10 +196,11 @@ class _ProfilePageState extends State<ProfilePage> {
                               borderRadius: BorderRadius.circular(32.0),
                             ),
                           )),
-                      onPressed: () => {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => EatPage()))
-                      },
+                      onPressed: () => showDialog(
+                        context: context,
+                        barrierDismissible: true,
+                        builder: (context) => _dialog,
+                      ),
                       icon: Icon(
                         Icons.support_agent,
                         color: Colors.greenAccent[700],
@@ -292,6 +300,36 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
     );
   }
+
+  final _dialog = RatingDialog(
+    initialRating: 5.0,
+    title: Text(
+      'Enjoy Travelee so far?',
+      textAlign: TextAlign.center,
+      style: const TextStyle(
+        fontSize: 24,
+        fontWeight: FontWeight.w700,
+      ),
+    ),
+    starSize: 20.0,
+    // encourage your user to leave a high rating?
+    message: Text(
+      'We love to hear your feedback!',
+      textAlign: TextAlign.center,
+      style: const TextStyle(fontSize: 15),
+    ),
+    // your app's logo?
+    image: Image(image: AssetImage("assets/images/logo.png"), height: 130.0),
+    submitButtonText: 'Submit',
+    onCancelled: () => print('cancelled'),
+    onSubmitted: (response) {
+      print('rating: ${response.rating}, comment: ${response.comment}');
+      if (response.rating < 3.0) {
+        // send their comments to your email or anywhere you wish
+        // ask the user to contact you instead of leaving a bad review
+      } else {}
+    },
+  );
 
   Future<void> logout(BuildContext context) async {
     await FirebaseAuth.instance.signOut();

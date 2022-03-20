@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:wikitude_flutter_app/widgets/counter.dart';
-import 'package:wikitude_flutter_app/widgets/myheader.dart';
+import 'package:travelee/widgets/counter.dart';
+import 'package:travelee/widgets/myheader.dart';
 
 Future<CovidData> fetchCovidDatas(http.Client client, String? country) async {
   final response = await client.get(Uri.parse(
@@ -129,7 +129,7 @@ class _CovidHomeScreenState extends State<CovidHomeScreen> {
                       icon: Icon(Icons.arrow_drop_down),
                       value: widget.country,
                       items: [
-                        'Singapore',
+                        widget.country!,
                       ].map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
@@ -147,6 +147,8 @@ class _CovidHomeScreenState extends State<CovidHomeScreen> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Row(
                     children: <Widget>[
@@ -184,7 +186,18 @@ class _CovidHomeScreenState extends State<CovidHomeScreen> {
                       // ),
                     ],
                   ),
-                  SizedBox(height: 20),
+                  SizedBox(height: 8),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "Yesterday's Cases",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 15.0,
+                      ),
+                    ),
+                  ),
                   Container(
                     padding: EdgeInsets.all(20),
                     decoration: BoxDecoration(
@@ -219,7 +232,18 @@ class _CovidHomeScreenState extends State<CovidHomeScreen> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 20),
+                  SizedBox(height: 10),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "Total Cases",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 15.0,
+                      ),
+                    ),
+                  ),
                   Container(
                     padding: EdgeInsets.all(20),
                     decoration: BoxDecoration(
@@ -261,9 +285,14 @@ class _CovidHomeScreenState extends State<CovidHomeScreen> {
                         width: 300,
                         child: ElevatedButton.icon(
                           style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(Colors.red[300]),
-                          ),
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.red[300]),
+                              shape: MaterialStateProperty.all<
+                                  RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(32.0),
+                                ),
+                              )),
                           onPressed: () {
                             _launchURL(
                                 "https://d209m3w127yzkd.cloudfront.net/index.html");
@@ -276,6 +305,15 @@ class _CovidHomeScreenState extends State<CovidHomeScreen> {
                       SizedBox(
                         width: 300,
                         child: ElevatedButton.icon(
+                          style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.indigo[200]),
+                              shape: MaterialStateProperty.all<
+                                  RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(32.0),
+                                ),
+                              )),
                           onPressed: () =>
                               _launchURL("https://www.spaceout.gov.sg/"),
                           icon: Icon(Icons.local_mall, size: 18),
@@ -287,9 +325,14 @@ class _CovidHomeScreenState extends State<CovidHomeScreen> {
                         width: 300,
                         child: ElevatedButton.icon(
                           style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(Colors.green[300]),
-                          ),
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.green[300]),
+                              shape: MaterialStateProperty.all<
+                                  RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(32.0),
+                                ),
+                              )),
                           onPressed: () {
                             _launchURL("https://safedistparks.nparks.gov.sg/");
                           },
@@ -302,9 +345,14 @@ class _CovidHomeScreenState extends State<CovidHomeScreen> {
                         width: 300,
                         child: ElevatedButton.icon(
                           style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(Colors.blue[400]),
-                          ),
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.blue[400]),
+                              shape: MaterialStateProperty.all<
+                                  RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(32.0),
+                                ),
+                              )),
                           onPressed: () {
                             _launchURL("https://flu.gowhere.gov.sg/");
                           },

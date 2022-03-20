@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:wikitude_flutter_app/widgets/myheader.dart';
+import 'package:travelee/widgets/myheader.dart';
 
 class CovidInfoScreen extends StatefulWidget {
   const CovidInfoScreen({Key? key}) : super(key: key);

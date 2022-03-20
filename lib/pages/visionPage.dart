@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:ui';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/material.dart';
-import 'package:wikitude_flutter_app/theme.dart';
+import 'package:travelee/theme.dart';
 import 'recognize.dart';
 import 'dart:convert';
 import 'package:url_launcher/url_launcher.dart';

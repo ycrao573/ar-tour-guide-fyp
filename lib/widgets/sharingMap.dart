@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart' as loc;
-import 'package:wikitude_flutter_app/ar/arview.dart';
-import 'package:wikitude_flutter_app/ar/sample.dart';
+import 'package:travelee/ar/arview.dart';
+import 'package:travelee/ar/sample.dart';
 import 'package:augmented_reality_plugin_wikitude/startupConfiguration.dart'
     as startupConfiguration;
+import 'package:http/http.dart' as http;
 
 class MyMap extends StatefulWidget {
   final String user_id;
@@ -23,11 +24,18 @@ class _MyMapState extends State<MyMap> {
   bool isCurrentLocationLoading = true;
   bool _added = false;
   Position? currentLocation;
+  BitmapDescriptor? avatar;
 
   @override
   void initState() {
     super.initState();
     setState(() {});
+  }
+
+  void dispose() {
+    _controller.dispose();
+    currentLocation = null;
+    super.dispose();
   }
 
   @override
@@ -39,6 +47,10 @@ class _MyMapState extends State<MyMap> {
               .snapshots(),
           builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
             _getCurrentLocation();
+            _getUserAvatar(
+              snapshot.data!.docs.singleWhere(
+                  (element) => element.id == widget.user_id)['description'],
+            );
             if (_added) {
               mymap(snapshot);
             }
@@ -52,10 +64,11 @@ class _MyMapState extends State<MyMap> {
                     markers: {
                       Marker(
                           position: LatLng(
-                            currentLocation!.latitude,
-                            currentLocation!.longitude,
+                            currentLocation!.latitude + 0.01,
+                            currentLocation!.longitude + 0.01,
                           ),
                           markerId: MarkerId('id'),
+                          infoWindow: const InfoWindow(title: 'You are Here'),
                           icon: BitmapDescriptor.defaultMarkerWithHue(
                               BitmapDescriptor.hueGreen)),
                       Marker(
@@ -65,9 +78,12 @@ class _MyMapState extends State<MyMap> {
                             snapshot.data!.docs.singleWhere((element) =>
                                 element.id == widget.user_id)['longitude'],
                           ),
+                          infoWindow: InfoWindow(
+                              title: snapshot.data!.docs.singleWhere(
+                                  (element) =>
+                                      element.id == widget.user_id)['name']),
                           markerId: MarkerId('id'),
-                          icon: BitmapDescriptor.defaultMarkerWithHue(
-                              BitmapDescriptor.hueRed)),
+                          icon: avatar!),
                     },
                     initialCameraPosition: CameraPosition(
                         target: LatLng(
@@ -140,6 +156,17 @@ class _MyMapState extends State<MyMap> {
       });
     }).catchError((e) {
       print(e);
+    });
+  }
+
+  _getUserAvatar(String url) async {
+    var iconurl = Uri.parse(url);
+    var dataBytes;
+    var request = await http.get(iconurl);
+    var bytes = request.bodyBytes;
+    setState(() {
+      dataBytes = bytes;
+      avatar = BitmapDescriptor.fromBytes(dataBytes.buffer.asUint8List());
     });
   }
 }

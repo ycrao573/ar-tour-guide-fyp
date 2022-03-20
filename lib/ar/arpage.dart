@@ -3,8 +3,9 @@ import 'package:augmented_reality_plugin_wikitude/startupConfiguration.dart';
 import 'package:augmented_reality_plugin_wikitude/wikitude_plugin.dart';
 import 'package:augmented_reality_plugin_wikitude/wikitude_response.dart';
 import 'package:flutter/material.dart';
-import 'package:wikitude_flutter_app/widgets/locationSharingScreen.dart';
-import 'package:wikitude_flutter_app/widgets/mapScreen.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:travelee/widgets/locationSharingScreen.dart';
+import 'package:travelee/widgets/mapScreen.dart';
 import 'arview.dart';
 import 'sample.dart';
 import '../theme.dart';
@@ -91,7 +92,7 @@ class _ArPageState extends State<ArPage> {
                       child: Align(
                         alignment: Alignment.center,
                         child: Text(
-                            "\nWe use AR to help you discover interesting places around. Simply choose a category below and explore treasures nearby in 'AR' style. Click signboard for more information!",
+                            "\nWe use AR to help you discover interesting places around. Simply choose a category below and explore 'treasures' nearby in AR fashion. Click virtual signboard for more information!",
                             style: TextStyle(
                               color: Colors.black,
                               fontFamily: 'Poppins',
@@ -102,23 +103,23 @@ class _ArPageState extends State<ArPage> {
                       ),
                     ),
                   ),
-                  Center(
-                    child: SizedBox(
-                      width: 311.0,
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: Text(
-                            "You can now customize your own points of interest, which even includes your friend's location!",
-                            style: TextStyle(
-                              color: Colors.red[800],
-                              fontFamily: 'Poppins',
-                              fontSize: 14,
-                              height: 1.4,
-                              fontWeight: FontWeight.w500,
-                            )),
-                      ),
-                    ),
-                  ),
+                  // Center(
+                  //   child: SizedBox(
+                  //     width: 311.0,
+                  //     child: Align(
+                  //       alignment: Alignment.center,
+                  //       child: Text(
+                  //           "You can now customize your own places, which even includes your friend's location!",
+                  //           style: TextStyle(
+                  //             color: Colors.red[800],
+                  //             fontFamily: 'Poppins',
+                  //             fontSize: 14,
+                  //             height: 1.4,
+                  //             fontWeight: FontWeight.w500,
+                  //           )),
+                  //     ),
+                  //   ),
+                  // ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(24, 12, 24, 10),
                     child: ClipRRect(
@@ -257,19 +258,36 @@ class _ArPageState extends State<ArPage> {
                                     Ink(
                                       padding: EdgeInsets.all(4.0),
                                       decoration: ShapeDecoration(
-                                        color: Colors.grey[400],
+                                        color: Colors.orange[400],
                                         shape: CircleBorder(),
                                       ),
                                       child: IconButton(
-                                        iconSize: 36.0,
-                                        icon: const Icon(Icons.restaurant),
-                                        color: Colors.white24,
-                                        onPressed: () {},
+                                        iconSize: 28.0,
+                                        icon: FaIcon(FontAwesomeIcons.trophy),
+                                        color: Colors.orange[400],
+                                        onPressed: () {
+                                          _pushArView(new Sample(
+                                            name: "Collect Rewards",
+                                            path: 'experience/index.html',
+                                            requiredFeatures: [
+                                              "object_tracking"
+                                            ],
+                                            startupConfiguration:
+                                                new StartupConfiguration(
+                                                    cameraPosition:
+                                                        CameraPosition.BACK,
+                                                    cameraResolution:
+                                                        CameraResolution.AUTO,
+                                                    cameraFocusMode:
+                                                        CameraFocusMode
+                                                            .CONTINUOUS),
+                                            requiredExtensions: [],
+                                          ));
+                                        },
                                       ),
                                     ),
-                                    Text('Restaurant',
-                                        style:
-                                            TextStyle(color: Colors.white24)),
+                                    Text('Rewards',
+                                        style: TextStyle(color: Colors.white)),
                                   ],
                                 ),
                                 Column(
@@ -318,7 +336,7 @@ class _ArPageState extends State<ArPage> {
                                       ),
                                     ),
                                     Text(
-                                      'Customized',
+                                      'Customised',
                                       style: TextStyle(
                                           color: Colors.white, fontSize: 13),
                                     )
