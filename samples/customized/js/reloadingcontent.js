@@ -127,7 +127,7 @@ var World = {
     };
 
     World.markerList.sort(compareDistanceToUser);
-    if (parseFloat(World.markerList[0].poiData.distance) < 0.2) {
+    if (parseFloat(World.markerList[0].poiData.distance) < 0.1) {
       document.getElementById("currentSpot").innerHTML = World.markerList[0].poiData.name;
       document.getElementById("footer").style.visibility = "visible";
     } else {

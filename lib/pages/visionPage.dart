@@ -192,44 +192,13 @@ class _VisionPageState extends State<VisionPage> {
                       ),
                     ],
                   ),
-
-                  // SizedBox(height: 50),
-                  // Column(
-                  //   mainAxisAlignment: MainAxisAlignment.center,
-                  //   crossAxisAlignment: CrossAxisAlignment.center,
-                  //   children: [
-                  //     (response["description"] != null)
-                  //         ? Text(response["description"],
-                  //             style: TextStyle(
-                  //                 fontSize: 24.0, fontWeight: FontWeight.bold))
-                  //         : Text("Not found"),
-                  //     SizedBox(height: 10),
-                  //     (response["fullMatchedImageUrl"] != null)
-                  //         ? Image.network(response["fullMatchedImageUrl"])
-                  //         : ((response["partialMatchedImageUrl"] != null)
-                  //             ? Image.network(
-                  //                 response["partialMatchedImageUrl"])
-                  //             : Text("")),
-                  //     (response["label"] != null)
-                  //         ? Text(response["description"],
-                  //             style: myTheme.textTheme.caption)
-                  //         : Text("label"),
-                  //     SizedBox(height: 10),
-                  //     (response["matchedPageUrl"] != null)
-                  //         ? ElevatedButton(
-                  //             onPressed: () =>
-                  //                 launch(response["matchedPageUrl"]),
-                  //             child: new Text('Click here to know more'),
-                  //           )
-                  //         : Text(""),
-                  //   ],
-                  // )
                 ];
               } else if (response["type"] == "landmark") {
                 // "landmarkName": _landmarkName,
                 // "latitude": _latitude,
                 // "longitude": _longitude,
                 if (response["landmarkName"] == null) {
+                  // if landmark has no result
                   children = <Widget>[
                     SizedBox(height: 50),
                     Column(
@@ -251,6 +220,7 @@ class _VisionPageState extends State<VisionPage> {
                     )
                   ];
                 } else {
+                  // if landmark has meaningful result
                   children = <Widget>[
                     Column(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -497,15 +467,6 @@ class _VisionPageState extends State<VisionPage> {
                   children: children,
                 ),
               ));
-          // },
-
-          //   return Center(
-          //     child: Column(
-          //       mainAxisAlignment: MainAxisAlignment.center,
-          //       crossAxisAlignment: CrossAxisAlignment.center,
-          //       children: children,
-          //     ),
-          //   );
         },
       ),
     );

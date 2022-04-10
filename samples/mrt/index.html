@@ -90,3 +90,11 @@
     </div>
 </body>
 </html>
+<script>
+    function scheduleUpdate(){
+        World.reloadPlaces();
+        setTimeout(scheduleUpdate, 20000);
+    }
+
+    scheduleUpdate();
+</script>

@@ -64,10 +64,10 @@ function Marker(poiData) {
         }
     });
 
-    this.descriptionLabel = new AR.Label(poiData.distance+" km", 0.7, {
+    this.descriptionLabel = new AR.Label(poiData.distance+" km away", 0.7, {
         zOrder: 1,
         translate: {
-            x: 0,
+            x: 0.2,
             y: 0.9
         },
         style: {

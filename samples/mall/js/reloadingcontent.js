@@ -115,7 +115,7 @@ var World = {
 
     //TODO: THIS SHOULD ADJUST ACCORDINGLY:
     World.markerList.sort(compareDistanceToUser);
-    if (parseFloat(World.markerList[0].poiData.distance) < 0.25) {
+    if (parseFloat(World.markerList[0].poiData.distance) < 0.15) {
       document.getElementById("footer").style.visibility = "visible";
     
       document.getElementById("currentSpot").innerHTML =

@@ -156,9 +156,11 @@ class _HomePageState extends State<HomePage> {
           "Check out " +
               _attractionModels[0].name +
               ", only " +
-              getDistanceToUser(_attractionModels[0].longitude,
-                  _attractionModels[0].latitude) +
-              " km away");
+              (double.parse(getDistanceToUser(_attractionModels[0].longitude,
+                          _attractionModels[0].latitude)) *
+                      1000)
+                  .toStringAsFixed(0) +
+              " m away");
       if (double.parse(getDistanceToUser(
               _attractionModels[0].longitude, _attractionModels[0].latitude)) <=
           0.36) {
@@ -491,17 +493,6 @@ class _HomePageState extends State<HomePage> {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  // GestureDetector(
-                                  //   onTap: () => print('View in AR'),
-                                  //   child: Text(
-                                  //     'View in AR',
-                                  //     style: TextStyle(
-                                  //       fontSize: 14.0,
-                                  //       fontWeight: FontWeight.w600,
-                                  //       color: Colors.red[900],
-                                  //     ),
-                                  //   ),
-                                  // ),
                                 ],
                               ),
                             ),
@@ -559,17 +550,6 @@ class _HomePageState extends State<HomePage> {
                                                               CrossAxisAlignment
                                                                   .start,
                                                           children: [
-                                                            // Text(
-                                                            //   place.name,
-                                                            //   overflow:
-                                                            //       TextOverflow.fade,
-                                                            //   maxLines: 3,
-                                                            //   style: TextStyle(
-                                                            //     fontSize: 16.0,
-                                                            //     fontWeight:
-                                                            //         FontWeight.w600,
-                                                            //   ),
-                                                            // ),
                                                             Text(
                                                               place.description,
                                                               overflow:
@@ -1164,64 +1144,64 @@ class _HomePageState extends State<HomePage> {
                                     }
                                   },
                                 )),
-                            Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10.0),
-                                color: Colors.yellow[200],
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.5),
-                                    spreadRadius: 2,
-                                    blurRadius: 4,
-                                    offset: Offset(
-                                        0, 2), // changes position of shadow
-                                  ),
-                                ],
-                              ),
-                              child: SizedBox(
-                                width: 400.0,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(12.0),
-                                  child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        SizedBox(height: 8.0),
-                                        Text("🤔",
-                                            style: TextStyle(fontSize: 50)),
-                                        SizedBox(height: 8.0),
-                                        Text(
-                                            "    Still can't decide where to have fun? \n Let Travelee make the decision for you!",
-                                            style: TextStyle(
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.w600)),
-                                        SizedBox(height: 8.0),
-                                        ElevatedButton(
-                                          style: ButtonStyle(
-                                            backgroundColor:
-                                                MaterialStateProperty.all(
-                                                    Colors.red[200]),
-                                            shape: MaterialStateProperty.all<
-                                                RoundedRectangleBorder>(
-                                              RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(18.0),
-                                              ),
-                                            ),
-                                          ),
-                                          onPressed: () => print(
-                                              "Travelee makes the decision for you!"),
-                                          child: new Text('It\'s Our Job Now!',
-                                              style: TextStyle(
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.w600,
-                                                color: Colors.white,
-                                              )),
-                                        )
-                                      ]),
-                                ),
-                              ),
-                            )
+                            // Container(
+                            //   decoration: BoxDecoration(
+                            //     borderRadius: BorderRadius.circular(10.0),
+                            //     color: Colors.yellow[200],
+                            //     boxShadow: [
+                            //       BoxShadow(
+                            //         color: Colors.grey.withOpacity(0.5),
+                            //         spreadRadius: 2,
+                            //         blurRadius: 4,
+                            //         offset: Offset(
+                            //             0, 2), // changes position of shadow
+                            //       ),
+                            //     ],
+                            //   ),
+                            // child: SizedBox(
+                            //   width: 400.0,
+                            //   child: Padding(
+                            //     padding: const EdgeInsets.all(12.0),
+                            //     child: Column(
+                            //         mainAxisAlignment:
+                            //             MainAxisAlignment.spaceAround,
+                            //         children: [
+                            //           SizedBox(height: 8.0),
+                            //           Text("🤔",
+                            //               style: TextStyle(fontSize: 50)),
+                            //           SizedBox(height: 8.0),
+                            //           Text(
+                            //               "    Still can't decide where to have fun? \n Let Travelee make the decision for you!",
+                            //               style: TextStyle(
+                            //                   fontSize: 15,
+                            //                   fontWeight: FontWeight.w600)),
+                            //           SizedBox(height: 8.0),
+                            //           ElevatedButton(
+                            //             style: ButtonStyle(
+                            //               backgroundColor:
+                            //                   MaterialStateProperty.all(
+                            //                       Colors.red[200]),
+                            //               shape: MaterialStateProperty.all<
+                            //                   RoundedRectangleBorder>(
+                            //                 RoundedRectangleBorder(
+                            //                   borderRadius:
+                            //                       BorderRadius.circular(18.0),
+                            //                 ),
+                            //               ),
+                            //             ),
+                            //             onPressed: () => print(
+                            //                 "Travelee makes the decision for you!"),
+                            //             child: new Text('It\'s Our Job Now!',
+                            //                 style: TextStyle(
+                            //                   fontSize: 15,
+                            //                   fontWeight: FontWeight.w600,
+                            //                   color: Colors.white,
+                            //                 )),
+                            //           )
+                            //         ]),
+                            // ),
+                            // ),
+                            // )
                           ],
                         ),
                       ),

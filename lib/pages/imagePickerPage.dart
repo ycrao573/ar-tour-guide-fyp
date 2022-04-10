@@ -157,19 +157,6 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
     if (_imageFileList != null) {
       return VisionPage(
           base64: toBase64(File(_imageFileList![0].path)), type: type);
-      // Column(
-      //     mainAxisAlignment: MainAxisAlignment.center,
-      //     crossAxisAlignment: CrossAxisAlignment.center,
-      //     children: [
-      //       Semantics(
-      //         label: 'image_picker_example_picked_image',
-      //         child: kIsWeb?
-      //              Image.network(_imageFileList![index].path)
-      //             : Image.file(File(_imageFileList![index].path)),
-      //       ),
-      //     ]);
-      // },
-      // itemCount: _imageFileList!.length,
     } else if (_pickImageError != null) {
       return Container(
           width: double.infinity,
@@ -213,13 +200,6 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
                             ),
                             textAlign: TextAlign.center,
                           ),
-                          // Image(
-                          //   image: AssetImage(
-                          //     'assets/images/onboarding.png',
-                          //   ),
-                          //   height: 240.0,
-                          //   width: 320.0,
-                          // ),
                           SizedBox(height: 20),
                           Text(
                             'Recognize landmarks 🏞️ \n in your photos 🤳 \n within few seconds!',
@@ -248,10 +228,6 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
                   ],
                 ),
               )));
-      // return const Text(
-      //   'Search with Your Image!',
-      //   textAlign: TextAlign.center,
-      // );
     }
   }
 
@@ -352,32 +328,6 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
                 icon: const Icon(Icons.camera),
               ),
             ),
-            // Padding(
-            //   padding: const EdgeInsets.only(top: 6.0),
-            //   child: FloatingActionButton(
-            //     backgroundColor: Colors.red,
-            //     onPressed: () {
-            //       isVideo = true;
-            //       _onImageButtonPressed(ImageSource.gallery);
-            //     },
-            //     heroTag: 'video0',
-            //     tooltip: 'Pick Video from gallery',
-            //     child: const Icon(Icons.video_library),
-            //   ),
-            // ),
-            // Padding(
-            //   padding: const EdgeInsets.only(top: 6.0),
-            //   child: FloatingActionButton(
-            //     backgroundColor: Colors.red,
-            //     onPressed: () {
-            //       isVideo = true;
-            //       _onImageButtonPressed(ImageSource.camera);
-            //     },
-            //     heroTag: 'video1',
-            //     tooltip: 'Take a Video',
-            //     child: const Icon(Icons.videocam),
-            //   ),
-            // ),
           ],
         ),
       ),

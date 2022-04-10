@@ -29,13 +29,6 @@ class RecognizeProvider {
     return _bestGuessLabel;
   }
 
-  // String? base64Convert(Material.Image image){
-  //   var image = const Material.Image(
-  //     image: Material.NetworkImage('https://thesmartlocal.com/wp-content/uploads/2021/08/image2-min-1.jpg'),
-  //   );
-  //   return Convert.base64Encode(image.readAsBytesSync());
-  // }
-
   Future<String> searchWebImageReturnInfo(String image) async {
     var _vision = VisionApi(await _client);
     var _api = _vision.images;
@@ -147,7 +140,6 @@ class RecognizeProvider {
         }
       ]
     }));
-
     var _responseInfo = {};
     if (_response.responses![0].landmarkAnnotations == null) {
       return searchWebImageReturnInfo(image);
@@ -166,7 +158,6 @@ class RecognizeProvider {
         };
       });
     }
-
     return json.encode(_responseInfo);
   }
 }

@@ -8,7 +8,13 @@ This is the code repository for my final year project (FYP) in Nanyang Technolog
 
 The total duration of this final year project is around 10 months, starting from the mid of August, 2021, whereas the whole development process starts from mid of September, 2021. It is expected to be fully completed by March.
 
-**[Important!]** Noted that the **version 1.1** is already available through the download link [here](https://github.com/ycrao573/ar-tour-guide-fyp).
+**[Important!]** Noted that the **version 1.1** is already available through the download link [here](https://entuedu-my.sharepoint.com/:f:/g/personal/raoy0003_e_ntu_edu_sg/EjeoGEBDvrRMrSeBCklJhDIBuokDjIXEPlZh5YbmWx-9QA?e=BXmdKO).
+
+## Significance of this Project
+<li>Identify some inconveniences and pains encountered by today's travellers</li>
+<li>Discover the potential technologies that may help enhance the current travel experience</li>
+<li>Develop a mobile app to introduce a modern travel experience and demonstrate a vision for future travel</li>
+
 
 ## About Travelee
 
@@ -21,18 +27,26 @@ The total duration of this final year project is around 10 months, starting from
 - **Traveler** - a person who travels
 - **Travelee** – the thing receives the action => travelling
 
+#### <u>Target users</u>
+Whether you are a traveler who has just arrived in Singapore, or a traveler who is already here but wants to explore or **rediscover Singapore**. You will need and feel interested in our products.
+
 #### <u>Product Positioning</u>
 
-- **A smart travel assistant** who provides travelers with useful travel tips and advice, to help them better explore local highlights and discover nearby “treasures”.
-- **A trustable partner** who accompanies travelers throughout the journey, providing convenient tools and intuitive information at your fingertips
-- **A local culture ambassador** who aims to promote local tourism, introduce local culture and hotspots to travelers around the world
+- **A smart travel assistant** who always is ready to provide travellers with what they need right at their fingertips.
+- **A reliable companion** who can help travellers navigate their neighbourhood easily and travel with confidence with the presence of Travelee
+s
+- **A local culture ambassador** who aims to promote local tourism and introduce local culture to global travellers
 
 #### <u>Our Objectives</u>
 
-- **Enhance travel experience** by making use of modern technologies (e.g., AR, ML) 
-- **Present** travellers with **useful travel tips/information** in an intuitive way.
-- Help travellers **better explore their neighbourhoods** by giving smart recommendation
-- Bring **convenience** to travellers by providing some innovative travel tools.
+- Use modern technology to enhance the current travel experience.
+
+- Help travellers better explore the city and discover popular places nearby.
+
+- Present travel-related information in a more intuitive way.
+
+- Offer travellers necessary and convenient tools.
+
 
 ## Highlights
 
@@ -44,8 +58,8 @@ Augmented Reality (AR) is used here to enhance the view of your surroundings! Si
 - [x] **Get live distances and useful information** for each place with just one click!
 - [x] **Support 3 predefined categories:** shopping centres, MRT stations, tourist attractions
 - [x] **Flexible distance filtering:** Avoid places flooding!
-- [x] [NEW!] Support user-customized places. Add and view any place you care about!
-- [x] [NEW!] Support multi-user real-time location tracking with AR enabled. Location sharing within your tour group! 
+- [x] [NEW!] Support user-customized places. Add and view any place you care about! (Preview)
+- [x] [NEW!] Support multi-user real-time location tracking with AR enabled. Location sharing within your tour group! (Preview)
 
 **AR SDK resource:**
 
@@ -58,19 +72,19 @@ Augmented Reality (AR) is used here to enhance the view of your surroundings! Si
 - Tourist attractions: https://data.gov.sg/dataset/tourist-attractions
 - Coordinate service: https://www.onemap.gov.sg/docs/
 
-### **ML-based Landmark Detection**
+### **Landmark Detection**
 
 This intelligent detection leverages the power of Google AI Cloud and its powerful pretrained ML model. In short, **search whatever you see!**
 
 - [x] **Recognise landmarks** **around the world** from camera/your gallery, and get the result within 3 seconds!
-- [x] **Robust detection:** The detection works best if it's a well-known landscape. Even it's not a landmark, we will still try to provide our best guessed result.
+- [x] **Robust detection:** The detection works best if it's a well-known landscape. Even it's not a landmark, we will still try to provide our best guessed result using web detection.
 - [x] **Aesthetic and easy-to-use UI:** Seamless photo upload process, intuitive result presentation and useful discovery tools.
 
 **API resource:**
 
 <img src="./assets/images/google3.png" style="zoom:90%; float: left" />
 
-### **Smart Recommendation & Notification**
+### **Place Recommendation**
 
 - [x] **Get real-time recommendation** on interesting places nearby, e.g., activities, landmarks, restaurants
 - [x] **Automatic notification push:** Travelee will notify you if
@@ -85,15 +99,21 @@ This intelligent detection leverages the power of Google AI Cloud and its powerf
 - Landmarks: https://data.gov.sg/dataset/tourist-attractions
 - Restaurants: https://rapidapi.com/apidojo/api/travel-advisor/
 
-### **Convenient Travel Tools**
+### **Convenient Travel Service**
 
 - [x] **Weather info:** Get the latest weather conditions based on the user's location
 - [x] **COVID-19 Support:** Travel safely and confidently with one-click access to latest local COVID-19 situation and safety information
 
+### **Achievement System (Preview)**
+
+- [x] [NEW!] **Achievement Scoreboard** Keep track of the number of places, cities you've been to and badges collected so far
+- [x] [NEW!] **Badge Collection** Display your collection of badges, including achievement tasks and visited cities
+- [x] [NEW!] **Rewards Claiming** Claim rewards by scanning landmarks directly
+
 **API resource:**
 
-weather: https://openweathermap.org/api
-COVID-19 support: [disease.sh - Open Disease Data API](https://corona.lmao.ninja/)
+- Weather data: https://openweathermap.org/api
+- COVID-19 support: [disease.sh - Open Disease Data API](https://corona.lmao.ninja/)
 
 ## Technical Content
 
@@ -115,7 +135,7 @@ COVID-19 support: [disease.sh - Open Disease Data API](https://corona.lmao.ninja
 
 **Other Skills:**
 
-​	Knowledges on JSON, XML, YAML, Gradle, Markdown, Network Skills
+​	Knowledges on JSON, XML, YAML, Gradle, Markdown, Networking
 
 ### Difficulties met
 

@@ -14,9 +14,7 @@
 
     <!-- positioning of poi-radar -->
     <link rel="stylesheet" href="css/poi-radar.css"/>
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
+
     <!-- marker representation-->
     <script src="js/marker.js"></script>
     <script src="js/myJsonData.js"/></script>
@@ -39,7 +37,7 @@
 
     <div id="footer">
         <div id="popupButton">
-            <div><p>You are currently at <b><span id="currentSpot"></span></b></p></div>
+            <div><p><b><span id="currentSpot"></span></b> is around the corner!</p></div>
             <div><button class="customButton1" id="#poiDetailMoreButton"><a id="viewofficial" style="text-decoration: none; color: #071d1f;" href="" title="Visit Singapore">More Details</a></button>
             <button class="customButton1" id="#poiDetailMoreButton"><a id="viewmorespot" style="text-decoration: none; color: #071d1f;" href="" title="Open in Google Map">Open in Google Map</a></button></div>
         </div>
@@ -77,3 +75,11 @@
     </div>
 </body>
 </html>
+<script>
+    function scheduleUpdate(){
+        World.reloadPlaces();
+        setTimeout(scheduleUpdate, 25000);
+    }
+
+    scheduleUpdate();
+</script>
