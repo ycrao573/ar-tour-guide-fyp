@@ -59,6 +59,7 @@ class _MyAppState extends State<MyApp> {
                   : user.displayName != ''
                       ? HomePage(loginMethod: 'Google')
                       : HomePage(loginMethod: 'Email'),
+              // home: OnboardingScreen(),
             );
           }));
 }

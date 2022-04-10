@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:augmented_reality_plugin_wikitude/startupConfiguration.dart'
     as startupConfiguration;
@@ -34,6 +35,7 @@ class _MapScreenState extends State<MapScreen> {
   StreamController<Place> selectedLocation = StreamController<Place>();
   Marker? _origin;
   Marker? _destination;
+  List<Marker>? _destinationList;
   String? codeDialog;
   String? valueText;
   String? codeDialog2;
@@ -51,6 +53,7 @@ class _MapScreenState extends State<MapScreen> {
   @override
   void initState() {
     super.initState();
+    _getDestList();
     _getCurrentLocation();
     selectedLocation.stream.listen((place) {
       if (place != null) {
@@ -65,43 +68,43 @@ class _MapScreenState extends State<MapScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
-        title: const Text('Explore Map'),
+        title: const Text('Customised Places'),
         backgroundColor: Colors.orange[300],
         actions: [
-          if (_origin != null)
-            TextButton(
-              onPressed: () => _googleMapController!.animateCamera(
-                CameraUpdate.newCameraPosition(
-                  CameraPosition(
-                    target: _origin!.position,
-                    zoom: 15,
-                    tilt: 50.0,
-                  ),
-                ),
-              ),
-              style: TextButton.styleFrom(
-                primary: Colors.green,
-                textStyle: const TextStyle(fontWeight: FontWeight.w600),
-              ),
-              child: const Text('ORIGIN'),
-            ),
-          if (_destination != null)
-            TextButton(
-              onPressed: () => _googleMapController!.animateCamera(
-                CameraUpdate.newCameraPosition(
-                  CameraPosition(
-                    target: _destination!.position,
-                    zoom: 15,
-                    tilt: 50.0,
-                  ),
-                ),
-              ),
-              style: TextButton.styleFrom(
-                primary: Colors.red[800],
-                textStyle: const TextStyle(fontWeight: FontWeight.w600),
-              ),
-              child: const Text('DEST'),
-            )
+          // if (_origin != null)
+          //   TextButton(
+          //     onPressed: () => _googleMapController!.animateCamera(
+          //       CameraUpdate.newCameraPosition(
+          //         CameraPosition(
+          //           target: _origin!.position,
+          //           zoom: 15,
+          //           tilt: 50.0,
+          //         ),
+          //       ),
+          //     ),
+          //     style: TextButton.styleFrom(
+          //       primary: Colors.green,
+          //       textStyle: const TextStyle(fontWeight: FontWeight.w600),
+          //     ),
+          //     child: const Text('ORIGIN'),
+          //   ),
+          // if (_destination != null)
+          //   TextButton(
+          //     onPressed: () => _googleMapController!.animateCamera(
+          //       CameraUpdate.newCameraPosition(
+          //         CameraPosition(
+          //           target: _destination!.position,
+          //           zoom: 15,
+          //           tilt: 50.0,
+          //         ),
+          //       ),
+          //     ),
+          //     style: TextButton.styleFrom(
+          //       primary: Colors.red[800],
+          //       textStyle: const TextStyle(fontWeight: FontWeight.w600),
+          //     ),
+          //     child: const Text('DEST'),
+          //   )
         ],
       ),
       resizeToAvoidBottomInset: false,
@@ -131,6 +134,7 @@ class _MapScreenState extends State<MapScreen> {
                             _googleMapController = controller,
                         markers: {
                           if (_origin != null) _origin!,
+                          if (_destinationList != null) ..._destinationList!,
                           if (_destination != null) _destination!,
                         },
                         onLongPress: displayTextInputDialog,
@@ -360,6 +364,29 @@ class _MapScreenState extends State<MapScreen> {
     setState(() {
       selectedLocation.add(location);
       searchResults = [];
+    });
+  }
+
+  _getDestList() {
+    setState(() {
+      List<Marker> tempList = [];
+      FirebaseFirestore.instance
+          .collection("diy_places")
+          .get()
+          .then((querySnapshot) {
+        querySnapshot.docs.forEach((result) {
+          tempList.add(Marker(
+            markerId: MarkerId(result["name"]),
+            infoWindow: InfoWindow(title: result["description"] + " "),
+            icon:
+                BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
+            position: LatLng(double.parse(result["latitude"]),
+                double.parse(result["longitude"])),
+          ));
+        });
+      });
+      _destinationList = tempList;
+      print(_destinationList);
     });
   }
 }

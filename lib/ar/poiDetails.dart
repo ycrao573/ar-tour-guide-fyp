@@ -290,7 +290,11 @@ class _PoiDetailWidgetState extends State<PoiDetailWidget> {
               ),
               child: CachedNetworkImage(
                 imageUrl:
-                    "https://maps.googleapis.com/maps/api/staticmap?center=${widget.poiDetail!.title},Singapore&markers=${widget.poiDetail!.title},Singapore&zoom=14&size=400x400&key=AIzaSyCcuOYBEHg6xRvC-NU-ScSPH01aDndnV_w",
+                    '''https://maps.googleapis.com/maps/api/staticmap?
+                    center=${widget.poiDetail!.title},Singapore
+                    &markers=${widget.poiDetail!.title},Singapore
+                    &zoom=14&size=400x400
+                    &key=AIzaSyCcuOYBEHg6xRvC-NU-ScSPH01aDndnV_w''',
                 placeholder: (context, url) => buildAddressShimmer(),
                 errorWidget: (context, url, error) => Icon(Icons.error),
               ),

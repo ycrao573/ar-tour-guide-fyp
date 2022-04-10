@@ -115,12 +115,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             ),
                             SizedBox(height: 18.0),
                             Text(
-                              'Travelee, a next-generation tourist guide',
+                              'Travelee, your next-generation tourist guide',
                               style: kTitleStyle,
                             ),
                             SizedBox(height: 18.0),
                             Text(
-                              'No matter when, Travelee will provide you with practical travel tools as well as useful travel information.',
+                              'No matter when, Travelee will offer you our helpful tools and reliable travel information. We exist to do our best to enhance your travel experience.',
                               style: kSubtitleStyle,
                             ),
                           ],
@@ -147,7 +147,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             ),
                             SizedBox(height: 12.0),
                             Text(
-                              'By leveraging advanced technology, our goal is to make Travelee as travel assistant and help customers discover the beauty around.',
+                              'By leveraging advanced technology, our goal is to make Travelee your trusted travel assistant and help you discover the hidden gems in your neighbourhood.',
                               style: kSubtitleStyle,
                             ),
                           ],

@@ -100,7 +100,7 @@ var World = {
         //TODO: THIS SHOULD ADJUST ACCORDINGLY:
 
         World.markerList.sort(compareDistanceToUser);
-        if (parseFloat(World.markerList[0].poiData.distance) < 0.25) {
+        if (parseFloat(World.markerList[0].poiData.distance) < 0.15) {
             document.getElementById("footer").style.visibility = "visible";
             document.getElementById("currentSpot").innerHTML =
               World.markerList[0].poiData.title;
@@ -449,15 +449,9 @@ var World = {
 
     /* Request POI data. */
     requestDataFromServer: function requestDataFromServerFn(lat, lon) {
-
         /* Set helper var to avoid requesting places while loading. */
         World.isRequestingData = true;
         World.updateStatusMessage('Requesting places from web-service');
-
-        /* Server-url to JSON content provider. */
-        // var serverUrl = ServerInformation.POIDATA_SERVER + "?" + ServerInformation.POIDATA_SERVER_ARG_LAT + "=" +
-        //     lat + "&" + ServerInformation.POIDATA_SERVER_ARG_LON + "=" +
-        //     lon + "&" + ServerInformation.POIDATA_SERVER_ARG_NR_POIS + "=20";
 
         // /* Use GET request to fetch the JSON data from the server */
         var xhr = new XMLHttpRequest();
@@ -475,8 +469,6 @@ var World = {
             }
         }
         xhr.send();
-        // xhr.send();
-        // World.loadPoisFromJsonData(myJsonData);
     },
 
     /* Helper to sort places by distance. */

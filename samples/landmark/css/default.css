@@ -94,10 +94,10 @@ html, body {
 
 .customButton1 {
     z-index: 1;
-    border-radius: 18px;
+    border-radius: 17px;
     border-style: solid;
     border-color: #85ccd6cc;
-    font-size: 14.5px;
+    font-size: 14px;
     font-weight: 500;
     background-color: #85ccd6cc;
     white-space: normal;

@@ -1,7 +1,7 @@
 name: travelee
 description: Travelee is an Android app to create a modern travel experience for travelers by applying some advanced technologies.
 
-version: 9.9.0+1
+version: 1.1.0
 
 environment:
   sdk: ">=2.12.0 <3.0.0"

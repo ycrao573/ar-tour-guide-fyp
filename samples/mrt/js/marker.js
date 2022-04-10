@@ -52,7 +52,8 @@ function Marker(poiData) {
     });
 
     /* Create an AR.Label for the marker's title . */
-    this.titleLabel = new AR.Label(poiData.title.split("(")[0].trim().replace("MRT STATION", "")+"("+poiData.title.split("(")[1].trim(), 0.7, {
+    this.titleLabel = new AR.Label(poiData.title.split("(")[0].trim().replace("MRT STATION", "")
+        + "(" + poiData.title.split("(")[1].trim(), 0.7, {
         zOrder: 1,
         translate: {
             x: 1.0,
@@ -64,10 +65,10 @@ function Marker(poiData) {
         }
     });
 
-    this.descriptionLabel = new AR.Label(poiData.distance+" km", 0.6, {
+    this.descriptionLabel = new AR.Label(poiData.distance+" km away", 0.6, {
         zOrder: 1,
         translate: {
-            x: -0.6,
+            x: 0.2,
             y: 0.9
         },
         style: {

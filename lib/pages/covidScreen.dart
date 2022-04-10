@@ -11,7 +11,7 @@ import 'package:travelee/widgets/myheader.dart';
 
 Future<CovidData> fetchCovidDatas(http.Client client, String? country) async {
   final response = await client.get(Uri.parse(
-      'https://corona.lmao.ninja/v2/countries/$country?yesterday=true&strict=true&query'));
+      'https://disease.sh/v3/covid-19/countries/Singapore?yesterday=true&strict=true'));
   return CovidData.fromJson(jsonDecode(response.body));
 }
 
@@ -177,13 +177,6 @@ class _CovidHomeScreenState extends State<CovidHomeScreen> {
                           ],
                         ),
                       ),
-                      // Spacer(),
-                      // Text(
-                      //   "See details",
-                      //   style: TextStyle(
-                      //     fontWeight: FontWeight.w600,
-                      //   ),
-                      // ),
                     ],
                   ),
                   SizedBox(height: 8),
