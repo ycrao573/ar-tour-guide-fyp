@@ -8,13 +8,10 @@ This is the code repository for my final year project (FYP) in Nanyang Technolog
 
 The total duration of this final year project is around 10 months, starting from the mid of August, 2021, whereas the whole development process starts from mid of September, 2021. It is expected to be fully completed by March.
 
-**[Important!]** Noted that the **version 1.1** is already available through the download link [here](https://entuedu-my.sharepoint.com/:f:/g/personal/raoy0003_e_ntu_edu_sg/EjeoGEBDvrRMrSeBCklJhDIBuokDjIXEPlZh5YbmWx-9QA?e=BXmdKO).
-
 ## Significance of this Project
 <li>Identify some inconveniences and pains encountered by today's travellers</li>
 <li>Discover the potential technologies that may help enhance the current travel experience</li>
 <li>Develop a mobile app to introduce a modern travel experience and demonstrate a vision for future travel</li>
-
 
 ## About Travelee
 
